@@ -3,31 +3,136 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Cat View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController storyboardIdentifier="Cat" id="Y6W-OH-hqX" customClass="CatViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CZM-tj-DHt">
+                                <rect key="frame" x="0.0" y="103" width="393" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="jYu-PJ-Pbq"/>
+                                    <barButtonItem title="Men" id="ljk-LV-4dp">
+                                        <color key="tintColor" name="ButtonBackground"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="GFt-SN-05t"/>
+                                    <barButtonItem title="WOMEN" id="f1l-2t-ywj">
+                                        <color key="tintColor" name="ButtonBackground"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="sDx-kF-DNz"/>
+                                    <barButtonItem title="KIDS" id="HlI-nr-7GT">
+                                        <color key="tintColor" name="ButtonBackground"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="VXZ-e7-gHQ"/>
+                                    <barButtonItem title="SALE" id="Iyl-66-MLf">
+                                        <color key="tintColor" name="ButtonBackground"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Mwa-KT-lim"/>
+                                </items>
+                                <color key="barTintColor" name="HomeCellBackground"/>
+                            </toolbar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IM7-ZA-sRX">
+                                <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="5hg-mX-uAQ"/>
+                                    <barButtonItem style="plain" id="VZl-Ch-FZL">
+                                        <searchBar key="customView" contentMode="redraw" id="AdD-FQ-4Gj">
+                                            <rect key="frame" x="16" y="0.0" width="211" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" name="ButtonBackground"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="Y6W-OH-hqX" id="2rB-FF-bEQ"/>
+                                            </connections>
+                                        </searchBar>
+                                        <color key="tintColor" name="ButtonBackground"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Awn-gM-6UF"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="F6l-uy-UgW"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="3IT-j2-aS9"/>
+                                    <barButtonItem style="plain" id="Xte-3Z-mBe">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="jup-4q-mdr">
+                                            <rect key="frame" x="276.33333333333331" y="2" width="40" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="gray" image="Heart" title="" cornerStyle="capsule" buttonSize="mini">
+                                                <color key="baseBackgroundColor" name="ButtonBackground"/>
+                                            </buttonConfiguration>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Fe3-2c-xGy"/>
+                                    <barButtonItem style="plain" id="V0t-lK-Crj">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Nvr-Ri-PnD">
+                                            <rect key="frame" x="332.66666666666669" y="0.0" width="44" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="gray" image="cart" title="" cornerStyle="capsule">
+                                                <color key="baseBackgroundColor" name="ButtonBackground"/>
+                                            </buttonConfiguration>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Pw3-cd-az0"/>
+                                </items>
+                                <color key="barTintColor" name="HomeCellBackground"/>
+                            </toolbar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tKh-8r-nrG">
+                                <rect key="frame" x="0.0" y="147" width="393" height="622"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uSM-sZ-d0t">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="apU-pI-nWw">
+                                        <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Kqk-4f-QeK">
+                                            <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" image="rectangle.3.group" catalog="system" id="mkg-xZ-Goq"/>
+                    <tabBarItem key="tabBarItem" title="" image="Cat" id="mkg-xZ-Goq"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="catCollection" destination="tKh-8r-nrG" id="sRO-fZ-WTX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="100" y="5"/>
+            <point key="canvasLocation" x="110.68702290076335" y="2.8169014084507045"/>
         </scene>
     </scenes>
     <resources>
-        <image name="rectangle.3.group" catalog="system" width="128" height="80"/>
+        <image name="Cat" width="30" height="30"/>
+        <image name="Heart" width="20" height="19"/>
+        <image name="cart" width="20" height="20"/>
+        <namedColor name="ButtonBackground">
+            <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="HomeCellBackground">
+            <color red="0.082000002264976501" green="0.37999999523162842" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

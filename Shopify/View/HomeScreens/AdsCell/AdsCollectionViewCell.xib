@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,87 +17,31 @@
                 <rect key="frame" x="0.0" y="0.0" width="305" height="148"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yu8-QI-thl">
-                        <rect key="frame" x="150" y="16" width="148" height="116"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3d0-9D-C1Q">
+                        <rect key="frame" x="32" y="10" width="240" height="128"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQj-cz-dsq">
-                        <rect key="frame" x="16" y="16" width="98" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EwZ-T4-Psz">
-                        <rect key="frame" x="16" y="50" width="98" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWc-O0-tig">
-                        <rect key="frame" x="16" y="80" width="98" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENQ-fo-UoZ">
-                        <rect key="frame" x="81" y="109" width="30" height="30"/>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="gray" image="heart.fill" catalog="system" title="" cornerStyle="capsule" buttonSize="mini"/>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FiZ-T9-zxu">
-                        <rect key="frame" x="29" y="109" width="30" height="30"/>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="gray" image="cart.fill" catalog="system" title="" cornerStyle="capsule" buttonSize="mini"/>
-                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <color key="backgroundColor" red="0.61701506380000004" green="0.70119696860000003" blue="0.7598209977" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="HomeCellBackground"/>
             <constraints>
-                <constraint firstItem="GQj-cz-dsq" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="16" id="2UM-oP-6jk"/>
-                <constraint firstItem="yu8-QI-thl" firstAttribute="leading" secondItem="EwZ-T4-Psz" secondAttribute="trailing" constant="36" id="6eV-wV-DQu"/>
-                <constraint firstItem="FiZ-T9-zxu" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.0983607" id="6zl-fq-Pqc"/>
-                <constraint firstItem="yu8-QI-thl" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.783784" id="CHy-F4-jcw"/>
-                <constraint firstItem="ENQ-fo-UoZ" firstAttribute="leading" secondItem="FiZ-T9-zxu" secondAttribute="trailing" constant="22" id="E80-Lv-0qN"/>
-                <constraint firstAttribute="bottom" secondItem="yu8-QI-thl" secondAttribute="bottom" constant="16" id="KDm-mG-J8X"/>
-                <constraint firstItem="ENQ-fo-UoZ" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.202703" id="Ktr-GT-Q1Y"/>
-                <constraint firstItem="EwZ-T4-Psz" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.141892" id="LXW-AP-1Ld"/>
-                <constraint firstItem="ENQ-fo-UoZ" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.0983607" id="MF8-8n-0XW"/>
-                <constraint firstAttribute="bottom" secondItem="FiZ-T9-zxu" secondAttribute="bottom" constant="9" id="MpO-j0-J1L"/>
-                <constraint firstItem="FiZ-T9-zxu" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.202703" id="SFH-Os-wAO"/>
-                <constraint firstItem="yu8-QI-thl" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="16" id="TF7-l9-yNH"/>
-                <constraint firstItem="GQj-cz-dsq" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.141892" id="TSx-mf-aOz"/>
-                <constraint firstItem="QWc-O0-tig" firstAttribute="trailing" secondItem="EwZ-T4-Psz" secondAttribute="trailing" id="TnO-iu-FF0"/>
-                <constraint firstItem="QWc-O0-tig" firstAttribute="leading" secondItem="EwZ-T4-Psz" secondAttribute="leading" id="WbU-Si-Poa"/>
-                <constraint firstAttribute="trailing" secondItem="yu8-QI-thl" secondAttribute="trailing" constant="7" id="X5Y-Qc-AKo"/>
-                <constraint firstItem="EwZ-T4-Psz" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.321311" id="bTt-VE-mcx"/>
-                <constraint firstItem="yu8-QI-thl" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.485246" id="dqE-RW-3YR"/>
-                <constraint firstItem="yu8-QI-thl" firstAttribute="leading" secondItem="GQj-cz-dsq" secondAttribute="trailing" constant="36" id="e0m-32-p6L"/>
-                <constraint firstItem="EwZ-T4-Psz" firstAttribute="trailing" secondItem="GQj-cz-dsq" secondAttribute="trailing" id="iCB-PT-Pa5"/>
-                <constraint firstItem="FiZ-T9-zxu" firstAttribute="top" secondItem="QWc-O0-tig" secondAttribute="bottom" constant="8" symbolic="YES" id="izK-4o-xfx"/>
-                <constraint firstItem="EwZ-T4-Psz" firstAttribute="leading" secondItem="GQj-cz-dsq" secondAttribute="leading" id="oYf-iY-kjI"/>
-                <constraint firstItem="GQj-cz-dsq" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="p39-vg-93E"/>
-                <constraint firstItem="yu8-QI-thl" firstAttribute="top" secondItem="GQj-cz-dsq" secondAttribute="top" id="s5q-CE-Io2"/>
-                <constraint firstItem="GQj-cz-dsq" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.321311" id="s70-Xq-xXG"/>
-                <constraint firstItem="FiZ-T9-zxu" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="29" id="tDR-8a-12q"/>
-                <constraint firstItem="yu8-QI-thl" firstAttribute="leading" secondItem="QWc-O0-tig" secondAttribute="trailing" constant="36" id="uvZ-PL-CoC"/>
-                <constraint firstItem="QWc-O0-tig" firstAttribute="top" secondItem="EwZ-T4-Psz" secondAttribute="bottom" constant="9" id="vCF-dM-kUQ"/>
-                <constraint firstItem="ENQ-fo-UoZ" firstAttribute="top" secondItem="QWc-O0-tig" secondAttribute="bottom" constant="8" symbolic="YES" id="vq5-UG-5lh"/>
-                <constraint firstItem="EwZ-T4-Psz" firstAttribute="top" secondItem="GQj-cz-dsq" secondAttribute="bottom" constant="13" id="xR9-0I-Uqd"/>
+                <constraint firstItem="3d0-9D-C1Q" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.786885" id="Hso-zp-cTN"/>
+                <constraint firstAttribute="trailing" secondItem="3d0-9D-C1Q" secondAttribute="trailing" constant="33" id="RGI-8B-EKa"/>
+                <constraint firstAttribute="bottom" secondItem="3d0-9D-C1Q" secondAttribute="bottom" constant="10" id="ZZv-VT-yW6"/>
+                <constraint firstItem="3d0-9D-C1Q" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="omF-uo-71P"/>
+                <constraint firstItem="3d0-9D-C1Q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="32" id="qj5-HX-Ksj"/>
+                <constraint firstItem="3d0-9D-C1Q" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.864865" id="ufa-nG-6UO"/>
             </constraints>
             <size key="customSize" width="305" height="148"/>
             <connections>
-                <outlet property="cart" destination="FiZ-T9-zxu" id="6Op-RD-wdT"/>
-                <outlet property="fLabel" destination="GQj-cz-dsq" id="bjK-RH-IXV"/>
-                <outlet property="fav" destination="ENQ-fo-UoZ" id="tck-7f-eED"/>
-                <outlet property="img" destination="yu8-QI-thl" id="jUu-wX-9xy"/>
-                <outlet property="sLabel" destination="EwZ-T4-Psz" id="Jhb-Bq-E6Z"/>
-                <outlet property="tLabel" destination="QWc-O0-tig" id="hRZ-OJ-RBc"/>
+                <outlet property="img" destination="3d0-9D-C1Q" id="s0s-82-bHP"/>
             </connections>
             <point key="canvasLocation" x="240.45801526717557" y="55.633802816901408"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="cart.fill" catalog="system" width="128" height="102"/>
-        <image name="heart.fill" catalog="system" width="128" height="107"/>
+        <namedColor name="HomeCellBackground">
+            <color red="0.082352941176470587" green="0.38039215686274508" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

@@ -36,10 +36,10 @@
             </objects>
             <point key="canvasLocation" x="917" y="211"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar View Controller-->
         <scene sceneID="mQQ-WL-64c">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="x3i-dG-vS8" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="x3i-dG-vS8" customClass="TabBarViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="H1G-jl-pe3">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
