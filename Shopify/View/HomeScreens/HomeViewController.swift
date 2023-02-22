@@ -10,6 +10,12 @@ import UIKit
 class HomeViewController: UIViewController {
     @IBOutlet weak var AdsCollection: UICollectionView!
     
+    
+    var imgsFav = [UIImage(named: "temp"), UIImage(named: "temp"), UIImage(named: "temp")]
+    
+    var arrFav = [Fav]()
+    
+    //var savedFav = []
     override func viewDidLoad() {
         super.viewDidLoad()
         AdsCollection.dataSource = self
@@ -41,9 +47,15 @@ extension HomeViewController : UICollectionViewDataSource
         cell.layer.borderWidth = 3.0
         cell.layer.cornerRadius = 25.0
         cell.configImg(name: "tmp")
+        cell.fav.tag = indexPath.row
         return cell
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        if arrFav.count == 0
+        {
+            
+        }
+    }
     
 }
 
@@ -64,4 +76,9 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return CGFloat(25)
     }
+}
+
+struct Fav
+{
+    var img : [UIImage]
 }
