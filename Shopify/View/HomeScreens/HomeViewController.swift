@@ -100,7 +100,12 @@ extension HomeViewController : UICollectionViewDataSource
             
         }
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        if arrFav.count == 0
+        {
+            
+        }
+    }
     
 }
 
@@ -139,4 +144,9 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout
     {
         return CGFloat(25)
     }
+}
+
+struct Fav
+{
+    var img : [UIImage]
 }
