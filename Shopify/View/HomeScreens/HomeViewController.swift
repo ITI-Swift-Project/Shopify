@@ -100,12 +100,6 @@ extension HomeViewController : UICollectionViewDataSource
             
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        if arrFav.count == 0
-        {
-            
-        }
-    }
     
 }
 
