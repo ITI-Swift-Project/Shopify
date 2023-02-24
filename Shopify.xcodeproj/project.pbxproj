@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		033825B829A6028400AAA93D /* WishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033825B629A6028400AAA93D /* WishTableViewCell.swift */; };
 		033825B929A6028400AAA93D /* WishTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033825B729A6028400AAA93D /* WishTableViewCell.xib */; };
+		037CD1C229A96BF200064B6B /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037CD1C129A96BF200064B6B /* WelcomeViewController.swift */; };
 		0383847329A796AB00F8E486 /* Authenticate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0383847229A796AB00F8E486 /* Authenticate.storyboard */; };
 		0383847629A7970F00F8E486 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383847529A7970F00F8E486 /* LoginViewController.swift */; };
 		0383847829A7972100F8E486 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383847729A7972100F8E486 /* SignUpViewController.swift */; };
@@ -69,6 +70,7 @@
 		033825B629A6028400AAA93D /* WishTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishTableViewCell.swift; sourceTree = "<group>"; };
 		033825B729A6028400AAA93D /* WishTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishTableViewCell.xib; sourceTree = "<group>"; };
 		03790381BDEA94EC752A556F /* Pods-ShopifyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShopifyTests.release.xcconfig"; path = "Target Support Files/Pods-ShopifyTests/Pods-ShopifyTests.release.xcconfig"; sourceTree = "<group>"; };
+		037CD1C129A96BF200064B6B /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		0383847229A796AB00F8E486 /* Authenticate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authenticate.storyboard; sourceTree = "<group>"; };
 		0383847529A7970F00F8E486 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0383847729A7972100F8E486 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 			children = (
 				0383847529A7970F00F8E486 /* LoginViewController.swift */,
 				0383847729A7972100F8E486 /* SignUpViewController.swift */,
+				037CD1C129A96BF200064B6B /* WelcomeViewController.swift */,
 			);
 			path = Authenticate;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 				1EFCB27F29A55DAC00FAA46D /* CartViewController.swift in Sources */,
 				1EFCB28929A5BF2F00FAA46D /* CateCollectionViewCell.swift in Sources */,
 				1EFCB28629A5935D00FAA46D /* TabBarViewController.swift in Sources */,
+				037CD1C229A96BF200064B6B /* WelcomeViewController.swift in Sources */,
 				1EFCB27D29A55D8400FAA46D /* PaymentViewController.swift in Sources */,
 				2714915A299FB285008BC7F6 /* Shopify.xcdatamodeld in Sources */,
 				0383847829A7972100F8E486 /* SignUpViewController.swift in Sources */,
