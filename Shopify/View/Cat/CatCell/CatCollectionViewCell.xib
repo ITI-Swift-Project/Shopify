@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,7 +27,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ZM-vP-TDB">
                                 <rect key="frame" x="178" y="56" width="44" height="44"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" image="Heart" title="" cornerStyle="capsule"/>
+                                <buttonConfiguration key="configuration" style="gray" image="Heart" title="" cornerStyle="capsule">
+                                    <color key="baseBackgroundColor" name="ButtonBackground"/>
+                                </buttonConfiguration>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0D-0W-bB8">
                                 <rect key="frame" x="0.0" y="0.0" width="142" height="29"/>
@@ -49,7 +52,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xo6-aN-kYc">
                                 <rect key="frame" x="178" y="4" width="44" height="44"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" image="cart" title="" cornerStyle="capsule"/>
+                                <buttonConfiguration key="configuration" style="gray" image="cart" title="" cornerStyle="capsule">
+                                    <color key="baseBackgroundColor" name="ButtonBackground"/>
+                                </buttonConfiguration>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -59,7 +64,6 @@
                             <constraint firstItem="Xo6-aN-kYc" firstAttribute="top" secondItem="iQy-vW-9dq" secondAttribute="top" constant="4" id="2td-ko-Md0"/>
                             <constraint firstItem="Xo6-aN-kYc" firstAttribute="width" secondItem="iQy-vW-9dq" secondAttribute="width" multiplier="0.191304" id="82h-aw-pz4"/>
                             <constraint firstItem="6Sj-Aj-wvU" firstAttribute="width" secondItem="iQy-vW-9dq" secondAttribute="width" multiplier="0.617391" id="9qJ-P1-jrH"/>
-                            <constraint firstItem="Xo6-aN-kYc" firstAttribute="height" secondItem="iQy-vW-9dq" secondAttribute="height" multiplier="0.419048" id="CjB-Ap-eI1"/>
                             <constraint firstAttribute="trailing" secondItem="Xo6-aN-kYc" secondAttribute="trailing" constant="8" id="Cxz-gR-SHX"/>
                             <constraint firstItem="9ZM-vP-TDB" firstAttribute="top" secondItem="Xo6-aN-kYc" secondAttribute="bottom" constant="8" symbolic="YES" id="CyS-0J-wa6"/>
                             <constraint firstItem="6Sj-Aj-wvU" firstAttribute="height" secondItem="iQy-vW-9dq" secondAttribute="height" multiplier="0.27619" id="MF1-S1-LmN"/>
@@ -68,10 +72,7 @@
                             <constraint firstItem="6Sj-Aj-wvU" firstAttribute="top" secondItem="e0D-0W-bB8" secondAttribute="bottom" constant="-2" id="Wy1-lL-bbv"/>
                             <constraint firstItem="cju-Lu-Zd6" firstAttribute="top" secondItem="6Sj-Aj-wvU" secondAttribute="bottom" id="bFr-Ue-tjr"/>
                             <constraint firstItem="e0D-0W-bB8" firstAttribute="leading" secondItem="iQy-vW-9dq" secondAttribute="leading" id="fEm-ny-FSg"/>
-                            <constraint firstItem="Xo6-aN-kYc" firstAttribute="leading" secondItem="e0D-0W-bB8" secondAttribute="trailing" constant="36" id="gWD-q9-vbl"/>
                             <constraint firstItem="e0D-0W-bB8" firstAttribute="width" secondItem="iQy-vW-9dq" secondAttribute="width" multiplier="0.617391" id="hCW-Od-L2e"/>
-                            <constraint firstAttribute="bottom" secondItem="9ZM-vP-TDB" secondAttribute="bottom" constant="5" id="hb2-xO-iu8"/>
-                            <constraint firstItem="9ZM-vP-TDB" firstAttribute="height" secondItem="iQy-vW-9dq" secondAttribute="height" multiplier="0.419048" id="hh6-zO-Yo7"/>
                             <constraint firstItem="e0D-0W-bB8" firstAttribute="leading" secondItem="6Sj-Aj-wvU" secondAttribute="leading" id="iCm-N7-gFi"/>
                             <constraint firstItem="6Sj-Aj-wvU" firstAttribute="leading" secondItem="cju-Lu-Zd6" secondAttribute="leading" id="mrC-pb-e5L"/>
                             <constraint firstItem="cju-Lu-Zd6" firstAttribute="width" secondItem="iQy-vW-9dq" secondAttribute="width" multiplier="0.617391" id="yJY-nL-FOe"/>
@@ -104,6 +105,9 @@
     <resources>
         <image name="Heart" width="20" height="19"/>
         <image name="cart" width="20" height="20"/>
+        <namedColor name="ButtonBackground">
+            <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
