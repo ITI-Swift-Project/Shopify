@@ -18,107 +18,135 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mv5-s3-lkj">
-                                <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="barTintColor" name="HomeCellBackground"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" name="ButtonBackground"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="Home" id="boF-z3-JZL">
-                                        <barButtonItem key="leftBarButtonItem" id="Npu-Ke-Njb">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="hxJ-3P-WCp">
-                                                <rect key="frame" x="16" y="2" width="40" height="40"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EZI-Jp-RSP">
+                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="w4y-KN-dum">
+                                        <rect key="frame" x="0.0" y="105" width="393" height="196"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zhW-eK-cwy">
+                                            <size key="itemSize" width="128" height="128"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="VgC-rr-l5t">
+                                                <rect key="frame" x="0.0" y="34" width="128" height="128"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="gray" image="Search" title="" cornerStyle="capsule" buttonSize="mini">
-                                                    <color key="baseBackgroundColor" name="ButtonBackground"/>
-                                                </buttonConfiguration>
-                                            </button>
-                                        </barButtonItem>
-                                        <rightBarButtonItems>
-                                            <barButtonItem id="Vbb-mq-uOd">
-                                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="8rd-W6-htG">
-                                                    <rect key="frame" x="337" y="2" width="40" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="gray" image="cart" title="" cornerStyle="capsule" buttonSize="mini">
-                                                        <color key="baseBackgroundColor" name="ButtonBackground"/>
-                                                    </buttonConfiguration>
-                                                </button>
-                                            </barButtonItem>
-                                            <barButtonItem id="nu5-Hn-4K0">
-                                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="6tv-yS-M2V">
-                                                    <rect key="frame" x="289" y="2" width="40" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="gray" image="Heart" title="" cornerStyle="capsule" buttonSize="mini">
-                                                        <color key="baseBackgroundColor" name="ButtonBackground"/>
-                                                    </buttonConfiguration>
-                                                </button>
-                                            </barButtonItem>
-                                        </rightBarButtonItems>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="w4y-KN-dum">
-                                <rect key="frame" x="0.0" y="178" width="393" height="196"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6Vr-2W-Bci">
+                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </collectionViewCellContentView>
+                                                <size key="customSize" width="128" height="128"/>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Y6W-OH-hqX" id="2Hf-RP-phk"/>
+                                            <outlet property="delegate" destination="Y6W-OH-hqX" id="jsl-iE-YRE"/>
+                                        </connections>
+                                    </collectionView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wek-N1-2Tg">
+                                        <rect key="frame" x="8" y="342" width="132.66666666666666" height="52.666666666666686"/>
+                                        <fontDescription key="fontDescription" name="Thonburi-Bold" family="Thonburi" pointSize="40"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hrY-1D-b4x">
+                                        <rect key="frame" x="0.0" y="425" width="393" height="277"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nY1-4G-g23">
+                                            <size key="itemSize" width="128" height="128"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="YYc-fz-x4L">
+                                                <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rpC-al-nXH">
+                                                    <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </collectionViewCellContentView>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                    <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mv5-s3-lkj">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                                        <color key="backgroundColor" name="HomeCellBackground"/>
+                                        <color key="barTintColor" name="HomeCellBackground"/>
+                                        <textAttributes key="titleTextAttributes">
+                                            <color key="textColor" red="0.99999994039999995" green="0.99999994039999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textAttributes>
+                                        <items>
+                                            <navigationItem title="Home" id="boF-z3-JZL">
+                                                <barButtonItem key="leftBarButtonItem" id="Npu-Ke-Njb">
+                                                    <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="hxJ-3P-WCp">
+                                                        <rect key="frame" x="16" y="2" width="40" height="40"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="gray" image="Search" title="" cornerStyle="capsule" buttonSize="mini">
+                                                            <color key="baseBackgroundColor" name="ButtonBackground"/>
+                                                        </buttonConfiguration>
+                                                    </button>
+                                                </barButtonItem>
+                                                <rightBarButtonItems>
+                                                    <barButtonItem id="Vbb-mq-uOd">
+                                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="8rd-W6-htG">
+                                                            <rect key="frame" x="337" y="2" width="40" height="40"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <state key="normal" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="gray" image="cart" title="" cornerStyle="capsule" buttonSize="mini">
+                                                                <color key="baseBackgroundColor" name="ButtonBackground"/>
+                                                            </buttonConfiguration>
+                                                        </button>
+                                                    </barButtonItem>
+                                                    <barButtonItem id="nu5-Hn-4K0">
+                                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="6tv-yS-M2V">
+                                                            <rect key="frame" x="289" y="2" width="40" height="40"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <state key="normal" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="gray" image="Heart" title="" cornerStyle="capsule" buttonSize="mini">
+                                                                <color key="baseBackgroundColor" name="ButtonBackground"/>
+                                                            </buttonConfiguration>
+                                                        </button>
+                                                    </barButtonItem>
+                                                </rightBarButtonItems>
+                                            </navigationItem>
+                                        </items>
+                                    </navigationBar>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zhW-eK-cwy">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="VgC-rr-l5t">
-                                        <rect key="frame" x="0.0" y="34" width="128" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6Vr-2W-Bci">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                        <size key="customSize" width="128" height="128"/>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="Y6W-OH-hqX" id="2Hf-RP-phk"/>
-                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="jsl-iE-YRE"/>
-                                </connections>
-                            </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Brands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wek-N1-2Tg">
-                                <rect key="frame" x="16" y="381" width="154" height="90"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Thonburi-Bold" family="Thonburi" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hrY-1D-b4x">
-                                <rect key="frame" x="0.0" y="479" width="393" height="277"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nY1-4G-g23">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="YYc-fz-x4L">
-                                        <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rpC-al-nXH">
-                                            <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
+                                <constraints>
+                                    <constraint firstItem="Wek-N1-2Tg" firstAttribute="leading" secondItem="EZI-Jp-RSP" secondAttribute="leading" constant="8" id="35Y-fk-wnO"/>
+                                    <constraint firstItem="w4y-KN-dum" firstAttribute="width" secondItem="EZI-Jp-RSP" secondAttribute="width" id="NUD-df-KXM"/>
+                                    <constraint firstAttribute="trailing" secondItem="w4y-KN-dum" secondAttribute="trailing" id="Qb5-nb-dRy"/>
+                                    <constraint firstItem="Wek-N1-2Tg" firstAttribute="height" secondItem="EZI-Jp-RSP" secondAttribute="height" multiplier="0.0664145" id="S7v-4V-lGc"/>
+                                    <constraint firstItem="mv5-s3-lkj" firstAttribute="top" secondItem="EZI-Jp-RSP" secondAttribute="top" id="TEm-tf-GD2"/>
+                                    <constraint firstItem="hrY-1D-b4x" firstAttribute="leading" secondItem="EZI-Jp-RSP" secondAttribute="leading" id="Wog-2p-pCy"/>
+                                    <constraint firstAttribute="trailing" secondItem="mv5-s3-lkj" secondAttribute="trailing" id="YoA-HM-WCr"/>
+                                    <constraint firstItem="hrY-1D-b4x" firstAttribute="top" secondItem="Wek-N1-2Tg" secondAttribute="bottom" constant="30.333333333333314" id="ZDT-4g-XIk"/>
+                                    <constraint firstItem="w4y-KN-dum" firstAttribute="top" secondItem="mv5-s3-lkj" secondAttribute="bottom" constant="61" id="ZcI-kK-yrH"/>
+                                    <constraint firstAttribute="trailing" secondItem="hrY-1D-b4x" secondAttribute="trailing" id="Zym-80-u1C"/>
+                                    <constraint firstItem="Wek-N1-2Tg" firstAttribute="top" secondItem="w4y-KN-dum" secondAttribute="bottom" constant="41" id="aQN-Fb-J8v"/>
+                                    <constraint firstItem="hrY-1D-b4x" firstAttribute="height" secondItem="EZI-Jp-RSP" secondAttribute="height" multiplier="0.349306" id="c0g-yR-7p5"/>
+                                    <constraint firstItem="w4y-KN-dum" firstAttribute="height" secondItem="EZI-Jp-RSP" secondAttribute="height" multiplier="0.247163" id="eev-dP-bmJ"/>
+                                    <constraint firstItem="w4y-KN-dum" firstAttribute="leading" secondItem="EZI-Jp-RSP" secondAttribute="leading" id="iva-da-8E9"/>
+                                    <constraint firstItem="hrY-1D-b4x" firstAttribute="width" secondItem="EZI-Jp-RSP" secondAttribute="width" id="jlN-ia-KTU"/>
+                                    <constraint firstItem="mv5-s3-lkj" firstAttribute="leading" secondItem="EZI-Jp-RSP" secondAttribute="leading" id="uoc-xa-aer"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="HomeCellBackground"/>
+                        <color key="tintColor" red="0.99999994039999995" green="0.99999994039999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="EZI-Jp-RSP" secondAttribute="bottom" id="apS-H3-O14"/>
+                            <constraint firstItem="EZI-Jp-RSP" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="f9M-3s-d5H"/>
+                            <constraint firstItem="EZI-Jp-RSP" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="nj8-20-jfN"/>
+                            <constraint firstAttribute="trailing" secondItem="EZI-Jp-RSP" secondAttribute="trailing" id="sE9-06-vvp"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Home" id="Sxh-sW-CCG"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -129,7 +157,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="87.786259541984734" y="4.9295774647887329"/>
+            <point key="canvasLocation" x="86.25" y="4.225352112676056"/>
         </scene>
         <!--Product View Controller-->
         <scene sceneID="mLw-p5-Cu7">
@@ -171,7 +199,7 @@
             <color red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="HomeCellBackground">
-            <color red="0.082352941176470587" green="0.38039215686274508" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.082000002264976501" green="0.37999999523162842" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

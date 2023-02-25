@@ -45,7 +45,7 @@ extension WishViewController : UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WishCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WishCell", for: indexPath) 
         return cell
     }
     
