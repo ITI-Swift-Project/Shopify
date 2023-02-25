@@ -7,7 +7,7 @@
 
 import Foundation
 protocol BrandsData {
-    var bindingBrands : (()->()){get set}
-    var brandData : [Brand] {get set}
-    static func getAllBrands(url :String,completion : @escaping ()->Void)
+//    static var bindingBrands : (()->()){get set}
+//    static var brandData : [Brand] {get set}
+    static func getAllBrands(url :URL,completion : @escaping (Brands?)->Void)
 }
