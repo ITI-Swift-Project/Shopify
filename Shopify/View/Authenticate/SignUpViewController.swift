@@ -7,6 +7,7 @@
 
 import UIKit
 
+@available(iOS 13.0, *)
 class SignUpViewController: UIViewController {
     
     @IBOutlet weak var topView: UIView!

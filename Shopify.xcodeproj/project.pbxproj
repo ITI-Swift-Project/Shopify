@@ -13,6 +13,12 @@
 		0383847329A796AB00F8E486 /* Authenticate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0383847229A796AB00F8E486 /* Authenticate.storyboard */; };
 		0383847629A7970F00F8E486 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383847529A7970F00F8E486 /* LoginViewController.swift */; };
 		0383847829A7972100F8E486 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383847729A7972100F8E486 /* SignUpViewController.swift */; };
+		1E9BD5EB29AA8AFC00AAD8AB /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BD5EA29AA8AFC00AAD8AB /* Brand.swift */; };
+		1E9BD5ED29AA8B1500AAD8AB /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BD5EC29AA8B1500AAD8AB /* Image.swift */; };
+		1E9BD5EF29AA8B2F00AAD8AB /* Brands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BD5EE29AA8B2F00AAD8AB /* Brands.swift */; };
+		1E9BD5F329AA8B8E00AAD8AB /* BrandsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BD5F229AA8B8E00AAD8AB /* BrandsProtocol.swift */; };
+		1E9BD5F529AA8BAA00AAD8AB /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BD5F429AA8BAA00AAD8AB /* NetworkService.swift */; };
+		1E9BD5F729AA8D7100AAD8AB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BD5F629AA8D7100AAD8AB /* HomeViewModel.swift */; };
 		1ECEA6EB29A53B7800AE6E50 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECEA6EA29A53B7800AE6E50 /* HomeViewController.swift */; };
 		1ECEA6ED29A53B9100AE6E50 /* HomeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1ECEA6EC29A53B9100AE6E50 /* HomeStoryboard.storyboard */; };
 		1ECEA6F329A53D1D00AE6E50 /* AdsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECEA6F129A53D1D00AE6E50 /* AdsCollectionViewCell.swift */; };
@@ -78,6 +84,12 @@
 		0383847729A7972100F8E486 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		0BB11BFCA52D8D26F687F07D /* Pods_Shopify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4C5DC73290AD66DCA60683 /* Pods_Shopify_ShopifyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify_ShopifyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E9BD5EA29AA8AFC00AAD8AB /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		1E9BD5EC29AA8B1500AAD8AB /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		1E9BD5EE29AA8B2F00AAD8AB /* Brands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brands.swift; sourceTree = "<group>"; };
+		1E9BD5F229AA8B8E00AAD8AB /* BrandsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsProtocol.swift; sourceTree = "<group>"; };
+		1E9BD5F429AA8BAA00AAD8AB /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		1E9BD5F629AA8D7100AAD8AB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = Shopify/ViewModel/HomeViewModel/HomeViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1ECEA6EA29A53B7800AE6E50 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1ECEA6EC29A53B9100AE6E50 /* HomeStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeStoryboard.storyboard; sourceTree = "<group>"; };
 		1ECEA6F129A53D1D00AE6E50 /* AdsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -170,6 +182,40 @@
 			path = Authenticate;
 			sourceTree = "<group>";
 		};
+		1E9BD5E929AA8ACF00AAD8AB /* Brands */ = {
+			isa = PBXGroup;
+			children = (
+				1E9BD5EA29AA8AFC00AAD8AB /* Brand.swift */,
+				1E9BD5EC29AA8B1500AAD8AB /* Image.swift */,
+			);
+			path = Brands;
+			sourceTree = "<group>";
+		};
+		1E9BD5F029AA8B6E00AAD8AB /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				1E9BD5F129AA8B7800AAD8AB /* Brands */,
+				1E9BD5F429AA8BAA00AAD8AB /* NetworkService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		1E9BD5F129AA8B7800AAD8AB /* Brands */ = {
+			isa = PBXGroup;
+			children = (
+				1E9BD5F229AA8B8E00AAD8AB /* BrandsProtocol.swift */,
+			);
+			path = Brands;
+			sourceTree = "<group>";
+		};
+		1E9BD5F829AA8D7500AAD8AB /* HomeViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1E9BD5F629AA8D7100AAD8AB /* HomeViewModel.swift */,
+			);
+			path = HomeViewModel;
+			sourceTree = "<group>";
+		};
 		1ECEA6E829A53B5D00AE6E50 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +254,8 @@
 		1EFC858729A54EFA009F471F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1E9BD5E929AA8ACF00AAD8AB /* Brands */,
+				1E9BD5EE29AA8B2F00AAD8AB /* Brands.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -215,6 +263,7 @@
 		1EFC858829A54F01009F471F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1E9BD5F829AA8D7500AAD8AB /* HomeViewModel */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -332,6 +381,7 @@
 		2714914E299FB285008BC7F6 /* Shopify */ = {
 			isa = PBXGroup;
 			children = (
+				1E9BD5F029AA8B6E00AAD8AB /* Network */,
 				1EFC858A29A54FA2009F471F /* AppDelegate */,
 				1EFC858929A54F84009F471F /* Utilities */,
 				1EFC858829A54F01009F471F /* ViewModel */,
@@ -404,6 +454,7 @@
 				27149148299FB285008BC7F6 /* Sources */,
 				27149149299FB285008BC7F6 /* Frameworks */,
 				2714914A299FB285008BC7F6 /* Resources */,
+				9661119FA8CC4968D05C26B2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -422,7 +473,6 @@
 				27149161299FB287008BC7F6 /* Sources */,
 				27149162299FB287008BC7F6 /* Frameworks */,
 				27149163299FB287008BC7F6 /* Resources */,
-				453E9ACCF25709CDAAFA80CF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -442,6 +492,7 @@
 				2714916B299FB287008BC7F6 /* Sources */,
 				2714916C299FB287008BC7F6 /* Frameworks */,
 				2714916D299FB287008BC7F6 /* Resources */,
+				E981B37F02F0ED785BCF82A6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -556,23 +607,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		453E9ACCF25709CDAAFA80CF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ShopifyTests/Pods-ShopifyTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ShopifyTests/Pods-ShopifyTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShopifyTests/Pods-ShopifyTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6E4D8103A9FC5719EA6102F7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -593,6 +627,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9661119FA8CC4968D05C26B2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Shopify/Pods-Shopify-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Shopify/Pods-Shopify-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Shopify/Pods-Shopify-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9AC426CD992486E92D846EC6 /* [CP] Check Pods Manifest.lock */ = {
@@ -617,6 +668,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E981B37F02F0ED785BCF82A6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Shopify-ShopifyUITests/Pods-Shopify-ShopifyUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Shopify-ShopifyUITests/Pods-Shopify-ShopifyUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Shopify-ShopifyUITests/Pods-Shopify-ShopifyUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -630,13 +698,18 @@
 				1EFCB27229A55C4E00FAA46D /* ProfileViewController.swift in Sources */,
 				1EFCB27429A55C8B00FAA46D /* OrdersViewController.swift in Sources */,
 				1ECEA6F329A53D1D00AE6E50 /* AdsCollectionViewCell.swift in Sources */,
+				1E9BD5F529AA8BAA00AAD8AB /* NetworkService.swift in Sources */,
 				27149154299FB285008BC7F6 /* ViewController.swift in Sources */,
 				1EFCB28329A58CCA00FAA46D /* BrandCollectionViewCell.swift in Sources */,
 				0383847629A7970F00F8E486 /* LoginViewController.swift in Sources */,
+				1E9BD5ED29AA8B1500AAD8AB /* Image.swift in Sources */,
 				27149150299FB285008BC7F6 /* AppDelegate.swift in Sources */,
 				1EFCB27F29A55DAC00FAA46D /* CartViewController.swift in Sources */,
 				4F6719F429A960C500523EC8 /* ShoppingCartCell.swift in Sources */,
+				1E9BD5EF29AA8B2F00AAD8AB /* Brands.swift in Sources */,
+				1E9BD5F729AA8D7100AAD8AB /* HomeViewModel.swift in Sources */,
 				1EFCB28929A5BF2F00FAA46D /* CateCollectionViewCell.swift in Sources */,
+				1E9BD5EB29AA8AFC00AAD8AB /* Brand.swift in Sources */,
 				1EFCB28629A5935D00FAA46D /* TabBarViewController.swift in Sources */,
 				037CD1C229A96BF200064B6B /* WelcomeViewController.swift in Sources */,
 				1EFCB27D29A55D8400FAA46D /* PaymentViewController.swift in Sources */,
@@ -646,6 +719,7 @@
 				1EFCB26A29A55B5F00FAA46D /* ProductViewController.swift in Sources */,
 				27149152299FB285008BC7F6 /* SceneDelegate.swift in Sources */,
 				1EFCB27B29A55D5D00FAA46D /* WishViewController.swift in Sources */,
+				1E9BD5F329AA8B8E00AAD8AB /* BrandsProtocol.swift in Sources */,
 				1EFCB27629A55CE300FAA46D /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -832,6 +906,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -861,6 +936,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

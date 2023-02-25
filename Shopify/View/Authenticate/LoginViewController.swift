@@ -7,6 +7,7 @@
 
 import UIKit
 
+@available(iOS 13.0, *)
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var signupBtn: UIButton!
