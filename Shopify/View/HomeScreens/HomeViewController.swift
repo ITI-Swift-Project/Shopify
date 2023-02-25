@@ -8,6 +8,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    var homeViewModel : HomeViewModel?
+    var brandArray : [Brand] = []
     @IBOutlet weak var adsCollection: UICollectionView!
     {
         didSet
@@ -33,9 +35,25 @@ class HomeViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        homeViewModel = HomeViewModel()
+        homeViewModel?.getBrands()
+        homeViewModel?.bindingBrands = {
+            //            print(self.homeViewModel?.brandsResult.count)
+            //            print(self.homeViewModel?.brandsResult[0].id)
+            DispatchQueue.main.async {
+                self.brandArray = self.homeViewModel!.brandsResult
+                print(self.brandArray.count)
+                self.brandCollection.reloadData()
+            }
+            
+        }
     }
+    override func viewWillDisappear(_ animated: Bool) {
+       
+        
+    }
+        // Do any additional setup after loading the view.
+    
     override var prefersStatusBarHidden: Bool{
         return true
     }
@@ -70,7 +88,14 @@ extension HomeViewController : UICollectionViewDataSource
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 10
+        if collectionView == adsCollection
+        {
+            return 10
+        }
+        else{
+            return brandArray.count
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -95,7 +120,7 @@ extension HomeViewController : UICollectionViewDataSource
             cell.layer.borderWidth   = 3.0
             cell.layer.cornerRadius  = 25.0
             cell.configImg(name: "tmpBrand")
-            cell.configLabel(label: "Nike")
+            cell.configLabel(label: brandArray[indexPath.row].title ?? "")
             return cell
             
         }
