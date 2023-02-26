@@ -97,7 +97,15 @@ extension HomeViewController : UICollectionViewDataSource
         }
         
     }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == brandCollection
+        {
+            let storyBoard: UIStoryboard = UIStoryboard(name: "CatStoryboard", bundle: nil)
+            let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "brands") as! BrandsViewController
+            brandsViewController.brandId = brandArray[indexPath.row].id
+            self.navigationController?.pushViewController(brandsViewController, animated: true)
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         if collectionView == adsCollection
@@ -124,6 +132,7 @@ extension HomeViewController : UICollectionViewDataSource
             return cell
             
         }
+        
     }
     
 }
