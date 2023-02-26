@@ -1,22 +1,19 @@
 //
-//  ProfileViewController.swift
+//  AboutUsViewController.swift
 //  Shopify
 //
-//  Created by Mahmoud on 21/02/2023.
+//  Created by Fatma on 25/02/2023.
 //
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class AboutUsViewController: UIViewController {
 
-    @IBAction func openSettings(_ sender: Any) {
-        let settingsVC = storyboard?.instantiateViewController(withIdentifier: "settings") as! SettingViewController
-        navigationController?.pushViewController(settingsVC, animated: true)
-    }
+    @IBOutlet weak var bgFrame: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        StyleHelper.bgFrameStyle(frame: bgFrame)
     }
     
 

@@ -1,20 +1,18 @@
 //
-//  ProfileViewController.swift
+//  ThemeViewController.swift
 //  Shopify
 //
-//  Created by Mahmoud on 21/02/2023.
+//  Created by Fatma on 25/02/2023.
 //
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ThemeViewController: UIViewController {
 
-    @IBAction func openSettings(_ sender: Any) {
-        let settingsVC = storyboard?.instantiateViewController(withIdentifier: "settings") as! SettingViewController
-        navigationController?.pushViewController(settingsVC, animated: true)
-    }
+    @IBOutlet weak var bgFrame: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        StyleHelper.bgFrameStyle(frame: bgFrame)
 
         // Do any additional setup after loading the view.
     }
