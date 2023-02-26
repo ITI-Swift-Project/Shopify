@@ -96,6 +96,7 @@
             </constraints>
             <size key="customSize" width="230" height="226"/>
             <connections>
+                <outlet property="fLabel" destination="6Sj-Aj-wvU" id="bAh-8p-TP6"/>
                 <outlet property="img" destination="aio-iC-UCc" id="o69-tw-3PV"/>
                 <outlet property="viewToSetColor" destination="iQy-vW-9dq" id="ZKy-vS-TRh"/>
             </connections>
