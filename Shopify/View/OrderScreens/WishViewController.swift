@@ -8,14 +8,22 @@
 import UIKit
 
 class WishViewController: UIViewController {
-
-    @IBOutlet weak var WishTableView: UITableView!
+    
+    @IBOutlet weak var wishV: UIView!
+    
+    @IBOutlet weak var wishCV: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        WishTableView.delegate = self
-        WishTableView.dataSource = self
-        WishTableView.register(UINib(nibName: "WishTableViewCell", bundle: nil), forCellReuseIdentifier: "WishCell")
+        wishCV.delegate = self
+        wishCV.dataSource = self
+        let nibb = UINib(nibName: "WishCollectionViewCell", bundle: nil)
+        wishCV.register(nibb, forCellWithReuseIdentifier: "WishCollectionViewCell")
+        self.wishV.layer.masksToBounds = true
+        self.wishV.layer.cornerRadius = 30
+        self.wishCV.backgroundColor = UIColor(named: "thirdColor")
+        
         // Do any additional setup after loading the view.
     }
     
@@ -32,22 +40,56 @@ class WishViewController: UIViewController {
 
 }
 
-extension WishViewController : UITableViewDelegate
+extension WishViewController : UICollectionViewDelegate
 {
-    
+  
 }
 
 
-extension WishViewController : UITableViewDataSource
+extension WishViewController : UICollectionViewDataSource
 {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 20
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WishCell", for: indexPath) 
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WishCollectionViewCell", for: indexPath) as! WishCollectionViewCell
+        cell.layer.masksToBounds = true
+        cell.layer.cornerRadius = 30
+      //  cell.layer.borderColor = UIColor(named: "s")?.cgColor
+      //  cell.layer.borderWidth = 8
+        
+
+        //cell.frame = cell.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 50, right: 10))
+        
+        cell.wishImg.image = UIImage(named: "product")
+        cell.wishName.text = "Hoodie Green"
+        cell.wishDescription.text = "Green Hoodie paul&pear"
+        cell.wishPrice.text = "150.00".appending("$")
+        
+        
+        cell.deleteBtn.addTarget(self, action: #selector(print), for: .touchUpInside)
         return cell
+        
     }
-    
-    
 }
+
+extension WishViewController : UICollectionViewDelegateFlowLayout
+{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width:  wishCV.layer.bounds.size.width-5,height: ( wishCV.layer.bounds.size.height/2.5)-30)
+    }
+}
+
+extension WishViewController
+{
+    @objc func print()
+    {
+        Swift.print("Aya")
+    }
+}
+//extension WishViewController : flowlay

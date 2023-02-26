@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		033825B829A6028400AAA93D /* WishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033825B629A6028400AAA93D /* WishTableViewCell.swift */; };
-		033825B929A6028400AAA93D /* WishTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033825B729A6028400AAA93D /* WishTableViewCell.xib */; };
+		031FA8AF29AA80F000219A84 /* RatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031FA8AE29AA80F000219A84 /* RatingController.swift */; };
+		031FA8B629AAAA1F00219A84 /* WishCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031FA8B429AAAA1F00219A84 /* WishCollectionViewCell.swift */; };
+		031FA8B729AAAA1F00219A84 /* WishCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 031FA8B529AAAA1F00219A84 /* WishCollectionViewCell.xib */; };
 		037CD1C229A96BF200064B6B /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037CD1C129A96BF200064B6B /* WelcomeViewController.swift */; };
 		0383847329A796AB00F8E486 /* Authenticate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0383847229A796AB00F8E486 /* Authenticate.storyboard */; };
 		0383847629A7970F00F8E486 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383847529A7970F00F8E486 /* LoginViewController.swift */; };
@@ -82,8 +83,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		033825B629A6028400AAA93D /* WishTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishTableViewCell.swift; sourceTree = "<group>"; };
-		033825B729A6028400AAA93D /* WishTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishTableViewCell.xib; sourceTree = "<group>"; };
+		031FA8AE29AA80F000219A84 /* RatingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingController.swift; sourceTree = "<group>"; };
+		031FA8B429AAAA1F00219A84 /* WishCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCollectionViewCell.swift; sourceTree = "<group>"; };
+		031FA8B529AAAA1F00219A84 /* WishCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishCollectionViewCell.xib; sourceTree = "<group>"; };
 		03790381BDEA94EC752A556F /* Pods-ShopifyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShopifyTests.release.xcconfig"; path = "Target Support Files/Pods-ShopifyTests/Pods-ShopifyTests.release.xcconfig"; sourceTree = "<group>"; };
 		037CD1C129A96BF200064B6B /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		0383847229A796AB00F8E486 /* Authenticate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authenticate.storyboard; sourceTree = "<group>"; };
@@ -180,8 +182,9 @@
 		033825B529A6023C00AAA93D /* WishCell */ = {
 			isa = PBXGroup;
 			children = (
-				033825B629A6028400AAA93D /* WishTableViewCell.swift */,
-				033825B729A6028400AAA93D /* WishTableViewCell.xib */,
+				031FA8AE29AA80F000219A84 /* RatingController.swift */,
+				031FA8B429AAAA1F00219A84 /* WishCollectionViewCell.swift */,
+				031FA8B529AAAA1F00219A84 /* WishCollectionViewCell.xib */,
 			);
 			path = WishCell;
 			sourceTree = "<group>";
@@ -600,7 +603,7 @@
 				1EFCB26429A55A8F00FAA46D /* CatStoryboard.storyboard in Resources */,
 				2714915F299FB286008BC7F6 /* LaunchScreen.storyboard in Resources */,
 				1EFCB28429A58CCA00FAA46D /* BrandCollectionViewCell.xib in Resources */,
-				033825B929A6028400AAA93D /* WishTableViewCell.xib in Resources */,
+				031FA8B729AAAA1F00219A84 /* WishCollectionViewCell.xib in Resources */,
 				4F6719F529A960C500523EC8 /* ShoppingCartCell.xib in Resources */,
 				1EFCB26F29A55C0800FAA46D /* ProfileStoryboard.storyboard in Resources */,
 				0383847329A796AB00F8E486 /* Authenticate.storyboard in Resources */,
@@ -737,8 +740,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				033825B829A6028400AAA93D /* WishTableViewCell.swift in Sources */,
 				1EFCB26629A55AA800FAA46D /* CatViewController.swift in Sources */,
+				031FA8AF29AA80F000219A84 /* RatingController.swift in Sources */,
 				1ECEA6EB29A53B7800AE6E50 /* HomeViewController.swift in Sources */,
 				1EFCB27229A55C4E00FAA46D /* ProfileViewController.swift in Sources */,
 				1E9BD5FC29AAE4A100AAD8AB /* BrandsViewController.swift in Sources */,
@@ -752,6 +755,7 @@
 				0383847629A7970F00F8E486 /* LoginViewController.swift in Sources */,
 				1E9BD60429AAF54900AAD8AB /* Products.swift in Sources */,
 				1E9BD5ED29AA8B1500AAD8AB /* Image.swift in Sources */,
+				031FA8B629AAAA1F00219A84 /* WishCollectionViewCell.swift in Sources */,
 				27149150299FB285008BC7F6 /* AppDelegate.swift in Sources */,
 				1E9BD60629AAF55700AAD8AB /* product.swift in Sources */,
 				1E9BD5FA29AAA22200AAD8AB /* EndPoint.swift in Sources */,
