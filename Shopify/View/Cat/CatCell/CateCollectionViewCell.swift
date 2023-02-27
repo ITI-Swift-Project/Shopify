@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 class CateCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var fLabel: UILabel!
@@ -17,10 +17,10 @@ class CateCollectionViewCell: UICollectionViewCell {
         viewToSetColor.backgroundColor = UIColor(named: "HomeLabelBackground")
         // Initialization code
     }
-    func configImg(name : String)->Void
+    func configImg(name : URL)->Void
     {
         img.backgroundColor = UIColor(named: "HomeCellBackground")
-        img.image =  UIImage(named: name)
+        img.kf.setImage(with: name, placeholder: UIImage(named: "tmp"))
     }
     func confirstLabel(name : String)->Void
     {

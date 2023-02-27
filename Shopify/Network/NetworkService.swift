@@ -37,6 +37,79 @@ extension NetworkService : BrandItemsData{
             completion(newdata)
         }
     }
+}
+
+extension NetworkService : HomeDataProtocol{
+    static func getHomeData(url: URL, completion: @escaping (Products?) -> Void) {
+        let request = AF.request(url)
+        request.responseDecodable(of: Products.self) { (data) in
+            print("we are in HomeDataMethod")
+            print(data.data?.count)
+            print(data)
+            guard let newdata = data.value else{
+                completion(nil)
+                return
+            }
+            
+            completion(newdata)
+        }
+    }
+}
+
+extension NetworkService : MenDataProtocol{
+    static func getMenData(url: URL, completion: @escaping (Products?) -> Void) {
+        let request = AF.request(url)
+        request.responseDecodable(of: Products.self) { (data) in
+            guard let newdata = data.value else{
+                completion(nil)
+                return
+            }
+            
+            completion(newdata)
+        }
+    }
+}
+
+extension NetworkService : WomenDataProtocol{
+    static func getWomenData(url: URL, completion: @escaping (Products?) -> Void) {
+        let request = AF.request(url)
+        request.responseDecodable(of: Products.self) { (data) in
+            guard let newdata = data.value else{
+                completion(nil)
+                return
+            }
+            
+            completion(newdata)
+        }
+    }
+}
+
+extension NetworkService : KidsDataProtocol{
+    static func getKidsData(url: URL, completion: @escaping (Products?) -> Void) {
+        let request = AF.request(url)
+        request.responseDecodable(of: Products.self) { (data) in
+            guard let newdata = data.value else{
+                completion(nil)
+                return
+            }
+            
+            completion(newdata)
+        }
+    }
+}
+
+extension NetworkService : SaleDataProtocol{
+    static func getSaleData(url: URL, completion: @escaping (Products?) -> Void) {
+        let request = AF.request(url)
+        request.responseDecodable(of: Products.self) { (data) in
+            guard let newdata = data.value else{
+                completion(nil)
+                return
+            }
+            
+            completion(newdata)
+        }
+    }
     
     
 }

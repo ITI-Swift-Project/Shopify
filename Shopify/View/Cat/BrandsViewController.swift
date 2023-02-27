@@ -54,7 +54,7 @@ extension BrandsViewController : UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catCell", for: indexPath) as! CateCollectionViewCell
-        cell.configImg(name: "Hodie")
+        cell.configImg(name: URL(string: (itemsArray[indexPath.row].image?.src!)!)!)
         cell.confirstLabel(name: itemsArray[indexPath.row].title!)
         cell.layer.cornerRadius  = 25.0
         return cell
