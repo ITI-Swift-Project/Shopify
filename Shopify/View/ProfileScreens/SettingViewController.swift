@@ -23,8 +23,8 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var wishListFrame: UIView!
     
     @IBAction func shoppingCart(_ sender: Any) {
-      //  let shoppingCartVC = storyboard?.instantiateViewController(withIdentifier: "shoppingCart") as! CartViewController
-      //  navigationController?.pushViewController(shoppingCartVC, animated: true)
+       
+           // performSegue(withIdentifier: "shoppingCart", sender: self)
     }
     @IBOutlet weak var shoppingCartFrame: UIView!
     
