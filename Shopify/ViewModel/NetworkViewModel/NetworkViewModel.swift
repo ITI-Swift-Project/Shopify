@@ -6,7 +6,7 @@
 //
 
 import Foundation
-class HomeViewModel{
+class NetworkViewModel{
     
     var bindingBrands : (()->()) = {}
     var brandsResult : [Brand] = [] {
@@ -14,6 +14,15 @@ class HomeViewModel{
             bindingBrands()
         }
     }
+    
+    var bindingHomeProducts: (() -> ()) = {}
+    var homeProductsResult: [Product] = []{
+        didSet{
+            bindingHomeProducts()
+        }
+    }
+    
+    
     func getBrands() {
         let brandEndPoint = APIEndpoint.brands
         let barndUrl = brandEndPoint.url(forShopName: "48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023")
@@ -23,5 +32,21 @@ class HomeViewModel{
             }
         }
     }
+}
+
+extension NetworkViewModel : HomeCategory{
+
+    func getProductAtHome() {
+        let brandEndPoint = APIEndpoint.home
+        let url = brandEndPoint.url(forShopName: NetworkService.baseUrl)
+        NetworkService.getHomeData(url: url) { result in
+            if let result = result {
+                self.homeProductsResult = result.products ?? []
+                
+            }
+        }
+    }
+    
+    
 }
 

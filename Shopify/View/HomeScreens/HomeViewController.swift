@@ -6,9 +6,9 @@
 //
 
 import UIKit
-
+import Kingfisher
 class HomeViewController: UIViewController {
-    var homeViewModel : HomeViewModel?
+    var homeViewModel : NetworkViewModel?
     var brandArray : [Brand] = []
     @IBOutlet weak var adsCollection: UICollectionView!
     {
@@ -35,7 +35,7 @@ class HomeViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        homeViewModel = HomeViewModel()
+        homeViewModel = NetworkViewModel()
         homeViewModel?.getBrands()
         homeViewModel?.bindingBrands = {
             //            print(self.homeViewModel?.brandsResult.count)
@@ -127,7 +127,7 @@ extension HomeViewController : UICollectionViewDataSource
 //            cell.layer.shadowOpacity = 20
             cell.layer.borderWidth   = 3.0
             cell.layer.cornerRadius  = 25.0
-            cell.configImg(name: "tmpBrand")
+            cell.configImg(name: URL(string: (brandArray[indexPath.row].image?.src)!)!)
             cell.configLabel(label: brandArray[indexPath.row].title ?? "")
             return cell
             

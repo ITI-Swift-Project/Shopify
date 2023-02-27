@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 class BrandCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var label: UILabel!
     
@@ -15,9 +15,10 @@ class BrandCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    func configImg(name : String)->Void{
+    func configImg(name : URL)->Void{
         img.backgroundColor = UIColor(named: "HomeCellBackground")
-        img.image = UIImage(named: name)
+        img.kf.setImage(with: name,placeholder: UIImage(named :"tmp"))
+    
     }
     func configLabel(label : String)->Void{
         self.label.backgroundColor = UIColor(named: "HomeLabelBackground")

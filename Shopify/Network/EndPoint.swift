@@ -6,12 +6,23 @@
 //
 
 import Foundation
-
+// /admin/api/2032-01/custom_collections.json --> this retreive all cat such as(MEN,WOMEN,....etc)
+// homePageId  --> 437625225520
+// MenPageId   --> 437626929456
+// KidsPageId  --> 437626994992
+// WomenPageId --> 437626962224
+// SalePageId  --> 437627027760
+// /admin/api/2023-01/smart_collections.json  --> this retreive all brands
 enum APIEndpoint {
     case products
     case orders
     case brands
     case brandItems
+    case men
+    case wowen
+    case kids
+    case sale
+    case home
     
     var path: String {
         switch self {
@@ -23,9 +34,19 @@ enum APIEndpoint {
             return "/admin/api/2023-01/smart_collections.json"
         case .brandItems:
             return "/admin/products.json?collection_id="
+        case .men:
+            return "/admin/products.json?collection_id=437626929456"
+        case .wowen:
+            return "/admin/products.json?collection_id=437626962224"
+        case .kids:
+            return "/admin/products.json?collection_id=437626994992"
+        case .sale:
+            return "/admin/products.json?collection_id=437627027760"
+        case .home:
+            return "/admin/products.json?collection_id=437625225520"
         }
     }
-    func urlForBrandItems(forShopName shopName: String,brandId : Int) -> URL {
+    func urlWithId(forShopName shopName: String,brandId : Int) -> URL {
            let urlString = "https://\(shopName).myshopify.com\(self.path)\(brandId)"
            return URL(string: urlString)!
        }
