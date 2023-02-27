@@ -9,6 +9,7 @@ import UIKit
 
 class ShoppingCartCell: UICollectionViewCell {
     
+    @IBOutlet weak var cartCellBackView: UIView!
     @IBOutlet weak var cartProductImage: UIImageView!
     @IBOutlet weak var cartProductName: UILabel!
     
@@ -24,6 +25,9 @@ class ShoppingCartCell: UICollectionViewCell {
   
     @IBOutlet weak var deleteCartProduct: UIButton!
     
+    @IBOutlet weak var increaseProductItemCount: UIButton!
+    
+    @IBOutlet weak var decreaseProductItemCount: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
