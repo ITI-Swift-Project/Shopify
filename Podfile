@@ -7,6 +7,8 @@ target 'Shopify' do
   pod 'Kingfisher', '~> 7.0'
   pod 'Alamofire'
   pod 'Reachability', '~> 3.2'
+  pod 'Cosmos', '~> 23.0'
+
   # Pods for Shopify
 
   target 'ShopifyTests' do
