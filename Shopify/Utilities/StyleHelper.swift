@@ -26,4 +26,14 @@ class StyleHelper
         frame.layer.masksToBounds = true
         frame.layer.cornerRadius = 30
      }
+    static func bigLablesStyle(label : UILabel)
+    {
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 25
+    }
+    static func smallLablesStyle(label : UILabel)
+    {
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 15
+    }
 }

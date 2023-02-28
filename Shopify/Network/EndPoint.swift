@@ -23,6 +23,7 @@ enum APIEndpoint {
     case kids
     case sale
     case home
+    case discountCodes
     
     var path: String {
         switch self {
@@ -44,6 +45,8 @@ enum APIEndpoint {
             return "/admin/products.json?collection_id=437627027760"
         case .home:
             return "/admin/products.json?collection_id=437625225520"
+        case .discountCodes:
+            return "/admin/api/2023-01/price_rules/1382520553776/discount_codes.json"
         }
     }
     func urlWithId(forShopName shopName: String,brandId : Int) -> URL {

@@ -15,10 +15,17 @@ class NetworkViewModel{
         }
     }
     
-    var bindingHomeProducts: (() -> ()) = {}
-    var homeProductsResult: [Product] = []{
+    var bindingProducts: (() -> ()) = {}
+    var productsResult: [Product] = []{
         didSet{
-            bindingHomeProducts()
+            bindingProducts()
+        }
+    }
+    
+    var bindingAds : (() -> ()) = {}
+    var adsResult : DiscountCodes!    {
+        didSet {
+            bindingAds()
         }
     }
     
@@ -34,19 +41,24 @@ class NetworkViewModel{
     }
 }
 
-extension NetworkViewModel : HomeCategory{
 
-    func getProductAtHome() {
-        let brandEndPoint = APIEndpoint.home
-        let url = brandEndPoint.url(forShopName: NetworkService.baseUrl)
-        NetworkService.getHomeData(url: url) { result in
+extension NetworkViewModel : GenricProtocol{
+    func getProductsAt(url : URL) {
+        NetworkService.getProductsData(url: url) { result in
             if let result = result {
-                self.homeProductsResult = result.products ?? []
+                self.productsResult = result.products ?? []
                 
             }
         }
     }
-    
-    
 }
-
+extension NetworkViewModel
+{
+    func getAds() {
+        NetworkService.getDiscountCodes(url:  "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/price_rules/1382520553776/discount_codes.json") { result in
+                if let result = result {
+                    self.adsResult = result
+                }
+            }
+        }
+}

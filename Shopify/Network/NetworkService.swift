@@ -39,77 +39,33 @@ extension NetworkService : BrandItemsData{
     }
 }
 
-extension NetworkService : HomeDataProtocol{
-    static func getHomeData(url: URL, completion: @escaping (Products?) -> Void) {
+extension NetworkService : ProductsDataProtocol{
+    static func getProductsData(url: URL, completion: @escaping (Products?) -> Void) {
+            let request = AF.request(url)
+            request.responseDecodable(of: Products.self) { (data) in
+                guard let newdata = data.value else{
+                    completion(nil)
+                    return
+                }
+                
+                completion(newdata)
+            }
+    }
+ 
+}
+extension NetworkService : DiscountsData
+ {
+    static func getDiscountCodes(url: String, handeler: @escaping (DiscountCodes?) -> Void)
+    {
         let request = AF.request(url)
-        request.responseDecodable(of: Products.self) { (data) in
-            print("we are in HomeDataMethod")
-            print(data.data?.count)
-            print(data)
-            guard let newdata = data.value else{
-                completion(nil)
+        request.responseDecodable (of: DiscountCodes.self) {(olddata) in
+            guard let data = olddata.value
+            else{
+                handeler(nil)
                 return
             }
-            
-            completion(newdata)
+            handeler(data)
         }
     }
 }
 
-extension NetworkService : MenDataProtocol{
-    static func getMenData(url: URL, completion: @escaping (Products?) -> Void) {
-        let request = AF.request(url)
-        request.responseDecodable(of: Products.self) { (data) in
-            guard let newdata = data.value else{
-                completion(nil)
-                return
-            }
-            
-            completion(newdata)
-        }
-    }
-}
-
-extension NetworkService : WomenDataProtocol{
-    static func getWomenData(url: URL, completion: @escaping (Products?) -> Void) {
-        let request = AF.request(url)
-        request.responseDecodable(of: Products.self) { (data) in
-            guard let newdata = data.value else{
-                completion(nil)
-                return
-            }
-            
-            completion(newdata)
-        }
-    }
-}
-
-extension NetworkService : KidsDataProtocol{
-    static func getKidsData(url: URL, completion: @escaping (Products?) -> Void) {
-        let request = AF.request(url)
-        request.responseDecodable(of: Products.self) { (data) in
-            guard let newdata = data.value else{
-                completion(nil)
-                return
-            }
-            
-            completion(newdata)
-        }
-    }
-}
-
-extension NetworkService : SaleDataProtocol{
-    static func getSaleData(url: URL, completion: @escaping (Products?) -> Void) {
-        let request = AF.request(url)
-        request.responseDecodable(of: Products.self) { (data) in
-            guard let newdata = data.value else{
-                completion(nil)
-                return
-            }
-            
-            completion(newdata)
-        }
-    }
-    
-    
-}
