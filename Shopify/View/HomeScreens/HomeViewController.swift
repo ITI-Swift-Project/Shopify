@@ -7,9 +7,12 @@
 
 import UIKit
 import Kingfisher
+import TTGSnackbar
 class HomeViewController: UIViewController {
     var homeViewModel : NetworkViewModel?
     var brandArray : [Brand] = []
+    var adsList : [DiscountCode]?
+    var adsImages : [String] = ["c1","c2","c3","c4","c5","c6","c7"]
     @IBOutlet weak var adsCollection: UICollectionView!
     {
         didSet
@@ -46,6 +49,13 @@ class HomeViewController: UIViewController {
                 self.brandCollection.reloadData()
             }
             
+        }
+        homeViewModel?.getAds()
+        homeViewModel?.bindingAds = {
+            DispatchQueue.main.async {
+                self.adsList = self.homeViewModel?.adsResult?.discount_codes ?? []
+                self.adsCollection.reloadData()
+            }
         }
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -90,7 +100,7 @@ extension HomeViewController : UICollectionViewDataSource
     {
         if collectionView == adsCollection
         {
-            return 10
+            return 7
         }
         else{
             return brandArray.count
@@ -105,6 +115,22 @@ extension HomeViewController : UICollectionViewDataSource
             brandsViewController.brandId = brandArray[indexPath.row].id
             self.navigationController?.pushViewController(brandsViewController, animated: true)
         }
+        else if collectionView == adsCollection
+        {
+            let pasteboard = UIPasteboard.general
+            pasteboard.string = adsList?[0].code
+            showSnakbar(msg: "Couopn code copied to clipboard!")
+             func showSnakbar(msg : String){
+             let snackbar = TTGSnackbar(
+                 message: msg,
+                 duration: .middle
+             )
+             snackbar.actionTextColor = UIColor.blue
+             snackbar.borderColor = UIColor.black
+             snackbar.messageTextColor = UIColor.white
+             snackbar.show()
+            }
+        }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
@@ -115,7 +141,7 @@ extension HomeViewController : UICollectionViewDataSource
 //            cell.layer.shadowOpacity = 20
             cell.layer.borderWidth   = 3.0
             cell.layer.cornerRadius  = 25.0
-            cell.configImg(name: "coupon")
+            cell.configImg(name: adsImages[indexPath.row] )
             return cell
             
         }

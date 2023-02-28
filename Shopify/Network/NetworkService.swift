@@ -53,3 +53,19 @@ extension NetworkService : ProductsDataProtocol{
     }
  
 }
+extension NetworkService : DiscountsData
+ {
+    static func getDiscountCodes(url: String, handeler: @escaping (DiscountCodes?) -> Void)
+    {
+        let request = AF.request(url)
+        request.responseDecodable (of: DiscountCodes.self) {(olddata) in
+            guard let data = olddata.value
+            else{
+                handeler(nil)
+                return
+            }
+            handeler(data)
+        }
+    }
+}
+
