@@ -55,6 +55,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gs5-AH-eeW">
+                                <rect key="frame" x="46" y="79" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -96,8 +103,11 @@
             </constraints>
             <size key="customSize" width="230" height="226"/>
             <connections>
-                <outlet property="fLabel" destination="6Sj-Aj-wvU" id="bAh-8p-TP6"/>
+                <outlet property="fLabel" destination="Gs5-AH-eeW" id="qQC-yE-bmw"/>
                 <outlet property="img" destination="aio-iC-UCc" id="o69-tw-3PV"/>
+                <outlet property="prouductName" destination="6Sj-Aj-wvU" id="bYh-cB-6Yx"/>
+                <outlet property="typeLabel" destination="0Ku-FB-lbB" id="kfM-HE-zSo"/>
+                <outlet property="vendorLabel" destination="cju-Lu-Zd6" id="buo-P6-YYO"/>
                 <outlet property="viewToSetColor" destination="iQy-vW-9dq" id="ZKy-vS-TRh"/>
             </connections>
             <point key="canvasLocation" x="233.58778625954199" y="8.4507042253521139"/>

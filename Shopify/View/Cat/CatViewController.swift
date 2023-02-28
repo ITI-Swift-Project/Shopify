@@ -21,20 +21,78 @@ class CatViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let brandEndPoint = APIEndpoint.products
+        let url = brandEndPoint.url(forShopName:NetworkService.baseUrl)
         viewModel = NetworkViewModel()
-        viewModel?.getProductAtHome()
-        viewModel?.bindingHomeProducts = {
+        viewModel?.getProductsAt(url: url )
+        viewModel?.bindingProducts = {
             DispatchQueue.main.async {
              
-                self.result = self.viewModel!.homeProductsResult
+                self.result = self.viewModel!.productsResult
                 print(self.result.count)
                 self.catCollection.reloadData()
             }
         }
         
     }
+    @IBAction func filterByMen(_ sender: Any) {
+        let brandEndPoint = APIEndpoint.men
+        let url = brandEndPoint.url(forShopName:NetworkService.baseUrl)
+        viewModel = NetworkViewModel()
+        viewModel?.getProductsAt(url: url )
+        viewModel?.bindingProducts = {
+            DispatchQueue.main.async {
+             
+                self.result = self.viewModel!.productsResult
+                print(self.result.count)
+                self.catCollection.reloadData()
+            }
+        }
+    }
     
-
+    @IBAction func filterByWomen(_ sender: Any) {
+        let brandEndPoint = APIEndpoint.wowen
+        let url = brandEndPoint.url(forShopName:NetworkService.baseUrl)
+        viewModel = NetworkViewModel()
+        viewModel?.getProductsAt(url: url )
+        viewModel?.bindingProducts = {
+            DispatchQueue.main.async {
+             
+                self.result = self.viewModel!.productsResult
+                print(self.result.count)
+                self.catCollection.reloadData()
+            }
+        }
+    }
+    @IBAction func filterByKids(_ sender: Any) {
+        let brandEndPoint = APIEndpoint.kids
+        let url = brandEndPoint.url(forShopName:NetworkService.baseUrl)
+        viewModel = NetworkViewModel()
+        viewModel?.getProductsAt(url: url )
+        viewModel?.bindingProducts = {
+            DispatchQueue.main.async {
+             
+                self.result = self.viewModel!.productsResult
+                print(self.result.count)
+                self.catCollection.reloadData()
+            }
+        }
+    }
+    @IBAction func filterBySale(_ sender: Any) {
+        let brandEndPoint = APIEndpoint.sale
+        let url = brandEndPoint.url(forShopName:NetworkService.baseUrl)
+        viewModel = NetworkViewModel()
+        viewModel?.getProductsAt(url: url )
+        viewModel?.bindingProducts = {
+            DispatchQueue.main.async {
+             
+                self.result = self.viewModel!.productsResult
+                print(self.result.count)
+                self.catCollection.reloadData()
+            }
+        }
+    }
+    
    
 }
 extension CatViewController : UICollectionViewDelegate
@@ -54,7 +112,7 @@ extension CatViewController : UICollectionViewDataSource
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catCell", for: indexPath) as! CateCollectionViewCell
         
         cell.configImg(name:URL(string : (result[indexPath.row].image?.src!)!)!)
-        
+        cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, type: result[indexPath.row].product_type!)
 //        cell.layer.borderColor   = UIColor.systemGray.cgColor
 //            cell.layer.shadowOpacity = 20
 //        cell.layer.borderWidth   = 3.0
