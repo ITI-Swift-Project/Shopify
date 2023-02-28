@@ -65,18 +65,30 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="jYu-PJ-Pbq"/>
                                     <barButtonItem title="Men" id="ljk-LV-4dp">
                                         <color key="tintColor" name="ButtonBackground"/>
+                                        <connections>
+                                            <action selector="filterByMen:" destination="Y6W-OH-hqX" id="VhW-FR-vO5"/>
+                                        </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="GFt-SN-05t"/>
                                     <barButtonItem title="WOMEN" id="f1l-2t-ywj">
                                         <color key="tintColor" name="ButtonBackground"/>
+                                        <connections>
+                                            <action selector="filterByWomen:" destination="Y6W-OH-hqX" id="oPc-Ld-7nq"/>
+                                        </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="sDx-kF-DNz"/>
                                     <barButtonItem title="KIDS" id="HlI-nr-7GT">
                                         <color key="tintColor" name="ButtonBackground"/>
+                                        <connections>
+                                            <action selector="filterByKids:" destination="Y6W-OH-hqX" id="SNf-k9-tit"/>
+                                        </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="VXZ-e7-gHQ"/>
                                     <barButtonItem title="SALE" id="Iyl-66-MLf">
                                         <color key="tintColor" name="ButtonBackground"/>
+                                        <connections>
+                                            <action selector="filterBySale:" destination="Y6W-OH-hqX" id="B7n-z1-fOM"/>
+                                        </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Mwa-KT-lim"/>
                                 </items>
@@ -142,7 +154,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="l6h-ED-ibC"/>
                                     <barButtonItem style="plain" id="FKR-su-QBk">
                                         <searchBar key="customView" contentMode="redraw" id="inN-yD-Llx">
-                                            <rect key="frame" x="26.666666666666671" y="0.0" width="202" height="44"/>
+                                            <rect key="frame" x="27" y="0.0" width="202" height="44"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" name="ButtonBackground"/>
                                             <textInputTraits key="textInputTraits"/>

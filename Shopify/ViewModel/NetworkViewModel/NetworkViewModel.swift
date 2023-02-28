@@ -15,10 +15,10 @@ class NetworkViewModel{
         }
     }
     
-    var bindingHomeProducts: (() -> ()) = {}
-    var homeProductsResult: [Product] = []{
+    var bindingProducts: (() -> ()) = {}
+    var productsResult: [Product] = []{
         didSet{
-            bindingHomeProducts()
+            bindingProducts()
         }
     }
     
@@ -34,19 +34,16 @@ class NetworkViewModel{
     }
 }
 
-extension NetworkViewModel : HomeCategory{
 
-    func getProductAtHome() {
-        let brandEndPoint = APIEndpoint.home
-        let url = brandEndPoint.url(forShopName: NetworkService.baseUrl)
-        NetworkService.getHomeData(url: url) { result in
+extension NetworkViewModel : GenricProtocol{
+    func getProductsAt(url : URL) {
+        NetworkService.getProductsData(url: url) { result in
             if let result = result {
-                self.homeProductsResult = result.products ?? []
+                self.productsResult = result.products ?? []
                 
             }
         }
     }
     
-    
+  
 }
-
