@@ -10,6 +10,14 @@ import UIKit
 class BrandsViewController: UIViewController {
     var brandId : Int?
     var itemsArray : [Product] = []
+    var filterItems : [Product] = []
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var sliderView: UIView!{
+        didSet{
+            sliderView.isHidden = true
+        }
+    }
+    @IBOutlet weak var slider: UISlider!
     var brandItemsViewModel : BrandItemsViewModel?
     @IBOutlet weak var brandsCollection: UICollectionView!{
         didSet{
@@ -22,7 +30,7 @@ class BrandsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         brandItemsViewModel = BrandItemsViewModel()
-        brandItemsViewModel?.brandId = brandId!
+        brandItemsViewModel?.brandId = brandId ?? 0
         brandItemsViewModel?.getItems()
         
         
@@ -31,6 +39,7 @@ class BrandsViewController: UIViewController {
             //            print(self.homeViewModel?.brandsResult[0].id)
             DispatchQueue.main.async {
                 self.itemsArray = self.brandItemsViewModel!.brandItemsResult
+                self.filterItems = self.itemsArray
                 print(self.itemsArray.count)
                 self.brandsCollection.reloadData()
             }
@@ -39,7 +48,28 @@ class BrandsViewController: UIViewController {
        
     }
     
-
+    @IBAction func filterAction(_ sender: Any) {
+        if sliderView.isHidden
+        {
+            sliderView.isHidden = false
+        }
+        else{
+            sliderView.isHidden = true
+        }
+    }
+    @IBAction func sliderMover(_ sender: UISlider) {
+        priceLabel.text = "Price : " +  String(slider.value)
+        filterItems = []
+        for item in itemsArray{
+            if Float(item.variants![0].price!)! < slider.value
+            {
+                filterItems.append(item)
+            }
+                
+        }
+        brandsCollection.reloadData()
+    }
+    
 }
 extension BrandsViewController : UICollectionViewDelegate{
     
@@ -49,13 +79,13 @@ extension BrandsViewController : UICollectionViewDataSource{
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return itemsArray.count
+        return filterItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catCell", for: indexPath) as! CateCollectionViewCell
-        cell.configImg(name: URL(string: (itemsArray[indexPath.row].image?.src!)!)!)
-        cell.confirstLabel(name: itemsArray[indexPath.row].title!)
+        cell.configImg(name: URL(string: (filterItems[indexPath.row].image?.src!)!)!)
+        cell.confirstLabel(name: filterItems[indexPath.row].title!)
         cell.layer.cornerRadius  = 25.0
         return cell
     }
