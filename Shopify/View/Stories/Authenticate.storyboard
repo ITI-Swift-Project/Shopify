@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="z78-nX-iAp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vzT-Ht-cNG">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -189,6 +189,9 @@
                                     <imageReference key="image" image="arrow.right" catalog="system" symbolScale="medium"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="22"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="skipAcion:" destination="9w8-xL-VY2" eventType="touchUpInside" id="RGo-On-9md"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cdb-HP-87c">
                                 <rect key="frame" x="130" y="677" width="132" height="35"/>
@@ -230,6 +233,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kaE-cE-t0P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="9w8-xL-VY2" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="965.64885496183206" y="4.9295774647887329"/>
         </scene>
@@ -293,11 +297,15 @@
                                     <imageReference key="image" image="arrow.right" catalog="system" symbolScale="medium"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="22"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="skipAcion:" destination="z78-nX-iAp" eventType="touchUpInside" id="5nB-Yo-Ciq"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vjc-rc-e6N"/>
                         <color key="backgroundColor" name="HomeLabelBackground"/>
                     </view>
+                    <navigationItem key="navigationItem" id="pjx-6K-0T1"/>
                     <connections>
                         <outlet property="loginBtn" destination="Zpf-Hb-d80" id="3AS-NO-c94"/>
                         <outlet property="signupBtn" destination="NMN-iM-u3g" id="U2N-cU-LID"/>
@@ -306,6 +314,33 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pzd-Eh-0W9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2846.5648854961833" y="4.9295774647887329"/>
+        </scene>
+        <!--home-->
+        <scene sceneID="691-5N-40F">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HomeStoryboard" referencedIdentifier="home" id="AfA-gO-R7t" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="NaH-dT-vgp"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fco-73-OH1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3738.9312977099235" y="-127.46478873239437"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Vwl-YD-nbe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="vzT-Ht-cNG" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CC5-zb-unZ">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="z78-nX-iAp" kind="relationship" relationship="rootViewController" id="lSi-ii-bC9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x29-QE-g0e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1919.8473282442746" y="4.9295774647887329"/>
         </scene>

@@ -55,6 +55,8 @@ class BrandsViewController: UIViewController {
         }
         else{
             sliderView.isHidden = true
+            filterItems = itemsArray
+            brandsCollection.reloadData()
         }
     }
     @IBAction func sliderMover(_ sender: UISlider) {
@@ -70,6 +72,9 @@ class BrandsViewController: UIViewController {
         brandsCollection.reloadData()
     }
     
+    @IBAction func dissMissScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 extension BrandsViewController : UICollectionViewDelegate{
     

@@ -39,7 +39,7 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="mQQ-WL-64c">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="x3i-dG-vS8" customClass="TabBarViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBar" automaticallyAdjustsScrollViewInsets="NO" id="x3i-dG-vS8" customClass="TabBarViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="80m-u4-lsw"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="H1G-jl-pe3">
@@ -67,6 +67,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xUY-Vh-xBm">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="x3i-dG-vS8" kind="relationship" relationship="rootViewController" id="p1G-Fg-W04"/>
                     </connections>
