@@ -26,7 +26,13 @@ class WelcomeViewController: UIViewController {
         self.topView.layer.cornerRadius = self.topView.frame.size.height / 2
     }
     
-
+    
+    @IBAction func skipAcion(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
+        
+        self.navigationController?.pushViewController(brandsViewController, animated: true)
+    }
     /*
     // MARK: - Navigation
 
