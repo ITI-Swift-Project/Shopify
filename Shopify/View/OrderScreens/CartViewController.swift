@@ -25,6 +25,8 @@ class CartViewController: UIViewController {
     }
     @IBOutlet weak var checkout: UIButton!
     @IBAction func proceedToCheckout(_ sender: Any) {
+        let orderDetailsVC = storyboard?.instantiateViewController(withIdentifier: "orderDetails") as! OrderDetailsViewController
+        navigationController?.pushViewController(orderDetailsVC, animated: true)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +96,7 @@ extension CartViewController : UICollectionViewDataSource,UICollectionViewDelega
 extension CartViewController : UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: shoppingCartCollectionView.layer.bounds.size.width-5,height: (shoppingCartCollectionView.layer.bounds.size.height/2.3)-30)
+        return CGSize(width: shoppingCartCollectionView.layer.bounds.size.width-5,height: (shoppingCartCollectionView.layer.bounds.size.height/2.2)-30)
     }
 }
 extension CartViewController

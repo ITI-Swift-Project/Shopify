@@ -24,7 +24,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="5hg-mX-uAQ"/>
                                     <barButtonItem style="plain" id="K0k-mK-dDc">
                                         <searchBar key="customView" contentMode="redraw" id="1Tg-vj-40p">
-                                            <rect key="frame" x="26.666666666666671" y="0.0" width="202" height="44"/>
+                                            <rect key="frame" x="27" y="0.0" width="202" height="44"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" name="ButtonBackground"/>
                                             <textInputTraits key="textInputTraits"/>
