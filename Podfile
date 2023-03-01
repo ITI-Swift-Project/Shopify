@@ -9,6 +9,7 @@ target 'Shopify' do
   pod 'Reachability', '~> 3.2'
   pod 'Cosmos', '~> 23.0'
   pod 'TTGSnackbar', '~> 1.11'
+  pod 'Floaty', '~> 4.2'
 
   # Pods for Shopify
 

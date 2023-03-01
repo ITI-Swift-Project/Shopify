@@ -6,9 +6,12 @@
 //
 
 import UIKit
-
+import Floaty
 class BrandsViewController: UIViewController {
+//    @IBOutlet weak var floaty: UIButton!
+    
     var brandId : Int?
+    var floaty : Floaty?
     var itemsArray : [Product] = []
     var filterItems : [Product] = []
     @IBOutlet weak var priceLabel: UILabel!
@@ -29,6 +32,8 @@ class BrandsViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        createFloatyButton()
+        brandsCollection.layer.cornerRadius = 20
         brandItemsViewModel = BrandItemsViewModel()
         brandItemsViewModel?.brandId = brandId ?? 0
         brandItemsViewModel?.getItems()
@@ -47,7 +52,46 @@ class BrandsViewController: UIViewController {
         }
        
     }
-    
+    func createFloatyButton(){
+        floaty = Floaty()
+//        floaty?.tintColor = UIColor(named:"third" )
+        floaty?.buttonColor = UIColor(named: "HomeCellBackground")!
+        floaty?.backgroundColor = UIColor(named: "third")
+        floaty?.size = CGFloat(70)
+        floaty?.buttonImage = UIImage(named: "filter 2")
+        
+        view.addSubview(floaty!)
+        
+        let filterByPriceButton = FloatyItem()
+        filterByPriceButton.title = "Price"
+        
+        floaty!.addItem(icon : UIImage(systemName: "dollarsign")){_ in
+                
+                // Code to execute when button 1 is tapped
+                if self.sliderView.isHidden
+                {
+                    self.sliderView.isHidden = false
+                }
+                else{
+                    self.sliderView.isHidden = true
+                    self.filterItems = self.itemsArray
+                    self.brandsCollection.reloadData()
+                }
+          
+        }
+
+        let button2 = FloatyItem()
+        button2.title = "Button 2"
+        button2.handler = { _ in
+            // Code to execute when button 2 is tapped
+            
+        }
+        floaty!.addItem(item: button2)
+        floaty!.paddingX = 16
+        floaty!.paddingY = 60
+        
+        floaty!.friendlyTap = false
+    }
     @IBAction func filterAction(_ sender: Any) {
         if sliderView.isHidden
         {
