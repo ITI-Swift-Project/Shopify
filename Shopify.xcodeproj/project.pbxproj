@@ -15,6 +15,8 @@
 		0383847329A796AB00F8E486 /* Authenticate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0383847229A796AB00F8E486 /* Authenticate.storyboard */; };
 		0383847629A7970F00F8E486 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383847529A7970F00F8E486 /* LoginViewController.swift */; };
 		0383847829A7972100F8E486 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383847729A7972100F8E486 /* SignUpViewController.swift */; };
+		038A6BF029AF97ED00FDB0E3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038A6BEF29AF97ED00FDB0E3 /* SearchViewController.swift */; };
+		038A6BF229AF9E0700FDB0E3 /* SearchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 038A6BF129AF9E0700FDB0E3 /* SearchStoryboard.storyboard */; };
 		03AB761429AD2F280000CF33 /* ProductDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB761329AD2F280000CF33 /* ProductDetailsCollectionViewCell.swift */; };
 		1E9BD5EB29AA8AFC00AAD8AB /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BD5EA29AA8AFC00AAD8AB /* Brand.swift */; };
 		1E9BD5ED29AA8B1500AAD8AB /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BD5EC29AA8B1500AAD8AB /* Image.swift */; };
@@ -110,6 +112,8 @@
 		0383847229A796AB00F8E486 /* Authenticate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authenticate.storyboard; sourceTree = "<group>"; };
 		0383847529A7970F00F8E486 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0383847729A7972100F8E486 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		038A6BEF29AF97ED00FDB0E3 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		038A6BF129AF9E0700FDB0E3 /* SearchStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchStoryboard.storyboard; sourceTree = "<group>"; };
 		03AB761329AD2F280000CF33 /* ProductDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
 		0BB11BFCA52D8D26F687F07D /* Pods_Shopify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4C5DC73290AD66DCA60683 /* Pods_Shopify_ShopifyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify_ShopifyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,6 +239,14 @@
 			path = Authenticate;
 			sourceTree = "<group>";
 		};
+		038A6BEA29AF939600FDB0E3 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				038A6BEF29AF97ED00FDB0E3 /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		1E8EEE4829AD9EC100A91436 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				1EFCB26729A55ADF00FAA46D /* Stories */,
+				038A6BEA29AF939600FDB0E3 /* Search */,
 				0383847429A796BD00F8E486 /* Authenticate */,
 				1EFCB27929A55D3E00FAA46D /* OrderScreens */,
 				1EFCB27029A55C2000FAA46D /* ProfileScreens */,
@@ -436,6 +449,7 @@
 				1EFCB26E29A55C0800FAA46D /* ProfileStoryboard.storyboard */,
 				1EFCB27729A55D2F00FAA46D /* OrderStoryboard.storyboard */,
 				0383847229A796AB00F8E486 /* Authenticate.storyboard */,
+				038A6BF129AF9E0700FDB0E3 /* SearchStoryboard.storyboard */,
 			);
 			path = Stories;
 			sourceTree = "<group>";
@@ -469,6 +483,7 @@
 		1EFCB28029A58C5E00FAA46D /* BrandCell */ = {
 			isa = PBXGroup;
 			children = (
+				1EFC858929A54F84009F471F /* Utilities */,
 				1EFCB28129A58CCA00FAA46D /* BrandCollectionViewCell.swift */,
 				1EFCB28229A58CCA00FAA46D /* BrandCollectionViewCell.xib */,
 			);
@@ -514,7 +529,6 @@
 				1EFC858829A54F01009F471F /* ViewModel */,
 				1E9BD5F029AA8B6E00AAD8AB /* Network */,
 				1EFC858A29A54FA2009F471F /* AppDelegate */,
-				1EFC858929A54F84009F471F /* Utilities */,
 				2714915B299FB286008BC7F6 /* Assets.xcassets */,
 				27149160299FB286008BC7F6 /* Info.plist */,
 				27149158299FB285008BC7F6 /* Shopify.xcdatamodeld */,
@@ -732,6 +746,7 @@
 				1EFCB28A29A5BF2F00FAA46D /* CatCollectionViewCell.xib in Resources */,
 				4F1CB56129AA34A200DE0DA4 /* SettingsCell.xib in Resources */,
 				1EFCB27829A55D2F00FAA46D /* OrderStoryboard.storyboard in Resources */,
+				038A6BF229AF9E0700FDB0E3 /* SearchStoryboard.storyboard in Resources */,
 				27149157299FB285008BC7F6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -890,6 +905,7 @@
 				4F6719F429A960C500523EC8 /* ShoppingCartCell.swift in Sources */,
 				1EC917BB29AC552000266D23 /* GenericProtocol.swift in Sources */,
 				4F0A2B6C29AAA2CE008B2F1D /* AboutUsViewController.swift in Sources */,
+				038A6BF029AF97ED00FDB0E3 /* SearchViewController.swift in Sources */,
 				1E9BD5EF29AA8B2F00AAD8AB /* Brands.swift in Sources */,
 				0342F40A29AECB1300E9C540 /* ReviewCollectionViewCell.swift in Sources */,
 				4FB70D1429ADAFFC00087DC9 /* DiscountCode.swift in Sources */,
