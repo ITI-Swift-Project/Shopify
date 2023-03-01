@@ -10,10 +10,18 @@ import UIKit
 class ProductDetailsViewController: UIViewController , UICollectionViewDelegate , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     var arrImgs = [UIImage(named: "product")!, UIImage(named: "tmp")!, UIImage(named: "tmpBrand")]
-    
+    var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review1")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
     var timer :  Timer?
     var currentCellIndex  = 0
+    
+    @IBOutlet weak var reviewCV: UICollectionView!
+    
+    
     @IBOutlet weak var favBtn: UIButton!
+    
+    @IBOutlet weak var myscroll: UIScrollView!
+    
+    
     
     @IBOutlet weak var imgsCV: UICollectionView!
     
@@ -48,15 +56,18 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        myscroll.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 210)
         imgsCV.delegate = self
         imgsCV.dataSource = self
+        reviewCV.dataSource = self
+        reviewCV.delegate = self
         pageController.numberOfPages = arrImgs.count
         startTimer()
       //  txtView.layer.cornerRadius = txtView.frame.size.height / 2
       // txtView.clipsToBounds = true
-        productV.layer.cornerRadius = productV.frame.size.height / 8
-       productV.clipsToBounds = true
+        txtView.isEditable = false
+        myscroll.layer.cornerRadius = myscroll.frame.size.height / 9
+       myscroll.clipsToBounds = true
         
         cartBtn.layer.cornerRadius = cartBtn.frame.size.height / 2
         cartBtn.clipsToBounds = true
@@ -111,14 +122,29 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arrImgs.count
+        if collectionView == imgsCV
+        {
+            return arrImgs.count
+        }
+        return arrReviews.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productDetailsCell", for: indexPath) as! ProductDetailsCollectionViewCell
-        cell.productDetailsImg.image = arrImgs[indexPath.row]
+        if collectionView == imgsCV
+        {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productDetailsCell", for: indexPath) as! ProductDetailsCollectionViewCell
+            cell.productDetailsImg.image = arrImgs[indexPath.row]
+            return cell
+        }
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "reviewCell", for: indexPath) as! ReviewCollectionViewCell
+        let rev = arrReviews[indexPath.row]
+        cell.setReview(img: rev.img, name: rev.name, txt: rev.reviewTxt)
         return cell
     }
+    
+    
+
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: imgsCV.frame.width, height: imgsCV.frame.height)
@@ -139,3 +165,12 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     */
 
 }
+
+struct Reviews
+{
+    let img : UIImage
+    let name : String
+    let reviewTxt : String
+    
+}
+
