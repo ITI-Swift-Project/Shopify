@@ -9,6 +9,8 @@ import UIKit
 
 class ProductDetailsViewController: UIViewController , UICollectionViewDelegate , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
+    var arrProducts : [Product] = []
+    
     var arrImgs = [UIImage(named: "product")!, UIImage(named: "tmp")!, UIImage(named: "tmpBrand")]
     var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review1")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
     var timer :  Timer?
@@ -124,17 +126,21 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == imgsCV
         {
-            return arrImgs.count
+            return arrProducts.count
         }
-        return arrReviews.count
+        return arrProducts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == imgsCV
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productDetailsCell", for: indexPath) as! ProductDetailsCollectionViewCell
-            cell.productDetailsImg.image = arrImgs[indexPath.row]
+           // cell.productDetailsImg(name: URL(string: (arrProducts[indexPath.row])))
+            cell.productDetailsImg.kf.setImage(with: URL(string: ((arrProducts[indexPath.row].images?[0])?.src!)!))
             return cell
+            
+           // cell.productDetailsImg(name:URL(string : (arrProducts[indexPath.row].images!)))
+           // return cell
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "reviewCell", for: indexPath) as! ReviewCollectionViewCell
