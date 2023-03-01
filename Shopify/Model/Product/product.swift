@@ -11,6 +11,7 @@ struct Product : Codable {
     var title : String?
     var vendor : String?
     var product_type : String?
+//    var sort_order : String?
    // var handle : String?
     var variants : [Variants]?
     var images : [Image]?

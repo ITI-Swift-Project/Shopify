@@ -24,7 +24,10 @@ enum APIEndpoint {
     case sale
     case home
     case discountCodes
-    
+//    case accessories
+//    case T_shirt
+//    case shoes
+    case filteration
     var path: String {
         switch self {
         case .products:
@@ -47,10 +50,24 @@ enum APIEndpoint {
             return "/admin/products.json?collection_id=437625225520"
         case .discountCodes:
             return "/admin/api/2023-01/price_rules/1382520553776/discount_codes.json"
+        case .filteration:
+          return  "/admin/api/2023-01/products.json?collection_id="
+            
         }
     }
+    func urlTofiltrtionCategory(forShopName shopName: String,product_type : String) -> URL {
+        let urlString = "https://\(shopName).myshopify.com\(self.path)&product_type=\(product_type)"
+        return URL(string:urlString)!
+    }
+    func urlTofiltrtion(forShopName shopName: String,product_type : String) -> URL {
+        
+            let urlString = "https://\(shopName).myshopify.com\(self.path)?product_type=\(product_type)"
+        
+        return URL(string: urlString)!
+    }
     func urlWithId(forShopName shopName: String,brandId : Int) -> URL {
-           let urlString = "https://\(shopName).myshopify.com\(self.path)\(brandId)"
+        
+        let urlString = "https://\(shopName).myshopify.com\(self.path)\(brandId)"
            return URL(string: urlString)!
        }
     func url(forShopName shopName: String) -> URL {
