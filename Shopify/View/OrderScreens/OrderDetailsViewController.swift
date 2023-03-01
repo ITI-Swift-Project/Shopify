@@ -18,8 +18,8 @@ class OrderDetailsViewController: UIViewController {
     @IBOutlet weak var bgFrame: UIView!
     
     @IBAction func placeOrder(_ sender: Any) {
-        let paymentVC = storyboard?.instantiateViewController(withIdentifier: "payment") as! PaymentViewController
-        navigationController?.pushViewController(paymentVC, animated: true)
+        let confirmAddressVC = storyboard?.instantiateViewController(withIdentifier: "chooseAddress") as! ConfirmAddressViewController
+        navigationController?.pushViewController(confirmAddressVC, animated: true)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
