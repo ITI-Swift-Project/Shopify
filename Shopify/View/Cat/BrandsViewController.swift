@@ -121,7 +121,12 @@ class BrandsViewController: UIViewController {
     }
 }
 extension BrandsViewController : UICollectionViewDelegate{
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+        let productDetailsViewController = storyBoard.instantiateViewController(withIdentifier: "productDetails") as! ProductDetailsViewController
+        productDetailsViewController.arrProducts = filterItems[indexPath.row]
+        self.navigationController?.pushViewController(productDetailsViewController, animated: true)
+    }
 }
 extension BrandsViewController : UICollectionViewDataSource{
     func numberOfSections(in collectionView: UICollectionView) -> Int {

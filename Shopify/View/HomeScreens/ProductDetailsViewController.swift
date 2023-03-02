@@ -59,10 +59,6 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         super.viewDidLoad()
         
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
-        
-        
         // Do any additional setup after loading the view.
         myscroll.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 210)
         imgsCV.delegate = self
@@ -107,9 +103,6 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
       color3.clipsToBounds = true
         color4.layer.cornerRadius = color4.frame.size.height / 2
       color4.clipsToBounds = true
-    }
-    @objc func addTapped(){
-        self.navigationController?.popViewController(animated: true)
     }
     func startTimer()
     {

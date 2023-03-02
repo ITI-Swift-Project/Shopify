@@ -156,6 +156,10 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="catCollection" destination="sek-vI-6vg" id="n4g-mZ-8S4"/>
+                        <outlet property="kids" destination="HlI-nr-7GT" id="Sk6-II-a3V"/>
+                        <outlet property="menButton" destination="ljk-LV-4dp" id="Q3j-7Q-THT"/>
+                        <outlet property="sale" destination="Iyl-66-MLf" id="bhH-Na-z77"/>
+                        <outlet property="woman" destination="f1l-2t-ywj" id="Yk1-xW-L7Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

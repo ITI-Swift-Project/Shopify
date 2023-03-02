@@ -78,7 +78,12 @@ extension SearchViewController : UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catCell", for: indexPath) as! CateCollectionViewCell
-        cell.configImg(name:URL(string : (productsArray2[indexPath.row].image?.src!)!)!)
+        
+        if let urlString = productsArray2[indexPath.row].image?.src,
+            let url = URL(string: urlString) {
+            cell.configImg(name: url)
+        }
+//        cell.configImg(name:URL(string : (productsArray2[indexPath.row].image?.src!)!)!)
         cell.configProductInfo(name: productsArray2[indexPath.row].title!, vendor: productsArray2[indexPath.row].vendor!, type: productsArray2[indexPath.row].product_type!)
         
         cell.layer.cornerRadius  = 25.0

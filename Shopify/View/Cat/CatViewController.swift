@@ -13,7 +13,11 @@ class CatViewController: UIViewController {
     var floaty : Floaty?
     var flag : Int = 0
     var categoryId : URL?
+    @IBOutlet weak var kids: UIBarButtonItem!
     
+    @IBOutlet weak var sale: UIBarButtonItem!
+    @IBOutlet weak var woman: UIBarButtonItem!
+    @IBOutlet weak var menButton: UIBarButtonItem!
     @IBOutlet weak var catCollection: UICollectionView!{
         didSet{
             catCollection.delegate = self
@@ -32,6 +36,10 @@ class CatViewController: UIViewController {
     }
    
     override func viewWillAppear(_ animated: Bool) {
+        menButton.tintColor = UIColor.white
+        woman.tintColor = UIColor.white
+        kids.tintColor = UIColor.white
+        sale.tintColor = UIColor.white
         let endPoint = APIEndpoint.products
         filterDataByType(endPoint: endPoint)
     }
@@ -133,6 +141,10 @@ class CatViewController: UIViewController {
         self.navigationController?.pushViewController(searchViewController, animated: true)
     }
     @IBAction func filterByMen(_ sender: Any) {
+        menButton.tintColor = UIColor.black
+        woman.tintColor = UIColor.white
+        kids.tintColor = UIColor.white
+        sale.tintColor = UIColor.white
         flag = 1
         let endPoint = APIEndpoint.men
         filterDataByType(endPoint: endPoint)
@@ -140,16 +152,28 @@ class CatViewController: UIViewController {
     }
     
     @IBAction func filterByWomen(_ sender: Any) {
+        menButton.tintColor = UIColor.white
+        woman.tintColor = UIColor.black
+        kids.tintColor = UIColor.white
+        sale.tintColor = UIColor.white
         flag = 2
         let endPoint = APIEndpoint.wowen
         filterDataByType(endPoint: endPoint)
     }
     @IBAction func filterByKids(_ sender: Any) {
+        menButton.tintColor = UIColor.white
+        woman.tintColor = UIColor.white
+        kids.tintColor = UIColor.black
+        sale.tintColor = UIColor.white
         flag = 3
         let endPoint = APIEndpoint.kids
         filterDataByType(endPoint: endPoint)
     }
     @IBAction func filterBySale(_ sender: Any) {
+        menButton.tintColor = UIColor.white
+        woman.tintColor = UIColor.white
+        kids.tintColor = UIColor.white
+        sale.tintColor = UIColor.black
         flag = 4
         let endPoint = APIEndpoint.sale
         filterDataByType(endPoint:endPoint )
@@ -233,8 +257,14 @@ extension CatViewController : UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catCell", for: indexPath) as! CateCollectionViewCell
-        
-        cell.configImg(name:URL(string : (result[indexPath.row].image?.src!)!)!)
+
+        if let urlString = result[indexPath.row].image?.src,
+            let url = URL(string: urlString) {
+            cell.configImg(name: url)
+        }
+
+//        let name : String = result[indexPath.row].image?.src ?? ""
+//        cell.configImg(name:((URL(string : name) ?? URL(string: "")) ??  URL(string: ""))!)
         cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, type: result[indexPath.row].product_type!)
 //        cell.layer.borderColor   = UIColor.systemGray.cgColor
 //            cell.layer.shadowOpacity = 20
