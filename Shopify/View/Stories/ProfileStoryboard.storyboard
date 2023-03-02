@@ -3,8 +3,10 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -76,7 +78,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YwJ-CL-shK">
-                                <rect key="frame" x="327" y="59" width="50" height="50"/>
+                                <rect key="frame" x="333" y="78" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" image="shoppingCart" title="" cornerStyle="capsule">
@@ -87,10 +89,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xgI-0l-exh">
-                                <rect key="frame" x="249" y="59" width="50" height="50"/>
+                                <rect key="frame" x="281" y="78" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" image="Heart" title="" cornerStyle="capsule">
+                                <buttonConfiguration key="configuration" style="gray" image="suit" title="" cornerStyle="capsule">
                                     <color key="baseBackgroundColor" name="thirdColor"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -98,7 +100,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ig0-Oe-7wR">
-                                <rect key="frame" x="16" y="59" width="50" height="50"/>
+                                <rect key="frame" x="16" y="78" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" image="settings" title="" cornerStyle="capsule">
@@ -261,49 +263,49 @@
                                     <constraint firstItem="euW-ag-Xhv" firstAttribute="top" secondItem="1gS-k0-2Px" secondAttribute="bottom" constant="10.67" id="wcV-IK-fTs"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CNY-tU-9cE">
-                                <rect key="frame" x="337" y="86" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIf-AT-gae">
-                                        <rect key="frame" x="-2" y="3" width="44" height="34"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="shoppingCart" title=""/>
-                                        <connections>
-                                            <action selector="cartAction:" destination="bog-RG-Q6U" eventType="touchUpInside" id="ywf-kD-Nsb"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" name="thirdColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pdc-9H-zeO">
-                                <rect key="frame" x="285" y="86" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQl-hs-H2G">
-                                        <rect key="frame" x="-4" y="-4" width="48" height="48"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="suit" cornerStyle="capsule">
-                                            <color key="baseForegroundColor" name="thirdColor"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="wishListAction:" destination="bog-RG-Q6U" eventType="touchUpInside" id="Kfb-7e-LQg"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" name="thirdColor"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFz-ui-iya">
                                 <rect key="frame" x="16" y="86" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" image="arrowshape.turn.up.left.fill" catalog="system" title="" cornerStyle="capsule">
+                                <buttonConfiguration key="configuration" style="gray" title="" cornerStyle="capsule">
+                                    <imageReference key="image" image="arrowshape.turn.up.left.fill" catalog="system" renderingMode="hierarchical">
+                                        <hierarchicalColors>
+                                            <color name="firstColor"/>
+                                            <color systemColor="secondaryLabelColor"/>
+                                            <color systemColor="tertiaryLabelColor"/>
+                                        </hierarchicalColors>
+                                    </imageReference>
                                     <color key="baseBackgroundColor" name="thirdColor"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="backAction:" destination="bog-RG-Q6U" eventType="touchUpInside" id="tAx-ck-Jmp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIf-AT-gae">
+                                <rect key="frame" x="337" y="88" width="48" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="shoppingCart" title="" cornerStyle="capsule">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" name="thirdColor"/>
+                                    </backgroundConfiguration>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="cartAction:" destination="bog-RG-Q6U" eventType="touchUpInside" id="ywf-kD-Nsb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQl-hs-H2G">
+                                <rect key="frame" x="273" y="88" width="48" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="suit" cornerStyle="capsule">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" name="thirdColor"/>
+                                    </backgroundConfiguration>
+                                    <color key="baseForegroundColor" name="thirdColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="wishListAction:" destination="bog-RG-Q6U" eventType="touchUpInside" id="Kfb-7e-LQg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -320,8 +322,6 @@
                     <connections>
                         <outlet property="bgFrame" destination="UIf-Nb-sEQ" id="rg3-kS-EhS"/>
                         <outlet property="settingsTable" destination="euW-ag-Xhv" id="aTz-ii-kmS"/>
-                        <outlet property="shoppingCartFrame" destination="CNY-tU-9cE" id="pAh-pj-n5v"/>
-                        <outlet property="wishListFrame" destination="pdc-9H-zeO" id="6bo-c8-TsZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0L0-TS-Erq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -792,7 +792,6 @@ Mahmoud Refaat</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Heart" width="20" height="19"/>
         <image name="arrowshape.turn.up.left.fill" catalog="system" width="128" height="104"/>
         <image name="dot.circle" catalog="system" width="128" height="123"/>
         <image name="map.fill" catalog="system" width="128" height="110"/>
@@ -808,7 +807,13 @@ Mahmoud Refaat</string>
             <color red="0.62000000476837158" green="0.70200002193450928" blue="0.76099997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="thirdColor">
-            <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

@@ -64,7 +64,14 @@
                                 <rect key="frame" x="16" y="59" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" image="arrowshape.turn.up.left.fill" catalog="system" title="" cornerStyle="capsule">
+                                <buttonConfiguration key="configuration" style="gray" title="" cornerStyle="capsule">
+                                    <imageReference key="image" image="arrowshape.turn.up.left.fill" catalog="system" renderingMode="hierarchical">
+                                        <hierarchicalColors>
+                                            <color name="firstColor"/>
+                                            <color systemColor="secondaryLabelColor"/>
+                                            <color systemColor="tertiaryLabelColor"/>
+                                        </hierarchicalColors>
+                                    </imageReference>
                                     <color key="baseBackgroundColor" name="thirdColor"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -259,7 +266,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="IKh-Jd-gSh">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="9Ib-77-zdG">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="ACr-Xr-zaf">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="ACr-Xr-zaf">
                                 <rect key="frame" x="16" y="2" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
@@ -546,6 +553,9 @@
         <namedColor name="thirdColor">
             <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

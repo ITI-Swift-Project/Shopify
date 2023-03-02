@@ -55,7 +55,7 @@ class BrandsViewController: UIViewController {
     func createFloatyButton(){
         floaty = Floaty()
 //        floaty?.tintColor = UIColor(named:"third" )
-        floaty?.buttonColor = UIColor(named: "HomeCellBackground")!
+        floaty?.buttonColor = UIColor(named: "firstColor")!
         floaty?.backgroundColor = UIColor(named: "third")
         floaty?.size = CGFloat(70)
         floaty?.buttonImage = UIImage(named: "filter 2")
@@ -134,7 +134,7 @@ extension BrandsViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catCell", for: indexPath) as! CateCollectionViewCell
         cell.configImg(name: URL(string: (filterItems[indexPath.row].image?.src!)!)!)
-        cell.confirstLabel(name: filterItems[indexPath.row].title!)
+        cell.configProductInfo(name: filterItems[indexPath.row].title!, vendor: filterItems[indexPath.row].vendor!, type: filterItems[indexPath.row].product_type!)
         cell.layer.cornerRadius  = 25.0
         return cell
     }
@@ -144,7 +144,7 @@ extension BrandsViewController : UICollectionViewDataSource{
 extension BrandsViewController : UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 2 - 20, height: self.view.frame.height * 0.25)
+        return CGSize(width: self.view.frame.width / 2 - 20, height: self.view.frame.height * 0.3)
         
     }
     

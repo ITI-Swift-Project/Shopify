@@ -18,8 +18,8 @@ class TabBarViewController: UITabBarController {
         self.tabBar.layer.masksToBounds = true
         self.tabBar.isTranslucent       = true
 //        self.tabBar.layer.borderWidth   = 5
-        self.tabBar.layer.borderColor   = UIColor(named: "HomeCellBackground")?.cgColor
-        self.tabBar.backgroundColor = UIColor(named: "HomeCellBackground")
+        self.tabBar.layer.borderColor   = UIColor(named: "firstColor")?.cgColor
+        self.tabBar.backgroundColor = UIColor(named: "firstColor")
         self.tabBar.layer.cornerRadius  = UIScreen.main.bounds.width / 20
 //        self.tabBar.app
         UITabBar.appearance().isTranslucent = true

@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CZM-tj-DHt">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZM-tj-DHt">
                                 <rect key="frame" x="0.0" y="147" width="393" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="jYu-PJ-Pbq"/>
@@ -51,15 +52,15 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Mwa-KT-lim"/>
                                 </items>
-                                <color key="barTintColor" name="HomeCellBackground"/>
+                                <color key="barTintColor" name="firstColor"/>
                             </toolbar>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IM7-ZA-sRX">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IM7-ZA-sRX">
                                 <rect key="frame" x="0.0" y="103" width="393" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="5hg-mX-uAQ"/>
                                     <barButtonItem style="plain" id="Bqf-MP-czk">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="pYD-Xi-Jqy">
-                                            <rect key="frame" x="16.666666666666671" y="0.0" width="44" height="44"/>
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="pYD-Xi-Jqy">
+                                            <rect key="frame" x="16.333333333333329" y="0.0" width="44" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="gray" image="Search" title="" cornerStyle="capsule">
@@ -85,10 +86,10 @@
                                     <barButtonItem width="20" style="plain" systemItem="flexibleSpace" id="089-Nb-wu5"/>
                                     <barButtonItem style="plain" id="Xte-3Z-mBe">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="jup-4q-mdr">
-                                            <rect key="frame" x="276" y="2" width="40" height="40"/>
+                                            <rect key="frame" x="272.33333333333331" y="0.0" width="44" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="gray" image="Heart" title="" cornerStyle="capsule" buttonSize="mini">
+                                            <buttonConfiguration key="configuration" style="gray" image="suit" title="" cornerStyle="capsule" buttonSize="mini">
                                                 <color key="baseBackgroundColor" name="ButtonBackground"/>
                                             </buttonConfiguration>
                                             <connections>
@@ -99,10 +100,10 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Fe3-2c-xGy"/>
                                     <barButtonItem style="plain" id="V0t-lK-Crj">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Nvr-Ri-PnD">
-                                            <rect key="frame" x="332.33333333333331" y="0.0" width="44" height="44"/>
+                                            <rect key="frame" x="332.66666666666669" y="0.0" width="44" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="gray" image="cart" title="" cornerStyle="capsule">
+                                            <buttonConfiguration key="configuration" style="gray" image="shoppingCart" title="" cornerStyle="capsule">
                                                 <color key="baseBackgroundColor" name="ButtonBackground"/>
                                             </buttonConfiguration>
                                             <connections>
@@ -112,11 +113,11 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Pw3-cd-az0"/>
                                 </items>
-                                <color key="barTintColor" name="HomeCellBackground"/>
+                                <color key="barTintColor" name="firstColor"/>
                             </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sek-vI-6vg">
                                 <rect key="frame" x="0.0" y="191" width="393" height="578"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="thirdColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zQh-zX-cWr">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -136,7 +137,7 @@
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" name="HomeCellBackground"/>
+                        <color key="backgroundColor" name="firstColor"/>
                         <constraints>
                             <constraint firstItem="IM7-ZA-sRX" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="5FM-Kf-roX"/>
                             <constraint firstItem="sek-vI-6vg" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="8Kw-yh-6dj"/>
@@ -184,7 +185,14 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THh-MR-Smp">
                                                 <rect key="frame" x="8" y="8" width="40" height="40"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="gray" image="arrowshape.turn.up.left.fill" catalog="system" title="" cornerStyle="capsule" buttonSize="mini">
+                                                <buttonConfiguration key="configuration" style="gray" title="" cornerStyle="capsule" buttonSize="mini">
+                                                    <imageReference key="image" image="arrowshape.turn.up.left.fill" catalog="system" renderingMode="hierarchical">
+                                                        <hierarchicalColors>
+                                                            <color name="firstColor"/>
+                                                            <color systemColor="secondaryLabelColor"/>
+                                                            <color systemColor="tertiaryLabelColor"/>
+                                                        </hierarchicalColors>
+                                                    </imageReference>
                                                     <color key="baseBackgroundColor" name="thirdColor"/>
                                                 </buttonConfiguration>
                                                 <connections>
@@ -192,7 +200,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" name="HomeCellBackground"/>
+                                        <color key="backgroundColor" name="firstColor"/>
                                         <constraints>
                                             <constraint firstItem="dtF-PJ-oqf" firstAttribute="leading" secondItem="THh-MR-Smp" secondAttribute="trailing" constant="28" id="9m9-8c-KHP"/>
                                             <constraint firstItem="dtF-PJ-oqf" firstAttribute="width" secondItem="VX1-c5-xXj" secondAttribute="width" multiplier="0.580153" id="B1f-MH-mFT"/>
@@ -220,7 +228,7 @@
                                                 </connections>
                                             </slider>
                                         </subviews>
-                                        <color key="backgroundColor" name="HomeCellBackground"/>
+                                        <color key="backgroundColor" name="firstColor"/>
                                         <constraints>
                                             <constraint firstItem="vWG-FK-gOJ" firstAttribute="height" secondItem="yda-3z-6R1" secondAttribute="height" multiplier="0.555556" id="OWu-3V-whP"/>
                                             <constraint firstItem="XQ0-t3-NkG" firstAttribute="leading" secondItem="yda-3z-6R1" secondAttribute="leading" constant="8" id="Vkl-66-ewY"/>
@@ -233,9 +241,9 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" name="HomeCellBackground"/>
+                                <color key="backgroundColor" name="firstColor"/>
                                 <constraints>
-                                    <constraint firstItem="yda-3z-6R1" firstAttribute="top" secondItem="VX1-c5-xXj" secondAttribute="bottom" symbolic="YES" id="2GI-2G-vzm"/>
+                                    <constraint firstItem="yda-3z-6R1" firstAttribute="top" secondItem="VX1-c5-xXj" secondAttribute="bottom" constant="8" symbolic="YES" id="2GI-2G-vzm"/>
                                     <constraint firstItem="VX1-c5-xXj" firstAttribute="height" secondItem="kEw-fF-Spk" secondAttribute="height" multiplier="0.427481" id="2II-db-eFF"/>
                                     <constraint firstItem="yda-3z-6R1" firstAttribute="leading" secondItem="kEw-fF-Spk" secondAttribute="leading" id="8uH-Dr-9PD"/>
                                     <constraint firstItem="yda-3z-6R1" firstAttribute="height" secondItem="kEw-fF-Spk" secondAttribute="height" multiplier="0.412214" id="90v-kT-rfS"/>
@@ -249,7 +257,7 @@
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nXz-31-pVa">
                                 <rect key="frame" x="0.0" y="198" width="393" height="620"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="thirdColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nsH-rz-mlf">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -269,7 +277,7 @@
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JmK-r8-y0M"/>
-                        <color key="backgroundColor" name="HomeCellBackground"/>
+                        <color key="backgroundColor" name="firstColor"/>
                         <constraints>
                             <constraint firstItem="kEw-fF-Spk" firstAttribute="trailing" secondItem="JmK-r8-y0M" secondAttribute="trailing" id="1vd-st-NyU"/>
                             <constraint firstItem="kEw-fF-Spk" firstAttribute="width" secondItem="CZk-o7-7zM" secondAttribute="width" id="6Wi-2a-81p"/>
@@ -315,21 +323,24 @@
     </scenes>
     <resources>
         <image name="Cat" width="30" height="30"/>
-        <image name="Heart" width="20" height="19"/>
         <image name="Search" width="20" height="20"/>
         <image name="arrowshape.turn.up.left.fill" catalog="system" width="128" height="104"/>
-        <image name="cart" width="20" height="20"/>
+        <image name="shoppingCart" width="20" height="20"/>
+        <image name="suit" width="24" height="24"/>
         <namedColor name="ButtonBackground">
             <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="HomeCellBackground">
-            <color red="0.082000002264976501" green="0.37999999523162842" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="firstColor">
+            <color red="0.024000000208616257" green="0.22200000286102295" blue="0.36700001358985901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="thirdColor">
-            <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
