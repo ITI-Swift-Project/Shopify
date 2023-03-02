@@ -26,8 +26,11 @@ class CatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createFloatyButton()
+       
+
         
     }
+   
     override func viewWillAppear(_ animated: Bool) {
         let endPoint = APIEndpoint.products
         filterDataByType(endPoint: endPoint)
@@ -122,6 +125,13 @@ class CatViewController: UIViewController {
         
     }
    
+    @IBAction func searchAction(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "SearchStoryboard", bundle: nil)
+        let searchViewController = storyBoard.instantiateViewController(withIdentifier: "search") as! SearchViewController
+        searchViewController.productsArray = result
+        //productDetailsViewController.arrProducts = result
+        self.navigationController?.pushViewController(searchViewController, animated: true)
+    }
     @IBAction func filterByMen(_ sender: Any) {
         flag = 1
         let endPoint = APIEndpoint.men
@@ -159,6 +169,10 @@ class CatViewController: UIViewController {
         }
     }
     
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+   
     
     func getFilterResltFloatyButton(endPoint : APIEndpoint,product_type : String)->Void{
         let url = endPoint.urlTofiltrtionCategory(forShopName: NetworkService.baseUrl, product_type: product_type)
@@ -189,6 +203,20 @@ class CatViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func wishList(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
+        let wishListViewController = storyBoard.instantiateViewController(withIdentifier: "wishList") as! WishViewController
+        //productDetailsViewController.arrProducts = result
+        self.navigationController?.pushViewController(wishListViewController, animated: true)
+    }
+    
+    @IBAction func cartAction(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
+        let cartViewController = storyBoard.instantiateViewController(withIdentifier: "shoppingCart") as! CartViewController
+       
+        self.navigationController?.pushViewController(cartViewController, animated: true)
+    }
 }
 extension CatViewController : UICollectionViewDelegate
 {
@@ -213,6 +241,12 @@ extension CatViewController : UICollectionViewDataSource
 //        cell.layer.borderWidth   = 3.0
         cell.layer.cornerRadius  = 25.0
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+        let productDetailsViewController = storyBoard.instantiateViewController(withIdentifier: "productDetails") as! ProductDetailsViewController
+        productDetailsViewController.arrProducts = result[indexPath.row]
+        self.navigationController?.pushViewController(productDetailsViewController, animated: true)
     }
     
     

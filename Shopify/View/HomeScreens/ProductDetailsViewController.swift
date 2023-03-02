@@ -9,7 +9,7 @@ import UIKit
 
 class ProductDetailsViewController: UIViewController , UICollectionViewDelegate , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
-    var arrProducts : [Product] = []
+    var arrProducts : Product? 
     
     var arrImgs = [UIImage(named: "product")!, UIImage(named: "tmp")!, UIImage(named: "tmpBrand")]
     var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review1")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
@@ -57,6 +57,12 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
+        
+        
         // Do any additional setup after loading the view.
         myscroll.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 210)
         imgsCV.delegate = self
@@ -102,7 +108,9 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         color4.layer.cornerRadius = color4.frame.size.height / 2
       color4.clipsToBounds = true
     }
-    
+    @objc func addTapped(){
+        self.navigationController?.popViewController(animated: true)
+    }
     func startTimer()
     {
         timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(moveToNextIndex), userInfo: nil, repeats: true)
@@ -126,9 +134,9 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == imgsCV
         {
-            return arrProducts.count
+            return (arrProducts?.images?.count)!
         }
-        return arrProducts.count
+        return (arrProducts?.images!.count)!
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -136,7 +144,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productDetailsCell", for: indexPath) as! ProductDetailsCollectionViewCell
            // cell.productDetailsImg(name: URL(string: (arrProducts[indexPath.row])))
-            cell.productDetailsImg.kf.setImage(with: URL(string: ((arrProducts[indexPath.row].images?[0])?.src!)!))
+            cell.productDetailsImg.kf.setImage(with: URL(string: ((arrProducts?.images?[indexPath.row])?.src!)!))
             return cell
             
            // cell.productDetailsImg(name:URL(string : (arrProducts[indexPath.row].images!)))
@@ -170,6 +178,9 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     }
     */
 
+    @IBAction func backAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
 struct Reviews

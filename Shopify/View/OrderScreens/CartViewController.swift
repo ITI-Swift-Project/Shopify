@@ -49,8 +49,12 @@ class CartViewController: UIViewController {
 
           //   subTotal.text = String(shoppingCartItemsList.reduce(p1, { x, y in x + y }))
         }
+    
         
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
+}
 
 extension CartViewController : UICollectionViewDataSource,UICollectionViewDelegate
 {
@@ -120,15 +124,19 @@ extension CartViewController
 {
     @objc func increaseProductsCount(sender : UIButton)
     {
+        
         if  shoppingCartItemsList[sender.tag].cartItemCount < 20
         {
             shoppingCartItemsList[sender.tag].cartItemCount = shoppingCartItemsList[sender.tag].cartItemCount + 1
+            
         }
         else
         {
             shoppingCartItemsList[sender.tag].cartItemCount = 20
         }
+        total += Float(shoppingCartItemsList[sender.tag].cartItemCount) * shoppingCartItemsList[sender.tag].cartItemPrice
         shoppingCartItemsList[sender.tag].cartItemSubTotal = Float(shoppingCartItemsList[sender.tag].cartItemCount) * shoppingCartItemsList[sender.tag].cartItemPrice
+        subTotal.text = String(total )
             self.shoppingCartCollectionView.reloadData()
         }
     

@@ -89,6 +89,9 @@
                                                         <buttonConfiguration key="configuration" style="gray" image="Search" title="" cornerStyle="capsule" buttonSize="mini">
                                                             <color key="baseBackgroundColor" name="ButtonBackground"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="searchButtonAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="tM0-4c-gSd"/>
+                                                        </connections>
                                                     </button>
                                                 </barButtonItem>
                                                 <rightBarButtonItems>
@@ -100,6 +103,9 @@
                                                             <buttonConfiguration key="configuration" style="gray" image="cart" title="" cornerStyle="capsule" buttonSize="mini">
                                                                 <color key="baseBackgroundColor" name="ButtonBackground"/>
                                                             </buttonConfiguration>
+                                                            <connections>
+                                                                <action selector="cartAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="VJ6-vv-SQD"/>
+                                                            </connections>
                                                         </button>
                                                     </barButtonItem>
                                                     <barButtonItem id="nu5-Hn-4K0">
@@ -110,6 +116,9 @@
                                                             <buttonConfiguration key="configuration" style="gray" image="Heart" title="" cornerStyle="capsule" buttonSize="mini">
                                                                 <color key="baseBackgroundColor" name="ButtonBackground"/>
                                                             </buttonConfiguration>
+                                                            <connections>
+                                                                <action selector="wishAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="kAC-wS-4yc"/>
+                                                            </connections>
                                                         </button>
                                                     </barButtonItem>
                                                 </rightBarButtonItems>
@@ -177,7 +186,7 @@
         <!--Product Details View Controller-->
         <scene sceneID="IpA-39-0Rh">
             <objects>
-                <viewController id="onN-Q3-YBs" customClass="ProductDetailsViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="productDetails" id="onN-Q3-YBs" customClass="ProductDetailsViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HgR-Qk-cGW">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="1200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -198,6 +207,9 @@
                                 <buttonConfiguration key="configuration" style="plain" image="arrow.backward" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="25"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="backAction:" destination="onN-Q3-YBs" eventType="touchUpInside" id="7FG-1q-dMR"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GkD-Wz-Bbi">
                                 <rect key="frame" x="8" y="160" width="377" height="220"/>

@@ -121,7 +121,25 @@ class SignUpViewController: UIViewController {
        
     }
     
-
+    @IBAction func signUP(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
+        
+        self.navigationController?.pushViewController(brandsViewController, animated: true)
+    }
+    
+    @IBAction func signIn(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Authenticate", bundle: nil)
+        let singInViewController = storyBoard.instantiateViewController(withIdentifier: "signIn") as! LoginViewController
+        
+        self.navigationController?.pushViewController(singInViewController, animated: true)
+    }
+    @IBAction func skipAction(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
+        
+        self.navigationController?.pushViewController(brandsViewController, animated: true)
+    }
     /*
     // MARK: - Navigation
 

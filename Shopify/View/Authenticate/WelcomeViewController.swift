@@ -33,8 +33,22 @@ class WelcomeViewController: UIViewController {
         
         self.navigationController?.pushViewController(brandsViewController, animated: true)
     }
+    @IBAction func signUp(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Authenticate", bundle: nil)
+        let singUpViewController = storyBoard.instantiateViewController(withIdentifier: "signUp") as! SignUpViewController
+        
+        self.navigationController?.pushViewController(singUpViewController, animated: true)
+    }
+
+     @IBAction func signIn(_ sender: Any) {
+         let storyBoard: UIStoryboard = UIStoryboard(name: "Authenticate", bundle: nil)
+         let singInViewController = storyBoard.instantiateViewController(withIdentifier: "signIn") as! LoginViewController
+         
+         self.navigationController?.pushViewController(singInViewController, animated: true)
+         
+     }
     /*
-    // MARK: - Navigation
+     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
