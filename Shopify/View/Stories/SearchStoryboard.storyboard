@@ -12,25 +12,23 @@
         <!--Search View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="SearchViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="search" id="Y6W-OH-hqX" customClass="SearchViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A1R-Ee-TuL">
-                                <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="A1R-Ee-TuL">
+                                <rect key="frame" x="70" y="59" width="323" height="56"/>
                                 <color key="backgroundColor" red="0.6004506946" green="0.94766598940000002" blue="0.75924926999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="LRS-kG-k2r"/>
                                 </connections>
                             </searchBar>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yM1-AW-LKD">
-                                <rect key="frame" x="16" y="135" width="348" height="683"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yM1-AW-LKD">
+                                <rect key="frame" x="0.0" y="131" width="393" height="687"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Rhe-1k-4p9">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Rhe-1k-4p9">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -38,22 +36,48 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Ev5-Z0-NwR">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2Bx-kd-mEq">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Y6W-OH-hqX" id="HRX-AC-30z"/>
+                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="j8Y-YP-RWd"/>
+                                </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rNx-up-XG0">
+                                <rect key="frame" x="9" y="62" width="50" height="50"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="arrowshape.turn.up.left.fill" catalog="system" title="" cornerStyle="capsule"/>
+                                <connections>
+                                    <action selector="backAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="jvB-SE-bj9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="rNx-up-XG0" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="3" id="2Sq-Qw-dR9"/>
+                            <constraint firstItem="rNx-up-XG0" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0586854" id="6XJ-ud-W7t"/>
+                            <constraint firstItem="yM1-AW-LKD" firstAttribute="top" secondItem="A1R-Ee-TuL" secondAttribute="bottom" constant="16" id="6ZK-5W-eyy"/>
+                            <constraint firstItem="A1R-Ee-TuL" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="8Ag-Aq-t3y"/>
+                            <constraint firstItem="A1R-Ee-TuL" firstAttribute="leading" secondItem="rNx-up-XG0" secondAttribute="trailing" constant="11" id="QG5-1l-kwa"/>
+                            <constraint firstItem="A1R-Ee-TuL" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0657277" id="V17-6n-QJd"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="A1R-Ee-TuL" secondAttribute="trailing" id="Vx8-u9-zzg"/>
+                            <constraint firstItem="rNx-up-XG0" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="9" id="ZpV-HB-Bmf"/>
+                            <constraint firstItem="yM1-AW-LKD" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="dYD-uL-V4z"/>
+                            <constraint firstItem="yM1-AW-LKD" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="kRg-w2-rig"/>
+                            <constraint firstItem="rNx-up-XG0" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0586854" id="wd8-yi-XbK"/>
+                            <constraint firstAttribute="trailing" secondItem="yM1-AW-LKD" secondAttribute="trailing" id="y8I-Xf-jpX"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="searchBar" destination="A1R-Ee-TuL" id="MFQ-Hu-kie"/>
-                        <outlet property="searchCV" destination="yM1-AW-LKD" id="aF1-SH-KX2"/>
+                        <outlet property="searchCV" destination="yM1-AW-LKD" id="zip-gu-XTd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -62,6 +86,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrowshape.turn.up.left.fill" catalog="system" width="128" height="104"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

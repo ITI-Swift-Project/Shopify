@@ -42,18 +42,26 @@ class SearchViewController: UIViewController {
             viewModel?.bindingProducts =
             {
                 DispatchQueue.main.async
-                {
+                { [self] in
                     self.productsArray = self.viewModel!.productsResult
                     print(self.productsArray.count)
+                    self.productsArray2 = productsArray
                     self.searchCV.reloadData()
                 }
             }
         }
-        
+        else{
+            productsArray2 = productsArray
+            self.searchCV.reloadData()
+        }
         searchBar.placeholder = "Search"
         definesPresentationContext = true
       //  searchBar.searchre
-        productsArray2 = productsArray
+       
+        print(productsArray2.count)
+    }
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -78,10 +86,10 @@ extension SearchViewController : UICollectionViewDataSource
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        
-            let storyBoard: UIStoryboard = UIStoryboard(name: "CatStoryboard", bundle: nil)
-            let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "brands") as! BrandsViewController
-            brandsViewController.brandId = productsArray2[indexPath.row].id
-            self.navigationController?.pushViewController(brandsViewController, animated: true)
+        let storyBoard: UIStoryboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+        let productDetailsViewController = storyBoard.instantiateViewController(withIdentifier: "productDetails") as! ProductDetailsViewController
+        productDetailsViewController.arrProducts = productsArray2[indexPath.row]
+        self.navigationController?.pushViewController(productDetailsViewController, animated: true)
         }
     
     
@@ -89,12 +97,23 @@ extension SearchViewController : UICollectionViewDataSource
 
 extension SearchViewController : UISearchBarDelegate
 {
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("aaa")
-        productsArray2 = productsArray.filter({ $0 .title!.uppercased().contains(searchText.uppercased())
-        })
-        
+        if(searchText == "")
+        {
+            productsArray2 = productsArray
+        }
+        else
+        {
+            productsArray2 = []
+            print("aaa")
+            productsArray2 = productsArray.filter({ $0 .title!.uppercased().contains(searchText.uppercased())
+            })
+            
+        }
+        searchCV.reloadData()
     }
+    
 }
 extension SearchViewController : UICollectionViewDelegateFlowLayout
 {

@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -57,56 +56,58 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mOU-t3-kla">
-                                        <rect key="frame" x="39" y="8" width="46" height="34"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fu-Xu-Ing">
+                                        <rect key="frame" x="286" y="14" width="95" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="settings"/>
+                                        <buttonConfiguration key="configuration" style="gray" title="see more" cornerStyle="capsule"/>
                                         <connections>
-                                            <action selector="openSettings:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="qtQ-V6-2Ha"/>
+                                            <action selector="ordersScreen:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="fgq-2x-iHC"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" name="thirdColor"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCn-U3-kss">
-                                <rect key="frame" x="175" y="141" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCn-U3-kss">
+                                <rect key="frame" x="90" y="141" width="209" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="35"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bdA-1I-Jmj">
-                                <rect key="frame" x="293" y="91" width="40" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YwJ-CL-shK">
+                                <rect key="frame" x="327" y="59" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uUf-fT-QZm">
-                                        <rect key="frame" x="-4" y="6" width="44" height="34"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="shoppingCart" title=""/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ncq-3u-Yq9">
-                                <rect key="frame" x="218" y="79" width="40" height="40"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="shoppingCart" title="" cornerStyle="capsule">
+                                    <color key="baseBackgroundColor" name="thirdColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="cartAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="0qx-ph-zG0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xgI-0l-exh">
+                                <rect key="frame" x="249" y="59" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtB-uJ-ReY">
-                                        <rect key="frame" x="-4" y="2" width="48" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="suit"/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u61-l1-uk1">
-                                <rect key="frame" x="26" y="72" width="40" height="40"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="Heart" title="" cornerStyle="capsule">
+                                    <color key="baseBackgroundColor" name="thirdColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="wishLIstAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="lck-IF-iRJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ig0-Oe-7wR">
+                                <rect key="frame" x="16" y="59" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="settings" title="" cornerStyle="capsule">
+                                    <color key="baseBackgroundColor" name="thirdColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="openSettings:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="YQ7-FR-hQ2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="firstColor"/>
@@ -121,7 +122,7 @@
         <!--Orders View Controller-->
         <scene sceneID="wyr-tv-vhu">
             <objects>
-                <viewController id="v6Y-R1-gZ0" customClass="OrdersViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="orders" id="v6Y-R1-gZ0" customClass="OrdersViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsQ-t4-xvV">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -138,6 +139,9 @@
                                 <buttonConfiguration key="configuration" style="plain" image="arrowshape.turn.up.left.fill" catalog="system" title="">
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="backAction:" destination="v6Y-R1-gZ0" eventType="touchUpInside" id="1S0-hK-vjY"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="81Y-qf-hkr">
                                 <rect key="frame" x="0.0" y="195" width="393" height="657"/>
@@ -267,7 +271,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="shoppingCart" title=""/>
                                         <connections>
-                                            <action selector="shoppingCart:" destination="bog-RG-Q6U" eventType="touchUpInside" id="QaP-Tp-k5d"/>
+                                            <action selector="cartAction:" destination="bog-RG-Q6U" eventType="touchUpInside" id="ywf-kD-Nsb"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -277,18 +281,31 @@
                                 <rect key="frame" x="285" y="86" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IrX-EY-YvT">
-                                        <rect key="frame" x="-4" y="1" width="48" height="38"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQl-hs-H2G">
+                                        <rect key="frame" x="-4" y="-4" width="48" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="suit"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="suit" cornerStyle="capsule">
+                                            <color key="baseForegroundColor" name="thirdColor"/>
+                                        </buttonConfiguration>
                                         <connections>
-                                            <action selector="wishList:" destination="bog-RG-Q6U" eventType="touchUpInside" id="LxV-cE-juw"/>
+                                            <action selector="wishListAction:" destination="bog-RG-Q6U" eventType="touchUpInside" id="Kfb-7e-LQg"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" name="thirdColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFz-ui-iya">
+                                <rect key="frame" x="16" y="86" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="arrowshape.turn.up.left.fill" catalog="system" title="" cornerStyle="capsule">
+                                    <color key="baseBackgroundColor" name="thirdColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="backAction:" destination="bog-RG-Q6U" eventType="touchUpInside" id="tAx-ck-Jmp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="c68-zN-zmI"/>
                         <color key="backgroundColor" name="firstColor"/>
@@ -309,7 +326,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0L0-TS-Erq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2614.5038167938928" y="4.9295774647887329"/>
+            <point key="canvasLocation" x="2612.9770992366412" y="4.9295774647887329"/>
         </scene>
         <!--About Us View Controller-->
         <scene sceneID="4aM-Q0-GGu">
@@ -775,6 +792,7 @@ Mahmoud Refaat</string>
         </scene>
     </scenes>
     <resources>
+        <image name="Heart" width="20" height="19"/>
         <image name="arrowshape.turn.up.left.fill" catalog="system" width="128" height="104"/>
         <image name="dot.circle" catalog="system" width="128" height="123"/>
         <image name="map.fill" catalog="system" width="128" height="110"/>
@@ -792,8 +810,5 @@ Mahmoud Refaat</string>
         <namedColor name="thirdColor">
             <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

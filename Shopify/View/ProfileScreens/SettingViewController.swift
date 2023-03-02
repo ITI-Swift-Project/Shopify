@@ -22,10 +22,8 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var bgFrame: UIView!
     @IBOutlet weak var wishListFrame: UIView!
     
-    @IBAction func shoppingCart(_ sender: Any) {
-       
-           // performSegue(withIdentifier: "shoppingCart", sender: self)
-    }
+
+
     @IBOutlet weak var shoppingCartFrame: UIView!
     
     override func viewDidLoad() {
@@ -33,6 +31,23 @@ class SettingViewController: UIViewController {
         settingsVCStyle()
     }
     
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func wishListAction(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
+        let wishListViewController = storyBoard.instantiateViewController(withIdentifier: "wishList") as! WishViewController
+        //productDetailsViewController.arrProducts = result
+        self.navigationController?.pushViewController(wishListViewController, animated: true)
+    }
+    
+    @IBAction func cartAction(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
+        let cartViewController = storyBoard.instantiateViewController(withIdentifier: "shoppingCart") as! CartViewController
+       
+        self.navigationController?.pushViewController(cartViewController, animated: true)
+    }
 }
 extension SettingViewController : UITableViewDataSource
 {

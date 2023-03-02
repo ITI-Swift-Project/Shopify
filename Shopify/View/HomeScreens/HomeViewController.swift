@@ -57,11 +57,33 @@ class HomeViewController: UIViewController {
                 self.adsCollection.reloadData()
             }
         }
+       
     }
     override func viewWillDisappear(_ animated: Bool) {
        
         
     }
+    @IBAction func wishAction(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
+        let wishListViewController = storyBoard.instantiateViewController(withIdentifier: "wishList") as! WishViewController
+        //productDetailsViewController.arrProducts = result
+        self.navigationController?.pushViewController(wishListViewController, animated: true)
+    }
+    
+    @IBAction func cartAction(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
+        let cartViewController = storyBoard.instantiateViewController(withIdentifier: "shoppingCart") as! CartViewController
+       
+        self.navigationController?.pushViewController(cartViewController, animated: true)
+    }
+    @IBAction func searchButtonAction(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "SearchStoryboard", bundle: nil)
+        let searchViewController = storyBoard.instantiateViewController(withIdentifier: "search") as! SearchViewController
+        searchViewController.whereFrom = "Home"
+        //productDetailsViewController.arrProducts = result
+        self.navigationController?.pushViewController(searchViewController, animated: true)
+    }
+    
         // Do any additional setup after loading the view.
     
     override var prefersStatusBarHidden: Bool{

@@ -37,7 +37,13 @@ class WishViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
+  
+    
 }
 
 extension WishViewController : UICollectionViewDelegate
