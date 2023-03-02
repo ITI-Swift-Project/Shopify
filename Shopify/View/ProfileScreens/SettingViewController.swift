@@ -20,11 +20,6 @@ class SettingViewController: UIViewController {
         }
     }
     @IBOutlet weak var bgFrame: UIView!
-    @IBOutlet weak var wishListFrame: UIView!
-    
-
-
-    @IBOutlet weak var shoppingCartFrame: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +33,6 @@ class SettingViewController: UIViewController {
     @IBAction func wishListAction(_ sender: Any) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
         let wishListViewController = storyBoard.instantiateViewController(withIdentifier: "wishList") as! WishViewController
-        //productDetailsViewController.arrProducts = result
         self.navigationController?.pushViewController(wishListViewController, animated: true)
     }
     
@@ -135,10 +129,5 @@ extension  SettingViewController
     {
         bgFrame.layer.masksToBounds = true
         bgFrame.layer.cornerRadius = 30
-        wishListFrame.layer.masksToBounds = true
-        wishListFrame.layer.cornerRadius = wishListFrame.frame.size.width/2
-        shoppingCartFrame.layer.masksToBounds = true
-        shoppingCartFrame.layer.cornerRadius = shoppingCartFrame.frame.size.width/2
-
     }
 }

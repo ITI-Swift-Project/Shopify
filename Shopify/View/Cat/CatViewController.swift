@@ -39,7 +39,7 @@ class CatViewController: UIViewController {
     func createFloatyButton(){
         floaty = Floaty()
         //        floaty?.tintColor = UIColor(named:"third" )
-        floaty?.buttonColor = UIColor(named: "HomeCellBackground")!
+        floaty?.buttonColor = UIColor(named: "firstColor")!
         floaty?.backgroundColor = UIColor(named: "third")
         floaty?.size = CGFloat(70)
         floaty?.buttonImage = UIImage(named: "filter 2")
@@ -254,7 +254,7 @@ extension CatViewController : UICollectionViewDataSource
 extension CatViewController : UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 2 - 20, height: self.view.frame.height * 0.25)
+        return CGSize(width: self.view.frame.width / 2 - 20, height: self.view.frame.height * 0.3)
         
     }
     

@@ -365,13 +365,13 @@
 		1ECEA6E929A53B6300AE6E50 /* HomeScreens */ = {
 			isa = PBXGroup;
 			children = (
+				1ECEA6F029A53D0A00AE6E50 /* AdsCell */,
 				1EFCB28029A58C5E00FAA46D /* BrandCell */,
 				1EFCB26C29A55BBD00FAA46D /* ProductDetailsViewController.swift */,
 				03AB761329AD2F280000CF33 /* ProductDetailsCollectionViewCell.swift */,
 				1ECEA6EA29A53B7800AE6E50 /* HomeViewController.swift */,
 				1EFCB26929A55B5F00FAA46D /* ProductViewController.swift */,
 				0342F40929AECB1300E9C540 /* ReviewCollectionViewCell.swift */,
-				1ECEA6F029A53D0A00AE6E50 /* AdsCell */,
 			);
 			path = HomeScreens;
 			sourceTree = "<group>";

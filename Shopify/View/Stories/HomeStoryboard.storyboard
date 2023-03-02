@@ -23,7 +23,7 @@
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="w4y-KN-dum">
                                         <rect key="frame" x="0.0" y="105" width="393" height="196"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" name="thirdColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zhW-eK-cwy">
                                             <size key="itemSize" width="128" height="128"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -54,7 +54,7 @@
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hrY-1D-b4x">
                                         <rect key="frame" x="0.0" y="425" width="393" height="277"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" name="thirdColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nY1-4G-g23">
                                             <size key="itemSize" width="128" height="128"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -72,10 +72,10 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
-                                    <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mv5-s3-lkj">
+                                    <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mv5-s3-lkj">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
                                         <color key="backgroundColor" name="HomeCellBackground"/>
-                                        <color key="barTintColor" name="HomeCellBackground"/>
+                                        <color key="barTintColor" name="firstColor"/>
                                         <textAttributes key="titleTextAttributes">
                                             <color key="textColor" red="0.99999994039999995" green="0.99999994039999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textAttributes>
@@ -100,7 +100,7 @@
                                                             <rect key="frame" x="337" y="2" width="40" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="gray" image="cart" title="" cornerStyle="capsule" buttonSize="mini">
+                                                            <buttonConfiguration key="configuration" style="gray" image="shoppingCart" title="" cornerStyle="capsule" buttonSize="mini">
                                                                 <color key="baseBackgroundColor" name="ButtonBackground"/>
                                                             </buttonConfiguration>
                                                             <connections>
@@ -110,10 +110,10 @@
                                                     </barButtonItem>
                                                     <barButtonItem id="nu5-Hn-4K0">
                                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="6tv-yS-M2V">
-                                                            <rect key="frame" x="289" y="2" width="40" height="40"/>
+                                                            <rect key="frame" x="285" y="0.0" width="44" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="gray" image="Heart" title="" cornerStyle="capsule" buttonSize="mini">
+                                                            <buttonConfiguration key="configuration" style="gray" image="suit" title="" cornerStyle="capsule" buttonSize="mini">
                                                                 <color key="baseBackgroundColor" name="ButtonBackground"/>
                                                             </buttonConfiguration>
                                                             <connections>
@@ -126,7 +126,7 @@
                                         </items>
                                     </navigationBar>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="thirdColor"/>
                                 <constraints>
                                     <constraint firstItem="Wek-N1-2Tg" firstAttribute="leading" secondItem="EZI-Jp-RSP" secondAttribute="leading" constant="8" id="35Y-fk-wnO"/>
                                     <constraint firstItem="w4y-KN-dum" firstAttribute="width" secondItem="EZI-Jp-RSP" secondAttribute="width" id="NUD-df-KXM"/>
@@ -148,7 +148,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" name="HomeCellBackground"/>
+                        <color key="backgroundColor" name="firstColor"/>
                         <color key="tintColor" red="0.99999994039999995" green="0.99999994039999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="EZI-Jp-RSP" secondAttribute="bottom" id="apS-H3-O14"/>
@@ -498,13 +498,12 @@
         </designable>
     </designables>
     <resources>
-        <image name="Heart" width="20" height="19"/>
         <image name="Home" width="29" height="33"/>
         <image name="Search" width="20" height="20"/>
         <image name="arrow.backward" catalog="system" width="128" height="95"/>
-        <image name="cart" width="20" height="20"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="shoppingCart" width="20" height="20"/>
+        <image name="suit" width="24" height="24"/>
         <namedColor name="ButtonBackground">
             <color red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -516,6 +515,9 @@
         </namedColor>
         <namedColor name="secondColor">
             <color red="0.62000000476837158" green="0.70200002193450928" blue="0.76099997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="thirdColor">
+            <color red="0.91534391534391535" green="0.91534391534391535" blue="0.91534391534391535" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -171,7 +171,7 @@ extension HomeViewController : UICollectionViewDataSource
         else
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BrandCell", for: indexPath) as! BrandCollectionViewCell
-            cell.layer.borderColor   = UIColor.systemGray.cgColor
+            cell.layer.borderColor   = UIColor(named: "secondColor")?.cgColor
 //            cell.layer.shadowOpacity = 20
             cell.layer.borderWidth   = 3.0
             cell.layer.cornerRadius  = 25.0
