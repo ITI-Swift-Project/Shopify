@@ -9,7 +9,10 @@ import UIKit
 import Kingfisher
 import TTGSnackbar
 class HomeViewController: UIViewController {
+    @IBOutlet weak var pageController: UIPageControl!
     var homeViewModel : NetworkViewModel?
+    var cellIndex = 0
+    var timer :  Timer?
     var brandArray : [Brand] = []
     var adsList : [DiscountCode]?
     var adsImages : [String] = ["c1","c2","c3","c4","c5","c6","c7"]
@@ -38,6 +41,7 @@ class HomeViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         homeViewModel = NetworkViewModel()
         homeViewModel?.getBrands()
         homeViewModel?.bindingBrands = {
@@ -46,6 +50,7 @@ class HomeViewController: UIViewController {
             DispatchQueue.main.async {
                 self.brandArray = self.homeViewModel!.brandsResult
                 print(self.brandArray.count)
+                
                 self.brandCollection.reloadData()
             }
             
@@ -54,14 +59,33 @@ class HomeViewController: UIViewController {
         homeViewModel?.bindingAds = {
             DispatchQueue.main.async {
                 self.adsList = self.homeViewModel?.adsResult?.discount_codes ?? []
+                self.pageController.numberOfPages = self.adsImages.count
+                
                 self.adsCollection.reloadData()
             }
         }
-       
+        self.startTimer()
     }
     override func viewWillDisappear(_ animated: Bool) {
        
         
+    }
+    func startTimer()
+    {
+        timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(toNextItem), userInfo: nil, repeats: true)
+    }
+    @objc
+    func toNextItem(){
+        if cellIndex < adsImages.count - 1
+        {
+            cellIndex += 1
+        }
+        else
+        {
+            cellIndex  = 0
+        }
+        adsCollection.scrollToItem(at: IndexPath(item: cellIndex, section: 0), at: .centeredHorizontally, animated: true)
+        pageController.currentPage = cellIndex
     }
     @IBAction func wishAction(_ sender: Any) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)

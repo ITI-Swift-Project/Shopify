@@ -125,6 +125,10 @@
                                             </navigationItem>
                                         </items>
                                     </navigationBar>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="4Re-xD-3v0">
+                                        <rect key="frame" x="75" y="300" width="243" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </pageControl>
                                 </subviews>
                                 <color key="backgroundColor" name="thirdColor"/>
                                 <constraints>
@@ -162,11 +166,12 @@
                     <connections>
                         <outlet property="adsCollection" destination="w4y-KN-dum" id="4Yf-zS-tPC"/>
                         <outlet property="brandCollection" destination="hrY-1D-b4x" id="kw3-f2-0f7"/>
+                        <outlet property="pageController" destination="4Re-xD-3v0" id="zGo-yk-Ami"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="86.25" y="4.225352112676056"/>
+            <point key="canvasLocation" x="84.732824427480907" y="4.2253521126760569"/>
         </scene>
         <!--Product View Controller-->
         <scene sceneID="mLw-p5-Cu7">
@@ -517,7 +522,7 @@
             <color red="0.62000000476837158" green="0.70200002193450928" blue="0.76099997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="thirdColor">
-            <color red="0.91534391534391535" green="0.91534391534391535" blue="0.91534391534391535" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

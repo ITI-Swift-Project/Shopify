@@ -134,7 +134,7 @@ extension CartViewController
         {
             shoppingCartItemsList[sender.tag].cartItemCount = 20
         }
-        total += Float(shoppingCartItemsList[sender.tag].cartItemCount) * shoppingCartItemsList[sender.tag].cartItemPrice
+        total += Float( shoppingCartItemsList[sender.tag].cartItemPrice)
         shoppingCartItemsList[sender.tag].cartItemSubTotal = Float(shoppingCartItemsList[sender.tag].cartItemCount) * shoppingCartItemsList[sender.tag].cartItemPrice
         subTotal.text = String(total )
             self.shoppingCartCollectionView.reloadData()
@@ -150,7 +150,7 @@ extension CartViewController
         {
             shoppingCartItemsList[sender.tag].cartItemCount = 1
         }
-        total -= Float(shoppingCartItemsList[sender.tag].cartItemCount) * shoppingCartItemsList[sender.tag].cartItemPrice
+        total -= Float( shoppingCartItemsList[sender.tag].cartItemPrice)
 
         shoppingCartItemsList[sender.tag].cartItemSubTotal = Float(shoppingCartItemsList[sender.tag].cartItemCount) * shoppingCartItemsList[sender.tag].cartItemPrice
         subTotal.text = String(total )
