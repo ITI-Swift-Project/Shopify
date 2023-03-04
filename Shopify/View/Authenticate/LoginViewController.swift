@@ -16,15 +16,19 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginBtn: UIButton!
     
-    @IBOutlet weak var nameTxt: UITextField!
+    
+    @IBOutlet weak var emailTxt: UITextField!
     {
-      didSet
-        {
-            nameTxt.setLeftView(image: UIImage.init(systemName: "person.circle")!)
-            nameTxt.tintColor = .darkGray
-            nameTxt.isSecureTextEntry = true
-        }
+        didSet
+          {
+              emailTxt.setLeftView(image: UIImage.init(systemName: "person.circle")!)
+              emailTxt.tintColor = .darkGray
+              //emailTxt.isSecureTextEntry = true
+          }
     }
+    
+    
+    
     @IBOutlet weak var passwordTxt: UITextField!
     {
        didSet
@@ -39,85 +43,65 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let url = "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers.json"
         
-        
-        var frameNameTxt : CGRect = nameTxt.frame
+        var frameNameTxt : CGRect = emailTxt.frame
         frameNameTxt.size.height = 53
-        nameTxt.frame = frameNameTxt
+        emailTxt.frame = frameNameTxt
         
         var framePasswordTxt : CGRect = passwordTxt.frame
         framePasswordTxt.size.height = 53
         passwordTxt.frame = framePasswordTxt
         
         
-        nameTxt.layer.cornerRadius = nameTxt.frame.size.height / 2
-        nameTxt.clipsToBounds = true
+        emailTxt.layer.cornerRadius = emailTxt.frame.size.height / 2
+        emailTxt.clipsToBounds = true
         
-        passwordTxt.layer.cornerRadius = nameTxt.frame.size.height / 2
+        passwordTxt.layer.cornerRadius = passwordTxt.frame.size.height / 2
         passwordTxt.clipsToBounds = true
         
         loginBtn.layer.cornerRadius = loginBtn.frame.size.height / 2
         loginBtn.clipsToBounds = true
         
-        
-       /* nameTxt.leftViewMode = UITextField.ViewMode.always
-        let imageView = UIImageView(frame: CGRect(x: 8.0, y: 8.0, width: 24.0, height: 24.0))
-        
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 40))
-      //  let imageView = UIImageView(frame: CGRect(x: 6, y: 6, width: 20, height: 20))
-        let image = UIImage(named: "profile")
-        imageView.image = image
-        nameTxt.leftView = imageView
-       //
-        nameTxt.leftView = view
-*/
-        
-       /* nameTxt.leftViewMode = UITextField.ViewMode.always
-
-        nameTxt.leftViewMode = .always*/
-        
-     
-       // nameTxt.layer.borderWidth = 2.0
-       // nameTxt.layer.borderWidth = nameTxt.layer.borderWidth
-       // nameTxt.layer.
+      
         
       self.topView.layer.masksToBounds = true
     self.topView.layer.cornerRadius = self.topView.frame.size.width/2
         
-      //  self.topView.layer.cornerRadius = self.topView.frame.size.width/CGFloat(2)
-        
-       // self.topView.layer.contentsScale = self.topView.frame.size.height/2
-      //  self.topView.layer.
-           
-       // let layershape = CAShapeLayer()
-       // let circlePath = UIBezierPath(arcCenter: center, radius: 200, startAngle: 6.28, endAngle: 3 * CGFloat.pi , clockwise: true)
-        
-        
-      /*  let circlePath = UIBezierPath(arcCenter: center, radius: 200, startAngle: 6.28, endAngle: 3 * CGFloat.pi , clockwise: true)
-        layershape.path = circlePath.cgPath
-        view.layer.addSublayer(layershape)
-        */
-        
-        /*
-         // MARK: - Navigation
-         
-         // In a storyboard-based application, you will often want to do a little preparation before navigation
-         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destination.
-         // Pass the selected object to the new view controller.
-         }
-         */
+      
         
     }
+    
+    private func validation() ->Bool
+        {
+            if
+                emailTxt.text != "" && emailTxt.text?.count ?? 0 >= 10 && emailTxt.text?.count ?? 0 <= 40 &&  passwordTxt.text != "" && passwordTxt.text?.count ?? 0 >= 10 && passwordTxt.text?.count ?? 0 <= 20 
+            {
+                return true
+            }
+            return false
+        }
     
     
     @IBAction func signIn(_ sender: Any) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
-        
-        self.navigationController?.pushViewController(brandsViewController, animated: true)
+        if validation() == true
+        {
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
+            
+            self.navigationController?.pushViewController(brandsViewController, animated: true)
+            getData(from:  "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers.json")
+        }
+        else
+        {
+            print("Invalid")
+            let alert =  UIAlertController()
+            let action = UIAlertAction(title: "Check your input", style: .default , handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+            
+        }
     }
-    
     
     @IBAction func skipAction(_ sender: Any) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -132,6 +116,35 @@ class LoginViewController: UIViewController {
         self.navigationController?.pushViewController(singUpViewController, animated: true)
     }
     
+    private func getData(from url : String)
+    {
+       
+        let task = URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: { data, response, error in
+            guard let data = data , error == nil else{
+                print("Somthing Went Wrong")
+                return
+            }
+            //have data
+            
+            var result : customers?
+            do {
+                result = try JSONDecoder().decode(customers.self, from: data)
+            }catch{
+                print("failed to convert \(error.localizedDescription)")
+            }
+            guard let json = result else{
+                return
+            }
+          //  print(json.first_name)
+          //  print(json.email)
+            print("doneeee")
+            print(data.count)
+           // print(json.addresses)
+            
+        })
+        task.resume()
+        
+    }
     
 }
 
