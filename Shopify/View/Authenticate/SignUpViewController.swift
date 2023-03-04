@@ -18,7 +18,7 @@ class SignUpViewController: UIViewController {
         {
             usernameTxt.setLeftView(image: UIImage.init(systemName: "person")!)
             usernameTxt.tintColor = .darkGray
-            usernameTxt.isSecureTextEntry = true
+           // usernameTxt.isSecureTextEntry = true
         }
     }
     
@@ -28,7 +28,7 @@ class SignUpViewController: UIViewController {
         {
             emailTxt.setLeftView(image: UIImage.init(systemName: "mail.fill")!)
             emailTxt.tintColor = .darkGray
-            emailTxt.isSecureTextEntry = true
+            //emailTxt.isSecureTextEntry = true
         }
     }
     
@@ -59,7 +59,7 @@ class SignUpViewController: UIViewController {
             addressTxt.setRightView(image: UIImage.init(systemName: "map")!)
             addressTxt.setLeftView(image: UIImage.init(systemName: "mappin.and.ellipse")!)
             addressTxt.tintColor = .darkGray
-            addressTxt.isSecureTextEntry = true
+           // addressTxt.isSecureTextEntry = true
         }
         
     }
@@ -122,10 +122,23 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func signUP(_ sender: Any) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
-        
-        self.navigationController?.pushViewController(brandsViewController, animated: true)
+        if validation() == true
+         {
+             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+             let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
+             
+             self.navigationController?.pushViewController(brandsViewController, animated: true)
+            makePostRequest()
+         }
+         else
+         {
+             print("Invalid")
+             let alert =  UIAlertController()
+             let action = UIAlertAction(title: "Check your input", style: .default , handler: nil)
+             alert.addAction(action)
+             present(alert, animated: true, completion: nil)
+             
+         }
     }
     
     @IBAction func signIn(_ sender: Any) {
@@ -140,15 +153,58 @@ class SignUpViewController: UIViewController {
         
         self.navigationController?.pushViewController(brandsViewController, animated: true)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+  
+    
+    private func validation() ->Bool
+        {
+            if usernameTxt.text != "" && usernameTxt.text?.count ?? 0 >= 10 && usernameTxt.text?.count ?? 0 <= 20 &&
+                emailTxt.text != "" && emailTxt.text?.count ?? 0 >= 10 && emailTxt.text?.count ?? 0 <= 40 &&  passwordTxt.text != "" && passwordTxt.text?.count ?? 0 >= 10 && passwordTxt.text?.count ?? 0 <= 20 && confirmPasswordTxt.text != "" && confirmPasswordTxt.text?.count == passwordTxt.text?.count && addressTxt.text != "" && addressTxt.text?.count ?? 0 >= 10 && addressTxt.text?.count ?? 0 <= 20
+            {
+                return true
+            }
+            return false
+        }
+    
+    private func makePostRequest()
+    {
+        guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers.json") else{
+            return
+        }
+        print("Making api call")
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpShouldHandleCookies = false
+        request.addValue("application/json",forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json",forHTTPHeaderField: "Authorization")
+       // request.addValue("application/json",forHTTPHeaderField: "Accept")
+                
+     //   request.setValue("application/json", forHTTPHeaderField: "Authorization -token")
+        print("\(emailTxt.text)")
+        let body : [String:Any] = [
+            "customer" : [
+                "email":"\(emailTxt.text!)",
+                "first_name":"\(usernameTxt.text!)",
+                "tags":"\(passwordTxt.text!)",
+                "addresses" : [["address1":"\(addressTxt.text!)"]]
+            ]
+        ]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+            guard let data = data, error ==  nil else{
+                return
+            }
+            
+            do{
+                let response =  try JSONSerialization.jsonObject(with: data , options:  .allowFragments)
+                print("SUCCSESS\(response)")
+            }catch{
+                print(error)
+            }
+        }
+        task.resume()
     }
-    */
 
 }
 

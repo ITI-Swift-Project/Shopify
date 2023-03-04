@@ -30,7 +30,7 @@
                                 <color key="textColor" name="HomeCellBackground"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User Name" adjustsFontForContentSizeCategory="YES" minimumFontSize="20" background="per" translatesAutoresizingMaskIntoConstraints="NO" id="9He-UF-RPr">
+                            <textField opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" adjustsFontForContentSizeCategory="YES" minimumFontSize="20" background="per" translatesAutoresizingMaskIntoConstraints="NO" id="9He-UF-RPr">
                                 <rect key="frame" x="30" y="480" width="333" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
@@ -113,8 +113,8 @@
                         <rect key="contentStretch" x="0.65000000000000002" y="0.45000000000000001" width="1" height="1"/>
                     </view>
                     <connections>
+                        <outlet property="emailTxt" destination="9He-UF-RPr" id="twW-fS-Tx3"/>
                         <outlet property="loginBtn" destination="X03-fd-HFg" id="Thf-fw-NF9"/>
-                        <outlet property="nameTxt" destination="9He-UF-RPr" id="T1G-Tb-L4B"/>
                         <outlet property="passwordTxt" destination="UIv-Jr-dyX" id="zFC-4F-L3U"/>
                         <outlet property="signupBtn" destination="Ceg-gC-weG" id="8n0-Yq-ddw"/>
                         <outlet property="skipBtn" destination="rhe-eM-GQG" id="a6A-to-jvZ"/>
