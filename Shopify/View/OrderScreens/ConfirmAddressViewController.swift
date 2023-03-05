@@ -10,6 +10,9 @@ import UIKit
 class ConfirmAddressViewController: UIViewController {
 
     @IBOutlet weak var bgFrame: UIView!
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func confirmAddress(_ sender: Any) {
         let paymentVC = storyboard?.instantiateViewController(withIdentifier: "payment") as! PaymentViewController
         navigationController?.pushViewController(paymentVC, animated: true)

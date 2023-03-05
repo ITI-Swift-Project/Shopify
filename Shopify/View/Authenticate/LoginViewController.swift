@@ -9,7 +9,8 @@ import UIKit
 
 @available(iOS 13.0, *)
 class LoginViewController: UIViewController {
-    
+    var result : customers?
+
     @IBOutlet weak var signupBtn: UIButton!
     
     @IBOutlet weak var skipBtn: UIButton!
@@ -28,7 +29,7 @@ class LoginViewController: UIViewController {
     }
     
     
-    
+    let semaphore = DispatchSemaphore(value: 0)
     @IBOutlet weak var passwordTxt: UITextField!
     {
        didSet
@@ -44,7 +45,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let url = "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers.json"
-        
+       
         var frameNameTxt : CGRect = emailTxt.frame
         frameNameTxt.size.height = 53
         emailTxt.frame = frameNameTxt
@@ -87,10 +88,16 @@ class LoginViewController: UIViewController {
         if validation() == true
         {
             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
-            
+            let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! TabBarViewController
+            semaphore.signal()
+            getData(from:  "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers/search.json?query=email:\(emailTxt.text!)")
+            print(result?.customers?[0])
+            brandsViewController.loggedCustomer = result?.customers![0]
+            print(brandsViewController.loggedCustomer?.id)
+           
+            print(result?.customers?[0])
             self.navigationController?.pushViewController(brandsViewController, animated: true)
-            getData(from:  "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers.json")
+           
         }
         else
         {
@@ -118,21 +125,23 @@ class LoginViewController: UIViewController {
     
     private func getData(from url : String)
     {
-       
-        let task = URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: { data, response, error in
+        guard let nurl = URL (string: url)
+        else {return}
+        let request = URLRequest(url : nurl)
+        let task = URLSession.shared.dataTask(with: request)  { data, response, error in
             guard let data = data , error == nil else{
                 print("Somthing Went Wrong")
                 return
             }
             //have data
             
-            var result : customers?
             do {
-                result = try JSONDecoder().decode(customers.self, from: data)
+                self.result = try JSONDecoder().decode(customers.self, from: data)
+                print(self.result)
             }catch{
                 print("failed to convert \(error.localizedDescription)")
             }
-            guard let json = result else{
+            guard let json = self.result else{
                 return
             }
           //  print(json.first_name)
@@ -141,9 +150,9 @@ class LoginViewController: UIViewController {
             print(data.count)
            // print(json.addresses)
             
-        })
+        }
         task.resume()
-        
+        semaphore.wait()
     }
     
 }

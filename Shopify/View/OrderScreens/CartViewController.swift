@@ -9,7 +9,9 @@ import UIKit
 
 class CartViewController: UIViewController {
     
-    var shoppingCartItemsList = Array<CartItem>()
+    var cartViewModel : NetworkViewModel?
+ //   var tempCartItemsList : [DraftOrder]?
+    var shoppingCartItemsList : [DraftOrder]?
     var total : Float = 0.0
     @IBOutlet weak var shoppingCartFrame: UIView!
     @IBOutlet weak var subTotal: UILabel!
@@ -30,62 +32,57 @@ class CartViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        //   for i in 0..<shoppingCartItemsList.count{
+        //       total += shoppingCartItemsList[i].cartItemSubTotal
+        //  }
+        //   self.subTotal.text = "   ".appending(String(total)).appending("$")
         cartVCStyle()
-        var p1 = CartItem()
-        var p2 = CartItem()
-        var p3 = CartItem()
-        var p4 = CartItem()
-        var p5 = CartItem()
-        shoppingCartItemsList.append(p1)
-        shoppingCartItemsList.append(p2)
-        shoppingCartItemsList.append(p3)
-        shoppingCartItemsList.append(p4)
-        shoppingCartItemsList.append(p5)
+        cartViewModel = NetworkViewModel()
+        cartViewModel?.getCartProducts()
+        cartViewModel?.bindingCartProducts = {
+            DispatchQueue.main.async { [self] in
+                self.shoppingCartItemsList = self.cartViewModel?.ShoppingCartProductsResult ?? []
+              //  self.tempCartItemsList = self.cartViewModel?.ShoppingCartProductsResult ?? []
+              //  self.shoppingCartItemsList = tempCartItemsList?.filter { (($0).customer?[0].id) == 6817112686896 }
+                self.shoppingCartCollectionView.reloadData()
+            }
+        }
         
-        for i in 0..<shoppingCartItemsList.count{
-            total += shoppingCartItemsList[i].cartItemSubTotal
-        }
-        self.subTotal.text = "   ".appending(String(total)).appending("$")
-
-          //   subTotal.text = String(shoppingCartItemsList.reduce(p1, { x, y in x + y }))
-        }
+    }
     
-        
     @IBAction func backAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
 }
-
 extension CartViewController : UICollectionViewDataSource,UICollectionViewDelegate
 {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return shoppingCartItemsList.count
+        return shoppingCartItemsList?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "shoppingCartCell", for: indexPath) as! ShoppingCartCell
+        StyleHelper.cvCellStyle(cvCell: cell)
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = 30
-      //  cell.layer.borderColor = UIColor(named: "s")?.cgColor
-      //  cell.layer.borderWidth = 8
-      //cell.frame = cell.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 50, right: 10))
         cell.cartProductImage.image = UIImage(named: "product")
-        cell.cartProductName.text = shoppingCartItemsList[indexPath.row].cartItemName
-        cell.cartProductDescription.text = shoppingCartItemsList[indexPath.row].cartItemDescription
-        cell.cartProductPrice.text = String(shoppingCartItemsList[indexPath.row].cartItemPrice).appending("$")
-        cell.cartProductsCount.text = String(shoppingCartItemsList[indexPath.row].cartItemCount)
-        cell.cartProductSuTotalPrice.text = String(shoppingCartItemsList[indexPath.row].cartItemSubTotal ).appending(" $")
+        cell.cartProductName.text = shoppingCartItemsList?[0].line_items?[0].title
+        cell.cartProductDescription.text = "Description or vendor"
+        cell.cartProductPrice.text = (shoppingCartItemsList?[indexPath.row].line_items?[0].price)?.appending(" ").appending(shoppingCartItemsList?[indexPath.row].currency ?? "")
+        cell.cartProductsCount.text = String((shoppingCartItemsList?[0].line_items?[0].quantity)!)
+        let quantity = Float(shoppingCartItemsList?[0].line_items?[0].quantity ?? 0)
+        let price = Float(shoppingCartItemsList?[0].line_items?[0].price ?? "")
+        cell.cartProductSuTotalPrice.text = String(quantity * price!).appending(" ").appending(shoppingCartItemsList?[indexPath.row].currency ?? "")
         cell.cartProductsCount.layer.masksToBounds = true
         cell.cartProductsCount.layer.cornerRadius = 12
-        cell.increaseProductItemCount.tag = indexPath.row
+    /*  cell.increaseProductItemCount.tag = indexPath.row
         cell.decreaseProductItemCount.tag = indexPath.row
         cell.increaseProductItemCount.addTarget(self, action: #selector(increaseProductsCount(sender:)), for: .touchUpInside)
-        cell.decreaseProductItemCount.addTarget(self, action: #selector(decreaseProductsCount(sender:)), for: .touchUpInside)
-        cell.trashFrame.layer.masksToBounds = true
-        cell.trashFrame.layer.cornerRadius = cell.trashFrame.frame.size.width/2
+        cell.decreaseProductItemCount.addTarget(self, action: #selector(decreaseProductsCount(sender:)), for: .touchUpInside)*/
         cell.deleteCartProduct.addTarget(self, action: #selector(print), for: .touchUpInside)
         cell.cartCellBackView.layer.cornerRadius = 20
         cell.cartCellBackView.backgroundColor = .white
@@ -111,40 +108,31 @@ extension CartViewController
     }
 }
 
-struct CartItem
-{
-    var cartItemName : String = "Hoodie Green"
-    var cartItemDescription : String = "Green Hoodie paul&pear"
-    var cartItemPrice : Float = 150.00
-    var cartItemCount : Int = 1
-    var cartItemSubTotal : Float = 150.00
-    
-}
-extension CartViewController
+/*extension CartViewController
 {
     @objc func increaseProductsCount(sender : UIButton)
     {
         
-        if  shoppingCartItemsList[sender.tag].cartItemCount < 20
+        if  shoppingCartItemsList?[sender.tag].cartItemCount < 20
         {
-            shoppingCartItemsList[sender.tag].cartItemCount = shoppingCartItemsList[sender.tag].cartItemCount + 1
+            shoppingCartItemsList?[sender.tag].cartItemCount = shoppingCartItemsList?[sender.tag].cartItemCount + 1
             
         }
         else
         {
-            shoppingCartItemsList[sender.tag].cartItemCount = 20
+            shoppingCartItemsList?[sender.tag].cartItemCount = 20
         }
-        total += Float( shoppingCartItemsList[sender.tag].cartItemPrice)
-        shoppingCartItemsList[sender.tag].cartItemSubTotal = Float(shoppingCartItemsList[sender.tag].cartItemCount) * shoppingCartItemsList[sender.tag].cartItemPrice
+        total += Float( shoppingCartItemsList?[sender.tag].cartItemPrice)
+        shoppingCartItemsList?[sender.tag].cartItemSubTotal = Float(shoppingCartItemsList?[sender.tag].cartItemCount) * shoppingCartItemsList?[sender.tag].cartItemPrice
         subTotal.text = String(total )
             self.shoppingCartCollectionView.reloadData()
         }
     
     @objc func decreaseProductsCount(sender : UIButton)
     {
-        if shoppingCartItemsList[sender.tag].cartItemCount > 1
+        if shoppingCartItemsList?[sender.tag].cartItemCount > 1
         {
-            shoppingCartItemsList[sender.tag].cartItemCount = shoppingCartItemsList[sender.tag].cartItemCount - 1
+            shoppingCartItemsList?[sender.tag].cartItemCount = shoppingCartItemsList?[sender.tag].cartItemCount - 1
         }
         else
         {
@@ -155,10 +143,8 @@ extension CartViewController
         shoppingCartItemsList[sender.tag].cartItemSubTotal = Float(shoppingCartItemsList[sender.tag].cartItemCount) * shoppingCartItemsList[sender.tag].cartItemPrice
         subTotal.text = String(total )
             self.shoppingCartCollectionView.reloadData()
-
         }
-        
-    }
+    }*/
 
 extension CartViewController
 {

@@ -13,6 +13,9 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var applePay: UIButton!
     @IBOutlet weak var cashOnDelivery: UIButton!
     
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func selectApplePay(_ sender: Any) {
         applePay.setImage(UIImage(systemName: "circle.fill"), for: .normal)
         cashOnDelivery.setImage(UIImage(systemName: "circle"), for: .normal)
