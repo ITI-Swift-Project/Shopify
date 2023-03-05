@@ -95,7 +95,7 @@ class LoginViewController: UIViewController {
             semaphore.wait()
           
 //            print(result!.customers![0].id)
-            brandsViewController.loggedCustomer = result?.customers![0]
+            TabBarViewController.loggedCustomer = result?.customers![0]
            // print(brandsViewController.loggedCustomer?.id)
            
            // print(result?.customers?[0])
