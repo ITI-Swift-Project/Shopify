@@ -84,3 +84,42 @@ extension NetworkService : ShoppingCartData
     }
 }
 
+extension NetworkService : PostApi
+{
+   static func makePostRequest(url : String , newData : [String : Any])
+   {
+       guard let url = URL(string: url) else{
+           return
+       }
+       print("Making api call")
+       
+       var request = URLRequest(url: url)
+       request.httpMethod = "POST"
+       request.httpShouldHandleCookies = false
+       request.addValue("application/json",forHTTPHeaderField: "Content-Type")
+       request.addValue("application/json",forHTTPHeaderField: "Authorization")
+      // request.addValue("application/json",forHTTPHeaderField: "Accept")
+               
+    //   request.setValue("application/json", forHTTPHeaderField: "Authorization -token")
+     //  print("\(emailTxt.text)")
+      
+       request.httpBody = try? JSONSerialization.data(withJSONObject: newData, options: .prettyPrinted)
+       
+       let task = URLSession.shared.dataTask(with: request) { data, _, error in
+           guard let data = data, error ==  nil else{
+               return
+           }
+           
+           do{
+               let response =  try JSONSerialization.jsonObject(with: data , options:  .allowFragments)
+               print("SUCCSESS\(response)")
+           }catch{
+               print(error)
+           }
+       }
+       task.resume()
+   }
+
+}
+
+

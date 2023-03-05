@@ -8,7 +8,7 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
-    var loggedCustomer : Customer?
+    var loggedCustomer : allCustomers?
     override func viewDidLoad() {
         super.viewDidLoad()
         makeCornerRound()
