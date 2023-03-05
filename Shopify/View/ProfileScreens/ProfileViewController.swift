@@ -24,12 +24,7 @@ class ProfileViewController: UIViewController {
        
         self.navigationController?.pushViewController(cartViewController, animated: true)
     }
-    @IBAction func wishLIstAction(_ sender: Any) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
-        let wishListViewController = storyBoard.instantiateViewController(withIdentifier: "wishList") as! WishViewController
-        //productDetailsViewController.arrProducts = result
-        self.navigationController?.pushViewController(wishListViewController, animated: true)
-    }
+    
     @IBAction func ordersScreen(_ sender: Any) {
         
         let ordersVC = storyboard?.instantiateViewController(withIdentifier: "orders") as! OrdersViewController

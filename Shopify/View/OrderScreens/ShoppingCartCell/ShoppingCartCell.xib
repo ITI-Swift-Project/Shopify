@@ -22,6 +22,23 @@
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UpT-Ff-eTt">
                         <rect key="frame" x="0.0" y="0.0" width="367" height="173"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P5U-xm-0n4">
+                                <rect key="frame" x="301" y="120" width="45" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="trash" cornerStyle="capsule">
+                                    <color key="baseBackgroundColor" name="thirdColor"/>
+                                </buttonConfiguration>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uu-wg-gOm">
+                                <rect key="frame" x="138" y="139" width="133" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" name="firstColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kUp-LJ-vNv">
@@ -58,10 +75,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptv-4G-r96">
-                        <rect key="frame" x="272" y="98" width="25" height="25"/>
+                        <rect key="frame" x="274" y="97" width="27" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="gray">
+                        <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
                             <imageReference key="image" image="plus.app.fill" catalog="system" renderingMode="hierarchical">
                                 <hierarchicalColors>
                                     <color name="firstColor"/>
@@ -73,10 +90,10 @@
                         </buttonConfiguration>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eQd-vq-a4Q">
-                        <rect key="frame" x="196" y="98" width="25" height="25"/>
+                        <rect key="frame" x="192" y="97" width="27" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="gray">
+                        <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
                             <imageReference key="image" image="minus.square.fill" catalog="system" renderingMode="hierarchical">
                                 <hierarchicalColors>
                                     <color name="firstColor"/>
@@ -87,34 +104,6 @@
                             <color key="baseBackgroundColor" name="thirdColor"/>
                         </buttonConfiguration>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uu-wg-gOm">
-                        <rect key="frame" x="142" y="138" width="133" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                        <color key="textColor" name="firstColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cul-UB-1mM">
-                        <rect key="frame" x="293" y="127" width="40" height="40"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tav-tk-JYI">
-                                <rect key="frame" x="-4" y="3" width="48" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain">
-                                    <imageReference key="image" image="trash" catalog="system" renderingMode="hierarchical">
-                                        <hierarchicalColors>
-                                            <color name="firstColor"/>
-                                            <color systemColor="secondaryLabelColor"/>
-                                            <color systemColor="tertiaryLabelColor"/>
-                                        </hierarchicalColors>
-                                    </imageReference>
-                                </buttonConfiguration>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" name="secondColor"/>
-                    </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -129,9 +118,8 @@
                 <outlet property="cartProductSuTotalPrice" destination="9uu-wg-gOm" id="uAm-yS-u6l"/>
                 <outlet property="cartProductsCount" destination="d3u-Hb-iVg" id="1r1-jz-6Ti"/>
                 <outlet property="decreaseProductItemCount" destination="eQd-vq-a4Q" id="6UH-Hm-GHk"/>
-                <outlet property="deleteCartProduct" destination="Tav-tk-JYI" id="OBg-vn-pbM"/>
+                <outlet property="deleteCartProduct" destination="P5U-xm-0n4" id="txI-UQ-tCO"/>
                 <outlet property="increaseProductItemCount" destination="ptv-4G-r96" id="d7G-gI-19a"/>
-                <outlet property="trashFrame" destination="Cul-UB-1mM" id="1Dt-f2-hFc"/>
             </connections>
             <point key="canvasLocation" x="123.66412213740458" y="38.028169014084511"/>
         </collectionViewCell>
@@ -139,7 +127,7 @@
     <resources>
         <image name="minus.square.fill" catalog="system" width="128" height="114"/>
         <image name="plus.app.fill" catalog="system" width="128" height="114"/>
-        <image name="trash" catalog="system" width="117" height="128"/>
+        <image name="trash" width="24" height="29"/>
         <namedColor name="firstColor">
             <color red="0.024000000208616257" green="0.22200000286102295" blue="0.36700001358985901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -154,9 +142,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="tertiaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
