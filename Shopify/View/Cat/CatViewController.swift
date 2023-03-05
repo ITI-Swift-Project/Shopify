@@ -262,7 +262,7 @@ extension CatViewController : UICollectionViewDataSource
             let url = URL(string: urlString) {
             cell.configImg(name: url)
         }
-
+        
 //        let name : String = result[indexPath.row].image?.src ?? ""
 //        cell.configImg(name:((URL(string : name) ?? URL(string: "")) ??  URL(string: ""))!)
         cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, type: result[indexPath.row].product_type!)
