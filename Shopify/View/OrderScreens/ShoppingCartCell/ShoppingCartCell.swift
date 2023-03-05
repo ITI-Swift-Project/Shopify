@@ -21,7 +21,6 @@ class ShoppingCartCell: UICollectionViewCell {
     
     @IBOutlet weak var cartProductsCount: UILabel!
     
-    @IBOutlet weak var trashFrame: UIView!
   
     @IBOutlet weak var deleteCartProduct: UIButton!
     

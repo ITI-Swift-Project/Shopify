@@ -8,6 +8,7 @@
 import Foundation
 struct Customer : Codable
 {
+        var id : Int
         let email : String?
         let first_name : String?
        let  tags : String?

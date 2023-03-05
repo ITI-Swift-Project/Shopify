@@ -68,4 +68,19 @@ extension NetworkService : DiscountsData
         }
     }
 }
+extension NetworkService : ShoppingCartData
+{
+    static func getShoppingCartProducts(url: String, handeler: @escaping (DraftOrders?) -> Void)
+    {
+        let request = AF.request(url)
+        request.responseDecodable (of: DraftOrders.self) {(olddata) in
+            guard let data = olddata.value
+            else{
+                handeler(nil)
+                return
+            }
+            handeler(data)
+        }
+    }
+}
 

@@ -148,7 +148,7 @@
                                         <rect key="frame" x="20" y="161" width="352" height="65"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" title="    Apple Pay" cornerStyle="capsule">
+                                        <buttonConfiguration key="configuration" style="gray" title="    PayPal" cornerStyle="capsule">
                                             <imageReference key="image" image="circle" catalog="system" symbolScale="medium"/>
                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="24"/>
                                             <color key="baseForegroundColor" name="firstColor"/>
@@ -171,6 +171,24 @@
                                 </subviews>
                                 <color key="backgroundColor" name="thirdColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LiM-gh-W3j">
+                                <rect key="frame" x="16" y="59" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
+                                    <imageReference key="image" image="arrowshape.turn.up.left.fill" catalog="system" renderingMode="hierarchical">
+                                        <hierarchicalColors>
+                                            <color name="firstColor"/>
+                                            <color name="firstColor"/>
+                                            <color systemColor="tertiaryLabelColor"/>
+                                        </hierarchicalColors>
+                                    </imageReference>
+                                    <color key="baseBackgroundColor" name="thirdColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="backAction:" destination="8M6-Nh-x0K" eventType="touchUpInside" id="rNI-TN-bt1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tzP-DF-UYL"/>
                         <color key="backgroundColor" name="firstColor"/>
@@ -253,7 +271,14 @@
                                 <rect key="frame" x="16" y="59" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" image="arrowshape.turn.up.left.fill" catalog="system" title="" cornerStyle="capsule">
+                                <buttonConfiguration key="configuration" style="gray" title="" cornerStyle="capsule">
+                                    <imageReference key="image" image="arrowshape.turn.up.left.fill" catalog="system" renderingMode="hierarchical">
+                                        <hierarchicalColors>
+                                            <color name="firstColor"/>
+                                            <color systemColor="secondaryLabelColor"/>
+                                            <color systemColor="tertiaryLabelColor"/>
+                                        </hierarchicalColors>
+                                    </imageReference>
                                     <color key="baseBackgroundColor" name="thirdColor"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -393,6 +418,24 @@
                                 </subviews>
                                 <color key="backgroundColor" name="thirdColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BqO-Ly-piE">
+                                <rect key="frame" x="16" y="59" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
+                                    <imageReference key="image" image="arrowshape.turn.up.left.fill" catalog="system" renderingMode="hierarchical">
+                                        <hierarchicalColors>
+                                            <color name="firstColor"/>
+                                            <color systemColor="secondaryLabelColor"/>
+                                            <color systemColor="tertiaryLabelColor"/>
+                                        </hierarchicalColors>
+                                    </imageReference>
+                                    <color key="baseBackgroundColor" name="thirdColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="backAction:" destination="5nz-Nt-9yx" eventType="touchUpInside" id="8Sp-CX-zMj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rWT-oG-PsJ"/>
                         <color key="backgroundColor" name="firstColor"/>
@@ -525,6 +568,24 @@
                                 </subviews>
                                 <color key="backgroundColor" name="thirdColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJp-PO-cwY">
+                                <rect key="frame" x="16" y="59" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
+                                    <imageReference key="image" image="arrowshape.turn.up.left.fill" catalog="system" renderingMode="hierarchical">
+                                        <hierarchicalColors>
+                                            <color name="firstColor"/>
+                                            <color systemColor="secondaryLabelColor"/>
+                                            <color systemColor="tertiaryLabelColor"/>
+                                        </hierarchicalColors>
+                                    </imageReference>
+                                    <color key="baseBackgroundColor" name="thirdColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="backAction:" destination="sYW-Ef-PKu" eventType="touchUpInside" id="EMm-ka-O0Z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5ao-hE-hx4"/>
                         <color key="backgroundColor" name="firstColor"/>

@@ -17,6 +17,9 @@ class OrderDetailsViewController: UIViewController {
     @IBOutlet weak var enteringCopounCode: UITextField!
     @IBOutlet weak var bgFrame: UIView!
     
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func placeOrder(_ sender: Any) {
         let confirmAddressVC = storyboard?.instantiateViewController(withIdentifier: "chooseAddress") as! ConfirmAddressViewController
         navigationController?.pushViewController(confirmAddressVC, animated: true)
