@@ -28,7 +28,7 @@ class CateCollectionViewCell: UICollectionViewCell {
         img.backgroundColor = UIColor.white
         img.layer.masksToBounds = true
         img.layer.cornerRadius = 20
-        img.kf.setImage(with: name, placeholder: UIImage(named: "tmp"))
+        img.kf.setImage(with: name, placeholder: UIImage(named: "notFound"))
     }
     func configProductInfo(name : String,vendor : String,type : String)->Void
     {

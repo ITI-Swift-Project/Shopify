@@ -10,7 +10,8 @@ import UIKit
 @available(iOS 13.0, *)
 class LoginViewController: UIViewController {
     var result : customers?
-
+    
+    let semaphore = DispatchSemaphore(value: 0)
     @IBOutlet weak var signupBtn: UIButton!
     
     @IBOutlet weak var skipBtn: UIButton!
@@ -29,7 +30,7 @@ class LoginViewController: UIViewController {
     }
     
     
-    let semaphore = DispatchSemaphore(value: 0)
+    
     @IBOutlet weak var passwordTxt: UITextField!
     {
        didSet
@@ -91,11 +92,13 @@ class LoginViewController: UIViewController {
             let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! TabBarViewController
             semaphore.signal()
             getData(from:  "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers/search.json?query=email:\(emailTxt.text!)")
-            print(result?.customers?[0])
+            semaphore.wait()
+          
+//            print(result!.customers![0].id)
             brandsViewController.loggedCustomer = result?.customers![0]
-            print(brandsViewController.loggedCustomer?.id)
+           // print(brandsViewController.loggedCustomer?.id)
            
-            print(result?.customers?[0])
+           // print(result?.customers?[0])
             self.navigationController?.pushViewController(brandsViewController, animated: true)
            
         }
@@ -138,6 +141,7 @@ class LoginViewController: UIViewController {
             do {
                 self.result = try JSONDecoder().decode(customers.self, from: data)
                 print(self.result)
+                self.semaphore.signal()
             }catch{
                 print("failed to convert \(error.localizedDescription)")
             }
