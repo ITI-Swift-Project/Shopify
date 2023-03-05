@@ -42,6 +42,9 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+      print("Login \(UserDefaults.standard.bool(forKey: "loginState"))")
+      print("SignUP\(UserDefaults.standard.bool(forKey: "signUpState"))")
+        
         homeViewModel = NetworkViewModel()
         homeViewModel?.getBrands()
         homeViewModel?.bindingBrands = {

@@ -6,15 +6,32 @@
 //
 
 import Foundation
-struct Customer : Codable
+struct allCustomers : Codable
 {
         var id : Int
-        let email : String?
-        let first_name : String?
-       let  tags : String?
-     //  let addresses : [[String : String]]
+        var email : String?
+        var first_name : String?
+       var  tags : String?
+      var addresses : [Address]?
 }
-struct customers : Codable
+struct Customers : Codable
 {
-    let customers : [Customer]?
+    let customers : [allCustomers]?
 }
+
+
+
+
+/*
+func saveUserLocally(_ user : customers)
+{
+    let encoder  = JSONEncoder()
+    do{
+        let data = try encoder.encode(user)
+        UserDefaults.standard.set(data, forKey: "currentUser")
+        
+    }catch{
+        print(error.localizedDescription)
+    }
+}
+*/

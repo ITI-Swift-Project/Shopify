@@ -60,6 +60,8 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         
         
         // Do any additional setup after loading the view.
+        
+        
         myscroll.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 210)
         imgsCV.delegate = self
         imgsCV.dataSource = self

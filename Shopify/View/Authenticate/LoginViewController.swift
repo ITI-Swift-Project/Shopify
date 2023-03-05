@@ -9,7 +9,7 @@ import UIKit
 
 @available(iOS 13.0, *)
 class LoginViewController: UIViewController {
-    var result : customers?
+    var result : Customers?
     
     let semaphore = DispatchSemaphore(value: 0)
     @IBOutlet weak var signupBtn: UIButton!
@@ -100,6 +100,8 @@ class LoginViewController: UIViewController {
            
            // print(result?.customers?[0])
             self.navigationController?.pushViewController(brandsViewController, animated: true)
+            let userDefualts = UserDefaults.standard
+            userDefualts.set(true, forKey: "loginState")
            
         }
         else
@@ -139,7 +141,7 @@ class LoginViewController: UIViewController {
             //have data
             
             do {
-                self.result = try JSONDecoder().decode(customers.self, from: data)
+                self.result = try JSONDecoder().decode(Customers.self, from: data)
                 print(self.result)
                 self.semaphore.signal()
             }catch{
@@ -151,7 +153,7 @@ class LoginViewController: UIViewController {
           //  print(json.first_name)
           //  print(json.email)
             print("doneeee")
-            print(data.count)
+           // print(data.count)
            // print(json.addresses)
             
         }
