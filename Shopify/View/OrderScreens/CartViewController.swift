@@ -8,9 +8,8 @@
 import UIKit
 
 class CartViewController: UIViewController {
-    
     var cartViewModel : NetworkViewModel?
- //   var tempCartItemsList : [DraftOrder]?
+    var tempCartItemsList : [DraftOrder]?
     var shoppingCartItemsList : [DraftOrder]?
     var total : Float = 0.0
     @IBOutlet weak var shoppingCartFrame: UIView!
@@ -32,18 +31,27 @@ class CartViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //   for i in 0..<shoppingCartItemsList.count{
-        //       total += shoppingCartItemsList[i].cartItemSubTotal
-        //  }
-        //   self.subTotal.text = "   ".appending(String(total)).appending("$")
+        Swift.print(TabBarViewController.loggedCustomer!.id)
+
         cartVCStyle()
         cartViewModel = NetworkViewModel()
         cartViewModel?.getCartProducts()
         cartViewModel?.bindingCartProducts = {
             DispatchQueue.main.async { [self] in
                 self.shoppingCartItemsList = self.cartViewModel?.ShoppingCartProductsResult ?? []
-              //  self.tempCartItemsList = self.cartViewModel?.ShoppingCartProductsResult ?? []
-              //  self.shoppingCartItemsList = tempCartItemsList?.filter { (($0).customer?[0].id) == 6817112686896 }
+                self.tempCartItemsList = self.cartViewModel?.ShoppingCartProductsResult ?? []
+                Swift.print(tempCartItemsList?[0].created_at)
+               // self.shoppingCartItemsList = self.tempCartItemsList?.filter { ($0.customer?.id) == TabBarViewController.loggedCustomer!.id }
+                for item in tempCartItemsList!{
+                    if item.customer!.id == TabBarViewController.loggedCustomer?.id{
+                        shoppingCartItemsList?.append(item)
+                    }
+                }
+             /*   for i in 0..<shoppingCartItemsList!.count{
+                    total += (Float((shoppingCartItemsList![0].line_items![0].price)!)! * Float((shoppingCartItemsList![0].line_items![0].quantity)!))
+                  }
+                self.subTotal.text = String(total)//.appending(shoppingCartItemsList?[0].currency ?? "")
+              */
                 self.shoppingCartCollectionView.reloadData()
             }
         }
