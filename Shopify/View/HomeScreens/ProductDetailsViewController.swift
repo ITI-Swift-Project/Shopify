@@ -12,7 +12,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     var product : Product? 
     
     var arrImgs = [UIImage(named: "product")!, UIImage(named: "tmp")!, UIImage(named: "tmpBrand")]
-    var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review1")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
+    var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review2")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
     var timer :  Timer?
     var currentCellIndex  = 0
     
@@ -50,6 +50,9 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     @IBOutlet weak var cosmos: CosmosView!
     
+    @IBAction func addProductToCart(_ sender: Any) {
+        NetworkService.postShoppingCartProduct(cartProduct: product!)
+    }
     // var optionsValue:[String] = []
    // var selctedItem = sizeSeg.selectedSegmentIndex
     

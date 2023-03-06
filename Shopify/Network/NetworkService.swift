@@ -83,6 +83,56 @@ extension NetworkService : ShoppingCartData
         }
     }
 }
+extension NetworkService
+{
+    static func postShoppingCartProduct(cartProduct :Product){
+        guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders.json") else{
+                return
+            }
+            var request = URLRequest(url :url)
+            request.httpMethod = "POST"
+            
+            request.httpShouldHandleCookies = false
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            let body : [String : Any] = [
+                "draft_order": [
+                    "line_items": [
+                            [
+                            "title": cartProduct.title ?? "",
+                            "price": cartProduct.variants?[0].price ?? "",
+                            "quantity": 1,
+                            "vendor" : "Addidas"
+                            ]
+                        ],
+                    "applied_discount": [
+                        "description": "Custom discount",
+                        "value_type": "fixed_amount",
+                        "value": "10.0",
+                        "amount": "10.00",
+                        "title": "Custom"
+                        ],
+                    "customer": [
+                        "id": 6817112686896
+                        ],
+                    "use_customer_default_address": true
+                ]
+            ]
+            request.httpBody = try? JSONSerialization.data(withJSONObject: body,options: .fragmentsAllowed)
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data else{
+                    return
+                }
+                do{
+                    print("success\(response)")
+                }
+                catch{
+                }
+            }
+            task.resume()
+        }
+    }
+
 
 extension NetworkService : PostApi
 {
