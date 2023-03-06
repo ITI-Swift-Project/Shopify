@@ -6,15 +6,22 @@
 //
 
 import UIKit
-
+import Cosmos
 class ProductDetailsViewController: UIViewController , UICollectionViewDelegate , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
-    var arrProducts : Product? 
+    var product : Product? 
     
     var arrImgs = [UIImage(named: "product")!, UIImage(named: "tmp")!, UIImage(named: "tmpBrand")]
     var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review1")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
     var timer :  Timer?
     var currentCellIndex  = 0
+    
+    @IBOutlet weak var productName: UILabel!
+    
+    @IBOutlet weak var productDiscription: UITextView!
+    
+    
+    
     
     @IBOutlet weak var reviewCV: UICollectionView!
     
@@ -23,7 +30,9 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     @IBOutlet weak var myscroll: UIScrollView!
     
+    @IBOutlet weak var colorSegmented: UISegmentedControl!
     
+    @IBOutlet weak var sizeSeg: UISegmentedControl!
     
     @IBOutlet weak var imgsCV: UICollectionView!
     
@@ -38,22 +47,11 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     @IBOutlet weak var cartBtn: UIButton!
     
-    @IBOutlet weak var size1: UILabel!
     
-    @IBOutlet weak var size2: UILabel!
+    @IBOutlet weak var cosmos: CosmosView!
     
-    @IBOutlet weak var size3: UILabel!
-    
-    @IBOutlet weak var size4: UILabel!
-    
-    @IBOutlet weak var color1: UILabel!
-    
-    @IBOutlet weak var color2: UILabel!
-    
-    @IBOutlet weak var color3: UILabel!
-    
-    @IBOutlet weak var color4: UILabel!
-    
+    // var optionsValue:[String] = []
+   // var selctedItem = sizeSeg.selectedSegmentIndex
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +59,15 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         
         // Do any additional setup after loading the view.
         
+     //   cosmos.inputViewController?.isBeingDismissed = false
+        priceLbl.text = "  \(product?.variants?.first?.price ?? "") EGP"
+        productName.text = product?.title
+        productDiscription.text = product?.body_html
+        sizeSeg.setTitle("\(product?.options?[0].values?[0] ?? "")", forSegmentAt: 1)
+       // sizeSeg.setTitle("\(product?.options?[0].values?[1] ?? "")", forSegmentAt: 1)
+        //sizeSeg.setTitle("\(product?.options?[0].values?[2] ?? "")", forSegmentAt: 2)
+        //sizeSeg.setTitle("\(product?.options?[0].values?[3] ?? "")", forSegmentAt: 3)
+        colorSegmented.setTitle("\(product?.options?[1].values?[0] ?? "")", forSegmentAt: 1)
         
         myscroll.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 210)
         imgsCV.delegate = self
@@ -85,27 +92,106 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
        addcartLbl.clipsToBounds = true
         
         
-        size1.layer.cornerRadius = size1.frame.size.height / 3
-      size1.clipsToBounds = true
-        
-        size2.layer.cornerRadius = size2.frame.size.height / 2
-      size2.clipsToBounds = true
-        
-        size3.layer.cornerRadius = size3.frame.size.height / 2
-      size3.clipsToBounds = true
-        
-        size4.layer.cornerRadius = size4.frame.size.height / 2
-      size4.clipsToBounds = true
-        
-        color1.layer.cornerRadius = color1.frame.size.height / 2
-      color1.clipsToBounds = true
-        color2.layer.cornerRadius = color2.frame.size.height / 2
-      color2.clipsToBounds = true
-        color3.layer.cornerRadius = color3.frame.size.height / 2
-      color3.clipsToBounds = true
-        color4.layer.cornerRadius = color4.frame.size.height / 2
-      color4.clipsToBounds = true
+       
     }
+    
+    
+    
+    @IBAction func sizeee(_ sender: Any) {
+        print("index = \(sizeSeg.selectedSegmentIndex)")
+        
+        print("value = \(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex))")
+        //makeSize_ColorPostRequest()
+        
+    }
+    
+    
+    
+    @IBAction func colorChanged(_ sender: Any) {
+        print("index = \(colorSegmented.selectedSegmentIndex)")
+        
+        print("value = \(colorSegmented.titleForSegment(at: colorSegmented.selectedSegmentIndex))")
+       // makeSize_ColorPostRequest()
+        
+    }
+    
+    
+    
+    private func makeSize_ColorPostRequest()
+    {
+        guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders.json") else{
+            return
+        }
+        print("Making api call")
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpShouldHandleCookies = false
+        request.addValue("application/json",forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json",forHTTPHeaderField: "Authorization")
+       // request.addValue("application/json",forHTTPHeaderField: "Accept")
+                
+     //   request.setValue("application/json", forHTTPHeaderField: "Authorization -token")
+        print("\(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex)!)")
+       /* let body : [String:Any] = [
+            "draft_orders" : [
+               //"id" : Int?
+               // var email : String?
+                //"email":"\(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex)!)",
+                //"first_name":"\(usernameTxt.text!)",
+                //"tags":"\(passwordTxt.text!)",
+                "line_items" : [["variant_title":"\(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex)!)",
+                               "sku":"\(colorSegmented.titleForSegment(at: colorSegmented.selectedSegmentIndex)!)" ]]
+            ]
+        ]*/
+        
+        let body : [String : Any] = [
+                    "draft_order": [
+                            "line_items": [
+                                [
+                                    "title": "Custom Tee",
+                                    "price": "20.00",
+                                    "quantity": 2,
+                                    "sku":"\(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex)!)",
+                                    //"variant_id":"\(colorSegmented.titleForSegment(at: colorSegmented.selectedSegmentIndex)!)"
+                                    
+                                ]
+                            ],
+                            "applied_discount": [
+                                "description": "Custom discount",
+                                "value_type": "fixed_amount",
+                                "value": "10.0",
+                                "amount": "10.00",
+                                "title": "Custom"
+                            ],
+                            "shipping_address": [
+                                "address2": "\(colorSegmented.titleForSegment(at: colorSegmented.selectedSegmentIndex)!)"
+                                
+                            ],
+                            "customer": [
+                                "id": 6817112686896
+                            ],
+                            "use_customer_default_address": true
+                        ]
+                ]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+            guard let data = data, error ==  nil else{
+                return
+            }
+            
+            do{
+                let response =  try JSONSerialization.jsonObject(with: data , options:  .allowFragments)
+                print("SUCCSESS\(response)")
+            }catch{
+                print(error)
+            }
+        }
+        task.resume()
+    }
+
+    
     func startTimer()
     {
         timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(moveToNextIndex), userInfo: nil, repeats: true)
@@ -129,9 +215,9 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == imgsCV
         {
-            return (arrProducts?.images?.count)!
+            return (product?.images?.count)!
         }
-        return (arrProducts?.images!.count)!
+        return (product?.images!.count)!
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -139,7 +225,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productDetailsCell", for: indexPath) as! ProductDetailsCollectionViewCell
            // cell.productDetailsImg(name: URL(string: (arrProducts[indexPath.row])))
-            cell.productDetailsImg.kf.setImage(with: URL(string: ((arrProducts?.images?[indexPath.row])?.src!)!))
+            cell.productDetailsImg.kf.setImage(with: URL(string: ((product?.images?[indexPath.row])?.src!)!))
             return cell
             
            // cell.productDetailsImg(name:URL(string : (arrProducts[indexPath.row].images!)))

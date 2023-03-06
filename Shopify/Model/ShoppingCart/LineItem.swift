@@ -17,4 +17,9 @@ class LineItem : Decodable
     var fulfillment_service : String?
     var price : String?
     var quantity : Int?
+    var variant_title : String?
+    var sku : String?
+    var vendor : String?
+    var variant_id : String?
+    
 }
