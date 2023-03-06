@@ -25,11 +25,27 @@ class OrdersViewController: UIViewController {
             
         }
     }
-    
+    var viewModel : NetworkViewModel?
+    var ordersResult : [Order] = []
+    var filteredOrders : [Order] = []
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        viewModel = NetworkViewModel()
+        viewModel?.getOrders()
+        viewModel?.bindingOrdersItems = {
+            self.ordersResult = self.viewModel?.ordersResult.orders ?? []
+            self.filterAccordingToCustomer()
+         
+            self.ordersCollection.reloadData()
+//            self.ordersCollection.reloadData()
+        }
+       
+    }
+    func filterAccordingToCustomer(){
+        print(TabBarViewController.loggedCustomer?.id ?? 0)
+        let id = TabBarViewController.loggedCustomer?.id ?? 0
+        self.filteredOrders = self.ordersResult.filter{$0.customer?.id == id}
     }
     
     
@@ -47,15 +63,20 @@ extension OrdersViewController : UICollectionViewDataSource{
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return filteredOrders.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "orderCell", for: indexPath) as! OrdersCollectionViewCell
-        cell.layer.borderColor     = UIColor.systemGray.cgColor
-        //cell.layer.shadowOpacity = 20
-        //cell.layer.borderWidth   = 3.0
-        cell.layer.cornerRadius    = 25.0
+        let date_time = ordersResult[indexPath.row].created_at?.components(separatedBy: "T")
+        
+        
+        cell.layer.borderColor  = UIColor.systemGray.cgColor
+        cell.layer.cornerRadius = 25.0
+        cell.priceLabel.text    = ordersResult[indexPath.row].current_total_price
+        cell.dateLabel.text = date_time?[0]
+        cell.timeLabel.text = date_time?[1]
+        
         return cell
     }
     
