@@ -13,6 +13,7 @@ struct Variants  :Codable{
     var price : String?
     //var sku : String?
     //var inventory_policy : String?
-    
+    var option1 : String?
+    var option2 : String?
     
 }

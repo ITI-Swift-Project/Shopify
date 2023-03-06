@@ -16,4 +16,12 @@ struct Product : Codable {
     var variants : [Variants]?
     var images : [Image]?
     var image : Image?
+    var options: [Options]?
+    var product_id : Int?
+    var body_html : String?
+}
+struct Options : Codable
+{
+    var position : Int?
+    var values : [String]?
 }

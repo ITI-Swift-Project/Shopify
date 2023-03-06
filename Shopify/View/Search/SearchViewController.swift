@@ -93,7 +93,7 @@ extension SearchViewController : UICollectionViewDataSource
        
         let storyBoard: UIStoryboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
         let productDetailsViewController = storyBoard.instantiateViewController(withIdentifier: "productDetails") as! ProductDetailsViewController
-        productDetailsViewController.arrProducts = productsArray2[indexPath.row]
+        productDetailsViewController.product = productsArray2[indexPath.row]
         self.navigationController?.pushViewController(productDetailsViewController, animated: true)
         }
     
