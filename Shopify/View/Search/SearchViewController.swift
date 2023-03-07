@@ -43,7 +43,7 @@ class SearchViewController: UIViewController {
             {
                 DispatchQueue.main.async
                 { [self] in
-                    self.productsArray = self.viewModel!.productsResult
+                    self.productsArray = self.viewModel!.productsResult .products ?? []
                     print(self.productsArray.count)
                     self.productsArray2 = productsArray
                     self.searchCV.reloadData()

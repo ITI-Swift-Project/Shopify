@@ -186,7 +186,7 @@ class CatViewController: UIViewController {
         self.viewModel?.bindingProducts = {
             DispatchQueue.main.async {
              
-                self.result = self.viewModel!.productsResult
+                self.result = self.viewModel!.productsResult.products ?? []
                 print(self.result.count)
                 self.catCollection.reloadData()
             }
@@ -205,7 +205,7 @@ class CatViewController: UIViewController {
         self.viewModel?.bindingProducts = {
             DispatchQueue.main.async {
              
-                self.result = self.viewModel!.productsResult
+                self.result = self.viewModel!.productsResult .products ?? []
                 print(self.result.count)
                 self.catCollection.reloadData()
             }
@@ -221,7 +221,7 @@ class CatViewController: UIViewController {
         viewModel?.bindingProducts = {
             DispatchQueue.main.async {
              
-                self.result = self.viewModel!.productsResult
+                self.result = self.viewModel!.productsResult.products ?? []
                 print(self.result.count)
                 self.catCollection.reloadData()
             }
