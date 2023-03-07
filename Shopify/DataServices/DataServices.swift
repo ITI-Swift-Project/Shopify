@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 class DataServices  {
-  //  static let sharedInstance = DataServices()
+  // static let sharedInstance = DataServices()
 
   static func save(draftproduct : DraftOrder, appDelegate : AppDelegate) -> Void
     {
@@ -30,10 +30,10 @@ class DataServices  {
     }
     
     
-    static func fetch(appDelegate : AppDelegate) -> [NSManagedObject]?{
+     static func fetch(appDelegate : AppDelegate) -> [NSManagedObject]?{
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ShoppingCartProduct")
-        var cartProductsList : [NSManagedObject]?
+        var cartProductsList : [NSManagedObject] = []
             do{
                  cartProductsList = try managedContext.fetch(fetchRequest)
             }catch let error{
@@ -42,7 +42,37 @@ class DataServices  {
         return cartProductsList
     }
     
- /*   func delete(index : Int)
+    
+    
+    
+    
+   static func isAddedToCart (productId: Int, appDelegate : AppDelegate) -> Bool
+    {
+        var state : Bool = false
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ShoppingCartProduct")
+        let pred = NSPredicate(format: "product_id == %i", productId )
+        fetchRequest.predicate = pred
+            do{
+                let fetchedCartProductsArray = try managedContext.fetch(fetchRequest)
+                    if fetchedCartProductsArray.count == 0
+                    {
+                        state = true
+                    }
+                    else
+                    {
+                        state = false
+                    }
+                    print("\(state)")
+            }catch let error{
+                print(error.localizedDescription)
+            }
+        
+       return state
+    }
+
+    
+ /*  static func delete(index : Int)
     {
             let managedContext = self.appDelegate.persistentContainer.viewContext
             managedContext.delete((self.cartProductsList?[index])! )
@@ -52,7 +82,7 @@ class DataServices  {
             }
             catch _{
             }
-    }*/
-    
+    }
+    */
 }
 

@@ -9,6 +9,8 @@ import UIKit
 
 class OrderDetailsViewController: UIViewController {
 
+    var orderProductsList : [DraftOrder]?
+    var orderSubTotal : Float?
     @IBOutlet weak var orderProductsTableView: UITableView!
     {
         didSet

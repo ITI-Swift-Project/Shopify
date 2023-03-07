@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import Reachability
+import Kingfisher
 
 class CartViewController: UIViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -18,6 +19,7 @@ class CartViewController: UIViewController {
     var total : Float = 0.0
     var cartItemSubTotal : Float = 0.0
     var flag : Bool = false
+    var reachability : Reachability?
     @IBOutlet weak var shoppingCartFrame: UIView!
     @IBOutlet weak var subTotal: UILabel!
     @IBOutlet weak var shoppingCartCollectionView: UICollectionView!
@@ -33,21 +35,15 @@ class CartViewController: UIViewController {
     @IBOutlet weak var checkout: UIButton!
     @IBAction func proceedToCheckout(_ sender: Any) {
         let orderDetailsVC = storyboard?.instantiateViewController(withIdentifier: "orderDetails") as! OrderDetailsViewController
+        orderDetailsVC.orderProductsList = shoppingCartItemsList
+        orderDetailsVC.orderSubTotal = total
         navigationController?.pushViewController(orderDetailsVC, animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let isConn = Reachability.forInternetConnection()
-        if ((isConn?.isReachableViaWiFi()) != nil)
-        {
-            flag = true
-        }
-        else
-        {
-            flag = false
-        }
+       
         
         Swift.print(TabBarViewController.loggedCustomer!.id)
         cartVCStyle()
@@ -73,17 +69,28 @@ class CartViewController: UIViewController {
                 {
                     for i in 0..<(self.shoppingCartItemsList?.count ?? 0)
                     {
-                        DataServices.save(draftproduct: shoppingCartItemsList![i], appDelegate: appDelegate)
+                        if DataServices.isAddedToCart(productId: shoppingCartItemsList?[i].id ?? 0, appDelegate: appDelegate) == true
+                        {
+                            DataServices.save(draftproduct: shoppingCartItemsList![i], appDelegate: appDelegate)
+                        }
                     }
-                }
-                else
-                {
-                    shoppingCartItemsListCoreData = DataServices.fetch(appDelegate: appDelegate)
                 }
             }
         }
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        reachability = Reachability.forInternetConnection()
+        if ((reachability!.isReachable()) )
+        {
+            flag = true
+        }
+        else
+        {
+            flag = false
+            shoppingCartItemsListCoreData = DataServices.fetch(appDelegate: appDelegate)
+        }
+        self.shoppingCartCollectionView.reloadData()
+    }
     
     @IBAction func backAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -118,7 +125,7 @@ extension CartViewController : UICollectionViewDataSource,UICollectionViewDelega
             cell.cartProductName.text = shoppingCartItemsList?[indexPath.row].line_items?[0].title
             cell.cartProductDescription.text = shoppingCartItemsList?[indexPath.row].line_items?[0].vendor
             cell.cartProductPrice.text = (shoppingCartItemsList?[indexPath.row].line_items?[0].price)?.appending(" ").appending(shoppingCartItemsList?[indexPath.row].currency ?? "")
-            cell.cartProductsCount.text = String((shoppingCartItemsList?[indexPath.row].line_items?[0].quantity)!)
+            cell.cartProductsCount.text = String((shoppingCartItemsList?[indexPath.row].line_items?[0].quantity ?? 0))
             let quantity = Float(shoppingCartItemsList?[indexPath.row].line_items?[0].quantity ?? 0)
             let price = Float(shoppingCartItemsList?[indexPath.row].line_items?[0].price ?? "")
             cell.cartProductSuTotalPrice.text = String(quantity * price!).appending(" ").appending(shoppingCartItemsList?[indexPath.row].currency ?? "")
@@ -136,7 +143,7 @@ extension CartViewController : UICollectionViewDataSource,UICollectionViewDelega
             cell.cartCellBackView.layer.shadowOpacity = 0.5
             cell.cartCellBackView.layer.shadowOffset = CGSize(width: 5, height: 5)
         }
-        else
+        else if flag == false
         {
             cell.layer.masksToBounds = true
             cell.layer.cornerRadius = 30
@@ -178,8 +185,8 @@ extension CartViewController
             let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product?", preferredStyle: .actionSheet)
             deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
                 self.delete(id: idd)
-               // total -= Float(shoppingCartItemsList?[sender.tag].line_items?[0].price ?? "" ) ?? 0.0 * Float(shoppingCartItemsList?[sender.tag].line_items?[0].quantity ?? 0) ?? 0.0
-                   //   subTotal.text = String(total)
+                self.total -= Float(self.shoppingCartItemsList?[sender.tag].line_items?[0].price ?? "" ) ?? 0.0 * Float(self.shoppingCartItemsList?[sender.tag].line_items?[0].quantity ?? 0) ?? 0.0
+                self.subTotal.text = String(self.total).appending(self.shoppingCartItemsList?[sender.tag].currency ?? "")
                       self.shoppingCartItemsList?.remove(at: sender.tag)
                       self.shoppingCartCollectionView.reloadData()
             }))
@@ -236,23 +243,29 @@ extension CartViewController
                 }
             }
             task.resume()
+            self.shoppingCartItemsList?[sender.tag].line_items?[0].quantity =             (self.shoppingCartItemsList?[sender.tag].line_items?[0].quantity)! + 1
+            
+           total += Float(shoppingCartItemsList?[sender.tag].line_items?[0].price ?? "") ?? 0.0
+           cartItemSubTotal = Float((shoppingCartItemsList?[sender.tag].line_items?[0].quantity)!) * Float((shoppingCartItemsList?[sender.tag].line_items?[0].price)!)!
+            
+            self.shoppingCartCollectionView.reloadData()
+
         }
         else
          {
          shoppingCartItemsList?[sender.tag].line_items?[0].quantity = 20
          }
-        total += Float(shoppingCartItemsList?[sender.tag].line_items?[0].price ?? "") ?? 0.0
-        
-        cartItemSubTotal = Float((shoppingCartItemsList?[sender.tag].line_items?[0].quantity)!) * Float((shoppingCartItemsList?[sender.tag].line_items?[0].price)!)!
-         subTotal.text = String(total )
+         subTotal.text = String(total ).appending(shoppingCartItemsList?[sender.tag].currency ?? "")
          self.shoppingCartCollectionView.reloadData()
          }
          
+    
          @objc func decreaseProductsCount(sender : UIButton)
          {
+             let idd = (shoppingCartItemsList?[sender.tag].id)!
+
          if (shoppingCartItemsList?[sender.tag].line_items?[0].quantity)! > 1
          {
-             let idd = (shoppingCartItemsList?[sender.tag].id)!
              guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/\(idd).json") else{
                  return
              }
@@ -264,10 +277,9 @@ extension CartViewController
                  "draft_order": [
                      "line_items": [
                              [
-                             "title": "EDITED",
-                             "price": "90.00",
+                            "title": shoppingCartItemsList?[sender.tag].line_items?[0].title ?? "",
+                              "price": shoppingCartItemsList?[sender.tag].line_items?[0].price ?? "",
                              "quantity": ((shoppingCartItemsList?[sender.tag].line_items?[0].quantity)! - 1)
-                             //"vendor" : "Adidas"
                              ]
                          ],
                      "applied_discount": [
@@ -295,16 +307,22 @@ extension CartViewController
                  catch{
                  }
              }
-             task.resume()         }
+             task.resume()
+             self.shoppingCartItemsList?[sender.tag].line_items?[0].quantity =             (self.shoppingCartItemsList?[sender.tag].line_items?[0].quantity)! - 1
+             
+             total -= Float(shoppingCartItemsList?[sender.tag].line_items?[0].price ?? "") ?? 0.0
+                  cartItemSubTotal = Float((shoppingCartItemsList?[sender.tag].line_items?[0].quantity)!) * Float((shoppingCartItemsList?[sender.tag].line_items?[0].price)!)!
+             self.shoppingCartCollectionView.reloadData()
+         }
          else
          {
-             delete(id: sender.tag)
+             
+             delete(id: idd)
+             self.shoppingCartItemsList?.remove(at: sender.tag)
+             self.shoppingCartCollectionView.reloadData()
          }
-        total -= Float(shoppingCartItemsList?[sender.tag].line_items?[0].price ?? "") ?? 0.0
-             cartItemSubTotal = Float((shoppingCartItemsList?[sender.tag].line_items?[0].quantity)!) * Float((shoppingCartItemsList?[sender.tag].line_items?[0].price)!)!
-              subTotal.text = String(total)
+              subTotal.text = String(total).appending(shoppingCartItemsList?[sender.tag].currency ?? "")
               self.shoppingCartCollectionView.reloadData()
-       //       self.shoppingCartCollectionView.deleteItems(at: [IndexPath(row: 0, section: 0)])
          }
 }
 
