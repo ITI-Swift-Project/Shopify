@@ -7,16 +7,22 @@
 
 import Foundation
 import CoreData
-/*
-class DataManager : ShoppingCartProtocol
-{
+
+class DataManager// : ShoppingCartProtocol
+{/*
     let dbManger = DataServices.sharedInstance
     
-    func saveProductInShoppingCart(product: Product, appDelegate: AppDelegate) {
+    func saveProductInShoppingCart(product: DraftOrder, appDelegate: AppDelegate) {
         dbManger.save(draftproduct: product, appDelegate: appDelegate)
     }
-    func fetchFormCoreData(appDelegate: AppDelegate) -> [NSManagedObject]? {
+    
+    func fetchShoppingCartProducts(appDelegate: AppDelegate) -> [NSManagedObject]? {
         dbManger.fetch(appDelegate: appDelegate)
     }
+    
+    func deleteShoppingCartProduct(appDelegate: AppDelegate, product_id: Int) {
+        dbManger.delete(index: product_id)
+    }
+    */
 }
-*/
+

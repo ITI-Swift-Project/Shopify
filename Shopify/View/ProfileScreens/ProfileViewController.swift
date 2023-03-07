@@ -47,7 +47,11 @@ class ProfileViewController: UIViewController{
             self.navigationController?.pushViewController(logInVC, animated: true)
             if UserDefaults.standard.bool(forKey: "loginState") == true
             {
+
               //  super.viewWillAppear(true.)
+
+                super.viewWillAppear(true)
+
                // self.navigationController?.pushViewController(self, animated: true)
             }
             

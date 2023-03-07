@@ -9,8 +9,8 @@ import Foundation
 import CoreData
 protocol ShoppingCartProtocol{
     
-    func saveProductInShoppingCart(product : Product, appDelegate : AppDelegate) -> Void
-    func fetchFormCoreData(appDelegate : AppDelegate) -> [NSManagedObject]?
- // func deleteShoppingCartProduct(appDelegate: AppDelegate, product_id : Int)
+    func saveProductInShoppingCart(product : DraftOrder, appDelegate : AppDelegate) -> Void
+    func fetchShoppingCartProducts(appDelegate : AppDelegate) -> [NSManagedObject]?
+    func deleteShoppingCartProduct(appDelegate: AppDelegate, product_id : Int)
     
 }

@@ -18,4 +18,5 @@ class DraftOrder : Decodable
     var status : String?
     var line_items : [LineItem]?
     var customer : allCustomers?
+    var note_attributes : [String]?
 }
