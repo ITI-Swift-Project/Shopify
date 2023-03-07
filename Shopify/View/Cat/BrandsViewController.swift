@@ -21,7 +21,7 @@ class BrandsViewController: UIViewController {
         }
     }
     @IBOutlet weak var slider: UISlider!
-    var brandItemsViewModel : BrandItemsViewModel?
+    var networkViewModel : NetworkViewModel?
     @IBOutlet weak var brandsCollection: UICollectionView!{
         didSet{
             brandsCollection.dataSource = self
@@ -34,16 +34,16 @@ class BrandsViewController: UIViewController {
         super.viewDidLoad()
         createFloatyButton()
         brandsCollection.layer.cornerRadius = 20
-        brandItemsViewModel = BrandItemsViewModel()
-        brandItemsViewModel?.brandId = brandId ?? 0
-        brandItemsViewModel?.getItems()
+        networkViewModel = NetworkViewModel()
+        
+        networkViewModel?.getItems(brandId: brandId)
         
         
-        brandItemsViewModel?.bindingBrandItems = {
+        networkViewModel?.bindingBrandItems = {
             //            print(self.homeViewModel?.brandsResult.count)
             //            print(self.homeViewModel?.brandsResult[0].id)
             DispatchQueue.main.async {
-                self.itemsArray = self.brandItemsViewModel!.brandItemsResult
+                self.itemsArray = self.networkViewModel!.brandItemsResult.products ?? []
                 self.filterItems = self.itemsArray
                 print(self.itemsArray.count)
                 self.brandsCollection.reloadData()

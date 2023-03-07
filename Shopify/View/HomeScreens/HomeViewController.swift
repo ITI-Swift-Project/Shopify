@@ -47,11 +47,12 @@ class HomeViewController: UIViewController {
         
         homeViewModel = NetworkViewModel()
         homeViewModel?.getBrands()
+
         homeViewModel?.bindingBrands = {
             //            print(self.homeViewModel?.brandsResult.count)
             //            print(self.homeViewModel?.brandsResult[0].id)
             DispatchQueue.main.async {
-                self.brandArray = self.homeViewModel!.brandsResult
+                self.brandArray = self.homeViewModel!.brandsResult?.smart_collections ?? []
                 print(self.brandArray.count)
                 
                 self.brandCollection.reloadData()
