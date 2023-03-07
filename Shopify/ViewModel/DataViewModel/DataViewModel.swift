@@ -27,7 +27,7 @@ class DataViewModel {
     }
     
     func fetchSavedCartProducts (appDelegate : AppDelegate)->[NSManagedObject]{
-        dataCaching.fetchFormCoreData(appDelegate: appDelegate)!
+        dataCaching.fetchSavedCartProducts(appDelegate: appDelegate)!
     }
     
   
