@@ -19,7 +19,7 @@ class WishViewController: UIViewController {
         wishCV.delegate = self
         wishCV.dataSource = self
         let nibb = UINib(nibName: "WishCollectionViewCell", bundle: nil)
-        wishCV.register(nibb, forCellWithReuseIdentifier: "WishCollectionViewCell")
+        wishCV.register(nibb, forCellWithReuseIdentifier: "list")
         self.wishV.layer.masksToBounds = true
         self.wishV.layer.cornerRadius = 30
         self.wishCV.backgroundColor = UIColor(named: "thirdColor")
@@ -63,7 +63,7 @@ extension WishViewController : UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WishCollectionViewCell", for: indexPath) as! WishCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "list", for: indexPath) as! WishCollectionViewCell
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = 30
       //  cell.layer.borderColor = UIColor(named: "s")?.cgColor

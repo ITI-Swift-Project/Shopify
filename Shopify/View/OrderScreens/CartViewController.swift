@@ -49,7 +49,7 @@ class CartViewController: UIViewController {
             flag = false
         }
         
-        Swift.print(TabBarViewController.loggedCustomer!.id)
+      //  Swift.print(TabBarViewController.loggedCustomer!.id)
         cartVCStyle()
         cartViewModel = NetworkViewModel()
         cartViewModel?.getCartProducts()

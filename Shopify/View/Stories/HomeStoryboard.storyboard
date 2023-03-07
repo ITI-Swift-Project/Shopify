@@ -393,9 +393,6 @@
                                                 <color key="backgroundColor" name="secondColor"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="shoppingCart"/>
-                                                <connections>
-                                                    <action selector="addd:" destination="onN-Q3-YBs" eventType="touchUpInside" id="dwO-Oy-afx"/>
-                                                </connections>
                                             </button>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Swg-dS-IDP">
                                                 <rect key="frame" x="8" y="262" width="377" height="32"/>
@@ -427,15 +424,6 @@
                                                     <action selector="sizeee:" destination="onN-Q3-YBs" eventType="valueChanged" id="e1J-HD-dU1"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0W-XS-ZkD">
-                                                <rect key="frame" x="277" y="75" width="75" height="35"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="gray" title="Button"/>
-                                                <connections>
-                                                    <action selector="addProductToCart:" destination="onN-Q3-YBs" eventType="touchUpInside" id="Zh8-tO-MHZ"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" name="firstColor"/>
                                     </view>
