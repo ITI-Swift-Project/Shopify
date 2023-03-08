@@ -6,11 +6,16 @@
 //
 
 import UIKit
-
+import CoreData
 class OrderDetailsViewController: UIViewController {
 
     var orderProductsList : [DraftOrder]?
     var orderSubTotal : Float?
+    var homeViewModel : NetworkViewModel?
+    var copounsList : [DiscountCode]?
+    var flag : Bool = false
+    var usedCopouns : [NSManagedObject]?
+    var discountAmount : Float = 0.0
     @IBOutlet weak var orderProductsTableView: UITableView!
     {
         didSet
@@ -25,13 +30,50 @@ class OrderDetailsViewController: UIViewController {
     @IBOutlet weak var shoppingFees: UILabel!
     @IBOutlet weak var discount: UILabel!
     @IBOutlet weak var orderTotalPrice: UILabel!
-    
     @IBOutlet weak var enteringCopounCode: UITextField!
     @IBOutlet weak var bgFrame: UIView!
     
     @IBAction func backAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func validateCopoun(_ sender: Any) {
+        for i in 0..<(copounsList?.count ?? 0)
+        {
+            if copounsList?[i].code == enteringCopounCode.text
+            {
+                flag = true
+            }
+        }
+        if flag == true
+        {
+            var f : Bool?
+            f = isUsedCopoun(code: enteringCopounCode.text ?? "")
+            if f == true
+            {
+                let copounAlert : UIAlertController  = UIAlertController(title:"Copoun is used before!!", message: "", preferredStyle: .actionSheet)
+                copounAlert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler:{ action in
+                }))
+                self.present(copounAlert, animated:true, completion:nil )
+            }
+            else
+            {
+                discountAmount = ((orderSubTotal ?? 0.0) + 30.0) * 0.3
+                discount.text = String(discountAmount)
+                orderTotalPrice.text = String(((orderSubTotal ?? 0.0)+30.0)-discountAmount)
+
+            }
+            
+        }
+        else
+        {
+            let copounAlert : UIAlertController  = UIAlertController(title:"Copoun is not valid!!", message: "", preferredStyle: .actionSheet)
+            copounAlert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler:{ action in
+            }))
+            self.present(copounAlert, animated:true, completion:nil )
+        }
+    }
+    
     @IBAction func placeOrder(_ sender: Any) {
         let confirmAddressVC = storyboard?.instantiateViewController(withIdentifier: "chooseAddress") as! ConfirmAddressViewController
         navigationController?.pushViewController(confirmAddressVC, animated: true)
@@ -45,8 +87,28 @@ class OrderDetailsViewController: UIViewController {
         enteringCopounCode.layer.cornerRadius = 20
         enteringCopounCode.borderStyle = UITextField.BorderStyle(rawValue: 0)!
         orderSubTotalPrice.text = String(orderSubTotal ?? 0.0)
+        homeViewModel = NetworkViewModel()
+        homeViewModel?.getAds()
+        homeViewModel?.bindingAds = {
+            DispatchQueue.main.async {
+                self.copounsList = self.homeViewModel?.adsResult?.discount_codes ?? []
+                print("fatma\(self.copounsList?.count)")
+            }
+        }
+        discount.text = String(discountAmount)
+        orderTotalPrice.text = String(((orderSubTotal ?? 0.0)+30.0)-discountAmount)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Copouns")
+        do{
+            usedCopouns = try managedContext.fetch(fetchRequest)
+        }catch let error{
+            print(error.localizedDescription)
 
+        }
+    }
 }
 extension OrderDetailsViewController : UITableViewDataSource
 {
@@ -86,3 +148,34 @@ extension OrderDetailsViewController
     }
 }
 
+extension OrderDetailsViewController
+{
+    func isUsedCopoun(code : String) -> Bool
+    {
+        var flag : Bool?
+        for i in 0..<(usedCopouns?.count ?? 0)
+        {
+            if usedCopouns?[i].value(forKey: "copoun_code") as! String == code
+            {
+                 flag = false
+            }
+            else
+            {
+                flag = true
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let managedContext = appDelegate.persistentContainer.viewContext
+                let entity = NSEntityDescription.entity(forEntityName: "Copouns", in: managedContext)
+                let copoun = NSManagedObject(entity: entity!, insertInto: managedContext)
+                copoun.setValue(self.enteringCopounCode.text ?? "", forKey: "copoun_code")
+                copoun.setValue(true, forKey: "copoun_state")
+                do{
+                    try managedContext.save()
+                    print("Saved!")
+                }catch let error{
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        return flag ?? false
+    }
+}
