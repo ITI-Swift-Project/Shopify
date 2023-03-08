@@ -19,7 +19,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginBtn: UIButton!
     
     
-    @IBOutlet weak var topView: UIView!
     @IBOutlet weak var emailTxt: UITextField!
     {
         didSet
@@ -42,7 +41,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var topSubView: UIView!
+    @IBOutlet weak var topView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -66,7 +65,11 @@ class LoginViewController: UIViewController {
         loginBtn.layer.cornerRadius = loginBtn.frame.size.height / 2
         loginBtn.clipsToBounds = true
         
-      
+        signupBtn.layer.cornerRadius = signupBtn.frame.size.height / 2
+        signupBtn.clipsToBounds = true
+        
+        skipBtn.layer.cornerRadius = skipBtn.frame.size.height / 2
+       skipBtn.clipsToBounds = true
         
       self.topView.layer.masksToBounds = true
     self.topView.layer.cornerRadius = self.topView.frame.size.width/2
@@ -74,11 +77,11 @@ class LoginViewController: UIViewController {
       
         
     }
-   
+    
     private func validation() ->Bool
         {
             if
-                emailTxt.text != "" && emailTxt.text?.count ?? 0 >= 10 && emailTxt.text?.count ?? 0 <= 40 &&  passwordTxt.text != "" && passwordTxt.text?.count ?? 0 >= 10 && passwordTxt.text?.count ?? 0 <= 20 
+                emailTxt.text != "" && emailTxt.text?.count ?? 0 >= 10 && emailTxt.text?.count ?? 0 <= 40 &&  passwordTxt.text != "" && passwordTxt.text?.count ?? 0 >= 10 && passwordTxt.text?.count ?? 0 <= 20
             {
                 return true
             }

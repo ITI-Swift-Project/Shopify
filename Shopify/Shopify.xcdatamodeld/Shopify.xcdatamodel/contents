@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="ShoppingCartProduct" representedClassName="ShoppingCartProduct" syncable="YES" codeGenerationType="class">
         <attribute name="product_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="product_price" optional="YES" attributeType="String"/>
         <attribute name="product_quantity" optional="YES" attributeType="String"/>
         <attribute name="product_title" optional="YES" attributeType="String"/>
         <attribute name="state" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="WishlistProduct" representedClassName="WishlistProduct" syncable="YES" codeGenerationType="class">
+        <attribute name="productID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="productPrice" optional="YES" attributeType="String"/>
+        <attribute name="productTitle" optional="YES" attributeType="String"/>
+        <attribute name="wishIsFav" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
 </model>
