@@ -29,9 +29,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdH-Ka-Cpl">
                                 <rect key="frame" x="0.0" y="131" width="393" height="721"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZEE-hM-WjN">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZEE-hM-WjN">
                                         <rect key="frame" x="0.0" y="77" width="393" height="602"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="OJq-Z1-9QQ">
                                             <size key="itemSize" width="128" height="128"/>
@@ -52,17 +51,21 @@
                                     </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.85098046059999999" green="0.85098040100000005" blue="0.85098046059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="ZEE-hM-WjN" firstAttribute="top" secondItem="CdH-Ka-Cpl" secondAttribute="top" constant="77" id="68R-wJ-hyw"/>
+                                    <constraint firstItem="ZEE-hM-WjN" firstAttribute="leading" secondItem="CdH-Ka-Cpl" secondAttribute="leading" id="Fsu-Eb-wu7"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZEE-hM-WjN" secondAttribute="trailing" id="dgh-73-Rqu"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZEE-hM-WjN" secondAttribute="bottom" constant="42" id="xC0-gz-aan"/>
+                                </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wish List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8aE-7X-JTK">
-                                <rect key="frame" x="10" y="141" width="377" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wish List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8aE-7X-JTK">
+                                <rect key="frame" x="8" y="150.33333333333334" width="377" height="33.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <color key="textColor" red="0.02399811894" green="0.22235476970000001" blue="0.36735868449999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qet-dY-9bg">
-                                <rect key="frame" x="16" y="59" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qet-dY-9bg">
+                                <rect key="frame" x="16.000000000000004" y="84" width="34.333333333333343" height="34.333333333333343"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="" cornerStyle="capsule">
                                     <imageReference key="image" image="arrowshape.turn.up.left.fill" catalog="system" renderingMode="hierarchical">
@@ -82,10 +85,16 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="firstColor"/>
                         <constraints>
+                            <constraint firstItem="qet-dY-9bg" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="25" id="6OY-WH-dC5"/>
                             <constraint firstAttribute="trailing" secondItem="CdH-Ka-Cpl" secondAttribute="trailing" id="Bes-V5-fPa"/>
                             <constraint firstAttribute="bottom" secondItem="CdH-Ka-Cpl" secondAttribute="bottom" id="Git-Gf-R9p"/>
                             <constraint firstItem="CdH-Ka-Cpl" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="72" id="PMM-tn-x8T"/>
+                            <constraint firstItem="8aE-7X-JTK" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="chb-1D-i4a"/>
+                            <constraint firstItem="qet-dY-9bg" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="hKS-6D-NER"/>
+                            <constraint firstItem="ZEE-hM-WjN" firstAttribute="top" secondItem="8aE-7X-JTK" secondAttribute="bottom" constant="24" id="kj5-OV-oPG"/>
                             <constraint firstItem="CdH-Ka-Cpl" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="sW2-tk-pv6"/>
+                            <constraint firstItem="8aE-7X-JTK" firstAttribute="top" secondItem="qet-dY-9bg" secondAttribute="bottom" constant="32" id="xDo-NR-pcU"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8aE-7X-JTK" secondAttribute="trailing" constant="8" id="zs4-fg-73s"/>
                         </constraints>
                     </view>
                     <connections>
@@ -95,7 +104,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="71" y="15"/>
+            <point key="canvasLocation" x="70.992366412213741" y="14.788732394366198"/>
         </scene>
         <!--Payment View Controller-->
         <scene sceneID="t9s-Rf-b6i">
