@@ -204,6 +204,9 @@
                                 <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="24"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="favvBtn:" destination="onN-Q3-YBs" eventType="touchUpInside" id="pBD-Xt-nwp"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pex-EC-GsN">
                                 <rect key="frame" x="0.0" y="62" width="62" height="44"/>
@@ -393,9 +396,6 @@
                                                 <color key="backgroundColor" name="secondColor"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="shoppingCart"/>
-                                                <connections>
-                                                    <action selector="addd:" destination="onN-Q3-YBs" eventType="touchUpInside" id="dwO-Oy-afx"/>
-                                                </connections>
                                             </button>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Swg-dS-IDP">
                                                 <rect key="frame" x="8" y="262" width="377" height="32"/>
@@ -427,15 +427,6 @@
                                                     <action selector="sizeee:" destination="onN-Q3-YBs" eventType="valueChanged" id="e1J-HD-dU1"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0W-XS-ZkD">
-                                                <rect key="frame" x="277" y="75" width="75" height="35"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="gray" title="Button"/>
-                                                <connections>
-                                                    <action selector="addProductToCart:" destination="onN-Q3-YBs" eventType="touchUpInside" id="Zh8-tO-MHZ"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" name="firstColor"/>
                                     </view>
@@ -453,7 +444,7 @@
                         <outlet property="addcartLbl" destination="4k2-Ly-QPO" id="Mkl-Ld-V7B"/>
                         <outlet property="cartBtn" destination="Ce2-7C-LgW" id="aF5-S5-LIv"/>
                         <outlet property="colorSegmented" destination="Swg-dS-IDP" id="6cT-eB-9Tq"/>
-                        <outlet property="favBtn" destination="ozZ-vu-CsQ" id="Lqo-2t-i5h"/>
+                        <outlet property="favbtn" destination="ozZ-vu-CsQ" id="AxB-qO-wvv"/>
                         <outlet property="imgsCV" destination="GkD-Wz-Bbi" id="Q2M-Gf-6ID"/>
                         <outlet property="myscroll" destination="QaZ-sn-GJF" id="2J5-Rk-XJU"/>
                         <outlet property="pageController" destination="YGG-3o-qIE" id="qFZ-it-qeo"/>

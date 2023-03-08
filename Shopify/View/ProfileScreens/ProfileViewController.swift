@@ -34,10 +34,11 @@ class ProfileViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if UserDefaults.standard.bool(forKey: "loginState") == true
+/*if UserDefaults.standard.bool(forKey: "loginState") == true
         {
             self.navigationController?.pushViewController(self, animated: true)
-        }
+            
+        }*/
         
         if UserDefaults.standard.bool(forKey: "loginState") == false
         {
@@ -47,7 +48,9 @@ class ProfileViewController: UIViewController{
             self.navigationController?.pushViewController(logInVC, animated: true)
             if UserDefaults.standard.bool(forKey: "loginState") == true
             {
-                super.viewWillAppear(true)
+                let profilrView = storyboard?.instantiateViewController(withIdentifier: "eventsID") as! ProfileViewController
+                self.present(profilrView, animated: true, completion: nil)
+              //  super.viewWillAppear(true)
                // self.navigationController?.pushViewController(self, animated: true)
             }
             
