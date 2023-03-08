@@ -91,9 +91,9 @@ extension NetworkService
                             "title": cartProduct.title ?? "",
                             "price": cartProduct.variants?[0].price ?? "",
                             "quantity": 1,
-                            "properties" : cartProduct.ggg
-                        ],
-                    "applied_discount": [
+                          //  "properties" : cartProduct.ggg
+                        ]],
+                        "applied_discount" : [
                         "description": "Custom discount",
                         "value_type": "fixed_amount",
                         "value": "10.0",
