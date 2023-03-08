@@ -24,6 +24,12 @@ class WelcomeViewController: UIViewController {
         
         self.topView.layer.masksToBounds = true
         self.topView.layer.cornerRadius = self.topView.frame.size.height / 2
+        self.signupBtn.layer.masksToBounds = true
+        self.signupBtn.layer.cornerRadius = self.signupBtn.frame.size.height / 2
+        self.loginBtn.layer.masksToBounds = true
+        self.loginBtn.layer.cornerRadius = self.loginBtn.frame.size.height / 2
+        self.skipBtn.layer.masksToBounds = true
+        self.skipBtn.layer.cornerRadius = self.skipBtn.frame.size.height / 2
     }
     
     

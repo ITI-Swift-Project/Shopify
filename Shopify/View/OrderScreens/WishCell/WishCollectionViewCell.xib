@@ -50,51 +50,6 @@
                         <rect key="frame" x="0.0" y="17" width="142" height="136"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <stackView opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" fixedFrame="YES" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="KGi-rm-qxd" customClass="RatingController" customModule="Shopify" customModuleProvider="target">
-                        <rect key="frame" x="151" y="95" width="228.33333333333337" height="29.333333333333329"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2VZ-gT-q9o">
-                                <rect key="frame" x="0.0" y="0.0" width="45.666666666666664" height="29.333333333333332"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="star" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="13"/>
-                                    <color key="baseForegroundColor" name="firstColor"/>
-                                </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LqA-K4-FSq">
-                                <rect key="frame" x="45.666666666666671" y="0.0" width="45.666666666666671" height="29.333333333333332"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="star" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="13"/>
-                                    <color key="baseForegroundColor" name="firstColor"/>
-                                </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1n5-ib-Sq4">
-                                <rect key="frame" x="91.333333333333329" y="0.0" width="45.666666666666671" height="29.333333333333332"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="star" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="13"/>
-                                    <color key="baseForegroundColor" name="firstColor"/>
-                                </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHL-Eo-KNg">
-                                <rect key="frame" x="137" y="0.0" width="45.666666666666657" height="29.333333333333332"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="star" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="13"/>
-                                    <color key="baseForegroundColor" name="firstColor"/>
-                                </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uyl-rZ-2R7">
-                                <rect key="frame" x="182.66666666666666" y="0.0" width="45.666666666666657" height="29.333333333333332"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="star" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="13"/>
-                                    <color key="baseForegroundColor" name="firstColor"/>
-                                </buttonConfiguration>
-                            </button>
-                        </subviews>
-                    </stackView>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkC-Dk-3Ab">
                         <rect key="frame" x="171" y="125" width="35" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -111,7 +66,6 @@
             <connections>
                 <outlet property="cartBtn" destination="ZkC-Dk-3Ab" id="8Uy-Tw-hlO"/>
                 <outlet property="deleteBtn" destination="EL3-ez-dE4" id="VuT-sf-nE2"/>
-                <outlet property="ratingStak" destination="KGi-rm-qxd" id="epK-wD-phd"/>
                 <outlet property="wishDescription" destination="HzC-zT-IS0" id="xrg-2W-o2r"/>
                 <outlet property="wishImg" destination="86w-Tf-SYC" id="sYB-j8-ak8"/>
                 <outlet property="wishName" destination="Fm1-6u-Oa6" id="Ic2-O9-KIe"/>
@@ -122,7 +76,6 @@
     </objects>
     <resources>
         <image name="cart" catalog="system" width="128" height="102"/>
-        <image name="star" catalog="system" width="128" height="116"/>
         <image name="trash" catalog="system" width="117" height="128"/>
         <namedColor name="firstColor">
             <color red="0.024000000208616257" green="0.22200000286102295" blue="0.36700001358985901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

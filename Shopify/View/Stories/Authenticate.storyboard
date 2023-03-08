@@ -55,7 +55,7 @@
                                     </attributedString>
                                 </state>
                                 <connections>
-                                    <action selector="signUp:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ZbV-HM-86s"/>
+                                    <action selector="signUp:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="nS8-cx-sxn"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="95y-Bl-cN8">
@@ -93,7 +93,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="22"/>
                                 </state>
                                 <connections>
-                                    <action selector="skipAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="UzK-s5-ojH"/>
+                                    <action selector="skipAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ozw-eQ-A20"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X03-fd-HFg">
@@ -105,14 +105,14 @@
                                     <color key="titleColor" name="secondColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="signIn:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="lrl-gJ-PQd"/>
+                                    <action selector="signIn:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="2hI-KJ-FNE"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yhJ-0t-CzB">
                                 <rect key="frame" x="59" y="59" width="275" height="84"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopify" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="se4-Uz-zz1">
-                                        <rect key="frame" x="96" y="27" width="82.666666666666671" height="30"/>
+                                        <rect key="frame" x="96" y="27" width="82.666666666666686" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <color key="textColor" name="secondColor"/>
                                         <nil key="highlightedColor"/>
@@ -171,12 +171,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="emailTxt" destination="9He-UF-RPr" id="twW-fS-Tx3"/>
-                        <outlet property="loginBtn" destination="X03-fd-HFg" id="Thf-fw-NF9"/>
-                        <outlet property="passwordTxt" destination="UIv-Jr-dyX" id="zFC-4F-L3U"/>
-                        <outlet property="signupBtn" destination="Ceg-gC-weG" id="8n0-Yq-ddw"/>
-                        <outlet property="skipBtn" destination="rhe-eM-GQG" id="a6A-to-jvZ"/>
-                        <outlet property="topView" destination="yhJ-0t-CzB" id="rXL-BG-Q1c"/>
+                        <outlet property="emailTxt" destination="9He-UF-RPr" id="XKh-Hs-z8D"/>
+                        <outlet property="loginBtn" destination="X03-fd-HFg" id="gk1-j4-x8c"/>
+                        <outlet property="passwordTxt" destination="UIv-Jr-dyX" id="rve-ha-uxS"/>
+                        <outlet property="signupBtn" destination="Ceg-gC-weG" id="W0a-6n-gQt"/>
+                        <outlet property="skipBtn" destination="rhe-eM-GQG" id="U1z-pz-IWk"/>
+                        <outlet property="topView" destination="yhJ-0t-CzB" id="WbN-1I-QIC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -237,7 +237,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="signIn:" destination="hHY-eT-kzm" eventType="touchUpInside" id="6qr-d5-MzA"/>
+                                    <action selector="signIn:" destination="hHY-eT-kzm" eventType="touchUpInside" id="QJ8-sE-uTZ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="headTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cdb-HP-87c">
@@ -250,7 +250,7 @@
                                     <color key="titleColor" name="secondColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="signUP:" destination="hHY-eT-kzm" eventType="touchUpInside" id="M9v-44-tuY"/>
+                                    <action selector="signUP:" destination="hHY-eT-kzm" eventType="touchUpInside" id="joy-7u-6X0"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8LY-eF-Ugf">
@@ -316,7 +316,7 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="skipAcion:" destination="9w8-xL-VY2" eventType="touchUpInside" id="RGo-On-9md"/>
-                                    <action selector="skipAction:" destination="hHY-eT-kzm" eventType="touchUpInside" id="4kh-EY-Y8B"/>
+                                    <action selector="skipAction:" destination="hHY-eT-kzm" eventType="touchUpInside" id="6O0-ve-YAg"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an accoun ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="ouD-2v-HSL">
@@ -388,18 +388,18 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addressTxt" destination="fcd-DH-AlH" id="1fw-ab-aXk"/>
-                        <outlet property="cityTxt" destination="SKI-rY-me5" id="L6j-Ux-vwh"/>
-                        <outlet property="confirmPasswordTxt" destination="MNa-dX-z5Z" id="T6I-vI-L1p"/>
-                        <outlet property="countryTxt" destination="KVB-JJ-IRK" id="971-dA-g6y"/>
-                        <outlet property="emailTxt" destination="hD8-cr-a1V" id="7Cc-b6-qvN"/>
-                        <outlet property="loginBtn" destination="F5U-K9-wg4" id="wkr-kj-EY1"/>
-                        <outlet property="passwordTxt" destination="ruY-F8-YLp" id="p5t-zX-EiC"/>
-                        <outlet property="phoneTxt" destination="5ke-qZ-mgv" id="vfy-x0-t9s"/>
-                        <outlet property="signupBtn" destination="Cdb-HP-87c" id="8eW-qt-utZ"/>
-                        <outlet property="skipBtn" destination="xQK-Di-Zrl" id="Y4k-RH-Wq7"/>
-                        <outlet property="topView" destination="8LY-eF-Ugf" id="1z7-eP-nyR"/>
-                        <outlet property="usernameTxt" destination="lj8-ND-jGB" id="ELC-eh-bte"/>
+                        <outlet property="addressTxt" destination="fcd-DH-AlH" id="LOn-HJ-a6e"/>
+                        <outlet property="cityTxt" destination="SKI-rY-me5" id="ulF-3R-3Gd"/>
+                        <outlet property="confirmPasswordTxt" destination="MNa-dX-z5Z" id="bfF-y3-BRZ"/>
+                        <outlet property="countryTxt" destination="KVB-JJ-IRK" id="Le3-Qy-VqK"/>
+                        <outlet property="emailTxt" destination="hD8-cr-a1V" id="KRb-Z1-mj0"/>
+                        <outlet property="loginBtn" destination="F5U-K9-wg4" id="BTa-wy-Yq7"/>
+                        <outlet property="passwordTxt" destination="ruY-F8-YLp" id="wWb-I6-boY"/>
+                        <outlet property="phoneTxt" destination="5ke-qZ-mgv" id="PNU-8Q-h4J"/>
+                        <outlet property="signupBtn" destination="Cdb-HP-87c" id="TgM-mv-Q4X"/>
+                        <outlet property="skipBtn" destination="xQK-Di-Zrl" id="tgn-Hg-82k"/>
+                        <outlet property="topView" destination="8LY-eF-Ugf" id="xys-QW-4wC"/>
+                        <outlet property="usernameTxt" destination="lj8-ND-jGB" id="B2S-eV-lto"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kaE-cE-t0P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -451,7 +451,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="signUp:" destination="z78-nX-iAp" eventType="touchUpInside" id="40r-SC-7Nw"/>
+                                    <action selector="signUp:" destination="z78-nX-iAp" eventType="touchUpInside" id="2VY-lC-acY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpf-Hb-d80">
@@ -464,7 +464,7 @@
                                     <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="signIn:" destination="z78-nX-iAp" eventType="touchUpInside" id="REg-vQ-gJO"/>
+                                    <action selector="signIn:" destination="z78-nX-iAp" eventType="touchUpInside" id="FzA-xC-VI8"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmv-JN-EW2">
@@ -479,7 +479,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="22"/>
                                 </state>
                                 <connections>
-                                    <action selector="skipAcion:" destination="z78-nX-iAp" eventType="touchUpInside" id="5nB-Yo-Ciq"/>
+                                    <action selector="skipAcion:" destination="z78-nX-iAp" eventType="touchUpInside" id="BNs-Ct-jHz"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -511,10 +511,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="pjx-6K-0T1"/>
                     <connections>
-                        <outlet property="loginBtn" destination="Zpf-Hb-d80" id="3AS-NO-c94"/>
-                        <outlet property="signupBtn" destination="NMN-iM-u3g" id="U2N-cU-LID"/>
-                        <outlet property="skipBtn" destination="mmv-JN-EW2" id="W1G-wr-83k"/>
-                        <outlet property="topView" destination="Hwg-oH-fSy" id="sh9-zA-Qam"/>
+                        <outlet property="loginBtn" destination="Zpf-Hb-d80" id="4Sq-1o-nEf"/>
+                        <outlet property="signupBtn" destination="NMN-iM-u3g" id="Bwr-Yl-mdm"/>
+                        <outlet property="skipBtn" destination="mmv-JN-EW2" id="zvy-kZ-o4H"/>
+                        <outlet property="topView" destination="Hwg-oH-fSy" id="pnR-x9-4T8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pzd-Eh-0W9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

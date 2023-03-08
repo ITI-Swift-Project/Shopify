@@ -172,6 +172,10 @@ class SignUpViewController: UIViewController {
         
         self.topView.layer.masksToBounds = true
         self.topView.layer.cornerRadius = self.topView.frame.size.height / 2
+        self.loginBtn.layer.masksToBounds = true
+        self.loginBtn.layer.cornerRadius = self.loginBtn.frame.size.height / 2
+        self.skipBtn.layer.masksToBounds = true
+        self.skipBtn.layer.cornerRadius = self.skipBtn.frame.size.height / 2
         
         
     }
@@ -228,8 +232,8 @@ class SignUpViewController: UIViewController {
     
     private func validation() ->Bool
     {
-        if usernameTxt.text != "" && usernameTxt.text?.count ?? 0 >= 10 && usernameTxt.text?.count ?? 0 <= 20 &&
-            emailTxt.text != "" && emailTxt.text?.count ?? 0 >= 10 && emailTxt.text?.count ?? 0 <= 40 &&  passwordTxt.text != "" && passwordTxt.text?.count ?? 0 >= 10 && passwordTxt.text?.count ?? 0 <= 20 && confirmPasswordTxt.text != "" && confirmPasswordTxt.text?.count == passwordTxt.text?.count && addressTxt.text != "" && addressTxt.text?.count ?? 0 >= 5 && addressTxt.text?.count ?? 0 <= 8 &&
+        if usernameTxt.text != "" && usernameTxt.text?.count ?? 0 >= 8 && usernameTxt.text?.count ?? 0 <= 20 &&
+            emailTxt.text != "" && emailTxt.text?.count ?? 0 >= 10  && ((emailTxt.text?.contains(".")) != nil) && ((emailTxt.text?.contains("@")) != nil) && emailTxt.text?.count ?? 0 <= 40 &&  passwordTxt.text != "" && passwordTxt.text?.count ?? 0 >= 10 && passwordTxt.text?.count ?? 0 <= 20 && confirmPasswordTxt.text != "" && confirmPasswordTxt.text?.count == passwordTxt.text?.count && addressTxt.text != "" && addressTxt.text?.count ?? 0 >= 5 && addressTxt.text?.count ?? 0 <= 8 &&
             cityTxt.text != "" && cityTxt.text?.count ?? 0 >= 5 && cityTxt.text?.count ?? 0 <= 8 && countryTxt.text != "" && countryTxt.text?.count ?? 0 >= 5 && countryTxt.text?.count ?? 0 <= 8 && phoneTxt.text != "" && phoneTxt.text?.count ?? 0 >= 11 && phoneTxt.text?.count ?? 0 <= 13
         {
             return true
