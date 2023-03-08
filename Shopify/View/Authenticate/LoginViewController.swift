@@ -19,6 +19,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginBtn: UIButton!
     
     
+    @IBOutlet weak var topView: UIView!
     @IBOutlet weak var emailTxt: UITextField!
     {
         didSet
@@ -41,7 +42,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var topSubView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -73,7 +74,7 @@ class LoginViewController: UIViewController {
       
         
     }
-    
+   
     private func validation() ->Bool
         {
             if
