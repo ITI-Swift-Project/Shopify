@@ -12,6 +12,7 @@ class SettingsCell: UITableViewCell {
     
     
     
+    @IBOutlet weak var backView: UIView!
     @IBOutlet weak var settingImage: UIImageView!
     @IBOutlet weak var settingTitle: UILabel!
     @IBOutlet weak var selectionIndicator: UIImageView!

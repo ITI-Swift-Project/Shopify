@@ -65,9 +65,11 @@ extension SettingViewController : UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! SettingsCell
-        cell.layer.borderWidth = 3
-        cell.layer.cornerRadius = cell.frame.height/3
+      //  cell.layer.borderWidth = 3
+      //  cell.layer.cornerRadius = cell.frame.height/3
         cell.selectionIndicator.image = UIImage(named: "more")
+        cell.backView.layer.masksToBounds = true
+        cell.backView.layer.cornerRadius = 30
         switch (indexPath.section)
         {
         case 0 :

@@ -54,27 +54,17 @@ class CartViewController: UIViewController {
                 self.shoppingCartItemsList = self.cartViewModel?.ShoppingCartProductsResult ?? []
                 self.tempCartItemsList = self.cartViewModel?.ShoppingCartProductsResult ?? []
                 // self.shoppingCartItemsList = self.tempCartItemsList?.filter { ($0.customer?.id) == TabBarViewController.loggedCustomer!.id }
-                for item in tempCartItemsList!{
+       /*         for item in tempCartItemsList!{
                     if item.customer!.id == TabBarViewController.loggedCustomer?.id{
                         shoppingCartItemsList?.append(item)
                     }
-                }
+                }*/
                 for i in 0..<shoppingCartItemsList!.count{
                  total += (Float((shoppingCartItemsList![i].line_items![0].price)!)! * Float((shoppingCartItemsList![i].line_items![0].quantity)!))
                  }
                  self.subTotal.text = String(total).appending(shoppingCartItemsList?[0].currency ?? "")
                 self.shoppingCartCollectionView.reloadData()
                 
-                if    flag == true
-                {
-                    for i in 0..<(self.shoppingCartItemsList?.count ?? 0)
-                    {
-                        if DataServices.isAddedToCart(productId: shoppingCartItemsList?[i].id ?? 0, appDelegate: appDelegate) == true
-                        {
-                            DataServices.save(draftproduct: shoppingCartItemsList![i], appDelegate: appDelegate)
-                        }
-                    }
-                }
             }
         }
     }
@@ -83,6 +73,15 @@ class CartViewController: UIViewController {
         if ((reachability!.isReachable()) )
         {
             flag = true
+            
+        
+               /* for i in 0..<(self.shoppingCartItemsList?.count ?? 0)
+                {
+                    if DataServices.isAddedToCart(productId: shoppingCartItemsList?[i].id ?? 0, appDelegate: appDelegate) == true
+                    {
+                        DataServices.save(draftproduct: shoppingCartItemsList![i], appDelegate: appDelegate)
+                    }
+                }*/
         }
         else
         {
@@ -189,6 +188,15 @@ extension CartViewController
                 self.subTotal.text = String(self.total).appending(self.shoppingCartItemsList?[sender.tag].currency ?? "")
                       self.shoppingCartItemsList?.remove(at: sender.tag)
                       self.shoppingCartCollectionView.reloadData()
+              /*  let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let managedContext = self.appDelegate.persistentContainer.viewContext
+                managedContext.delete((self.shoppingCartItemsListCoreData?[index])!)
+                self.shoppingCartItemsListCoreData?.remove(at: index)
+                do{
+                try managedContext.save()
+                }
+                catch _{
+                }*/
             }))
             deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(deleteAlert, animated:true, completion:nil )

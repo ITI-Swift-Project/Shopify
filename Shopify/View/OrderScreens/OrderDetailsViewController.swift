@@ -44,7 +44,7 @@ class OrderDetailsViewController: UIViewController {
 
         enteringCopounCode.layer.cornerRadius = 20
         enteringCopounCode.borderStyle = UITextField.BorderStyle(rawValue: 0)!
-
+        orderSubTotalPrice.text = String(orderSubTotal ?? 0.0)
     }
 
 }
@@ -54,10 +54,17 @@ extension OrderDetailsViewController : UITableViewDataSource
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return orderProductsList?.count ?? 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "orderDetailsCell", for: indexPath) as! OrderDetailsCell
+        cell.backView.layer.masksToBounds = true
+        cell.backView.layer.cornerRadius = 30
+        cell.orderItemProductName.text = orderProductsList?[indexPath.row].line_items?[0].title
+        cell.orderItemProductPrice.text =  orderProductsList?[indexPath.row].line_items?[0].price
+        cell.orderItemImage.image = UIImage(named: "product")
+        cell.orderItemProductQuantity.text =  String(orderProductsList?[indexPath.row].line_items?[0].quantity ?? 0)    //cell.orderItemTotalPrice.text =  (Float(orderProductsList?[indexPath.row].line_items?[0].price ?? "")? 0.0) * Float(orderProductsList?[indexPath.row].line_items?[0].quantity ?? 0)
+
         return cell
     }
 }

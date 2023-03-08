@@ -90,15 +90,16 @@ extension NetworkService
                             [
                             "title": cartProduct.title ?? "",
                             "price": cartProduct.variants?[0].price ?? "",
-                            "quantity": 1,
-                          //  "properties" : cartProduct.ggg
-                        ]],
+                            "quantity": 1
+                       //     "properties" : cartProduct.ggg
+                            ]
+                        ],
                         "applied_discount" : [
                         "description": "Custom discount",
                         "value_type": "fixed_amount",
                         "value": "10.0",
                         "amount": "10.00",
-                        "title": "Custom",
+                        "title": "Custom"
                         ],
                     "customer": [
                         "id": 6817112686896

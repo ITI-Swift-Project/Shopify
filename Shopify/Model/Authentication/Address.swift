@@ -14,3 +14,7 @@ struct Address : Codable
     var country : String?
     var phone : String?
 }
+/*struct AllAddresses
+{
+    var addresses : [Address]
+}*/
