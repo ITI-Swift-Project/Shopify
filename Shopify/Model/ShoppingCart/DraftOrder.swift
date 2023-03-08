@@ -19,5 +19,4 @@ class DraftOrder : Decodable
     var line_items : [LineItem]?
     var customer : allCustomers?
     var note_attributes : [String]?
-    var grams : Int?
 }

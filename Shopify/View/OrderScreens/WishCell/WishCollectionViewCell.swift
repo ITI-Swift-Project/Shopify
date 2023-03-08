@@ -11,6 +11,7 @@ import UIKit
 
 class WishCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var deleteBtn: UIButton!
     
     @IBOutlet weak var cartBtn: UIButton!
     
@@ -27,10 +28,5 @@ class WishCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    
-    @IBAction func deleteBtnn(_ sender: Any) {
-        
-    }
-    
 
 }

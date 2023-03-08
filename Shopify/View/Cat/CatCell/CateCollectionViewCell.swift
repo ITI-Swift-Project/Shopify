@@ -7,7 +7,6 @@
 
 import UIKit
 import Kingfisher
-import CoreData
 class CateCollectionViewCell: UICollectionViewCell {
 
     
@@ -19,18 +18,10 @@ class CateCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var vendorLabel: UILabel!
     
     @IBOutlet weak var typeLabel: UILabel!
-    var myWishlist :NSManagedObject!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        //1
-        let appDelegate  = UIApplication.shared.delegate as! AppDelegate
-        //2
-        let context = appDelegate.persistentContainer.viewContext
-        //3
-        let entity = NSEntityDescription.entity(forEntityName: "WishListProduct", in: context)
-        //4
-         myWishlist = NSManagedObject(entity: entity!, insertInto: context)
     }
     func configImg(name : URL)->Void
     {
@@ -45,11 +36,5 @@ class CateCollectionViewCell: UICollectionViewCell {
         vendorLabel.text  = vendor
         typeLabel.text    = type
     }
-    
-    @IBAction func wishListBtn(_ sender: Any) {
-        myWishlist.setValue(prouductName.text, forKey: "productTitle")
-        //myWishlist.setValue(, forKey: <#T##String#>)
-        print("\(myWishlist.setValue(prouductName.text, forKey: "productTitle"))")
-    }
-    
+
 }

@@ -28,9 +28,6 @@
                         <buttonConfiguration key="configuration" style="gray" image="suit" title="" cornerStyle="capsule">
                             <color key="baseBackgroundColor" name="ButtonBackground"/>
                         </buttonConfiguration>
-                        <connections>
-                            <action selector="wishListBtn:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Ca3-9F-BvL"/>
-                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ku-FB-lbB">
                         <rect key="frame" x="23" y="170" width="134" height="20"/>
