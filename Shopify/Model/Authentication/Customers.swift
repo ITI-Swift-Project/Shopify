@@ -18,7 +18,10 @@ struct Customers : Codable
 {
     let customers : [allCustomers]?
 }
-
+struct Customer : Decodable
+{
+    var customer : allCustomers?
+}
 
 
 

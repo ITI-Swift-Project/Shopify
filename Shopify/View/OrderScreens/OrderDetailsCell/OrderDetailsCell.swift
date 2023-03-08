@@ -14,6 +14,8 @@ class OrderDetailsCell: UITableViewCell {
     @IBOutlet weak var orderItemProductQuantity: UILabel!
     @IBOutlet weak var orderItemProductPrice: UILabel!
     @IBOutlet weak var orderItemTotalPrice: UILabel!
+    @IBOutlet weak var backView: UIView!
+  
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

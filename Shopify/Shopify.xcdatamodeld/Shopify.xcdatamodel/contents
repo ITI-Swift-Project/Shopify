@@ -5,5 +5,6 @@
         <attribute name="product_price" optional="YES" attributeType="String"/>
         <attribute name="product_quantity" optional="YES" attributeType="String"/>
         <attribute name="product_title" optional="YES" attributeType="String"/>
+        <attribute name="state" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
 </model>
