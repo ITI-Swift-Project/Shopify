@@ -7,6 +7,7 @@
 
 import UIKit
 import Cosmos
+
 import CoreData
 class ProductDetailsViewController: UIViewController , UICollectionViewDelegate , UICollectionViewDataSource{
     var productID : Int?
@@ -16,6 +17,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     var managedContext : NSManagedObjectContext!
     var resultOfSearch : [NSManagedObject] = []
+
     
     var product : Product? 
     
@@ -42,6 +44,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     @IBOutlet weak var sizeSeg: UISegmentedControl!
     
+    
     @IBOutlet weak var imgsCV: UICollectionView!
     
     @IBOutlet weak var txtView: UITextView!
@@ -56,6 +59,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     @IBOutlet weak var cartBtn: UIButton!
     
     
+
     @IBAction func favvBtn(_ sender: Any) {
         postProductFav()
         
@@ -107,6 +111,12 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
                 print(error.localizedDescription)
             }
         }
+
+
+    
+    @IBAction func addProductToCart(_ sender: Any) {
+        NetworkService.postShoppingCartProduct(cartProduct: product!)
+
     }
     
     // var optionsValue:[String] = []
@@ -117,17 +127,18 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         
         
         // Do any additional setup after loading the view.
+      
         
      //   cosmos.inputViewController?.isBeingDismissed = false
         productName.adjustsFontSizeToFitWidth = true
         priceLbl.text = "  \(product?.variants?.first?.price ?? "") EGP"
         productName.text = product?.title
         productDiscription.text = product?.body_html
-        sizeSeg.setTitle("\(product?.options?[0].values?[0] ?? "")", forSegmentAt: 1)
-       // sizeSeg.setTitle("\(product?.options?[0].values?[1] ?? "")", forSegmentAt: 1)
+        sizeSeg.setTitle("\(product?.options?[0].values?[0] ?? "") " , forSegmentAt: 0)
+      // sizeSeg.setTitle("\(product?.options?[0].values?[1] ?? "")", forSegmentAt: 1)
         //sizeSeg.setTitle("\(product?.options?[0].values?[2] ?? "")", forSegmentAt: 2)
         //sizeSeg.setTitle("\(product?.options?[0].values?[3] ?? "")", forSegmentAt: 3)
-        colorSegmented.setTitle("\(product?.options?[1].values?[0] ?? "")", forSegmentAt: 1)
+        colorSegmented.setTitle("\(product?.options?[1].values?[0] ?? "")", forSegmentAt: 0)
         
         myscroll.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 210)
         imgsCV.delegate = self
@@ -185,9 +196,26 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     @IBAction func sizeee(_ sender: Any) {
         print("index = \(sizeSeg.selectedSegmentIndex)")
         
-        print("value = \(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex))")
+        print("value = \(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex) ?? "")")
         //makeSize_ColorPostRequest()
-        
+       /*
+        if sizeSeg.selectedSegmentIndex == 0
+        {
+            sizeSeg.setTitle("\(product?.options?[0].values?[0] ?? "")", forSegmentAt: 0)
+        }
+        else if sizeSeg.selectedSegmentIndex == 1
+        {
+            sizeSeg.setTitle("\(product?.options?[0].values?[1] ?? "")", forSegmentAt: 1)
+        }
+        else if sizeSeg.selectedSegmentIndex == 2
+        {
+            sizeSeg.setTitle("\(product?.options?[0].values?[2] ?? "")", forSegmentAt: 2)
+        }
+        else
+        {
+            sizeSeg.setTitle("\(product?.options?[0].values?[3] ?? "")", forSegmentAt: 3)
+        }
+        */
     }
     
     
@@ -348,6 +376,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
             return (product?.images?.count)!
         }
         return  arrReviews.count
+
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -370,7 +399,6 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     
 
-    
 
     /*
     // MARK: - Navigation

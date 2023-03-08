@@ -48,9 +48,17 @@ class ProfileViewController: UIViewController{
             self.navigationController?.pushViewController(logInVC, animated: true)
             if UserDefaults.standard.bool(forKey: "loginState") == true
             {
+
                 let profilrView = storyboard?.instantiateViewController(withIdentifier: "eventsID") as! ProfileViewController
                 self.present(profilrView, animated: true, completion: nil)
               //  super.viewWillAppear(true)
+
+
+              //  super.viewWillAppear(true.)
+
+                super.viewWillAppear(true)
+
+
                // self.navigationController?.pushViewController(self, animated: true)
             }
             

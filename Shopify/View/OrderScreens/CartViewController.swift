@@ -45,7 +45,11 @@ class CartViewController: UIViewController {
         
        
         
+
     //    Swift.print(TabBarViewController.loggedCustomer!.id)
+
+      //  Swift.print(TabBarViewController.loggedCustomer!.id)
+
         cartVCStyle()
         cartViewModel = NetworkViewModel()
         cartViewModel?.getCartProducts()
