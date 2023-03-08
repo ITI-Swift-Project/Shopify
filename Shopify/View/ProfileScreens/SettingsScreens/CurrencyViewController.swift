@@ -9,18 +9,18 @@ import UIKit
 
 class CurrencyViewController: UIViewController {
     
+    
+    var userdef :  UserDefaults?
+   // userdef.setValue(false, forKey: "firstTime")
+
     @IBOutlet weak var bgFrame: UIView!
     @IBOutlet weak var USD: UIButton!
-    @IBOutlet weak var EUR: UIButton!
     @IBOutlet weak var GBP: UIButton!
     
     @IBAction func selectUSD(_ sender: Any) {
         setCurrencyImage(currency : USD)
-        
-    }
-    
-    @IBAction func selectEUR(_ sender: Any) {
-        setCurrencyImage(currency : EUR)
+        // userdef.setValue(false, forKey: "firstTime")
+
     }
     
     @IBAction func selectGBP(_ sender: Any) {
@@ -33,6 +33,7 @@ class CurrencyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         StyleHelper.bgFrameStyle(frame: bgFrame)
+          userdef = UserDefaults()
     }
     
 }
@@ -42,7 +43,6 @@ extension CurrencyViewController
     {
         GBP.setImage(UIImage(systemName: "dot.circle"), for: .normal)
         USD.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        EUR.setImage(UIImage(systemName: "dot.circle"), for: .normal)
         currency.setImage(UIImage(systemName: "dot.circle.fill"), for: .normal)
     }
     func putCurrency(currency : String){

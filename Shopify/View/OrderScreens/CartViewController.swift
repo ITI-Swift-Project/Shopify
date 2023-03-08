@@ -73,15 +73,6 @@ class CartViewController: UIViewController {
         if ((reachability!.isReachable()) )
         {
             flag = true
-            
-        
-               /* for i in 0..<(self.shoppingCartItemsList?.count ?? 0)
-                {
-                    if DataServices.isAddedToCart(productId: shoppingCartItemsList?[i].id ?? 0, appDelegate: appDelegate) == true
-                    {
-                        DataServices.save(draftproduct: shoppingCartItemsList![i], appDelegate: appDelegate)
-                    }
-                }*/
         }
         else
         {

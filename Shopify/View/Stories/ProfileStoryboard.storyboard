@@ -661,6 +661,9 @@ Mahmoud Refaat</string>
                                             <color key="baseForegroundColor" name="firstColor"/>
                                             <color key="baseBackgroundColor" name="secondColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="submit:" destination="b26-WJ-OnE" eventType="touchUpInside" id="32u-xt-ACa"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" name="thirdColor"/>
@@ -687,6 +690,11 @@ Mahmoud Refaat</string>
                         <viewLayoutGuide key="safeArea" id="DVE-pZ-rFh"/>
                         <color key="backgroundColor" name="firstColor"/>
                     </view>
+                    <connections>
+                        <outlet property="city" destination="yiq-da-cwp" id="wZR-BC-tZO"/>
+                        <outlet property="country" destination="6EJ-ev-yio" id="CiI-j9-X2x"/>
+                        <outlet property="street" destination="qB2-9N-wHx" id="hic-fp-PYV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EPR-q5-ngZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -763,7 +771,7 @@ Mahmoud Refaat</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Phq-HT-MLJ">
-                                        <rect key="frame" x="28" y="218" width="337" height="51"/>
+                                        <rect key="frame" x="28" y="140" width="337" height="51"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" image="dot.circle" catalog="system" title="    £ GBP " cornerStyle="capsule">
@@ -773,19 +781,6 @@ Mahmoud Refaat</string>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="selectGBP:" destination="bZI-Z8-M56" eventType="touchUpInside" id="EjB-eD-vnr"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NFz-QK-Y77">
-                                        <rect key="frame" x="28" y="142" width="337" height="51"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" image="dot.circle" catalog="system" title="   € EUR" cornerStyle="capsule">
-                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="24"/>
-                                            <color key="baseForegroundColor" name="firstColor"/>
-                                            <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="selectEUR:" destination="bZI-Z8-M56" eventType="touchUpInside" id="V0M-My-z4B"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -803,7 +798,6 @@ Mahmoud Refaat</string>
                         <color key="backgroundColor" name="firstColor"/>
                     </view>
                     <connections>
-                        <outlet property="EUR" destination="NFz-QK-Y77" id="22D-k1-Asi"/>
                         <outlet property="GBP" destination="Phq-HT-MLJ" id="fQY-Uk-Y8d"/>
                         <outlet property="USD" destination="cnQ-wX-O05" id="Zox-z1-6VM"/>
                         <outlet property="bgFrame" destination="Xdg-99-iRd" id="LWQ-Yo-7vS"/>
