@@ -7,12 +7,12 @@
 
 import UIKit
 import Cosmos
-class ProductDetailsViewController: UIViewController , UICollectionViewDelegate , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+class ProductDetailsViewController: UIViewController , UICollectionViewDelegate , UICollectionViewDataSource{
     
     var product : Product? 
     
     var arrImgs = [UIImage(named: "product")!, UIImage(named: "tmp")!, UIImage(named: "tmpBrand")]
-    var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review2")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
+    var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review1")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
     var timer :  Timer?
     var currentCellIndex  = 0
     
@@ -34,6 +34,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     @IBOutlet weak var sizeSeg: UISegmentedControl!
     
+    
     @IBOutlet weak var imgsCV: UICollectionView!
     
     @IBOutlet weak var txtView: UITextView!
@@ -48,7 +49,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     @IBOutlet weak var cartBtn: UIButton!
     
     
-    @IBOutlet weak var cosmos: CosmosView!
+
     
     @IBAction func addProductToCart(_ sender: Any) {
         NetworkService.postShoppingCartProduct(cartProduct: product!)
@@ -61,16 +62,17 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         
         
         // Do any additional setup after loading the view.
+      
         
      //   cosmos.inputViewController?.isBeingDismissed = false
         priceLbl.text = "  \(product?.variants?.first?.price ?? "") EGP"
         productName.text = product?.title
         productDiscription.text = product?.body_html
-        sizeSeg.setTitle("\(product?.options?[0].values?[0] ?? "")", forSegmentAt: 1)
-       // sizeSeg.setTitle("\(product?.options?[0].values?[1] ?? "")", forSegmentAt: 1)
+        sizeSeg.setTitle("\(product?.options?[0].values?[0] ?? "") " , forSegmentAt: 0)
+      // sizeSeg.setTitle("\(product?.options?[0].values?[1] ?? "")", forSegmentAt: 1)
         //sizeSeg.setTitle("\(product?.options?[0].values?[2] ?? "")", forSegmentAt: 2)
         //sizeSeg.setTitle("\(product?.options?[0].values?[3] ?? "")", forSegmentAt: 3)
-        colorSegmented.setTitle("\(product?.options?[1].values?[0] ?? "")", forSegmentAt: 1)
+        colorSegmented.setTitle("\(product?.options?[1].values?[0] ?? "")", forSegmentAt: 0)
         
         myscroll.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 210)
         imgsCV.delegate = self
@@ -103,9 +105,26 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     @IBAction func sizeee(_ sender: Any) {
         print("index = \(sizeSeg.selectedSegmentIndex)")
         
-        print("value = \(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex))")
+        print("value = \(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex) ?? "")")
         //makeSize_ColorPostRequest()
-        
+       /*
+        if sizeSeg.selectedSegmentIndex == 0
+        {
+            sizeSeg.setTitle("\(product?.options?[0].values?[0] ?? "")", forSegmentAt: 0)
+        }
+        else if sizeSeg.selectedSegmentIndex == 1
+        {
+            sizeSeg.setTitle("\(product?.options?[0].values?[1] ?? "")", forSegmentAt: 1)
+        }
+        else if sizeSeg.selectedSegmentIndex == 2
+        {
+            sizeSeg.setTitle("\(product?.options?[0].values?[2] ?? "")", forSegmentAt: 2)
+        }
+        else
+        {
+            sizeSeg.setTitle("\(product?.options?[0].values?[3] ?? "")", forSegmentAt: 3)
+        }
+        */
     }
     
     
@@ -220,7 +239,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         {
             return (product?.images?.count)!
         }
-        return (product?.images!.count)!
+        return arrReviews.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -243,7 +262,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     
 
-    
+   /*
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: imgsCV.frame.width, height: imgsCV.frame.height)
     }
@@ -252,6 +271,8 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         //spacing between cells
         return 0
     }
+    
+    */
     /*
     // MARK: - Navigation
 
@@ -273,5 +294,29 @@ struct Reviews
     let name : String
     let reviewTxt : String
     
+}
+extension ProductDetailsViewController : UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
+        
+            
+        return CGSize(width: self.view.frame.width - 50, height: self.view.frame.height * 0.17)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
+    {
+        
+        
+            return UIEdgeInsets(top: 0 , left: 25, bottom: 0, right: 25)
+       
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
+    {
+        return CGFloat(15)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
+    {
+        return CGFloat(25)
+    }
 }
 

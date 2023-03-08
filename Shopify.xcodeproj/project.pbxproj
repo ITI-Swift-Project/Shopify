@@ -297,7 +297,6 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
-
 		1E400ADD29B68F5800270F3A /* CRUDProrocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,14 +311,6 @@
 				1E400ADF29B68FAA00270F3A /* Orders.swift */,
 			);
 			path = Orders;
-			sourceTree = "<group>";
-		};
-		03BAEE2B29B6244800B3E075 /* MeNibFiles */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MeNibFiles;
-
 			sourceTree = "<group>";
 		};
 		1E8EEE4829AD9EC100A91436 /* Protocols */ = {
@@ -461,9 +452,6 @@
 			children = (
 				037E426729B53EFB00ED1D8D /* SignUp */,
 				4FF9F0EC29B524A700066E42 /* DataViewModel */,
-				4FF9F0EC29B524A700066E42 /* DataViewModel */,
-				1EC917B929AC545800266D23 /* NetworkViewModelProtocols */,
-				1EC917B929AC545800266D23 /* NetworkViewModelProtocols */,
 				1EC917B829AC544A00266D23 /* NetworkViewModel */,
 			);
 			path = ViewModel;
@@ -523,7 +511,6 @@
 		1EFCB27029A55C2000FAA46D /* ProfileScreens */ = {
 			isa = PBXGroup;
 			children = (
-				03BAEE2B29B6244800B3E075 /* MeNibFiles */,
 				1EB1AC1129AD7886004D50C5 /* OrdersCell */,
 				4F0A2B6D29AAA2E8008B2F1D /* SettingsScreens */,
 				4FA869FD29AA3421006DFA11 /* SettingsCell */,
