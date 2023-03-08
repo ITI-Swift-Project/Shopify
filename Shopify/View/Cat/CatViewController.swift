@@ -270,6 +270,12 @@ extension CatViewController : UICollectionViewDataSource
 //            cell.layer.shadowOpacity = 20
 //        cell.layer.borderWidth   = 3.0
         cell.layer.cornerRadius  = 25.0
+        cell.backView.layer.masksToBounds = true
+        cell.backView.layer.cornerRadius = 30
+        cell.backView.layer.shadowRadius = 3
+        cell.backView.layer.shadowColor = UIColor.gray.cgColor
+        cell.backView.layer.shadowOpacity = 0.8
+        cell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -284,7 +290,7 @@ extension CatViewController : UICollectionViewDataSource
 extension CatViewController : UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 2 - 20, height: self.view.frame.height * 0.3)
+        return CGSize(width: self.view.frame.width / 2 - 20, height: self.view.frame.height * 0.33)
         
     }
     

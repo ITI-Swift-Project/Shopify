@@ -10,6 +10,7 @@ import Kingfisher
 class CateCollectionViewCell: UICollectionViewCell {
 
     
+    @IBOutlet weak var backView: UIView!
     @IBOutlet weak var fLabel: UILabel!
     @IBOutlet weak var img: UIImageView!
     
