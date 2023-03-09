@@ -208,7 +208,7 @@
                                         <constraints>
                                             <constraint firstItem="dtF-PJ-oqf" firstAttribute="leading" secondItem="THh-MR-Smp" secondAttribute="trailing" constant="28" id="9m9-8c-KHP"/>
                                             <constraint firstItem="dtF-PJ-oqf" firstAttribute="width" secondItem="VX1-c5-xXj" secondAttribute="width" multiplier="0.580153" id="B1f-MH-mFT"/>
-                                            <constraint firstItem="THh-MR-Smp" firstAttribute="width" secondItem="VX1-c5-xXj" secondAttribute="width" multiplier="0.101781" id="BSO-xl-4d8"/>
+                                            <constraint firstItem="THh-MR-Smp" firstAttribute="width" secondItem="VX1-c5-xXj" secondAttribute="height" multiplier="0.714286" id="BSO-xl-4d8"/>
                                             <constraint firstItem="dtF-PJ-oqf" firstAttribute="height" secondItem="VX1-c5-xXj" secondAttribute="height" multiplier="0.857143" id="H2G-L0-HOC"/>
                                             <constraint firstItem="THh-MR-Smp" firstAttribute="top" secondItem="VX1-c5-xXj" secondAttribute="top" constant="8" id="X9q-Di-ylm"/>
                                             <constraint firstItem="THh-MR-Smp" firstAttribute="height" secondItem="VX1-c5-xXj" secondAttribute="height" multiplier="0.714286" id="f3j-Mf-sXG"/>

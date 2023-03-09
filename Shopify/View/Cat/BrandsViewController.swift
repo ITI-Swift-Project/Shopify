@@ -139,8 +139,12 @@ extension BrandsViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catCell", for: indexPath) as! CateCollectionViewCell
         cell.configImg(name: URL(string: (filterItems[indexPath.row].image?.src!)!)!)
-        cell.configProductInfo(name: filterItems[indexPath.row].title!, vendor: filterItems[indexPath.row].vendor!, type: filterItems[indexPath.row].product_type!)
+        cell.configProductInfo(name: filterItems[indexPath.row].title!, vendor: filterItems[indexPath.row].vendor!, price: filterItems[indexPath.row].variants?[0].price ?? "")
         cell.layer.cornerRadius  = 25.0
+        cell.backView.layer.cornerRadius = 30
+        cell.backView.layer.shadowRadius = 3
+        cell.backView.layer.shadowColor = UIColor.gray.cgColor
+        cell.backView.layer.shadowOpacity = 0.8
         return cell
     }
     
@@ -148,16 +152,18 @@ extension BrandsViewController : UICollectionViewDataSource{
 }
 extension BrandsViewController : UICollectionViewDelegateFlowLayout
 {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 2 - 20, height: self.view.frame.height * 0.3)
-        
-    }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0 , left: 10, bottom: 0, right: 10)
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat(15)
-    }
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: self.view.frame.width / 2 - 20, height: self.view.frame.height * 0.33)
+            
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+            return UIEdgeInsets(top: 0 , left: 10, bottom: 0, right: 10)
+        }
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+            return CGFloat(15)
+        }
+        
     
 }

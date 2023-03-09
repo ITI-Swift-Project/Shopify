@@ -263,12 +263,9 @@ extension CatViewController : UICollectionViewDataSource
             cell.configImg(name: url)
         }
         
-//        let name : String = result[indexPath.row].image?.src ?? ""
-//        cell.configImg(name:((URL(string : name) ?? URL(string: "")) ??  URL(string: ""))!)
-        cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, type: result[indexPath.row].product_type!)
-//        cell.layer.borderColor   = UIColor.systemGray.cgColor
-//            cell.layer.shadowOpacity = 20
-//        cell.layer.borderWidth   = 3.0
+
+        cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, price: result[indexPath.row].variants?[0].price ?? "" )
+
         cell.layer.cornerRadius  = 25.0
         cell.backView.layer.masksToBounds = true
         cell.backView.layer.cornerRadius = 30

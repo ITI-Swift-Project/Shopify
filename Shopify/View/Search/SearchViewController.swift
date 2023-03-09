@@ -83,9 +83,8 @@ extension SearchViewController : UICollectionViewDataSource
             let url = URL(string: urlString) {
             cell.configImg(name: url)
         }
-//        cell.configImg(name:URL(string : (productsArray2[indexPath.row].image?.src!)!)!)
-        cell.configProductInfo(name: productsArray2[indexPath.row].title!, vendor: productsArray2[indexPath.row].vendor!, type: productsArray2[indexPath.row].product_type!)
-        
+
+        cell.configProductInfo(name: productsArray2[indexPath.row].title!, vendor: productsArray2[indexPath.row].vendor!, price: productsArray2[indexPath.row].variants?[0].price ?? "")
         cell.layer.cornerRadius  = 25.0
         return cell
     }
