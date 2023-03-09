@@ -80,13 +80,8 @@ class BrandsViewController: UIViewController {
           
         }
 
-        let button2 = FloatyItem()
-        button2.title = "Button 2"
-        button2.handler = { _ in
-            // Code to execute when button 2 is tapped
-            
-        }
-        floaty!.addItem(item: button2)
+       
+//        floaty!.addItem(item: button2)
         floaty!.paddingX = 16
         floaty!.paddingY = 60
         
