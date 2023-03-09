@@ -34,34 +34,24 @@ class ProfileViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if UserDefaults.standard.bool(forKey: "loginState") == true
-        {
-            self.navigationController?.pushViewController(self, animated: true)
-        }
-        
+    }
+    override func viewWillAppear(_ animated: Bool) {
         if UserDefaults.standard.bool(forKey: "loginState") == false
         {
             let storyBoard: UIStoryboard = UIStoryboard(name: "Authenticate", bundle: nil)
             let logInVC = storyBoard.instantiateViewController(withIdentifier: "signIn") as! LoginViewController
-           
+
             self.navigationController?.pushViewController(logInVC, animated: true)
-            if UserDefaults.standard.bool(forKey: "loginState") == true
-            {
-
-              //  super.viewWillAppear(true.)
-
-                super.viewWillAppear(true)
-
-               // self.navigationController?.pushViewController(self, animated: true)
-            }
-            
+           
         }
-       
-            //let storyBoard: UIStoryboard = UIStoryboard(name: "ProfileStoryboard", bundle: nil)
-           // let meVC = storyBoard.instantiateViewController(withIdentifier: "Profile") as! ProfileViewController
-          
-
-        // Do any additional setup after loading the view.
+    }
+    @IBAction func logOutAction(_ sender: Any) {
+        if let tabBarController = self.tabBarController {
+            // Set the index of the selected tab bar item to a new value
+            UserDefaults.standard.set(false, forKey: "loginState")
+            tabBarController.selectedIndex = 0 // or any index that you want to switch to
+        
+        }
     }
     @IBAction func openSettings(_ sender: Any) {
         let settingsVC = storyboard?.instantiateViewController(withIdentifier: "settings") as! SettingViewController

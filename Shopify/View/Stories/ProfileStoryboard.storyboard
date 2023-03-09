@@ -45,7 +45,7 @@
                                         </cells>
                                     </collectionView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Auh-Wi-zqh">
-                                        <rect key="frame" x="22" y="345" width="348" height="219"/>
+                                        <rect key="frame" x="22" y="345" width="348" height="149"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" name="thirdColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="G9O-SZ-y7A">
@@ -106,6 +106,15 @@
                                             <action selector="wishlistScreen:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="pgK-Lt-QXB"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="luT-MZ-Gak">
+                                        <rect key="frame" x="144" y="528" width="77" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="log out"/>
+                                        <connections>
+                                            <action selector="logOutAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Kxf-sh-Bqy"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" name="thirdColor"/>
                             </view>
@@ -158,7 +167,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-134" y="-6"/>
+            <point key="canvasLocation" x="-135.1145038167939" y="-6.3380281690140849"/>
         </scene>
         <!--Orders View Controller-->
         <scene sceneID="wyr-tv-vhu">

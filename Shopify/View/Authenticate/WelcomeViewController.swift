@@ -19,8 +19,6 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
         self.topView.layer.masksToBounds = true
         self.topView.layer.cornerRadius = self.topView.frame.size.height / 2
@@ -31,7 +29,17 @@ class WelcomeViewController: UIViewController {
         self.skipBtn.layer.masksToBounds = true
         self.skipBtn.layer.cornerRadius = self.skipBtn.frame.size.height / 2
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        print(UserDefaults.standard.bool(forKey: "loginState"))
+        // Do any additional setup after loading the view.
+        if(UserDefaults.standard.bool(forKey: "loginState"))
+        {
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
+            
+            self.navigationController?.pushViewController(brandsViewController, animated: true)
+        }
+    }
     
     @IBAction func skipAcion(_ sender: Any) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)

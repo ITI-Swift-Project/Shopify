@@ -90,7 +90,7 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func signIn(_ sender: Any) {
-        if validation() == true
+        if emailTxt.text != "" && passwordTxt.text != ""
         {
             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! TabBarViewController
@@ -98,15 +98,24 @@ class LoginViewController: UIViewController {
             getData(from:  "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers/search.json?query=email:\(emailTxt.text!)")
             semaphore.wait()
           
-//            print(result!.customers![0].id)
-            TabBarViewController.loggedCustomer = result?.customers![0]
-           // print(brandsViewController.loggedCustomer?.id)
-           
-           // print(result?.customers?[0])
-            self.navigationController?.pushViewController(brandsViewController, animated: true)
-            let userDefualts = UserDefaults.standard
-            userDefualts.set(true, forKey: "loginState")
-           
+            if result?.customers?.count != 0{
+                TabBarViewController.loggedCustomer = result?.customers![0]
+                UserDefaults.standard.set(result?.customers![0]
+                    .id, forKey: "userId")
+                UserDefaults.standard.set(true, forKey: "loginState")
+                if result?.customers?[0].tags == passwordTxt.text{
+                    
+                    self.navigationController?.pushViewController(brandsViewController, animated: false)
+                    
+                }
+                else{
+                    
+                   let alert =  UIAlertController()
+                   let action = UIAlertAction(title: "check your password", style: .cancel , handler: nil)
+                   alert.addAction(action)
+                   present(alert, animated: true, completion: nil)
+                }
+            }
         }
         else
         {
