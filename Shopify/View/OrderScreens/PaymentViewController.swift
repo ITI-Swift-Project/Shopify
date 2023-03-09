@@ -44,7 +44,7 @@ class PaymentViewController: UIViewController {
            payUsingPaypal()
         case "cash":
             print("when delevier")
-      
+            postOrder()
         default:
             let alert = UIAlertController(title: "Missing data", message: "check payment method please", preferredStyle: .alert)
             let ok = UIAlertAction(title: "ok", style: .default)
@@ -152,15 +152,6 @@ class PaymentViewController: UIViewController {
         
     }
 }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 
 extension PaymentViewController : BTViewControllerPresentingDelegate{
