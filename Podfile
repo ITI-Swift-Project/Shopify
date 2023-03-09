@@ -10,6 +10,7 @@ target 'Shopify' do
   pod 'Cosmos', '~> 23.0'
   pod 'TTGSnackbar', '~> 1.11'
   pod 'Floaty', '~> 4.2'
+  pod 'Braintree', '4.38'
 
   # Pods for Shopify
 

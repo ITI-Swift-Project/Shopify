@@ -76,6 +76,7 @@ class OrderDetailsViewController: UIViewController {
     
     @IBAction func placeOrder(_ sender: Any) {
         let confirmAddressVC = storyboard?.instantiateViewController(withIdentifier: "chooseAddress") as! ConfirmAddressViewController
+        confirmAddressVC.totalAmount = orderSubTotal
         navigationController?.pushViewController(confirmAddressVC, animated: true)
     }
     override func viewDidLoad() {

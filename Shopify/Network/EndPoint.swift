@@ -30,6 +30,7 @@ enum APIEndpoint {
 //    case shoes
     case filteration
     var path: String {
+  
         switch self {
         case .products:
             return "/admin/api/2023-01/products.json"
@@ -56,6 +57,12 @@ enum APIEndpoint {
         case .customers :
             return "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers.json"
         }
+    }
+    func urlToAddAddress(forShopName shopName:String,customerId : String) ->URL
+    {
+        ///admin/api/2023-01/customers/6818756165936/addresses.json
+        let urlString = "https://\(shopName).myshopify.com/admin/api/2023-01/customers/\(customerId)/addresses.json"
+        return URL(string: urlString)!
     }
     func urlTofiltrtionCategory(forShopName shopName: String,product_type : String) -> URL {
         let urlString = "https://\(shopName).myshopify.com\(self.path)&product_type=\(product_type)"

@@ -102,6 +102,10 @@ class LoginViewController: UIViewController {
                 TabBarViewController.loggedCustomer = result?.customers![0]
                 UserDefaults.standard.set(result?.customers![0]
                     .id, forKey: "userId")
+                print(result?.customers![0].id)
+                
+                print(UserDefaults.standard.value(forKey: "userId") as? Int)
+                UserDefaults.standard.set(emailTxt.text ,forKey: "email")
                 UserDefaults.standard.set(true, forKey: "loginState")
                 if result?.customers?[0].tags == passwordTxt.text{
                     

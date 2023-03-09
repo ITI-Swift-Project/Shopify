@@ -13,7 +13,7 @@ class ConfirmAddressViewController: UIViewController {
     
     var customerViewModel : CustomerViewModel?
     var customerAddressesList : [Address]?
-    
+    var totalAmount : Float?
     @IBOutlet weak var bgFrame: UIView!
     
     @IBOutlet weak var addressesTableView: UITableView!
@@ -32,6 +32,7 @@ class ConfirmAddressViewController: UIViewController {
     }
     @IBAction func confirmAddress(_ sender: Any) {
         let paymentVC = storyboard?.instantiateViewController(withIdentifier: "payment") as! PaymentViewController
+        paymentVC.totalAmount = totalAmount
         navigationController?.pushViewController(paymentVC, animated: true)
     }
     @IBAction func addNewAddress(_ sender: Any) {
