@@ -93,7 +93,6 @@ extension NetworkService
                             "price": cartProduct.variants?[0].price ?? "",
                             "quantity": 1,
                             "product_id" : cartProduct.id ?? 0
-                       //     "properties" : cartProduct.ggg
                             ]
                         ],
                         "applied_discount" : [
@@ -106,7 +105,6 @@ extension NetworkService
                     "customer": [
                         "id": 6817112686896
                         ],
-                    "note_attributes" : cartProduct.images ?? [],
                     "use_customer_default_address": true
                 ]
             ]

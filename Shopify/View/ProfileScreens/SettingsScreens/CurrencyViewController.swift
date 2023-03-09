@@ -18,8 +18,8 @@ class CurrencyViewController: UIViewController {
     
     @IBAction func selectUSD(_ sender: Any) {
         setCurrencyImage(currency : USD)
-        userdef.setValue(false, forKey: "currency")
-
+        userdef.setValue(1.0, forKey: "currency")
+        
     }
     
     @IBAction func selectGBP(_ sender: Any) {
