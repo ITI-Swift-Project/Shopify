@@ -46,7 +46,7 @@ class SettingViewController: UIViewController {
 extension SettingViewController : UITableViewDataSource
 {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 4
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -77,18 +77,14 @@ extension SettingViewController : UITableViewDataSource
             cell.settingImage.image = UIImage(named: "editProfile")
             return cell
         case 1 :
-            cell.settingTitle.text = "Theme"
-            cell.settingImage.image = UIImage(named: "theme")
-            return cell
-        case 2 :
             cell.settingTitle.text = "Currency"
             cell.settingImage.image = UIImage(named: "currency")
             return cell
-        case 3 :
+        case 2 :
             cell.settingTitle.text = "About Us"
             cell.settingImage.image = UIImage(named: "aboutUs")
             return cell
-        case 4 :
+        case 3 :
             cell.settingTitle.text = "Contact Us"
             cell.settingImage.image = UIImage(named: "contactUs")
             return cell
@@ -109,15 +105,12 @@ extension SettingViewController : UITableViewDelegate
             let editProfileVC = storyboard?.instantiateViewController(withIdentifier: "editProfile") as! EditProfileViewController
             self.present(editProfileVC , animated: true , completion: nil)
         case 1 :
-            let themeVC = storyboard?.instantiateViewController(withIdentifier: "theme") as! ThemeViewController
-            self.present(themeVC , animated: true , completion: nil)
-        case 2 :
             let currencyVC = storyboard?.instantiateViewController(withIdentifier: "currency") as! CurrencyViewController
             self.present(currencyVC , animated: true , completion: nil)
-        case 3 :
+        case 2 :
             let aboutUsVC = storyboard?.instantiateViewController(withIdentifier: "aboutUs") as! AboutUsViewController
             self.present(aboutUsVC , animated: true , completion: nil)
-       case 4 :
+        case 3 :
             let contactUsVC = storyboard?.instantiateViewController(withIdentifier: "contactUs") as! ContactUsViewController
             self.present(contactUsVC , animated: true , completion: nil)
         default :
