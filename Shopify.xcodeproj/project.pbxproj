@@ -71,7 +71,6 @@
 		4F0A2B6C29AAA2CE008B2F1D /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A2B6B29AAA2CE008B2F1D /* AboutUsViewController.swift */; };
 		4F0A2B6F29AAB035008B2F1D /* ContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A2B6E29AAB035008B2F1D /* ContactUsViewController.swift */; };
 		4F0A2B7129AAB53A008B2F1D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A2B7029AAB53A008B2F1D /* EditProfileViewController.swift */; };
-		4F0A2B7329AAB598008B2F1D /* ThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A2B7229AAB598008B2F1D /* ThemeViewController.swift */; };
 		4F0A2B7529AAB5BE008B2F1D /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A2B7429AAB5BE008B2F1D /* CurrencyViewController.swift */; };
 		4F16D79829A9A60C002ED058 /* StyleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F16D79729A9A60C002ED058 /* StyleHelper.swift */; };
 		4F1CB56029AA34A200DE0DA4 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1CB55E29AA34A200DE0DA4 /* SettingsCell.swift */; };
@@ -190,7 +189,6 @@
 		4F0A2B6B29AAA2CE008B2F1D /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		4F0A2B6E29AAB035008B2F1D /* ContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsViewController.swift; sourceTree = "<group>"; };
 		4F0A2B7029AAB53A008B2F1D /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
-		4F0A2B7229AAB598008B2F1D /* ThemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewController.swift; sourceTree = "<group>"; };
 		4F0A2B7429AAB5BE008B2F1D /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		4F16D79729A9A60C002ED058 /* StyleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleHelper.swift; sourceTree = "<group>"; };
 		4F1CB55E29AA34A200DE0DA4 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -639,7 +637,6 @@
 				4F0A2B6B29AAA2CE008B2F1D /* AboutUsViewController.swift */,
 				4F0A2B7029AAB53A008B2F1D /* EditProfileViewController.swift */,
 				4F0A2B6E29AAB035008B2F1D /* ContactUsViewController.swift */,
-				4F0A2B7229AAB598008B2F1D /* ThemeViewController.swift */,
 				4F0A2B7429AAB5BE008B2F1D /* CurrencyViewController.swift */,
 				4FA8AF2B29B87C3B00D5A506 /* AddNewAddressViewController.swift */,
 			);
@@ -1057,7 +1054,6 @@
 				4FF9F13229B548D600066E42 /* OrderDetailsCell.swift in Sources */,
 				0383847829A7972100F8E486 /* SignUpViewController.swift in Sources */,
 				1EFCB26D29A55BBD00FAA46D /* ProductDetailsViewController.swift in Sources */,
-				4F0A2B7329AAB598008B2F1D /* ThemeViewController.swift in Sources */,
 				1EFCB26A29A55B5F00FAA46D /* ProductViewController.swift in Sources */,
 				27149152299FB285008BC7F6 /* SceneDelegate.swift in Sources */,
 				4FF9F0EB29B5232E00066E42 /* ShoppingCartProtocols.swift in Sources */,
