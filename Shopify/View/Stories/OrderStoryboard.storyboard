@@ -176,6 +176,9 @@
                                             <color key="baseForegroundColor" name="thirdColor"/>
                                             <color key="baseBackgroundColor" name="firstColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="paymentAction:" destination="8M6-Nh-x0K" eventType="touchUpInside" id="srS-s7-s8R"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" name="thirdColor"/>

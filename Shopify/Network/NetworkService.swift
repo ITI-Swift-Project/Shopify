@@ -141,10 +141,8 @@ extension NetworkService : PostApi
        request.httpShouldHandleCookies = false
        request.addValue("application/json",forHTTPHeaderField: "Content-Type")
        request.addValue("application/json",forHTTPHeaderField: "Authorization")
-      // request.addValue("application/json",forHTTPHeaderField: "Accept")
-               
-    //   request.setValue("application/json", forHTTPHeaderField: "Authorization -token")
-     //  print("\(emailTxt.text)")
+       request.addValue("application/json",forHTTPHeaderField: "Accept")
+    
       
        request.httpBody = try? JSONSerialization.data(withJSONObject: newData, options: .prettyPrinted)
        
