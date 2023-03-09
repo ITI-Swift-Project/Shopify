@@ -138,7 +138,7 @@ extension ProfileViewController : UICollectionViewDelegateFlowLayout{
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
     {
-            return UIEdgeInsets(top: 0 , left: 25, bottom: 0, right: 25)
+            return UIEdgeInsets(top: 0 , left: 1, bottom: 0, right: 1)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
     {

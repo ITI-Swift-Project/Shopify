@@ -12,17 +12,45 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     var productID : Int?
     var productTitle : String?
     var productPrice : String?
-    var isFavourite : Bool?
-    
+    var isFavourite : Bool? = false
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let order : DraftOrder? = nil
     var managedContext : NSManagedObjectContext!
     var resultOfSearch : [NSManagedObject] = []
     
     var product : Product?
-    var currencyConverterRatio : Float?
+    
     var arrImgs = [UIImage(named: "product")!, UIImage(named: "tmp")!, UIImage(named: "tmpBrand")]
     var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review1")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
     var timer :  Timer?
     var currentCellIndex  = 0
+    
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "WishlistProduct")
+       fetchRequest.predicate = NSPredicate(format: "product_title == %@",productName)
+        do
+        {
+            resultOfSearch = try managedContext.fetch(fetchRequest)
+        }catch let error
+        {
+            print(error.localizedDescription)
+        }
+        
+        if resultOfSearch.count == 0 // not saved to the core data
+        {
+            favbtn.imageView?.image = UIImage(named: "heart")
+            favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+        else if resultOfSearch.count != 0 // saved to the device
+        {
+            favbtn.imageView?.image = UIImage(named: "heart.fill")
+           favbtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
+    }
     
     @IBOutlet weak var productName: UILabel!
     
@@ -55,36 +83,40 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     @IBOutlet weak var cartBtn: UIButton!
     
-    
+   
     @IBAction func favvBtn(_ sender: Any) {
-        postProductFav()
-        
-        print("pressed on heart button")
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "WishlistProduct")
-        print("Product Name is: \(productName!)")
-        fetchRequest.predicate = NSPredicate(format: "productTitle == %@",productName!)
-        do
-        {
-            resultOfSearch = try managedContext.fetch(fetchRequest)
-        }catch let error
-        {
-            print(error.localizedDescription)
-        }
-        
-        if resultOfSearch.count == 0 // not saved to the core data
-        {
-            favbtn.imageView?.image = UIImage(named: "heart.fill")
-           favbtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            isFavourite = true
-            let entity = NSEntityDescription.entity(forEntityName: "WishlistProduct", in: managedContext)
-            let favList = NSManagedObject(entity: entity!, insertInto: managedContext)
-            favList.setValue(productPrice, forKey: "productPrice")
-            favList.setValue(productName, forKey: "productTitle")
-            favList.setValue(productID, forKey: "productID")
-            favList.setValue(isFavourite, forKey: "wishIsFav")
-           /* favList.setValue(leagueLogo ?? "", forKey: "")*/
+      /*  if isFavourite == false{
+            let userDefualts3 = UserDefaults.standard
+            userDefualts3.set(true, forKey: "clickedHeart")
+            print("\(userDefualts3.bool(forKey: "clickedHeart"))")
+            print("pressed on heart button")
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            managedContext = appDelegate.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "WishlistProduct")
+            //print("Product Name is: \(productTitle ?? "")")
+            //fetchRequest.predicate = NSPredicate(format: "product_title == %@",productTitle ?? "")
+            do
+            {
+                resultOfSearch = try managedContext.fetch(fetchRequest)
+            }catch let error
+            {
+                print(error.localizedDescription)
+            }
+            */
+            if resultOfSearch.count == 0 // not saved to the core data
+             {
+             favbtn.imageView?.image = UIImage(named: "heart.fill")
+            
+            
+             favbtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+             isFavourite = true
+             let entity = NSEntityDescription.entity(forEntityName: "WishlistProduct", in: managedContext)
+             let favList = NSManagedObject(entity: entity!, insertInto: managedContext)
+             favList.setValue(productPrice, forKey: "product_price")
+             favList.setValue(productTitle, forKey: "product_title")
+             favList.setValue(productID, forKey: "product_id")
+             favList.setValue(isFavourite, forKey: "wishIsFav")
+           
             do
             {
                 try managedContext.save()
@@ -92,43 +124,73 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
             {
                 print(error.localizedDescription)
             }
+            
+            postProductFav()
+            
         }
-        else if resultOfSearch.count != 0 // saved to the device
+        
+        else  // saved to the device
         {
-            favbtn.imageView?.image = UIImage(named: "heart")
-           favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
-            let target = resultOfSearch[0]
-            managedContext.delete(target)
-            do
+            for item in resultOfSearch
             {
+                print("\(item.value(forKey: "product_title") ?? "ay7aga")")
+                if item.value(forKey: "product_title") as? String == product?.title
+                {
+                    
+                    isFavourite  = false
+                    favbtn.imageView?.image = UIImage(named: "heart")
+                    favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
+                    print("de7koo")
+                    //  let target = resultOfSearch[0]
+                    
+                    managedContext.delete(item)
+                    do
+                    {
+                        try managedContext.save()
+                    } catch let error
+                    {
+                        print(error.localizedDescription)
+                    }
+                    
+                    
+                }
+            }
+            
+            //  save(draftproduct: product , appDelegate: appDelegate)
+            
+            //  postProductFav()
+            
+        }
+        
+        
+        
+        func save(draftproduct : DraftOrder, appDelegate : AppDelegate) -> Void
+        {
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let entity = NSEntityDescription.entity(forEntityName: "ShoppingCartProduct", in: managedContext)
+            let product = NSManagedObject(entity: entity!, insertInto: managedContext)
+            product.setValue(draftproduct.id ?? 0, forKey: "product_id")
+            product.setValue(draftproduct.line_items?[0].title, forKey: "product_title")
+            product.setValue(draftproduct.line_items?[0].price, forKey: "product_price")
+            product.setValue(String((draftproduct.line_items?[0].quantity)!), forKey: "product_quantity")
+            product.setValue(true, forKey: "state")
+            
+            do{
                 try managedContext.save()
-            } catch let error
-            {
+                print("Saved!")
+            }catch let error{
                 print(error.localizedDescription)
             }
-        }
-    }
-    
+        }}
     // var optionsValue:[String] = []
    // var selctedItem = sizeSeg.selectedSegmentIndex
-    var userdef = UserDefaults.standard
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if (userdef.value(forKey: "currency") != nil) == true
-        {
-            currencyConverterRatio = 70.0
-        }
-        else
-        {
-            currencyConverterRatio = 50.0
-        }
         
         // Do any additional setup after loading the view.
         
      //   cosmos.inputViewController?.isBeingDismissed = false
-        print("fatma\(currencyConverterRatio)")
         productName.adjustsFontSizeToFitWidth = true
         priceLbl.text = "  \(product?.variants?.first?.price ?? "") EGP"
         productName.text = product?.title
@@ -164,31 +226,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         
        
     }
-    override func viewWillAppear(_ animated: Bool)
-    {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "WishlistProduct")
-        fetchRequest.predicate = NSPredicate(format: "productTitle == %@",productName)
-        do
-        {
-            resultOfSearch = try managedContext.fetch(fetchRequest)
-        }catch let error
-        {
-            print(error.localizedDescription)
-        }
         
-        if resultOfSearch.count == 0 // not saved to the core data
-        {
-            favbtn.imageView?.image = UIImage(named: "heart")
-            favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
-        }
-        else if resultOfSearch.count != 0 // saved to the device
-        {
-            favbtn.imageView?.image = UIImage(named: "heart.fill")
-           favbtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        }
-    }
     
     
     
