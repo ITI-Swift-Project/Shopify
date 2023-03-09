@@ -31,11 +31,11 @@ class CateCollectionViewCell: UICollectionViewCell {
         img.layer.cornerRadius = 20
         img.kf.setImage(with: name, placeholder: UIImage(named: "notFound"))
     }
-    func configProductInfo(name : String,vendor : String,type : String)->Void
+    func configProductInfo(name : String,vendor : String,price : String)->Void
     {
         prouductName.text = name
         vendorLabel.text  = vendor
-        typeLabel.text    = type
+        typeLabel.text    = price
     }
 
 }
