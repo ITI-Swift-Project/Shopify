@@ -11,7 +11,7 @@ import Reachability
 import Kingfisher
 
 class CartViewController: UIViewController {
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var dataViewModel : CoreDataViewModel?
     var cartViewModel : NetworkViewModel?
     var tempCartItemsList : [DraftOrder]?
     var shoppingCartItemsList : [DraftOrder]?
@@ -22,16 +22,19 @@ class CartViewController: UIViewController {
     var reachability : Reachability?
     @IBOutlet weak var shoppingCartFrame: UIView!
     @IBOutlet weak var subTotal: UILabel!
-    @IBOutlet weak var shoppingCartCollectionView: UICollectionView!
-    {
-        didSet
+    
+    
+    @IBOutlet weak var shoppingCartTableView: UITableView!{
+        
+            didSet
         {
-            shoppingCartCollectionView.dataSource = self
-            shoppingCartCollectionView.delegate = self
-            let nib = UINib(nibName: "ShoppingCartCell", bundle: nil)
-            shoppingCartCollectionView.register(nib, forCellWithReuseIdentifier: "shoppingCartCell")
+            shoppingCartTableView.dataSource = self
+            shoppingCartTableView.delegate = self
+            let nib = UINib(nibName: "ShoppingCartTableCell", bundle: nil)
+            shoppingCartTableView.register(nib, forCellReuseIdentifier: "shoppingCartCell")
         }
     }
+    
     @IBOutlet weak var checkout: UIButton!
     @IBAction func proceedToCheckout(_ sender: Any) {
         let orderDetailsVC = storyboard?.instantiateViewController(withIdentifier: "orderDetails") as! OrderDetailsViewController
@@ -42,11 +45,8 @@ class CartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       
-        
-      //  Swift.print(TabBarViewController.loggedCustomer!.id)
         cartVCStyle()
+        dataViewModel = CoreDataViewModel()
         cartViewModel = NetworkViewModel()
         cartViewModel?.getCartProducts()
         cartViewModel?.bindingCartProducts = {
@@ -63,7 +63,7 @@ class CartViewController: UIViewController {
                  total += (Float((shoppingCartItemsList![i].line_items![0].price)!)! * Float((shoppingCartItemsList![i].line_items![0].quantity)!))
                  }
                  self.subTotal.text = String(total).appending(shoppingCartItemsList?[0].currency ?? "")
-                self.shoppingCartCollectionView.reloadData()
+                self.shoppingCartTableView.reloadData()
                 
             }
         }
@@ -77,9 +77,9 @@ class CartViewController: UIViewController {
         else
         {
             flag = false
-            shoppingCartItemsListCoreData = DataServices.fetch(appDelegate: appDelegate)
+            shoppingCartItemsListCoreData = dataViewModel?.fetchProductsFromCoreData(productType: 1)
         }
-        self.shoppingCartCollectionView.reloadData()
+        self.shoppingCartTableView.reloadData()
     }
     
     @IBAction func backAction(_ sender: Any) {
@@ -87,12 +87,12 @@ class CartViewController: UIViewController {
     }
     
 }
-extension CartViewController : UICollectionViewDataSource,UICollectionViewDelegate
+extension CartViewController : UITableViewDataSource
 {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if flag == true
         {
             return shoppingCartItemsList?.count ?? 0
@@ -102,10 +102,8 @@ extension CartViewController : UICollectionViewDataSource,UICollectionViewDelega
             return shoppingCartItemsListCoreData?.count ?? 0
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "shoppingCartCell", for: indexPath) as! ShoppingCartCell
-       // StyleHelper.cvCellStyle(cvCell: cell)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "shoppingCartCell", for: indexPath) as! ShoppingCartTableCell
         
         if flag == true
         {
@@ -139,12 +137,12 @@ extension CartViewController : UICollectionViewDataSource,UICollectionViewDelega
             cell.layer.cornerRadius = 30
             cell.cartProductImage.image = UIImage(named: "product")
             cell.cartProductName.text = shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_title") as? String
-      //      cell.cartProductDescription.text = shoppingCartItemsList?[indexPath.row].line_items?[0].vendor
-         //   cell.cartProductPrice.text = (shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_price")).appending(" ").appending(shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_currency") ?? "")
+            //      cell.cartProductDescription.text = shoppingCartItemsList?[indexPath.row].line_items?[0].vendor
+            //   cell.cartProductPrice.text = (shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_price")).appending(" ").appending(shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_currency") ?? "")
             cell.cartProductsCount.text = (shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_quantity"))! as? String
-          //  let quantity = Float(shoppingCartItemsList?[indexPath.row].line_items?[0].quantity ?? 0)
-           // let price = Float(shoppingCartItemsList?[indexPath.row].line_items?[0].price ?? "")
-          //  cell.cartProductSuTotalPrice.text = String(quantity * price!).appending(" ").appending(shoppingCartItemsList?[indexPath.row].currency ?? "")
+            //  let quantity = Float(shoppingCartItemsList?[indexPath.row].line_items?[0].quantity ?? 0)
+            // let price = Float(shoppingCartItemsList?[indexPath.row].line_items?[0].price ?? "")
+            //  cell.cartProductSuTotalPrice.text = String(quantity * price!).appending(" ").appending(shoppingCartItemsList?[indexPath.row].currency ?? "")
             
             cell.cartProductsCount.layer.masksToBounds = true
             cell.cartProductsCount.layer.cornerRadius = 12
@@ -155,15 +153,33 @@ extension CartViewController : UICollectionViewDataSource,UICollectionViewDelega
             cell.cartCellBackView.layer.shadowOffset = CGSize(width: 5, height: 5)
         }
         return cell
-        
-        
     }
 }
-
-extension CartViewController : UICollectionViewDelegateFlowLayout
+extension CartViewController : UITableViewDelegate
 {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: shoppingCartCollectionView.layer.bounds.size.width-5,height: (shoppingCartCollectionView.layer.bounds.size.height/2.2)-30)
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 190
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if  editingStyle == .delete
+        {
+            let idd = shoppingCartItemsList?[indexPath.row].id ?? 0
+                let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product?", preferredStyle: .actionSheet)
+                deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
+                    self.delete(id: idd)
+                    self.total -= Float(self.shoppingCartItemsList?[indexPath.row].line_items?[0].price ?? "" ) ?? 0.0 * Float(self.shoppingCartItemsList?[indexPath.row].line_items?[0].quantity ?? 0) ?? 0.0
+                    self.subTotal.text = String(self.total).appending(self.shoppingCartItemsList?[indexPath.row].currency ?? "")
+                          self.shoppingCartItemsList?.remove(at: indexPath.row)
+                          self.shoppingCartTableView.reloadData()
+                }))
+                deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(deleteAlert, animated:true, completion:nil )
+        }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }
 extension CartViewController
@@ -178,16 +194,9 @@ extension CartViewController
                 self.total -= Float(self.shoppingCartItemsList?[sender.tag].line_items?[0].price ?? "" ) ?? 0.0 * Float(self.shoppingCartItemsList?[sender.tag].line_items?[0].quantity ?? 0) ?? 0.0
                 self.subTotal.text = String(self.total).appending(self.shoppingCartItemsList?[sender.tag].currency ?? "")
                       self.shoppingCartItemsList?.remove(at: sender.tag)
-                      self.shoppingCartCollectionView.reloadData()
-              /*  let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                let managedContext = self.appDelegate.persistentContainer.viewContext
-                managedContext.delete((self.shoppingCartItemsListCoreData?[index])!)
-                self.shoppingCartItemsListCoreData?.remove(at: index)
-                do{
-                try managedContext.save()
-                }
-                catch _{
-                }*/
+                      self.shoppingCartTableView.reloadData()
+               // dataViewModel?.deleteProductFromCoreData(deletedProductType: 2, productId: <#T##Int#>)
+              
             }))
             deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(deleteAlert, animated:true, completion:nil )
@@ -247,7 +256,7 @@ extension CartViewController
            total += Float(shoppingCartItemsList?[sender.tag].line_items?[0].price ?? "") ?? 0.0
            cartItemSubTotal = Float((shoppingCartItemsList?[sender.tag].line_items?[0].quantity)!) * Float((shoppingCartItemsList?[sender.tag].line_items?[0].price)!)!
             
-            self.shoppingCartCollectionView.reloadData()
+            self.shoppingCartTableView.reloadData()
 
         }
         else
@@ -255,7 +264,7 @@ extension CartViewController
          shoppingCartItemsList?[sender.tag].line_items?[0].quantity = 20
          }
          subTotal.text = String(total ).appending(shoppingCartItemsList?[sender.tag].currency ?? "")
-         self.shoppingCartCollectionView.reloadData()
+         self.shoppingCartTableView.reloadData()
          }
          
     
@@ -311,17 +320,13 @@ extension CartViewController
              
              total -= Float(shoppingCartItemsList?[sender.tag].line_items?[0].price ?? "") ?? 0.0
                   cartItemSubTotal = Float((shoppingCartItemsList?[sender.tag].line_items?[0].quantity)!) * Float((shoppingCartItemsList?[sender.tag].line_items?[0].price)!)!
-             self.shoppingCartCollectionView.reloadData()
+             self.shoppingCartTableView.reloadData()
          }
          else
          {
-             
-             delete(id: idd)
-             self.shoppingCartItemsList?.remove(at: sender.tag)
-             self.shoppingCartCollectionView.reloadData()
-         }
+        }
               subTotal.text = String(total).appending(shoppingCartItemsList?[sender.tag].currency ?? "")
-              self.shoppingCartCollectionView.reloadData()
+              self.shoppingCartTableView.reloadData()
          }
 }
 
@@ -330,7 +335,7 @@ extension CartViewController
     func cartVCStyle()
     {
         StyleHelper.bgFrameStyle(frame: shoppingCartFrame)
-        self.shoppingCartCollectionView.backgroundColor = UIColor(named: "thirdColor")
+        self.shoppingCartTableView.backgroundColor = UIColor(named: "thirdColor")
         self.subTotal.layer.masksToBounds = true
         self.subTotal.layer.cornerRadius = 20
         self.subTotal.bringSubviewToFront(checkout)

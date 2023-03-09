@@ -1,14 +1,14 @@
 //
-//  ShoppingCartCell.swift
+//  ShoppingCartTableCell.swift
 //  Shopify
 //
-//  Created by Fatma on 24/02/2023.
+//  Created by Fatma on 09/03/2023.
 //
 
 import UIKit
 
-class ShoppingCartCell: UICollectionViewCell {
-    
+class ShoppingCartTableCell: UITableViewCell {
+
     @IBOutlet weak var cartCellBackView: UIView!
     @IBOutlet weak var cartProductImage: UIImageView!
     @IBOutlet weak var cartProductName: UILabel!
@@ -20,7 +20,6 @@ class ShoppingCartCell: UICollectionViewCell {
     @IBOutlet weak var cartProductSuTotalPrice: UILabel!
     
     @IBOutlet weak var cartProductsCount: UILabel!
-    
   
     @IBOutlet weak var deleteCartProduct: UIButton!
     
@@ -32,4 +31,10 @@ class ShoppingCartCell: UICollectionViewCell {
         // Initialization code
     }
 
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+    
 }

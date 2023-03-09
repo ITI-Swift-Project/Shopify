@@ -16,190 +16,77 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let order : DraftOrder? = nil
     var managedContext : NSManagedObjectContext!
-    var resultOfSearch : [NSManagedObject] = []
-    
-    var product : Product?
-    
+    var product : Product = Product()
     var arrImgs = [UIImage(named: "product")!, UIImage(named: "tmp")!, UIImage(named: "tmpBrand")]
     var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review1")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
     var timer :  Timer?
     var currentCellIndex  = 0
-    
-    
-    override func viewWillAppear(_ animated: Bool)
-    {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "WishlistProduct")
-       fetchRequest.predicate = NSPredicate(format: "product_title == %@",productName)
-        do
-        {
-            resultOfSearch = try managedContext.fetch(fetchRequest)
-        }catch let error
-        {
-            print(error.localizedDescription)
-        }
-        
-        if resultOfSearch.count == 0 // not saved to the core data
-        {
-            favbtn.imageView?.image = UIImage(named: "heart")
-            favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
-        }
-        else if resultOfSearch.count != 0 // saved to the device
-        {
-            favbtn.imageView?.image = UIImage(named: "heart.fill")
-           favbtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        }
-    }
-    
+    var productState : Bool = false
+    var dataViewModel : CoreDataViewModel?
+
     @IBOutlet weak var productName: UILabel!
-    
     @IBOutlet weak var productDiscription: UITextView!
-    
-    
     @IBOutlet weak var favbtn: UIButton!
-    
-    
     @IBOutlet weak var reviewCV: UICollectionView!
-    
-    
-    
     @IBOutlet weak var myscroll: UIScrollView!
-    
     @IBOutlet weak var colorSegmented: UISegmentedControl!
-    
     @IBOutlet weak var sizeSeg: UISegmentedControl!
-    
     @IBOutlet weak var imgsCV: UICollectionView!
-    
     @IBOutlet weak var txtView: UITextView!
-    
     @IBOutlet weak var pageController: UIPageControl!
     @IBOutlet weak var productV: UIView!
-    
     @IBOutlet weak var priceLbl: UILabel!
-    
     @IBOutlet weak var addcartLbl: UILabel!
-    
     @IBOutlet weak var cartBtn: UIButton!
     
    
+    @IBAction func addProductToCart(_ sender: Any) {
+       // NetworkService.postShoppingCartProduct(cartProduct: product)
+        dataViewModel?.saveProductToCoreData(productTypt: 1, draftproduct: product)
+    }
     @IBAction func favvBtn(_ sender: Any) {
-      /*  if isFavourite == false{
-            let userDefualts3 = UserDefaults.standard
-            userDefualts3.set(true, forKey: "clickedHeart")
-            print("\(userDefualts3.bool(forKey: "clickedHeart"))")
-            print("pressed on heart button")
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            managedContext = appDelegate.persistentContainer.viewContext
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "WishlistProduct")
-            //print("Product Name is: \(productTitle ?? "")")
-            //fetchRequest.predicate = NSPredicate(format: "product_title == %@",productTitle ?? "")
-            do
-            {
-                resultOfSearch = try managedContext.fetch(fetchRequest)
-            }catch let error
-            {
-                print(error.localizedDescription)
-            }
-            */
-            if resultOfSearch.count == 0 // not saved to the core data
-             {
-             favbtn.imageView?.image = UIImage(named: "heart.fill")
-            
-            
-             favbtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-             isFavourite = true
-             let entity = NSEntityDescription.entity(forEntityName: "WishlistProduct", in: managedContext)
-             let favList = NSManagedObject(entity: entity!, insertInto: managedContext)
-             favList.setValue(productPrice, forKey: "product_price")
-             favList.setValue(productTitle, forKey: "product_title")
-             favList.setValue(productID, forKey: "product_id")
-             favList.setValue(isFavourite, forKey: "wishIsFav")
-           
-            do
-            {
-                try managedContext.save()
-            }catch let error
-            {
-                print(error.localizedDescription)
-            }
-            
-            postProductFav()
-            
-        }
-        
-        else  // saved to the device
+        if  productState == false
         {
-            for item in resultOfSearch
-            {
-                print("\(item.value(forKey: "product_title") ?? "ay7aga")")
-                if item.value(forKey: "product_title") as? String == product?.title
-                {
-                    
-                    isFavourite  = false
-                    favbtn.imageView?.image = UIImage(named: "heart")
-                    favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
-                    print("de7koo")
-                    //  let target = resultOfSearch[0]
-                    
-                    managedContext.delete(item)
-                    do
-                    {
-                        try managedContext.save()
-                    } catch let error
-                    {
-                        print(error.localizedDescription)
-                    }
-                    
-                    
-                }
-            }
-            
-            //  save(draftproduct: product , appDelegate: appDelegate)
-            
-            //  postProductFav()
-            
+            favbtn.setImage(UIImage(systemName:  "heart.fill"), for: .normal)
+            productState = true
+           NetworkService.postShoppingCartProduct(cartProduct: product)
+            dataViewModel?.saveProductToCoreData(productTypt: 2, draftproduct: product)
         }
-        
-        
-        
-        func save(draftproduct : DraftOrder, appDelegate : AppDelegate) -> Void
+        else if productState == true
         {
-            let managedContext = appDelegate.persistentContainer.viewContext
-            let entity = NSEntityDescription.entity(forEntityName: "ShoppingCartProduct", in: managedContext)
-            let product = NSManagedObject(entity: entity!, insertInto: managedContext)
-            product.setValue(draftproduct.id ?? 0, forKey: "product_id")
-            product.setValue(draftproduct.line_items?[0].title, forKey: "product_title")
-            product.setValue(draftproduct.line_items?[0].price, forKey: "product_price")
-            product.setValue(String((draftproduct.line_items?[0].quantity)!), forKey: "product_quantity")
-            product.setValue(true, forKey: "state")
+            favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
+            productState = false
+            dataViewModel?.deleteProductFromCoreData(deletedProductType: 2, productId: product.id ?? 0)
+            print("UnSaved")
+        }
             
-            do{
-                try managedContext.save()
-                print("Saved!")
-            }catch let error{
-                print(error.localizedDescription)
-            }
-        }}
+
+    }
     // var optionsValue:[String] = []
    // var selctedItem = sizeSeg.selectedSegmentIndex
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        productState = ((dataViewModel?.isProductAddedToWishListCoreData(productId: product.id ?? -1)) != nil)
+        if productState == true
+        {
+            favbtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-        
+        dataViewModel = CoreDataViewModel()
      //   cosmos.inputViewController?.isBeingDismissed = false
         productName.adjustsFontSizeToFitWidth = true
-        priceLbl.text = "  \(product?.variants?.first?.price ?? "") EGP"
-        productName.text = product?.title
-        productDiscription.text = product?.body_html
-        sizeSeg.setTitle("\(product?.options?[0].values?[0] ?? "")", forSegmentAt: 1)
+        priceLbl.text = "  \(product.variants?.first?.price ?? "") EGP"
+        productName.text = product.title
+        productDiscription.text = product.body_html
+        sizeSeg.setTitle("\(product.options?[0].values?[0] ?? "")", forSegmentAt: 1)
        // sizeSeg.setTitle("\(product?.options?[0].values?[1] ?? "")", forSegmentAt: 1)
         //sizeSeg.setTitle("\(product?.options?[0].values?[2] ?? "")", forSegmentAt: 2)
         //sizeSeg.setTitle("\(product?.options?[0].values?[3] ?? "")", forSegmentAt: 3)
-        colorSegmented.setTitle("\(product?.options?[1].values?[0] ?? "")", forSegmentAt: 1)
+        colorSegmented.setTitle("\(product.options?[1].values?[0] ?? "")", forSegmentAt: 1)
         
         myscroll.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 210)
         imgsCV.delegate = self
@@ -222,14 +109,8 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         
         addcartLbl.layer.cornerRadius = addcartLbl.frame.size.height / 2
        addcartLbl.clipsToBounds = true
-        
-        
-       
     }
         
-    
-    
-    
     @IBAction func sizeee(_ sender: Any) {
         print("index = \(sizeSeg.selectedSegmentIndex)")
         
@@ -237,8 +118,6 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         //makeSize_ColorPostRequest()
         
     }
-    
-    
     
     @IBAction func colorChanged(_ sender: Any) {
         print("index = \(colorSegmented.selectedSegmentIndex)")
@@ -266,18 +145,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
                 
      //   request.setValue("application/json", forHTTPHeaderField: "Authorization -token")
         print("\(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex)!)")
-       /* let body : [String:Any] = [
-            "draft_orders" : [
-               //"id" : Int?
-               // var email : String?
-                //"email":"\(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex)!)",
-                //"first_name":"\(usernameTxt.text!)",
-                //"tags":"\(passwordTxt.text!)",
-                "line_items" : [["variant_title":"\(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex)!)",
-                               "sku":"\(colorSegmented.titleForSegment(at: colorSegmented.selectedSegmentIndex)!)" ]]
-            ]
-        ]*/
-        
+   
         let body : [String : Any] = [
                     "draft_order": [
                             "line_items": [
@@ -344,8 +212,8 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
             "draft_order": [
                 "line_items": [
                         [
-                            "title": "\(product?.title ?? "")",
-                            "price":  "\(product?.variants?.first?.price ?? "" )",
+                            "title": "\(product.title ?? "")",
+                            "price":  "\(product.variants?.first?.price ?? "" )",
                             "quantity": 1
                     
                        // "properties" : //cartProduct.ggg
@@ -393,7 +261,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == imgsCV
         {
-            return (product?.images?.count)!
+            return product.images?.count ?? 0
         }
         return  arrReviews.count
     }
@@ -403,7 +271,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productDetailsCell", for: indexPath) as! ProductDetailsCollectionViewCell
            // cell.productDetailsImg(name: URL(string: (arrProducts[indexPath.row])))
-            cell.productDetailsImg.kf.setImage(with: URL(string: ((product?.images?[indexPath.row])?.src!)!))
+            cell.productDetailsImg.kf.setImage(with: URL(string: ((product.images?[indexPath.row])?.src!)!))
             return cell
             
            // cell.productDetailsImg(name:URL(string : (arrProducts[indexPath.row].images!)))
@@ -416,20 +284,6 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         return cell
     }
     
-    
-
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     @IBAction func backAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
