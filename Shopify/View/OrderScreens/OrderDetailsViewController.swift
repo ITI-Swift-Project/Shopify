@@ -125,7 +125,11 @@ extension OrderDetailsViewController : UITableViewDataSource
         cell.orderItemProductName.text = orderProductsList?[indexPath.row].line_items?[0].title
         cell.orderItemProductPrice.text =  orderProductsList?[indexPath.row].line_items?[0].price
         cell.orderItemImage.image = UIImage(named: "product")
-        cell.orderItemProductQuantity.text =  String(orderProductsList?[indexPath.row].line_items?[0].quantity ?? 0)    //cell.orderItemTotalPrice.text =  (Float(orderProductsList?[indexPath.row].line_items?[0].price ?? "")? 0.0) * Float(orderProductsList?[indexPath.row].line_items?[0].quantity ?? 0)
+        cell.orderItemProductQuantity.text =  String(orderProductsList?[indexPath.row].line_items?[0].quantity ?? 0)
+        
+        let price = Float(orderProductsList?[indexPath.row].line_items?[0].price ?? "")
+        let quantity = Float(orderProductsList?[indexPath.row].line_items?[0].quantity ?? 0)
+        cell.orderItemTotalPrice.text =  String((price ?? 0.0) * (quantity ))
 
         return cell
     }
