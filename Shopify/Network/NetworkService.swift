@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 class NetworkService : BrandsData{
+    static var base_url = "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/"
     static var baseUrl = "48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023"
     //    static var bindingBrands: (() -> ()) = {}
     //    static var brandData: [Brand] = []
@@ -166,41 +167,74 @@ extension NetworkService : PostApi
 
 
 extension NetworkService : GenericCRUDProtocol{
-    func updateDate(parameter: [String : Any], urlEndPoint: String) {
-        guard let url = URL(string: urlEndPoint) else{
-            return
-        }
-        var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
-        request.httpShouldHandleCookies = false
-        let session = URLSession.shared
-        do{
-            request.httpBody = try? JSONSerialization.data(withJSONObject: parameter,options: .prettyPrinted)
-            
-        }catch let error {
-            print(error.localizedDescription)
-        }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        session.dataTask(with: request) { (data,response, error) in
-            if error != nil {
-                print(error ?? "")
-                
-            }else{
-                guard data != nil else{
-                    print(data ?? "")
-                    print(response ?? "")
-                    return
-                }
-            }
-                
-        }.resume()
+  static  func updateDate(parameter: [String : Any], urlEndPoint: String) {
+//        guard let url = URL(string: urlEndPoint) else{
+//            return
+//        }
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "PUT"
+//        request.httpShouldHandleCookies = false
+//        let session = URLSession.shared
+//        do{
+//            request.httpBody = try? JSONSerialization.data(withJSONObject: parameter,options: .prettyPrinted)
+//
+//        }catch let error {
+//            print(error.localizedDescription)
+//        }
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        session.dataTask(with: request) { (data,response, error) in
+//            if error != nil {
+//                print(error ?? "")
+//
+//            }else{
+//                guard data != nil else{
+//                    print(data ?? "")
+//                    print(response ?? "")
+//                    return
+//                }
+//            }
+//
+//        }.resume()
+      guard let url = URL(string: urlEndPoint ) else {return}
+      print(url)
+      var request = URLRequest(url:url)
+      request.httpMethod = "POST"
+      request.httpShouldHandleCookies = false
+      let session = URLSession.shared
+
+      do {
+          
+          request.httpBody = try JSONSerialization.data(withJSONObject: parameter , options: .prettyPrinted)
+          
+      } catch let error {
+          print(error.localizedDescription)
+      }
+      
+      request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+      request.addValue("application/json", forHTTPHeaderField: "Accept")
+      
+      session.dataTask(with: request) {(data, response, error)in
+          if let response = response as? HTTPURLResponse {
+              print(response.statusCode)
+          }
+          if error != nil {
+              print(error!)
+          } else {
+             
+              if let data = data {
+                  print (data)
+                  print(response!)
+              }
+              
+          }
+      }.resume()
     }
     
-    func deleteData(urlEndPoint: String) {
+ static func deleteData(urlEndPoint: String) {
         
     }
     
-    func postData(parameter: [String : Any], urlEndPoint: String) {
+  static func postData(parameter: [String : Any], urlEndPoint: String) {
         guard let url = URL(string: urlEndPoint) else{
             return
         }
@@ -222,7 +256,7 @@ extension NetworkService : GenericCRUDProtocol{
             }else{
                 guard data != nil else{
                     print(data ?? "")
-                    print(response ?? "")
+                    print(response!)
                     return
                 }
             }
