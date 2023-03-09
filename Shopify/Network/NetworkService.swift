@@ -90,7 +90,8 @@ extension NetworkService
                             [
                             "title": cartProduct.title ?? "",
                             "price": cartProduct.variants?[0].price ?? "",
-                            "quantity": 1
+                            "quantity": 1,
+                            "product_id" : cartProduct.id ?? 0
                        //     "properties" : cartProduct.ggg
                             ]
                         ],
