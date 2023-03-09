@@ -25,15 +25,14 @@ class AddNewAddressViewController: UIViewController {
             request.httpShouldHandleCookies = false
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             let body : [String : Any] = [
-                "addresses": [
-                     [
-                        "id":9080155144496,
-                      "customer_id":6818756165936,
-                        "country" : "Fatoma",
-                        "city":  "Salma",
-                        "address1":  "street"
-                    ],
-                        ],
+                "address": [
+                    "city": "zaineb",
+                    "country": "salma",
+                    "phone": "55555555",
+                    "address1": "fatma",
+                    "default": false,
+                ],
+                
             ]
             request.httpBody = try? JSONSerialization.data(withJSONObject: body,options: .fragmentsAllowed)
             

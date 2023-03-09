@@ -18,7 +18,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     var resultOfSearch : [NSManagedObject] = []
     
     var product : Product?
-    
+    var currencyConverterRatio : Float?
     var arrImgs = [UIImage(named: "product")!, UIImage(named: "tmp")!, UIImage(named: "tmpBrand")]
     var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review1")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
     var timer :  Timer?
@@ -111,14 +111,24 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     // var optionsValue:[String] = []
    // var selctedItem = sizeSeg.selectedSegmentIndex
-    
+    var userdef = UserDefaults.standard
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        if (userdef.value(forKey: "currency") != nil) == true
+        {
+            currencyConverterRatio = 70.0
+        }
+        else
+        {
+            currencyConverterRatio = 50.0
+        }
         
         // Do any additional setup after loading the view.
         
      //   cosmos.inputViewController?.isBeingDismissed = false
+        print("fatma\(currencyConverterRatio)")
         productName.adjustsFontSizeToFitWidth = true
         priceLbl.text = "  \(product?.variants?.first?.price ?? "") EGP"
         productName.text = product?.title
