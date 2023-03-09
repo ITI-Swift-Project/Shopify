@@ -683,7 +683,7 @@ Mahmoud Refaat</string>
                                             <color key="baseBackgroundColor" name="secondColor"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="submit:" destination="b26-WJ-OnE" eventType="touchUpInside" id="32u-xt-ACa"/>
+                                            <action selector="submit:" destination="b26-WJ-OnE" eventType="touchUpInside" id="hw3-e6-CRv"/>
                                         </connections>
                                     </button>
                                 </subviews>

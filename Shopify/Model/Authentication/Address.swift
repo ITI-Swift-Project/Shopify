@@ -13,6 +13,7 @@ struct Address : Codable
     var city : String?
     var country : String?
     var phone : String?
+    
 }
 /*struct AllAddresses
 {
