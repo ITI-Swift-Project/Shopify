@@ -11,8 +11,12 @@ import Reachability
 import Kingfisher
 
 class CartViewController: UIViewController {
+    
+    let group = DispatchGroup()
+    let semaphore = DispatchSemaphore(value: 0)
     var dataViewModel : CoreDataViewModel?
     var networkViewModel : NetworkViewModel?
+    var arrayOfDec : [[String : Any]] = []
     var shoppingCartItemsList : [LineItem] = []
     var shoppingCartItemsListCoreData : [NSManagedObject]?
     var total : Float = 0.0
@@ -20,13 +24,15 @@ class CartViewController: UIViewController {
     var flag : Bool = false
     var reachability : Reachability?
     var product : Product = Product()
+    var productsArr : [Product] = []
+    var productId : Int = 0
     @IBOutlet weak var shoppingCartFrame: UIView!
     @IBOutlet weak var subTotal: UILabel!
     
     
     @IBOutlet weak var shoppingCartTableView: UITableView!{
         
-            didSet
+        didSet
         {
             shoppingCartTableView.dataSource = self
             shoppingCartTableView.delegate = self
@@ -38,37 +44,19 @@ class CartViewController: UIViewController {
     @IBOutlet weak var checkout: UIButton!
     @IBAction func proceedToCheckout(_ sender: Any) {
         let orderDetailsVC = storyboard?.instantiateViewController(withIdentifier: "orderDetails") as! OrderDetailsViewController
-      //  orderDetailsVC.orderProductsList = shoppingCartItemsList
-       // orderDetailsVC.orderSubTotal = total
+       orderDetailsVC.orderProductsList = shoppingCartItemsList
+       orderDetailsVC.orderSubTotal = total
         navigationController?.pushViewController(orderDetailsVC, animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         cartVCStyle()
-        dataViewModel = CoreDataViewModel()
-        networkViewModel = NetworkViewModel()
-        networkViewModel?.getCartProducts(url:  "https://29f36923749f191f42aa83c96e5786c5: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@ios-q2-new-capital-admin-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1112632557846.json")
-        networkViewModel?.bindingCartProducts = {
-            DispatchQueue.main.async { [self] in
-                self.shoppingCartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []
-                Swift.print("fatma\(shoppingCartItemsList.count)")
-                self.shoppingCartTableView.reloadData()
-
-                /* for item in tempCartItemsList!{
-                 if item.customer!.id == TabBarViewController.loggedCustomer?.id{
-                 shoppingCartItemsList?.append(item)
-                 }}*/
-                for i in 0..<shoppingCartItemsList.count{
-                    total += (Float((shoppingCartItemsList[i].price)!)! * Float((shoppingCartItemsList[i].quantity)!))
-                }
-                self.subTotal.text = String(total)//.appending(shoppingCartItemsList?[0].currency ?? "")
-                self.shoppingCartTableView.reloadData()
-                
-            }
-        }
-        
+            self.dataViewModel = CoreDataViewModel()
+            self.networkViewModel = NetworkViewModel()
+            self.workingWithDispatchGroup()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         reachability = Reachability.forInternetConnection()
         if ((reachability!.isReachable()) )
@@ -110,18 +98,17 @@ extension CartViewController : UITableViewDataSource
         {
             cell.layer.masksToBounds = true
             cell.layer.cornerRadius = 30
-            var productId = shoppingCartItemsList[indexPath.row].product_id ?? 0
-            networkViewModel?.getSingleProduct(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/products/\(productId).json")
-            networkViewModel?.bindingProduct = {
-                DispatchQueue.main.async { () in
-                    self.product = (self.networkViewModel?.productResult)!
-                    self.shoppingCartTableView.reloadData()
-
+            for item in productsArr
+            {
+                if shoppingCartItemsList[indexPath.row].product_id == item.id
+                {
+                    cell.cartProductImage.kf.setImage(with: URL(string: item.image?.src ?? ""),placeholder: UIImage(named: " "))
+                }
+                else
+                {
+                    print("NOOOOO")
                 }
             }
-            cell.cartProductImage.kf.setImage(with: URL(string: product.images?[0].src ?? ""),placeholder: UIImage(named: "product"))
-
-           // cell.cartProductImage.image = UIImage(named: "product")
             cell.cartProductName.text = shoppingCartItemsList[indexPath.row].title
             cell.cartProductDescription.text = shoppingCartItemsList[indexPath.row].title
             cell.cartProductPrice.text = (shoppingCartItemsList[indexPath.row].price)?.appending(" ")//.appending(shoppingCartItemsList?[indexPath.row].currency ?? "")
@@ -134,7 +121,7 @@ extension CartViewController : UITableViewDataSource
             cell.decreaseProductItemCount.tag = indexPath.row
             cell.increaseProductItemCount.addTarget(self, action: #selector(increaseProductsCount(sender:)), for: .touchUpInside)
             cell.decreaseProductItemCount.addTarget(self, action: #selector(decreaseProductsCount(sender:)), for: .touchUpInside)
-            cell.deleteCartProduct.addTarget(self, action: #selector(print(sender: )), for: .touchUpInside)
+            cell.deleteCartProduct.addTarget(self, action: #selector(deleteCartProduct(sender: )), for: .touchUpInside)
         }
         else if flag == false
         {
@@ -170,13 +157,13 @@ extension CartViewController : UITableViewDelegate
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if  editingStyle == .delete
         {
-            let idd = shoppingCartItemsList[indexPath.row].id ?? 0
                 let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product?", preferredStyle: .actionSheet)
                 deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
-                    self.delete(id: idd)
-                    self.total -= Float(self.shoppingCartItemsList[indexPath.row].price ?? "" ) ?? 0.0 * Float(self.shoppingCartItemsList[indexPath.row].quantity ?? 0)
-                    self.subTotal.text = String(self.total)//.appending(self.shoppingCartItemsList?[indexPath.row].currency ?? "")
-                    self.shoppingCartItemsList.remove(at: indexPath.row)
+
+                    self.delete(index: indexPath.row)
+                 //   self.total -= Float(self.shoppingCartItemsList[indexPath.row].price ?? "" ) ?? 0.0 * Float(self.shoppingCartItemsList[indexPath.row].quantity ?? 0)
+                 //   self.subTotal.text = String(self.total)//.appending(self.shoppingCartItemsList?[indexPath.row].currency ?? "")
+                          self.shoppingCartItemsList.remove(at: indexPath.row)
                           self.shoppingCartTableView.reloadData()
                 }))
                 deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -188,17 +175,16 @@ extension CartViewController : UITableViewDelegate
 }
 extension CartViewController
 {
-    @objc func print(sender : UIButton)
+    @objc func deleteCartProduct(sender : UIButton)
     {
-        let idd = shoppingCartItemsList[sender.tag].id ?? 0
         
             let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product?", preferredStyle: .actionSheet)
             deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
-                self.delete(id: idd)
-                self.total -= Float(self.shoppingCartItemsList[sender.tag].price ?? "" ) ?? 0.0 * Float(self.shoppingCartItemsList[sender.tag].quantity ?? 0)
-                self.subTotal.text = String(self.total)//.appending(self.shoppingCartItemsList?[sender.tag].currency ?? "")
-                      self.shoppingCartItemsList.remove(at: sender.tag)
-                      self.shoppingCartTableView.reloadData()
+                self.delete(index: sender.tag)
+              //  self.total -= Float(self.shoppingCartItemsList[sender.tag].price ?? "" ) ?? 0.0 * Float(self.shoppingCartItemsList[sender.tag].quantity ?? 0)
+              //  self.subTotal.text = String(self.total) //.appending(self.shoppingCartItemsList?[sender.tag].currency ?? "")
+                   //   self.shoppingCartItemsList.remove(at: sender.tag)
+                self.shoppingCartTableView.reloadData()
               //  self.dataViewModel?.deleteProductFromCoreData(deletedProductType: 2, productId: <#T##Int#>)
               
             }))
@@ -352,26 +338,66 @@ extension CartViewController
 }
 extension CartViewController
 {
-    func delete(id : Int)
+    func delete(index : Int)
     {
-        guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/\(id).json") else{
+        shoppingCartItemsList.remove(at: index)
+        for item in shoppingCartItemsList
+        {
+            var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": 1,"product_id": item.product_id, "variant_id": item.variant_id]
+            arrayOfDec.append(temp)
+        }
+        //print(arrayOfDec)
+        guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113690014000.json") else{
             return
         }
         var request = URLRequest(url :url)
-        request.httpMethod = "DELETE"
+        request.httpMethod = "PUT"
         request.httpShouldHandleCookies = false
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let body : [String : Any] = [
+            "draft_order": [
+                "line_items": arrayOfDec
+            ]
+        ]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body,options: .fragmentsAllowed)
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else{
                 return
             }
             do{
-                Swift.print("success\(response)")
+                print("success\(response)")
             }
-            catch{
+            catch let error{
+                print(error.localizedDescription)
             }
         }
         task.resume()
-        Swift.print("fatma\(id)")
+    }
+}
+extension CartViewController
+{
+    func workingWithDispatchGroup()
+    {
+        group.enter()
+        self.networkViewModel?.getCartProducts(url:  "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113690014000.json")
+        self.networkViewModel?.bindingCartProducts = { () in
+            self.shoppingCartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []
+            Swift.print("fatma\(self.shoppingCartItemsList.count)")
+        }
+        self.group.leave()
+        
+        group.enter()
+        self.networkViewModel?.getArrayOfProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/products.json")
+        self.networkViewModel?.bindingArrOfProducts = { () in
+            self.productsArr = self.networkViewModel?.arrOfProductsResult ?? []
+            Swift.print("fatma\(self.productsArr.count)")
+            self.group.leave()
+            
+            self.group.notify(queue: .main)
+            {
+                self.shoppingCartTableView.reloadData()
+            }
+        }
     }
 }

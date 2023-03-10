@@ -56,7 +56,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         let myLine : [String : Any] = ["title": product.title, "price": product.variants?[0].price, "quantity": 1, "product_id": product.id, "variant_id":product.variants?[0].id]
         arrayOfDec.append(myLine)
         print(arrayOfDec)
-            guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113607700784.json") else{
+            guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113690014000.json") else{
                 return
             }
             var request = URLRequest(url :url)
@@ -119,7 +119,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         super.viewDidLoad()
         dataViewModel = CoreDataViewModel()
         networkViewModel = NetworkViewModel()
-        networkViewModel?.getCartProducts(url: "https://29f36923749f191f42aa83c96e5786c5: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@ios-q2-new-capital-admin-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1112632557846.json")
+        networkViewModel?.getCartProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113690014000.json")
         networkViewModel?.bindingCartProducts = {
             DispatchQueue.main.async { [self] in
                 self.cartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []

@@ -88,6 +88,20 @@ extension NetworkService : ProductDataProtocol
             handeler(data)
         }
     }
+    
+        static func getArrOfProduct( url: String, handeler: @escaping (Products?) -> Void)
+        {
+            let request = AF.request(url)
+            request.responseDecodable (of: Products.self) {(olddata) in
+                guard let data = olddata.value
+                else{
+                    handeler(nil)
+                    return
+                }
+                handeler(data)
+            }
+        }
+    
 }
 extension NetworkService
 {
