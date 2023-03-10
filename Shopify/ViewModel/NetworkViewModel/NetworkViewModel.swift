@@ -30,7 +30,7 @@ class NetworkViewModel{
     }
     
     var bindingCartProducts : (() -> ()) = {}
-    var ShoppingCartProductsResult: [DraftOrder] = []{
+    var ShoppingCartProductsResult: [LineItem] = []{
         didSet{
             bindingCartProducts()
         }
@@ -48,7 +48,12 @@ class NetworkViewModel{
             bindingOrdersItems()
         }
     }
-    
+    var bindingProduct : (() -> ()) = {}
+    var productResult: Product!{
+        didSet{
+            bindingProduct()
+        }
+    }
     func getItems(brandId : Int?) {
         let brandEndPoint = APIEndpoint.brandItems
         let barndUrl = brandEndPoint.urlWithId(forShopName: "48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023", brandId: brandId!)
@@ -93,12 +98,23 @@ extension NetworkViewModel
 }
 extension NetworkViewModel
 {
-    func getCartProducts() {
-        NetworkService.getShoppingCartProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders.json") { result in
+    func getCartProducts(url : String) {
+        NetworkService.getShoppingCartProducts(url: url) { result in
             if let result = result {
-                self.ShoppingCartProductsResult = result.draft_orders ?? []
+                self.ShoppingCartProductsResult = result.draft_order?.line_items ?? []
             }
         }
     }
 
+}
+
+extension NetworkViewModel
+{
+    func getSingleProduct(url:String) {
+        NetworkService.getProduct( url:  url) { result in
+                if let result = result {
+                    self.productResult = result.product
+                }
+            }
+        }
 }

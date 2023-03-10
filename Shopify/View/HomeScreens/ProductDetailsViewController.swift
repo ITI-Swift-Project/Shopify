@@ -13,9 +13,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     var productTitle : String?
     var productPrice : String?
     var isFavourite : Bool? = false
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let order : DraftOrder? = nil
-    var managedContext : NSManagedObjectContext!
     var product : Product = Product()
     var arrImgs = [UIImage(named: "product")!, UIImage(named: "tmp")!, UIImage(named: "tmpBrand")]
     var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review1")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
@@ -23,7 +21,9 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     var currentCellIndex  = 0
     var productState : Bool = false
     var dataViewModel : CoreDataViewModel?
-
+    var networkViewModel : NetworkViewModel?
+    var cartItemsList : [LineItem] = []
+    var arrayOfDec : [[String : Any]] = []
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productDiscription: UITextView!
     @IBOutlet weak var favbtn: UIButton!
@@ -47,7 +47,41 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     
     @IBAction func addProductToCart(_ sender: Any) {
-       // NetworkService.postShoppingCartProduct(cartProduct: product)
+        for item in cartItemsList
+        {
+            var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": 1,"product_id": item.product_id, "variant_id": item.variant_id]
+            arrayOfDec.append(temp)
+        }
+        let myLine : [String : Any] = ["title": product.title, "price": product.variants?[0].price, "quantity": 1, "product_id": product.id, "variant_id":product.variants?[0].id]
+        arrayOfDec.append(myLine)
+        print(arrayOfDec)
+            guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113607700784.json") else{
+                return
+            }
+            var request = URLRequest(url :url)
+            request.httpMethod = "PUT"
+            request.httpShouldHandleCookies = false
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            let body : [String : Any] = [
+                "draft_order": [
+                    "line_items": arrayOfDec
+                ]
+            ]
+            request.httpBody = try? JSONSerialization.data(withJSONObject: body,options: .fragmentsAllowed)
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data else{
+                    return
+                }
+                do{
+                    print("success\(response)")
+                }
+                catch let error{
+                    print(error.localizedDescription)
+                }
+            }
+            task.resume()
+        //NetworkService.postShoppingCartProduct(cartProduct: product)
         dataViewModel?.saveProductToCoreData(productTypt: 1, draftproduct: product)
     }
     @IBAction func favvBtn(_ sender: Any) {
@@ -83,7 +117,13 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         dataViewModel = CoreDataViewModel()
-        
+        networkViewModel = NetworkViewModel()
+        networkViewModel?.getCartProducts(url: "https://29f36923749f191f42aa83c96e5786c5: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@ios-q2-new-capital-admin-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1112632557846.json")
+        networkViewModel?.bindingCartProducts = {
+            DispatchQueue.main.async { [self] in
+                self.cartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []
+            }
+        }
         
        
      //   cosmos.inputViewController?.isBeingDismissed = false

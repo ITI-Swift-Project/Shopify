@@ -29,7 +29,7 @@ class WishViewController: UIViewController {
         
     
         NetworkService.getShoppingCartProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders.json") { DraftOrders in
-            self.wishListItems = DraftOrders
+        //    self.wishListItems = DraftOrders
             self.wishCV.reloadData()
         }
     
