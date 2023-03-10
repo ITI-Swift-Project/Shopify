@@ -23,7 +23,7 @@ class SearchViewController: UIViewController {
         }
     }
   
-    var viewModel : NetworkViewModel?
+    var viewModel : ProductsViewModel?
     var productsArray : [Product] = []
     var productsArray2 : [Product] = []
     var whereFrom : String?
@@ -37,7 +37,7 @@ class SearchViewController: UIViewController {
         {
             let brandEndPoint = APIEndpoint.products
             let url = brandEndPoint.url(forShopName: NetworkService.baseUrl)
-            viewModel = NetworkViewModel()
+            viewModel = ProductsViewModel()
             viewModel?.getProductsAt(url: url)
             viewModel?.bindingProducts =
             {
