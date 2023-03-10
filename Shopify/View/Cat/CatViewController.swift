@@ -31,19 +31,19 @@ class CatViewController: UIViewController {
         super.viewDidLoad()
         createFloatyButton()
        
-
-        
-    }
-   
-    override func viewWillAppear(_ animated: Bool) {
         menButton.tintColor = UIColor.white
         woman.tintColor = UIColor.white
         kids.tintColor = UIColor.white
         sale.tintColor = UIColor.white
         let endPoint = APIEndpoint.products
         filterDataByType(endPoint: endPoint)
+        
     }
-    
+   
+    override func viewWillAppear(_ animated: Bool) {
+       
+    }
+    //MARK: Floaty Creation
     func createFloatyButton(){
         floaty = Floaty()
         //        floaty?.tintColor = UIColor(named:"third" )
@@ -140,6 +140,7 @@ class CatViewController: UIViewController {
         //productDetailsViewController.arrProducts = result
         self.navigationController?.pushViewController(searchViewController, animated: true)
     }
+    //MARK: Filter By Men
     @IBAction func filterByMen(_ sender: Any) {
         menButton.tintColor = UIColor.black
         woman.tintColor = UIColor.white
@@ -150,9 +151,14 @@ class CatViewController: UIViewController {
         filterDataByType(endPoint: endPoint)
         
     }
-    
+    //MARK: Filter By Wemen
     @IBAction func filterByWomen(_ sender: Any) {
-        menButton.tintColor = UIColor.white
+//        menButton.tintColor = UIColor.white
+         //Create a custom image with the desired background color
+       // let selectedImage = UIImage(named: "white")?.withTintColor(UIColor.red)
+
+//        // Set the selected image of the tab bar item to the custom image
+//        menButton.setBackgroundImage(selectedImage, for: .highlighted, barMetrics: .default)
         woman.tintColor = UIColor.black
         kids.tintColor = UIColor.white
         sale.tintColor = UIColor.white
@@ -160,6 +166,7 @@ class CatViewController: UIViewController {
         let endPoint = APIEndpoint.wowen
         filterDataByType(endPoint: endPoint)
     }
+    //MARK: Filter By Kids
     @IBAction func filterByKids(_ sender: Any) {
         menButton.tintColor = UIColor.white
         woman.tintColor = UIColor.white
@@ -169,6 +176,7 @@ class CatViewController: UIViewController {
         let endPoint = APIEndpoint.kids
         filterDataByType(endPoint: endPoint)
     }
+    //MARK: Filter By Style
     @IBAction func filterBySale(_ sender: Any) {
         menButton.tintColor = UIColor.white
         woman.tintColor = UIColor.white
@@ -178,7 +186,7 @@ class CatViewController: UIViewController {
         let endPoint = APIEndpoint.sale
         filterDataByType(endPoint:endPoint )
     }
-    
+    //MARK: Fitch method
     func getFilterResltFloatyButtonAllProuducts(endPoint : APIEndpoint,product_type : String)->Void{
         let url = endPoint.urlTofiltrtion(forShopName: NetworkService.baseUrl, product_type: product_type)
         self.viewModel = NetworkViewModel()

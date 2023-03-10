@@ -34,6 +34,8 @@ class BrandsViewController: UIViewController {
         super.viewDidLoad()
         createFloatyButton()
         brandsCollection.layer.cornerRadius = 20
+       
+        //MARK: Fetch Data From API
         networkViewModel = NetworkViewModel()
         
         networkViewModel?.getItems(brandId: brandId)
@@ -46,11 +48,20 @@ class BrandsViewController: UIViewController {
                 self.itemsArray = self.networkViewModel!.brandItemsResult.products ?? []
                 self.filterItems = self.itemsArray
                 print(self.itemsArray.count)
+                print(UserDefaults.standard.value(forKey: "userId")as? Int)
+                print(UserDefaults.standard.value(forKey: "email")as? String)
                 self.brandsCollection.reloadData()
             }
             
         }
        
+    }
+    @IBAction func searchAction(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "SearchStoryboard", bundle: nil)
+        let searchViewController = storyBoard.instantiateViewController(withIdentifier: "search") as! SearchViewController
+        
+        searchViewController.productsArray = filterItems
+        self.navigationController?.pushViewController(searchViewController, animated: true)
     }
     func createFloatyButton(){
         floaty = Floaty()
@@ -64,7 +75,7 @@ class BrandsViewController: UIViewController {
         
         let filterByPriceButton = FloatyItem()
         filterByPriceButton.title = "Price"
-        
+        //MARK: Price Frilter
         floaty!.addItem(icon : UIImage(systemName: "dollarsign")){_ in
                 
                 // Code to execute when button 1 is tapped
@@ -79,8 +90,25 @@ class BrandsViewController: UIViewController {
                 }
           
         }
-
-       
+        //MARK: A-Z to Filter
+        floaty!.addItem(icon : UIImage(named: "a-z")){_ in
+                
+                // Code to execute when button 2 is tapped
+            self.filterItems = self.itemsArray.sorted(by:{ $0.title ?? "" < $1.title ?? ""})
+            
+                    self.brandsCollection.reloadData()
+                
+          
+        }
+        //MARK: Z-A to filter
+        floaty!.addItem(icon : UIImage(named: "z-a")){_ in
+                
+            // Code to execute when button 3 is tapped
+            self.filterItems = self.itemsArray.sorted(by:{ $0.title ?? "" > $1.title ?? ""})
+            self.brandsCollection.reloadData()
+                
+          
+        }
 //        floaty!.addItem(item: button2)
         floaty!.paddingX = 16
         floaty!.paddingY = 60

@@ -256,15 +256,17 @@ class SignUpViewController: UIViewController {
                                
                             } else if let customer : [String : Any] = dict["customer"] as? [String : Any] {
                                 DispatchQueue.main.async {
-                                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                    let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
-                                    UserDefaults.standard.set(self.emailTxt.text ,forKey: "email")
-                                    UserDefaults.standard.set(true, forKey: "loginState")
-                                    UserDefaults.standard.set(customer["id"] as? Int, forKey: "userId")
-                                    self.navigationController?.pushViewController(brandsViewController, animated: true)
                                     
                                     let userDefaults = UserDefaults.standard
                                     userDefaults.set(true, forKey: "signUpState")
+                                    userDefaults.set(self.emailTxt.text ,forKey: "email")
+                                    userDefaults.set(true, forKey: "loginState")
+                                    userDefaults.set(customer["id"] as? Int, forKey: "userId")
+                                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
+                                    
+                                    self.navigationController?.pushViewController(brandsViewController, animated: true)
+                                   
                                 }
                             } else {
                                 print("Unknown response")
