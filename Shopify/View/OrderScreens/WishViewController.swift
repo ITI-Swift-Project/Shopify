@@ -10,7 +10,7 @@ import CoreData
 
 class WishViewController: UIViewController {
     var catNames  = ["dgsdg", "dgsdgsd", "dgadgadg"]
-    var networkViewModel : NetworkViewModel?
+    var networkViewModel : BrandsViewModel?
     var wishlistLineItems : [LineItem] = []
     var managedContext : NSManagedObjectContext!
     var savedLeagues : [NSManagedObject] = []
@@ -27,7 +27,7 @@ class WishViewController: UIViewController {
     
     var  tempWishListItems : [DraftOrder]?
     var  wishListItems : DraftOrders?
-    var wishVM : NetworkViewModel?
+    var wishVM : BrandsViewModel?
     override func viewDidLoad() {
         super.viewDidLoad()
         

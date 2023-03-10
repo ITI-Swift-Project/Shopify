@@ -9,7 +9,7 @@ import UIKit
 
 @available(iOS 13.0, *)
 class SignUpViewController: UIViewController {
-    var viewModel : NetworkViewModel?
+    var viewModel : BrandsViewModel?
     var alertText : String = ""
     @IBOutlet weak var topView: UIView!
     
@@ -178,7 +178,7 @@ class SignUpViewController: UIViewController {
         if alertText == ""
         {
             
-            viewModel = NetworkViewModel()
+            viewModel = BrandsViewModel()
             let   newData  : [String : Any] = [
                 "customer" : [
                     "email":"\(emailTxt.text!)",

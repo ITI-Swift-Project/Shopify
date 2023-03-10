@@ -25,13 +25,13 @@ class OrdersViewController: UIViewController {
             
         }
     }
-    var viewModel : NetworkViewModel?
+    var viewModel : OrderViewModel?
     var ordersResult : [Order] = []
     var filteredOrders : [Order] = []
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = NetworkViewModel()
+        viewModel = OrderViewModel()
         viewModel?.getOrders()
         viewModel?.bindingOrdersItems = {
             self.ordersResult = self.viewModel?.ordersResult.orders ?? []

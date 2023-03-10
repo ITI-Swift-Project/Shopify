@@ -14,14 +14,14 @@ class AddNewAddressViewController: UIViewController {
     @IBOutlet weak var city: UITextField!
     @IBOutlet weak var street: UITextField!
     
-    var NetworkVM : NetworkViewModel!
+    var NetworkVM : BrandsViewModel!
     
     @IBAction func backAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        NetworkVM =  NetworkViewModel()
+        NetworkVM =  BrandsViewModel()
     }
     
     @IBAction func submit(_ sender: Any) {

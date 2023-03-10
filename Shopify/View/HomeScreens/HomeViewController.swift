@@ -10,7 +10,8 @@ import Kingfisher
 import TTGSnackbar
 class HomeViewController: UIViewController {
     @IBOutlet weak var pageController: UIPageControl!
-    var homeViewModel : NetworkViewModel?
+    var adsViewModel : ADsViewModel?
+    var brandsViewModel : BrandsViewModel?
     var cellIndex = 0
     var timer :  Timer?
     var brandArray : [Brand] = []
@@ -110,24 +111,25 @@ class HomeViewController: UIViewController {
                 let statusBarView = UIView(frame: statusBarFrame)
         statusBarView.backgroundColor = .red
                 view.addSubview(statusBarView)
-        homeViewModel = NetworkViewModel()
-        homeViewModel?.getBrands()
+        adsViewModel = ADsViewModel()
+        brandsViewModel = BrandsViewModel()
+        brandsViewModel?.getBrands()
 
-        homeViewModel?.bindingBrands = {
+        brandsViewModel?.bindingBrands = {
             //            print(self.homeViewModel?.brandsResult.count)
             //            print(self.homeViewModel?.brandsResult[0].id)
             DispatchQueue.main.async {
-                self.brandArray = self.homeViewModel!.brandsResult?.smart_collections ?? []
+                self.brandArray = self.brandsViewModel!.brandsResult?.smart_collections ?? []
                 print(self.brandArray.count)
                 
                 self.brandCollection.reloadData()
             }
             
         }
-        homeViewModel?.getAds()
-        homeViewModel?.bindingAds = {
+        adsViewModel?.getAds()
+        adsViewModel?.bindingAds = {
             DispatchQueue.main.async {
-                self.adsList = self.homeViewModel?.adsResult?.discount_codes ?? []
+                self.adsList = self.adsViewModel?.adsResult?.discount_codes ?? []
                 self.pageController.numberOfPages = self.adsImages.count
                 
                 self.adsCollection.reloadData()
