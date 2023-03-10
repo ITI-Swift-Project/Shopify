@@ -28,6 +28,10 @@ class AddNewAddressViewController: UIViewController {
         
         let url = "\(NetworkService.base_url)customers/\(UserDefaults.standard.value(forKey: "userId") ?? "")/addresses.json"
         print("Address url is:\(url)")
+        guard let newURL = URL(string: url)
+        else{
+            return
+        }
        
         let addressData: [String: Any] = [
             "address": [
@@ -39,7 +43,9 @@ class AddNewAddressViewController: UIViewController {
             ]
         ]
         
-        NetworkService.postData(parameter: addressData, urlEndPoint: url)
+        NetworkService.postData( urlEndPoint: newURL,parameter: addressData){_ in
+            
+        }
 
         }
    
