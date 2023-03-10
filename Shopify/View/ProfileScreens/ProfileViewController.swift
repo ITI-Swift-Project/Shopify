@@ -8,8 +8,9 @@
 import UIKit
 
 class ProfileViewController: UIViewController{
-
-    
+    var result : Customers?
+    var customerr : allCustomers?
+    @IBOutlet weak var welcomelbl: UILabel!
     
     @IBOutlet weak var ordersCollectionView: UICollectionView!{
         didSet{
@@ -34,6 +35,10 @@ class ProfileViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       // UserDefaults.standard.set(true, forKey: "loginState")
+       // UserDefaults.standard.set(self.result?.customers![0].id, forKey: "userId")
+       // print("eeeeh\(UserDefaults.standard.set(self.result?.customers![0].id, forKey: "userId"))")
+        welcomelbl.text = "Welcome \(customerr?.first_name ?? "UserName")"
     }
     override func viewWillAppear(_ animated: Bool) {
         if UserDefaults.standard.bool(forKey: "loginState") == false
