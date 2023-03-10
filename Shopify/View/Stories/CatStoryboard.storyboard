@@ -203,9 +203,20 @@
                                                     <action selector="dissMissScreen:" destination="4fL-NN-zss" eventType="touchUpInside" id="4Qb-Tb-IwB"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6u-RX-m5p">
+                                                <rect key="frame" x="345" y="8" width="40" height="40"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" image="Search" cornerStyle="capsule" buttonSize="mini">
+                                                    <color key="baseBackgroundColor" name="thirdColor"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="searchAction:" destination="4fL-NN-zss" eventType="touchUpInside" id="RXK-lo-6Qp"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" name="firstColor"/>
                                         <constraints>
+                                            <constraint firstItem="e6u-RX-m5p" firstAttribute="top" secondItem="VX1-c5-xXj" secondAttribute="top" constant="8" id="0Tz-13-esf"/>
                                             <constraint firstItem="dtF-PJ-oqf" firstAttribute="leading" secondItem="THh-MR-Smp" secondAttribute="trailing" constant="28" id="9m9-8c-KHP"/>
                                             <constraint firstItem="dtF-PJ-oqf" firstAttribute="width" secondItem="VX1-c5-xXj" secondAttribute="width" multiplier="0.580153" id="B1f-MH-mFT"/>
                                             <constraint firstItem="THh-MR-Smp" firstAttribute="width" secondItem="VX1-c5-xXj" secondAttribute="height" multiplier="0.714286" id="BSO-xl-4d8"/>
@@ -213,6 +224,9 @@
                                             <constraint firstItem="THh-MR-Smp" firstAttribute="top" secondItem="VX1-c5-xXj" secondAttribute="top" constant="8" id="X9q-Di-ylm"/>
                                             <constraint firstItem="THh-MR-Smp" firstAttribute="height" secondItem="VX1-c5-xXj" secondAttribute="height" multiplier="0.714286" id="f3j-Mf-sXG"/>
                                             <constraint firstItem="dtF-PJ-oqf" firstAttribute="top" secondItem="VX1-c5-xXj" secondAttribute="top" constant="4" id="jYT-Qz-1Xp"/>
+                                            <constraint firstAttribute="trailing" secondItem="e6u-RX-m5p" secondAttribute="trailing" constant="8" id="lSm-1t-JuA"/>
+                                            <constraint firstItem="e6u-RX-m5p" firstAttribute="width" secondItem="VX1-c5-xXj" secondAttribute="height" multiplier="0.714286" id="uru-Kb-AYk"/>
+                                            <constraint firstItem="e6u-RX-m5p" firstAttribute="height" secondItem="VX1-c5-xXj" secondAttribute="height" multiplier="0.714286" id="vVh-yq-e7Z"/>
                                             <constraint firstItem="THh-MR-Smp" firstAttribute="leading" secondItem="VX1-c5-xXj" secondAttribute="leading" constant="8" id="xru-qk-w8W"/>
                                         </constraints>
                                     </view>
@@ -338,7 +352,7 @@
             <color red="0.024000000208616257" green="0.22200000286102295" blue="0.36700001358985901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="thirdColor">
-            <color red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

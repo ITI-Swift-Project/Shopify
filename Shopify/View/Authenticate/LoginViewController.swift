@@ -90,9 +90,10 @@ class LoginViewController: UIViewController {
                     if (self.customers.count != 0 )
                     {
                         if (self.customers[0].tags == self.passwordTxt.text){
-                            UserDefaults.standard.set(self.emailTxt.text ,forKey: "email")
+                            UserDefaults.standard.set(self.emailTxt.text ?? "" ,forKey: "email")
                             UserDefaults.standard.set(true, forKey: "loginState")
-                            UserDefaults.standard.set(self.result?.customers![0].id, forKey: "userId")
+                            print(self.customers[0].id)
+                            UserDefaults.standard.set(self.customers[0].id ?? 0, forKey: "userId")
                             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                             let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! TabBarViewController
                             
