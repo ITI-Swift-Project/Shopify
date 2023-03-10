@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 class OrderDetailsViewController: UIViewController {
 
-    var orderProductsList : [DraftOrder]?
+    var orderProductsList : [LineItem]?
     var orderSubTotal : Float?
     var homeViewModel : NetworkViewModel?
     var copounsList : [DiscountCode]?
@@ -123,13 +123,13 @@ extension OrderDetailsViewController : UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "orderDetailsCell", for: indexPath) as! OrderDetailsCell
         cell.backView.layer.masksToBounds = true
         cell.backView.layer.cornerRadius = 30
-        cell.orderItemProductName.text = orderProductsList?[indexPath.row].line_items?[0].title
-        cell.orderItemProductPrice.text =  orderProductsList?[indexPath.row].line_items?[0].price
+        cell.orderItemProductName.text = orderProductsList?[indexPath.row].title
+        cell.orderItemProductPrice.text =  orderProductsList?[indexPath.row].price
         cell.orderItemImage.image = UIImage(named: "product")
-        cell.orderItemProductQuantity.text =  String(orderProductsList?[indexPath.row].line_items?[0].quantity ?? 0)
+        cell.orderItemProductQuantity.text =  String(orderProductsList?[indexPath.row].quantity ?? 0)
         
-        let price = Float(orderProductsList?[indexPath.row].line_items?[0].price ?? "")
-        let quantity = Float(orderProductsList?[indexPath.row].line_items?[0].quantity ?? 0)
+        let price = Float(orderProductsList?[indexPath.row].price ?? "")
+        let quantity = Float(orderProductsList?[indexPath.row].quantity ?? 0)
         cell.orderItemTotalPrice.text =  String((price ?? 0.0) * (quantity ))
 
         return cell

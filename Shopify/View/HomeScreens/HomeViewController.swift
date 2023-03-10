@@ -192,7 +192,7 @@ extension HomeViewController : UICollectionViewDataSource
 //            cell.layer.shadowOpacity = 20
             cell.layer.borderWidth   = 3.0
             cell.layer.cornerRadius  = 25.0
-            cell.configImg(name: adsImages[indexPath.row] )
+            cell.configImg(name: adsImages[indexPath.row])
             return cell
             
         }

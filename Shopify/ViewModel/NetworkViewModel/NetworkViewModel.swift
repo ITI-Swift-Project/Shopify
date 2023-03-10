@@ -56,9 +56,16 @@ class NetworkViewModel{
         }
     }
     var bindingProduct : (() -> ()) = {}
-    var productResult: Product!{
+    var productResult: Product = Product(){
         didSet{
             bindingProduct()
+        }
+    }
+    
+    var bindingArrOfProducts : (() -> ()) = {}
+    var arrOfProductsResult: [Product] = []{
+        didSet{
+            bindingArrOfProducts()
         }
     }
     func getItems(brandId : Int?) {
@@ -139,7 +146,15 @@ extension NetworkViewModel
     func getSingleProduct(url:String) {
         NetworkService.getProduct( url:  url) { result in
                 if let result = result {
-                    self.productResult = result.product
+                    self.productResult = result.product ?? Product()
+                }
+            }
+        }
+    
+    func getArrayOfProducts(url:String) {
+        NetworkService.getArrOfProduct(url:  url)   { result in
+                if let result = result {
+                    self.arrOfProductsResult = result.products! 
                 }
             }
         }
