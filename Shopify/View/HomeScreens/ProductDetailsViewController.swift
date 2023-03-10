@@ -36,10 +36,16 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     @IBOutlet weak var pageController: UIPageControl!
     @IBOutlet weak var productV: UIView!
     @IBOutlet weak var priceLbl: UILabel!
-    @IBOutlet weak var addcartLbl: UILabel!
     @IBOutlet weak var cartBtn: UIButton!
     
-   
+    
+    @IBOutlet weak var sizeTable: UITableView!
+    
+    
+    
+    @IBOutlet weak var tableLbl: UILabel!
+    
+    
     @IBAction func addProductToCart(_ sender: Any) {
        // NetworkService.postShoppingCartProduct(cartProduct: product)
         dataViewModel?.saveProductToCoreData(productTypt: 1, draftproduct: product)
@@ -77,16 +83,24 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         dataViewModel = CoreDataViewModel()
+        
+        
+       
      //   cosmos.inputViewController?.isBeingDismissed = false
         productName.adjustsFontSizeToFitWidth = true
         priceLbl.text = "  \(product.variants?.first?.price ?? "") EGP"
         productName.text = product.title
+       // var countt = [product.options?[0].values?.count]
+      /*  for i in countt
+        {
+            sizeSeg.setTitle(product.options?[0].values?[i ?? 1] ?? "", forSegmentAt: i ?? 1)
+        }*/
         productDiscription.text = product.body_html
-        sizeSeg.setTitle("\(product.options?[0].values?[0] ?? "")", forSegmentAt: 1)
+        sizeSeg.setTitle(product.options?[0].values?[0] ?? "", forSegmentAt: 0)
        // sizeSeg.setTitle("\(product?.options?[0].values?[1] ?? "")", forSegmentAt: 1)
         //sizeSeg.setTitle("\(product?.options?[0].values?[2] ?? "")", forSegmentAt: 2)
         //sizeSeg.setTitle("\(product?.options?[0].values?[3] ?? "")", forSegmentAt: 3)
-        colorSegmented.setTitle("\(product.options?[1].values?[0] ?? "")", forSegmentAt: 1)
+        colorSegmented.setTitle("\(product.options?[1].values?[0] ?? "")", forSegmentAt: 0)
         
         myscroll.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 210)
         imgsCV.delegate = self
@@ -107,8 +121,8 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         priceLbl.layer.cornerRadius = priceLbl.frame.size.height / 2
        priceLbl.clipsToBounds = true
         
-        addcartLbl.layer.cornerRadius = addcartLbl.frame.size.height / 2
-       addcartLbl.clipsToBounds = true
+      //  addcartLbl.layer.cornerRadius = addcartLbl.frame.size.height / 2
+     //  addcartLbl.clipsToBounds = true
     }
         
     @IBAction func sizeee(_ sender: Any) {
@@ -320,4 +334,31 @@ extension ProductDetailsViewController : UICollectionViewDelegateFlowLayout{
         return CGFloat(25)
     }
 }
+extension UISegmentedControl {
 
+    func updateTitle(array titles: [[String]]) {
+
+        removeAllSegments()
+        for t in titles {
+            let title = t.joined(separator: ", ")
+            insertSegment(withTitle: title, at: numberOfSegments, animated: true)
+        }
+
+    }
+}
+/*
+extension ProductDetailsViewController : UITableViewDelegate,UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return product.options?[0].values?.count ?? 1
+    }
+    /*
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = sizeTable.dequeueReusableCell(withIdentifier: "sizeCell", for: indexPath)
+        cell.textLabel?.text = product.options?[0].values
+        return cell
+    }
+    */
+    
+    
+}
+*/
