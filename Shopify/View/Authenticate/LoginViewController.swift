@@ -112,7 +112,7 @@ class LoginViewController: UIViewController {
            
         }
         else{
-            makeAlert(title: "Missing Input", message: "please fill all text field")
+            makeAlert(title: "Missing Input", message: "please fill all text fields")
         }
         
     }

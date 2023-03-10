@@ -76,6 +76,15 @@ class SignUpViewController: UIViewController {
     }
     
     @IBOutlet weak var lastNameTxt: UITextField!
+    {
+        didSet
+        {
+            lastNameTxt.setLeftView(image: UIImage.init(systemName: "person")!)
+            lastNameTxt.tintColor = .darkGray
+            // usernameTxt.isSecureTextEntry = true
+        }
+    }
+    
     
     @IBOutlet weak var cityTxt: UITextField!
     {
