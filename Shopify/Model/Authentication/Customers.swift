@@ -8,11 +8,12 @@
 import Foundation
 struct allCustomers : Codable
 {
-        var id : Int
-        var email : String?
-        var first_name : String?
-       var  tags : String?
-      var addresses : [Address]?
+    var id : Int
+    var email : String?
+    var first_name : String?
+    var last_name : String?
+    var  tags : String?
+    var addresses : [Address]?
 }
 struct Customers : Codable
 {

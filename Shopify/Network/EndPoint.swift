@@ -25,6 +25,8 @@ enum APIEndpoint {
     case sale
     case home
     case discountCodes
+    case customer
+    case customerSearch
 //    case accessories
 //    case T_shirt
 //    case shoes
@@ -54,6 +56,10 @@ enum APIEndpoint {
             return "/admin/api/2023-01/price_rules/1382520553776/discount_codes.json"
         case .filteration:
           return  "/admin/api/2023-01/products.json?collection_id="
+        case.customer:
+            return "/admin/api/2023-01/customers.json"
+        case.customerSearch:
+            return "/admin/api/2023-01/customers/search.json"
         case .customers :
             return "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers.json"
         }

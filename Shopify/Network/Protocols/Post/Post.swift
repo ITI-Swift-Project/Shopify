@@ -8,5 +8,5 @@
 import Foundation
 protocol PostApi
 {
-    static func makePostRequest(url: String, newData: [String : Any])
+    static func makePostRequest(url: String, newData: [String : Any],complition : @escaping ((Result<Data, Error>) -> Void))
 }

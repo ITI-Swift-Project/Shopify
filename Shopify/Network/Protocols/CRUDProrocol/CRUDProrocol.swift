@@ -7,7 +7,7 @@
 
 import Foundation
 protocol GenericCRUDProtocol {
-    static func postData(parameter : [String : Any], urlEndPoint : String)
+    static func postData( urlEndPoint : URL,parameter : [String : Any],complition :  @escaping (Result<Data, Error>) -> Void)
     static  func updateDate(parameter : [String : Any], urlEndPoint : String)
     static func deleteData(urlEndPoint : String)
 }

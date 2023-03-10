@@ -140,72 +140,55 @@ extension NetworkService
     }
 
 
-extension NetworkService : PostApi
-{
-   static func makePostRequest(url : String , newData : [String : Any])
-   {
-       guard let url = URL(string: url) else{
-           return
-       }
-       print("Making api call")
-       
-       var request = URLRequest(url: url)
-       request.httpMethod = "POST"
-       request.httpShouldHandleCookies = false
-       request.addValue("application/json",forHTTPHeaderField: "Content-Type")
-       request.addValue("application/json",forHTTPHeaderField: "Authorization")
-       request.addValue("application/json",forHTTPHeaderField: "Accept")
-    
-      
-       request.httpBody = try? JSONSerialization.data(withJSONObject: newData, options: .prettyPrinted)
-       
-       let task = URLSession.shared.dataTask(with: request) { data, _, error in
-           guard let data = data, error ==  nil else{
-               return
-           }
-           
-           do{
-               let response =  try JSONSerialization.jsonObject(with: data , options:  .allowFragments)
-               print("SUCCSESS\(response)")
-           }catch{
-               print(error)
-           }
-       }
-       task.resume()
-   }
+//extension NetworkService : PostApi
+//{
+//    static func makePostRequest(url: URL, newData: [String : Any],complition: @escaping (Result<Data, Error>) -> Void) {
+//        guard let url = URL(string: url) else{
+//            return
+//        }
+//        print("Making api call")
+//        
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.httpShouldHandleCookies = false
+//        request.addValue("application/json",forHTTPHeaderField: "Content-Type")
+//        request.addValue("application/json",forHTTPHeaderField: "Authorization")
+//        request.addValue("application/json",forHTTPHeaderField: "Accept")
+//     
+//       
+//        request.httpBody = try? JSONSerialization.data(withJSONObject: newData, options: .prettyPrinted)
+//        
+//        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+//            guard let data = data, error ==  nil else{
+//                
+//                return
+//            }
+//            
+//            do{
+//                let response =  try JSONSerialization.jsonObject(with: data , options:  .allowFragments)
+//                print("SUCCSESS\(response)")
+//                complition(.success(data))
+//               
+//                
+//            }catch{
+//                complition(.failure(error))
+//                
+//                print(error)
+//            }
+//            
+//            
+//        }
+//        task.resume()
+//    }
+//    
+//    }
+//    
 
-}
 
 
 extension NetworkService : GenericCRUDProtocol{
   static  func updateDate(parameter: [String : Any], urlEndPoint: String) {
-//        guard let url = URL(string: urlEndPoint) else{
-//            return
-//        }
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "PUT"
-//        request.httpShouldHandleCookies = false
-//        let session = URLSession.shared
-//        do{
-//            request.httpBody = try? JSONSerialization.data(withJSONObject: parameter,options: .prettyPrinted)
-//
-//        }catch let error {
-//            print(error.localizedDescription)
-//        }
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        session.dataTask(with: request) { (data,response, error) in
-//            if error != nil {
-//                print(error ?? "")
-//
-//            }else{
-//                guard data != nil else{
-//                    print(data ?? "")
-//                    print(response ?? "")
-//                    return
-//                }
-//            }
-//
-//        }.resume()
+
       guard let url = URL(string: urlEndPoint ) else {return}
       print(url)
       var request = URLRequest(url:url)
@@ -245,11 +228,11 @@ extension NetworkService : GenericCRUDProtocol{
         
     }
     
-  static func postData(parameter: [String : Any], urlEndPoint: String) {
-        guard let url = URL(string: urlEndPoint) else{
-            return
-        }
-        var request = URLRequest(url: url)
+  static func postData( urlEndPoint: URL,parameter: [String : Any],complition :  @escaping (Result<Data, Error>) -> Void) {
+//        guard let url = URL(string: urlEndPoint) else{
+//            return
+//        }
+        var request = URLRequest(url: urlEndPoint)
         request.httpMethod = "POST"
         request.httpShouldHandleCookies = false
         let session = URLSession.shared
@@ -259,17 +242,25 @@ extension NetworkService : GenericCRUDProtocol{
         }catch let error {
             print(error.localizedDescription)
         }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        session.dataTask(with: request) { (data,response, error) in
-            if error != nil {
-                print(error ?? "")
+      request.addValue("application/json",forHTTPHeaderField: "Content-Type")
+      request.addValue("application/json",forHTTPHeaderField: "Authorization")
+      request.addValue("application/json",forHTTPHeaderField: "Accept")
+   
+        session.dataTask(with: request) { data,response, error in
+            guard let data = data, error ==  nil else{
                 
-            }else{
-                guard data != nil else{
-                    print(data ?? "")
-                    print(response!)
-                    return
-                }
+                return
+            }
+            do{
+                let response =  try JSONSerialization.jsonObject(with: data , options:  .allowFragments)
+                print("SUCCSESS\(response)")
+                complition(.success(data))
+               
+                
+            }catch{
+                complition(.failure(error))
+                
+                print(error)
             }
                 
         }.resume()

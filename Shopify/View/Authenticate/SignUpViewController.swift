@@ -9,8 +9,8 @@ import UIKit
 
 @available(iOS 13.0, *)
 class SignUpViewController: UIViewController {
-    var viewModel : SignupVM?
-    
+    var viewModel : NetworkViewModel?
+    var alertText : String = ""
     @IBOutlet weak var topView: UIView!
     
     @IBOutlet weak var usernameTxt: UITextField!
@@ -75,6 +75,7 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var lastNameTxt: UITextField!
     
     @IBOutlet weak var cityTxt: UITextField!
     {
@@ -109,62 +110,50 @@ class SignUpViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         
-        var frameUsernameTxt : CGRect = usernameTxt.frame
-        frameUsernameTxt.size.height = 53
-        usernameTxt.frame = frameUsernameTxt
+//        var frameUsernameTxt : CGRect = usernameTxt.frame
+//        frameUsernameTxt.size.height = 53
+//        usernameTxt.frame = frameUsernameTxt
         
-        var frameEmailTxt : CGRect = emailTxt.frame
-        frameEmailTxt.size.height = 53
-        emailTxt.frame = frameEmailTxt
+//        var frameEmailTxt : CGRect = emailTxt.frame
+//        frameEmailTxt.size.height = 53
+//        emailTxt.frame = frameEmailTxt
+//
+//        var framePasswordTxt : CGRect = passwordTxt.frame
+//        framePasswordTxt.size.height = 53
+//        passwordTxt.frame = framePasswordTxt
+//
+//        var frameConfirmPasswordTxt : CGRect = confirmPasswordTxt.frame
+//        frameConfirmPasswordTxt.size.height = 53
+//        confirmPasswordTxt.frame = frameConfirmPasswordTxt
+//
+//        var framPhoneTxt : CGRect = phoneTxt.frame
+//        framPhoneTxt.size.height = 53
+//        phoneTxt.frame = framPhoneTxt
+//
+//        var frameAddressTxt : CGRect = addressTxt.frame
+//        frameAddressTxt.size.height = 53
+//        addressTxt.frame = frameAddressTxt
+//
+//        var frameCityTxt : CGRect = cityTxt.frame
+//        frameCityTxt.size.height = 53
+//        cityTxt.frame = frameCityTxt
+//
+//        var frameCountryTxt : CGRect = countryTxt.frame
+//        frameCountryTxt.size.height = 53
+//        countryTxt.frame = frameCountryTxt
         
-        var framePasswordTxt : CGRect = passwordTxt.frame
-        framePasswordTxt.size.height = 53
-        passwordTxt.frame = framePasswordTxt
-        
-        var frameConfirmPasswordTxt : CGRect = confirmPasswordTxt.frame
-        frameConfirmPasswordTxt.size.height = 53
-        confirmPasswordTxt.frame = frameConfirmPasswordTxt
-        
-        var framPhoneTxt : CGRect = phoneTxt.frame
-        framPhoneTxt.size.height = 53
-        phoneTxt.frame = framPhoneTxt
-        
-        var frameAddressTxt : CGRect = addressTxt.frame
-        frameAddressTxt.size.height = 53
-        addressTxt.frame = frameAddressTxt
-        
-        var frameCityTxt : CGRect = cityTxt.frame
-        frameCityTxt.size.height = 53
-        cityTxt.frame = frameCityTxt
-        
-        var frameCountryTxt : CGRect = countryTxt.frame
-        frameCountryTxt.size.height = 53
-        countryTxt.frame = frameCountryTxt
-        
-        
-        usernameTxt.layer.cornerRadius = usernameTxt.frame.size.height / 2
-        usernameTxt.clipsToBounds = true
-        
-        emailTxt.layer.cornerRadius = emailTxt.frame.size.height / 2
-        emailTxt.clipsToBounds = true
-        
-        passwordTxt.layer.cornerRadius = passwordTxt.frame.size.height / 2
-        passwordTxt.clipsToBounds = true
-        
-        confirmPasswordTxt.layer.cornerRadius = confirmPasswordTxt.frame.size.height / 2
-        confirmPasswordTxt.clipsToBounds = true
-        
-        phoneTxt.layer.cornerRadius = phoneTxt.frame.size.height / 2
-        phoneTxt.clipsToBounds = true
-        
-        addressTxt.layer.cornerRadius = addressTxt.frame.size.height / 2
-        addressTxt.clipsToBounds = true
-        
-        cityTxt.layer.cornerRadius = cityTxt.frame.size.height / 2
-        cityTxt.clipsToBounds = true
-        
-        countryTxt.layer.cornerRadius = countryTxt.frame.size.height / 2
-        countryTxt.clipsToBounds = true
+        makeCircle(object: usernameTxt)
+        makeCircle(object: lastNameTxt)
+        makeCircle(object: emailTxt)
+        makeCircle(object: phoneTxt)
+        makeCircle(object: confirmPasswordTxt)
+        makeCircle(object: cityTxt)
+        makeCircle(object: phoneTxt)
+        makeCircle(object: passwordTxt)
+        makeCircle(object: addressTxt)
+        makeCircle(object: countryTxt)
+       
+
         
         signupBtn.layer.cornerRadius = signupBtn.frame.size.height / 2
         signupBtn.clipsToBounds = true
@@ -179,37 +168,118 @@ class SignUpViewController: UIViewController {
         
         
     }
+    func makeCircle(object : UITextField)
+    {
+        object.layer.cornerRadius = object.frame.size.height / 2
+        object.clipsToBounds = true
+    }
     
     @IBAction func signUP(_ sender: Any) {
-       if validation() == true
+       if !checkFildes()
         {
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
+           print("Invalid")
+           let alert =  UIAlertController(title: "Missing filed", message: "please complete your data", preferredStyle: .alert)
+           let action = UIAlertAction(title: "ok" , style: .default , handler: nil)
+           alert.addAction(action)
+           present(alert, animated: true, completion: nil)
+       }
+        alertText = ""
+        
+        if !validEmail(email: "\(emailTxt.text ?? "")")
+        {
+            alertText.append("check email")
+            alertText.append("\n")
+        }
+        if !validPassword(password:  "\(passwordTxt.text ?? "")") || !((passwordTxt.text) == (confirmPasswordTxt.text))
+        {
+            alertText.append("check password")
+            alertText.append("\n")
+        }
+        if !validPhone(phone:  "\(phoneTxt.text ?? "")")
+        {
+            alertText.append("check phone")
+            alertText.append("\n")
+        }
+        if alertText == ""
+        {
             
-            self.navigationController?.pushViewController(brandsViewController, animated: true)
-            
-            let userDefualts2 = UserDefaults.standard
-            userDefualts2.set(true, forKey: "signUpState")
-            viewModel = SignupVM()
+            viewModel = NetworkViewModel()
             let   newData  : [String : Any] = [
                 "customer" : [
                     "email":"\(emailTxt.text!)",
+                    "phone":"\(phoneTxt.text!)",
                     "first_name":"\(usernameTxt.text!)",
+                    "last_name":"\(lastNameTxt.text!)",
                     "tags": "\(passwordTxt.text!)",
                     "addresses" : [["phone" : "\(phoneTxt.text!)",
-                        "address1":"\(addressTxt.text!)",
+                                    "address1":"\(addressTxt.text!)",
                                     "city": "\(cityTxt.text!)",
                                     "country" : "\(countryTxt.text!)"]]
                 ]
             ]
-            viewModel?.postCustomer(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers.json", data: newData)
-       
+            let endPoint = APIEndpoint.customer
+            let url = endPoint.url(forShopName: NetworkService.baseUrl)
+            viewModel?.postCustomer(url:url , data: newData){ result in
+                print("here in sign up view controller")
+                switch result {
+                case .success(let data):
+                    do {
+                        if let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
+                            if let errors = dict["errors"] as? [String: [String]] {
+                                var message = ""
+                                for (key, value) in errors {
+                                   
+                                            if let errorMessage = value[0] as? String {
+                                                message.append("\(key) : ")
+                                                message.append("\(errorMessage)")
+                                                message.append("\n")
+
+                                    }
+                                }
+                                DispatchQueue.main.async {
+                                    let alert =  UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+                                    let action = UIAlertAction(title: "OK" , style: .default , handler: nil)
+                                    alert.addAction(action)
+                                    self.present(alert, animated: true, completion: nil)
+                                    message = ""
+                                    print(message)
+                                }
+                               
+                            } else if let customer : [String : Any] = dict["customer"] as? [String : Any] {
+                                DispatchQueue.main.async {
+                                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
+                                    UserDefaults.standard.set(self.emailTxt.text ,forKey: "email")
+                                    UserDefaults.standard.set(true, forKey: "loginState")
+                                    UserDefaults.standard.set(customer["id"] as? Int, forKey: "userId")
+                                    self.navigationController?.pushViewController(brandsViewController, animated: true)
+                                    
+                                    let userDefaults = UserDefaults.standard
+                                    userDefaults.set(true, forKey: "signUpState")
+                                }
+                            } else {
+                                print("Unknown response")
+                            }
+                        } else {
+                            print("Response is not a dictionary")
+                        }
+                    } catch {
+                        print("Error parsing JSON: \(error.localizedDescription)")
+                    }
+                case .failure(let error):
+                    let alert =  UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                    let action = UIAlertAction(title: "OK" , style: .default , handler: nil)
+                    alert.addAction(action)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        
         }
         else
         {
             print("Invalid")
-            let alert =  UIAlertController()
-            let action = UIAlertAction(title: "Check your input", style: .default , handler: nil)
+            let alert =  UIAlertController(title: "Wrong Data", message: alertText, preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok" , style: .default , handler: nil)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
             
@@ -230,17 +300,50 @@ class SignUpViewController: UIViewController {
     }
     
     
-    private func validation() ->Bool
-    {
-        if usernameTxt.text != "" && usernameTxt.text?.count ?? 0 >= 8 && usernameTxt.text?.count ?? 0 <= 20 &&
-            emailTxt.text != "" && emailTxt.text?.count ?? 0 >= 10  && ((emailTxt.text?.contains(".")) != nil) && ((emailTxt.text?.contains("@")) != nil) && emailTxt.text?.count ?? 0 <= 40 &&  passwordTxt.text != "" && passwordTxt.text?.count ?? 0 >= 10 && passwordTxt.text?.count ?? 0 <= 20 && confirmPasswordTxt.text != "" && confirmPasswordTxt.text?.count == passwordTxt.text?.count && addressTxt.text != "" && addressTxt.text?.count ?? 0 >= 5 && addressTxt.text?.count ?? 0 <= 8 &&
-            cityTxt.text != "" && cityTxt.text?.count ?? 0 >= 5 && cityTxt.text?.count ?? 0 <= 8 && countryTxt.text != "" && countryTxt.text?.count ?? 0 >= 5 && countryTxt.text?.count ?? 0 <= 8 && phoneTxt.text != "" && phoneTxt.text?.count ?? 0 >= 11 && phoneTxt.text?.count ?? 0 <= 13
+
+    func checkFildes()->Bool{
+        if emailTxt.text == "" || usernameTxt.text == "" || passwordTxt.text ==  "" || confirmPasswordTxt.text == "" || phoneTxt.text == "" || cityTxt.text == "" || addressTxt.text == "" || countryTxt.text == "" || lastNameTxt.text == ""
+        {
+            return false
+        }
+        else
         {
             return true
         }
-        return false
     }
-    
+    func validEmail(email : String)->Bool{
+            let emailRegex = RegexForFields.email
+            let emailRegexString = emailRegex.rawValue
+            let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegexString)
+        print(email)
+        
+        return emailPredicate.evaluate(with: email)
+    }
+    func validPassword(password : String)->Bool{
+            let passwordRegex = RegexForFields.password
+            let passwordRegexString = passwordRegex.rawValue
+            let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegexString)
+        print(password)
+        print(passwordPredicate.evaluate(with: password))
+            return passwordPredicate.evaluate(with: password)
+    }
+    func validPhone(phone : String)->Bool{
+        let phoneRegex = RegexForFields.phone
+        let phoneRegexString = phoneRegex.rawValue
+        let phonePredicate = NSPredicate(format: "SELF MATCHES %@", phoneRegexString)
+        print(phonePredicate.evaluate(with: phone))
+        return phonePredicate.evaluate(with: phone)
+}
+    enum RegexForFields: String {
+        case email = "[A-Z0-9a-z_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        case password = "[A-Za-z\\d]{8,}$"
+        case phone = "^(01)[0125][0-9]{8}$"
+        
+        
+        func getDescription() -> String {
+            return self.rawValue
+        }
+    }
 }
 
 
@@ -272,3 +375,4 @@ extension UITextField
         self.tintColor = .darkGray
     }
 }
+

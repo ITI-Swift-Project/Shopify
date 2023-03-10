@@ -15,6 +15,13 @@ class NetworkViewModel{
         }
     }
     
+    var bindingCustomer : (()->()) = {}
+    var customerResult : Customers!{
+        didSet{
+            bindingCustomer()
+        }
+    }
+    
     var bindingProducts: (() -> ()) = {}
     var productsResult: Products!{
         didSet{
@@ -82,6 +89,25 @@ class NetworkViewModel{
             self.ordersResult = result
         }
     }
+    
+    func getcustomerBY(email : String){
+        let endPoint = APIEndpoint.customerSearch
+        let url = endPoint.url(forShopName: NetworkService.baseUrl)
+        let urlString = url.absoluteString
+        let urlEndPoint = URL(string: urlString.appending("?query=email:\(email)"))
+       
+        print(urlEndPoint)
+        NetworkService.fetch(url: urlEndPoint) { result in
+            self.customerResult = result
+        }
+    }
+    //MARK: post methods
+    func postCustomer (url : URL,  data : [String : Any],complition :  @escaping (Result<Data, Error>) -> Void)
+    {
+        NetworkService.postData(urlEndPoint : url , parameter: data,complition : complition)
+    }
+    
+    
 }
 
 
