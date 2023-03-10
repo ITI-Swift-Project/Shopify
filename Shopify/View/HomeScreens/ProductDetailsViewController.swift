@@ -14,6 +14,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     var productPrice : String?
     var isFavourite : Bool? = false
     let order : DraftOrder? = nil
+    var optionss : Options?
     var product : Product = Product()
     var arrImgs = [UIImage(named: "product")!, UIImage(named: "tmp")!, UIImage(named: "tmpBrand")]
     var arrReviews : [Reviews] = [Reviews(img: UIImage(named: "review1")!, name: "Anedrew", reviewTxt: "Very Good"), Reviews(img: UIImage(named: "review2")!, name: "Sandra", reviewTxt: "Good"), Reviews(img: UIImage(named: "review3")!, name: "John", reviewTxt: "Nice"), Reviews(img: UIImage(named: "review4")!, name: "Leli", reviewTxt: "Very Good")]
@@ -123,8 +124,10 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
             DispatchQueue.main.async { [self] in
                 self.cartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []
             }
+            self.postProductFav()
         }
         
+      //  let indexpath = IndexPath(row: optionss?.values?.count - 1  , section: 1)
        
      //   cosmos.inputViewController?.isBeingDismissed = false
         productName.adjustsFontSizeToFitWidth = true

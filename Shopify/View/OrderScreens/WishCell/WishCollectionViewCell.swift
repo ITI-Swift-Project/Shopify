@@ -17,7 +17,6 @@ class WishCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var wishImg: UIImageView!
     
-    @IBOutlet weak var ratingStak: RatingController!
     
     @IBOutlet weak var wishPrice: UILabel!
     @IBOutlet weak var wishName: UILabel!
