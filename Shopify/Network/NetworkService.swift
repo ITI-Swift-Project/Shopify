@@ -61,10 +61,25 @@ extension NetworkService : DiscountsData
 }
 extension NetworkService : ShoppingCartData
 {
-    static func getShoppingCartProducts(url: String, handeler: @escaping (DraftOrders?) -> Void)
+    static func getShoppingCartProducts(url: String, handeler: @escaping (SingleDraftOrder?) -> Void)
     {
         let request = AF.request(url)
-        request.responseDecodable (of: DraftOrders.self) {(olddata) in
+        request.responseDecodable (of: SingleDraftOrder.self) {(olddata) in
+            guard let data = olddata.value
+            else{
+                handeler(nil)
+                return
+            }
+            handeler(data)
+        }
+    }
+}
+extension NetworkService : ProductDataProtocol
+{
+    static func getProduct( url: String, handeler: @escaping (SingleProduct?) -> Void)
+    {
+        let request = AF.request(url)
+        request.responseDecodable (of: SingleProduct.self) {(olddata) in
             guard let data = olddata.value
             else{
                 handeler(nil)

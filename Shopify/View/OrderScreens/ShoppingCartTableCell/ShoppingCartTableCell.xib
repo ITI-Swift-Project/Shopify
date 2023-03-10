@@ -41,26 +41,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j8c-SQ-a56">
-                                <rect key="frame" x="294" y="90" width="27" height="27"/>
+                                <rect key="frame" x="300" y="89" width="27" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
                                     <imageReference key="image" image="plus.square.fill" catalog="system" renderingMode="hierarchical">
-                                        <hierarchicalColors>
-                                            <color name="firstColor"/>
-                                            <color white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <color name="thirdColor"/>
-                                        </hierarchicalColors>
-                                    </imageReference>
-                                    <color key="baseBackgroundColor" name="thirdColor"/>
-                                </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L1U-te-BV6">
-                                <rect key="frame" x="182" y="90" width="27" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
-                                    <imageReference key="image" image="minus.square.fill" catalog="system" renderingMode="hierarchical">
                                         <hierarchicalColors>
                                             <color name="firstColor"/>
                                             <color white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -78,7 +63,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wiv-pp-hRd">
-                                <rect key="frame" x="217" y="93" width="69" height="21"/>
+                                <rect key="frame" x="201" y="90" width="99" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="secondColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -99,6 +84,21 @@
                                 <color key="textColor" name="firstColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L1U-te-BV6">
+                                <rect key="frame" x="172" y="90" width="27" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
+                                    <imageReference key="image" image="minus.square.fill" catalog="system" renderingMode="hierarchical">
+                                        <hierarchicalColors>
+                                            <color name="firstColor"/>
+                                            <color white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color name="thirdColor"/>
+                                        </hierarchicalColors>
+                                    </imageReference>
+                                    <color key="baseBackgroundColor" name="thirdColor"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>

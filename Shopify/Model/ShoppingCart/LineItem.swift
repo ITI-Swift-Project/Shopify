@@ -20,6 +20,6 @@ class LineItem : Decodable
     var variant_title : String?
     var sku : String?
     var vendor : String?
-    var variant_id : String?
-    
+    var variant_id : Int?
+    var product_id : Int?
 }

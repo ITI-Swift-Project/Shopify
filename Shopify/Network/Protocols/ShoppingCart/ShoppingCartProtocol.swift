@@ -8,5 +8,5 @@
 import Foundation
 protocol ShoppingCartData
 {
-    static func getShoppingCartProducts(url: String, handeler: @escaping (DraftOrders?) -> Void)
+    static func getShoppingCartProducts(url: String, handeler: @escaping (SingleDraftOrder?) -> Void)
 }
