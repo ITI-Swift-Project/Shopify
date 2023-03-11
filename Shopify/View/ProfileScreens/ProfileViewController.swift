@@ -10,28 +10,34 @@ import UIKit
 class ProfileViewController: UIViewController{
     var result : Customers?
     var customerr : allCustomers?
+    var filteredOrders : [Order] = []
+    
+    
+    @IBOutlet weak var orderTableView: UITableView!
+    {
+        didSet{
+            orderTableView.delegate = self
+            orderTableView.dataSource = self
+            let nibb = UINib(nibName: "OrdersTableViewCell", bundle: nil)
+            orderTableView.register(nibb, forCellReuseIdentifier: "orderTableCell")
+        }
+    }
+    
+    
+    @IBOutlet weak var wishlistTableView: UITableView!
+    {
+        didSet{
+           wishlistTableView.delegate = self
+           wishlistTableView.dataSource = self
+            let nib = UINib(nibName: "wishTableViewCell", bundle: nil)
+            wishlistTableView.register(nib, forCellReuseIdentifier: "list")
+        }
+    }
+    
+    
+    
+    
     @IBOutlet weak var welcomelbl: UILabel!
-    
-    @IBOutlet weak var ordersCollectionView: UICollectionView!{
-        didSet{
-            ordersCollectionView.delegate = self
-            ordersCollectionView.dataSource = self
-            let nib = UINib(nibName: "OrdersCollectionViewCell", bundle: nil)
-            ordersCollectionView.register(nib, forCellWithReuseIdentifier: "orderCell")
-        }
-    }
-
-    
-    
-    @IBOutlet weak var wishListCollectionView: UICollectionView!{
-        didSet{
-           wishListCollectionView.delegate = self
-            wishListCollectionView.dataSource = self
-            let nib2 = UINib(nibName: "WishCollectionViewCell", bundle: nil)
-          wishListCollectionView.register(nib2, forCellWithReuseIdentifier: "list")
-        }
-    }
-        
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,42 +103,62 @@ class ProfileViewController: UIViewController{
     */
 
 }
-extension ProfileViewController  : UICollectionViewDelegate{
+extension ProfileViewController  : UITableViewDelegate{
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 123
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete
+        {
+            tableView.beginUpdates()
+           // arrofanything.deleteRows(at: <#T##[IndexPath]#>)
+           // tableView.deleteRows(at: [IndexPath], with: .fade)
+            tableView.endUpdates()
+        }
+        
+    }
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
     
 }
-extension ProfileViewController : UICollectionViewDataSource{
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension ProfileViewController : UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == ordersCollectionView
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == orderTableView
         {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "orderCell", for: indexPath) as! OrdersCollectionViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "orderTableCell", for: indexPath) as! OrdersTableViewCell
             cell.layer.borderColor     = UIColor.systemGray.cgColor
             cell.layer.cornerRadius    = 25.0
+          /*
+            let tmpString = filteredOrders[indexPath.row].created_at?.components(separatedBy: "T")
+            cell.conigData(price: filteredOrders[indexPath.row].current_total_price ?? "", date: tmpString?[0] ?? "", time: tmpString?[1] ?? "")
+            cell.layer.cornerRadius = 30*/
             return cell
-            
         }
-        
-    
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "list", for: indexPath) as! WishCollectionViewCell
-            cell.layer.masksToBounds = true
-        cell.layer.cornerRadius = 25.0
-
-            cell.wishImg.image = UIImage(named: "product")
-            cell.wishName.text = "Hoodie Green"
-            cell.wishDescription.text = "Green Hoodie paul&pear"
-            cell.wishPrice.text = "150.00".appending("$")
-            
-            
-          //  cell.deleteBtn.addTarget(self, action: #selector(print), for: .touchUpInside)
-            return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "list", for: indexPath) as! wishTableViewCell
+        cell.layer.borderColor     = UIColor.systemGray.cgColor
+        cell.layer.cornerRadius    = 25.0
+        cell.wishImg.image = UIImage(named: "product")
+       //cell.wishName.adjustsFontSizeToFitWidth = true
+        cell.wishName.text = "aaaaaaaaaaaaaaaaaaaaaaaaaasfasmbfadk.nd.nsd,.nsdlnlsdnsd/ln"
+        cell.wishDiscription.text = "sdeadfweddkghad;kghsd;kghsd;kgsd;khg"
+        cell.wishPrice.text = "450"
+        return cell
         
     }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 150
+    }
+   
 }
 
 
