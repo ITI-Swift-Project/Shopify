@@ -147,8 +147,8 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
             }
             self.postProductFav()
         }
-        currencyConverter = userdef.value(forKey: "currency") as! Float
-        if userdef.value(forKey: "currency") as! Double == 1.0
+      //  currencyConverter = userdef.value(forKey: "currency") as! Float
+       /* if userdef.value(forKey: "currency") as! Double == 1.0
         {
             currency = "$"
         }
@@ -157,7 +157,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
             currency = "£"
         }
         print("FA\(currencyConverter)")
-        
+        */
       //  let indexpath = IndexPath(row: optionss?.values?.count - 1  , section: 1)
        
      //   cosmos.inputViewController?.isBeingDismissed = false

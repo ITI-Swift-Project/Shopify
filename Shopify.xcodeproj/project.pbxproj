@@ -356,6 +356,7 @@
 		1E9BD5E929AA8ACF00AAD8AB /* Brands */ = {
 			isa = PBXGroup;
 			children = (
+				1EFC858B29A54FCF009F471F /* Main */,
 				1E9BD5EE29AA8B2F00AAD8AB /* Brands.swift */,
 			);
 			path = Brands;
@@ -435,7 +436,6 @@
 				1EFCB27929A55D3E00FAA46D /* OrderScreens */,
 				1EFCB27029A55C2000FAA46D /* ProfileScreens */,
 				1EFCB26229A55A5800FAA46D /* Cat */,
-				1EFC858B29A54FCF009F471F /* Main */,
 				1ECEA6E929A53B6300AE6E50 /* HomeScreens */,
 			);
 			path = View;
@@ -444,6 +444,7 @@
 		1ECEA6E929A53B6300AE6E50 /* HomeScreens */ = {
 			isa = PBXGroup;
 			children = (
+				1E9BD5E929AA8ACF00AAD8AB /* Brands */,
 				1ECEA6F029A53D0A00AE6E50 /* AdsCell */,
 				1EFCB28029A58C5E00FAA46D /* BrandCell */,
 				1EFCB26C29A55BBD00FAA46D /* ProductDetailsViewController.swift */,
@@ -472,7 +473,6 @@
 				038ADD2429B3C51F0074D8AA /* Authentication */,
 				4FB70D1229ADAFBD00087DC9 /* Discount-codes */,
 				1E9BD60229AAF36200AAD8AB /* Product */,
-				1E9BD5E929AA8ACF00AAD8AB /* Brands */,
 			);
 			path = Model;
 			sourceTree = "<group>";
