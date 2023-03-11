@@ -9,7 +9,10 @@ import UIKit
 import Floaty
 class BrandsViewController: UIViewController {
 //    @IBOutlet weak var floaty: UIButton!
-    
+    var userdef = UserDefaults.standard
+
+    var currencyConverter : Float = 0.0
+    var currency : String?
     var brandId : Int?
     var floaty : Floaty?
     var itemsArray : [Product] = []
@@ -37,10 +40,7 @@ class BrandsViewController: UIViewController {
        
         //MARK: Fetch Data From API
         networkViewModel = BrandItemsViewModel()
-        
         networkViewModel?.getItems(brandId: brandId)
-        
-        
         networkViewModel?.bindingBrandItems = {
             //            print(self.homeViewModel?.brandsResult.count)
             //            print(self.homeViewModel?.brandsResult[0].id)
@@ -52,9 +52,17 @@ class BrandsViewController: UIViewController {
                 print(UserDefaults.standard.value(forKey: "email")as? String)
                 self.brandsCollection.reloadData()
             }
-            
         }
-       
+        currencyConverter = userdef.value(forKey: "currency") as! Float
+          if userdef.value(forKey: "currency") as! Double == 1.0
+          {
+              currency = "$"
+          }
+          else
+          {
+              currency = "£"
+          }
+          print("FA\(currencyConverter)")
     }
     @IBAction func searchAction(_ sender: Any) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "SearchStoryboard", bundle: nil)
@@ -162,7 +170,7 @@ extension BrandsViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catCell", for: indexPath) as! CateCollectionViewCell
         cell.configImg(name: URL(string: (filterItems[indexPath.row].image?.src!)!)!)
-        cell.configProductInfo(name: filterItems[indexPath.row].title!, vendor: filterItems[indexPath.row].vendor!, price: filterItems[indexPath.row].variants?[0].price ?? "")
+        cell.configProductInfo(name: filterItems[indexPath.row].title!, vendor: filterItems[indexPath.row].vendor!, price: String((Float(filterItems[indexPath.row].variants?[0].price ?? "") ?? 0.0) * currencyConverter).appending(" ").appending(currency ?? ""))
         cell.layer.cornerRadius  = 25.0
         cell.backView.layer.cornerRadius = 30
         cell.backView.layer.shadowRadius = 3

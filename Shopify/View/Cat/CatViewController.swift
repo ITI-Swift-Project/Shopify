@@ -13,6 +13,9 @@ class CatViewController: UIViewController {
     var floaty : Floaty?
     var flag : Int = 0
     var categoryId : URL?
+    var userdef = UserDefaults.standard
+    var currencyConverter : Float = 0.0
+    var currency : String?
     @IBOutlet weak var kids: UIBarButtonItem!
     
     @IBOutlet weak var sale: UIBarButtonItem!
@@ -37,7 +40,16 @@ class CatViewController: UIViewController {
         sale.tintColor = UIColor.white
         let endPoint = APIEndpoint.products
         filterDataByType(endPoint: endPoint)
-        
+        currencyConverter = userdef.value(forKey: "currency") as! Float
+          if userdef.value(forKey: "currency") as! Double == 1.0
+          {
+              currency = "$"
+          }
+          else
+          {
+              currency = "£"
+          }
+          print("FA\(currencyConverter)")
     }
    
     override func viewWillAppear(_ animated: Bool) {
@@ -272,8 +284,7 @@ extension CatViewController : UICollectionViewDataSource
         }
         
 
-        cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, price: result[indexPath.row].variants?[0].price ?? "" )
-
+        cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, price: String(Float(result[indexPath.row].variants?[0].price ?? "") ?? 0.0 * currencyConverter).appending(" ").appending(currency ?? ""))
         cell.layer.cornerRadius  = 25.0
       //  cell.backView.layer.masksToBounds = true
         cell.backView.layer.cornerRadius = 30
