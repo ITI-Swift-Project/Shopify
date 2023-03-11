@@ -10,7 +10,7 @@ import UIKit
 @available(iOS 13.0, *)
 class LoginViewController: UIViewController {
     var result : Customers?
-    var network : NetworkViewModel?
+    var network : CustomersViewModel?
     let semaphore = DispatchSemaphore(value: 0)
     let group = DispatchGroup()
     @IBOutlet weak var signupBtn: UIButton!
@@ -48,7 +48,7 @@ class LoginViewController: UIViewController {
         
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        network = NetworkViewModel()
+        network = CustomersViewModel()
         
         let endPoint = APIEndpoint.customer
         let url = endPoint.url(forShopName: NetworkService.baseUrl)

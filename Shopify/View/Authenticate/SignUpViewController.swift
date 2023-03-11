@@ -9,7 +9,7 @@ import UIKit
 
 @available(iOS 13.0, *)
 class SignUpViewController: UIViewController {
-    var viewModel : NetworkViewModel?
+    var viewModel : BrandsViewModel?
     var alertText : String = ""
     @IBOutlet weak var topView: UIView!
     
@@ -117,40 +117,6 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        
-//        var frameUsernameTxt : CGRect = usernameTxt.frame
-//        frameUsernameTxt.size.height = 53
-//        usernameTxt.frame = frameUsernameTxt
-        
-//        var frameEmailTxt : CGRect = emailTxt.frame
-//        frameEmailTxt.size.height = 53
-//        emailTxt.frame = frameEmailTxt
-//
-//        var framePasswordTxt : CGRect = passwordTxt.frame
-//        framePasswordTxt.size.height = 53
-//        passwordTxt.frame = framePasswordTxt
-//
-//        var frameConfirmPasswordTxt : CGRect = confirmPasswordTxt.frame
-//        frameConfirmPasswordTxt.size.height = 53
-//        confirmPasswordTxt.frame = frameConfirmPasswordTxt
-//
-//        var framPhoneTxt : CGRect = phoneTxt.frame
-//        framPhoneTxt.size.height = 53
-//        phoneTxt.frame = framPhoneTxt
-//
-//        var frameAddressTxt : CGRect = addressTxt.frame
-//        frameAddressTxt.size.height = 53
-//        addressTxt.frame = frameAddressTxt
-//
-//        var frameCityTxt : CGRect = cityTxt.frame
-//        frameCityTxt.size.height = 53
-//        cityTxt.frame = frameCityTxt
-//
-//        var frameCountryTxt : CGRect = countryTxt.frame
-//        frameCountryTxt.size.height = 53
-//        countryTxt.frame = frameCountryTxt
-        
         makeCircle(object: usernameTxt)
         makeCircle(object: lastNameTxt)
         makeCircle(object: emailTxt)
@@ -182,7 +148,7 @@ class SignUpViewController: UIViewController {
         object.layer.cornerRadius = object.frame.size.height / 2
         object.clipsToBounds = true
     }
-    
+    //MARK: Sign Up Action
     @IBAction func signUP(_ sender: Any) {
        if !checkFildes()
         {
@@ -212,7 +178,7 @@ class SignUpViewController: UIViewController {
         if alertText == ""
         {
             
-            viewModel = NetworkViewModel()
+            viewModel = BrandsViewModel()
             let   newData  : [String : Any] = [
                 "customer" : [
                     "email":"\(emailTxt.text!)",
@@ -311,17 +277,15 @@ class SignUpViewController: UIViewController {
     }
     
     
-
+    //MARK: check fields
     func checkFildes()->Bool{
         if emailTxt.text == "" || usernameTxt.text == "" || passwordTxt.text ==  "" || confirmPasswordTxt.text == "" || phoneTxt.text == "" || cityTxt.text == "" || addressTxt.text == "" || countryTxt.text == "" || lastNameTxt.text == ""
         {
             return false
         }
-        else
-        {
             return true
-        }
     }
+    //MARK: valid email
     func validEmail(email : String)->Bool{
             let emailRegex = RegexForFields.email
             let emailRegexString = emailRegex.rawValue
@@ -330,6 +294,7 @@ class SignUpViewController: UIViewController {
         
         return emailPredicate.evaluate(with: email)
     }
+    //MARK: valid password
     func validPassword(password : String)->Bool{
             let passwordRegex = RegexForFields.password
             let passwordRegexString = passwordRegex.rawValue
@@ -338,6 +303,7 @@ class SignUpViewController: UIViewController {
         print(passwordPredicate.evaluate(with: password))
             return passwordPredicate.evaluate(with: password)
     }
+    //MARK: Valid Phone
     func validPhone(phone : String)->Bool{
         let phoneRegex = RegexForFields.phone
         let phoneRegexString = phoneRegex.rawValue
@@ -345,6 +311,7 @@ class SignUpViewController: UIViewController {
         print(phonePredicate.evaluate(with: phone))
         return phonePredicate.evaluate(with: phone)
 }
+    //MARK: Regex enum
     enum RegexForFields: String {
         case email = "[A-Z0-9a-z_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         case password = "[A-Za-z\\d]{8,}$"
@@ -358,7 +325,7 @@ class SignUpViewController: UIViewController {
 }
 
 
-
+    //MARK: UI Methods
 extension UITextField
 {
     func setLeftViewSignup(image : UIImage)

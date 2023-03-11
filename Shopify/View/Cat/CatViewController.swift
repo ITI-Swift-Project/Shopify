@@ -8,7 +8,7 @@
 import UIKit
 import Floaty
 class CatViewController: UIViewController {
-    var viewModel : NetworkViewModel?
+    var viewModel : ProductsViewModel?
     var result : [Product] = []
     var floaty : Floaty?
     var flag : Int = 0
@@ -189,7 +189,7 @@ class CatViewController: UIViewController {
     //MARK: Fitch method
     func getFilterResltFloatyButtonAllProuducts(endPoint : APIEndpoint,product_type : String)->Void{
         let url = endPoint.urlTofiltrtion(forShopName: NetworkService.baseUrl, product_type: product_type)
-        self.viewModel = NetworkViewModel()
+        self.viewModel = ProductsViewModel()
         self.viewModel?.getProductsAt(url: url )
         self.viewModel?.bindingProducts = {
             DispatchQueue.main.async {
@@ -208,7 +208,7 @@ class CatViewController: UIViewController {
     
     func getFilterResltFloatyButton(endPoint : APIEndpoint,product_type : String)->Void{
         let url = endPoint.urlTofiltrtionCategory(forShopName: NetworkService.baseUrl, product_type: product_type)
-        self.viewModel = NetworkViewModel()
+        self.viewModel = ProductsViewModel()
         self.viewModel?.getProductsAt(url: url )
         self.viewModel?.bindingProducts = {
             DispatchQueue.main.async {
@@ -224,7 +224,7 @@ class CatViewController: UIViewController {
     
     func filterDataByType(endPoint:APIEndpoint)->Void{
         let url = endPoint.url(forShopName:NetworkService.baseUrl)
-        viewModel = NetworkViewModel()
+        viewModel = ProductsViewModel()
         viewModel?.getProductsAt(url: url )
         viewModel?.bindingProducts = {
             DispatchQueue.main.async {

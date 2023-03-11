@@ -36,8 +36,9 @@ class EditProfileViewController: UIViewController{
     }
     
     @IBAction func addNewAddress(_ sender: Any) {
-        let addNewAddressVC = storyboard?.instantiateViewController(withIdentifier: "addNewAddress") as! AddNewAddressViewController
-        navigationController?.pushViewController(addNewAddressVC, animated: true)
+        print("AddNew")
+        let ADVC = storyboard?.instantiateViewController(withIdentifier: "addNewAddress") as! AddNewAddressViewController
+        self.present(ADVC, animated:true, completion:nil)
     }
     @IBOutlet weak var bgFrame: UIView!
     override func viewDidLoad() {

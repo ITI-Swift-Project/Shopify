@@ -282,3 +282,60 @@ extension NetworkService : GenericCRUDProtocol{
     
     
 }
+extension NetworkService {
+    static func postWithError(url: String?, parameters: [String: Any], err: @escaping ([String: Any]?) -> Void) {
+        guard let url = URL(string: url ?? "") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let session = URLSession.shared
+        request.httpShouldHandleCookies = false
+        print(parameters)
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        session.dataTask(with: request) { data, _, error in
+            guard let data = data, error == nil else {return}
+            do {
+                let response = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                print("POST METHOD :\(response)")
+                err(response as? [String: Any])
+            } catch {
+               err(nil)
+            }
+
+        }.resume()
+    }
+    
+    static func putWithError(url: String, parameters: [String: Any],err: @escaping ([String: Any]?) -> Void) {
+        guard let url = URL(string: url) else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        let session = URLSession.shared
+        request.httpShouldHandleCookies = false
+
+        print(parameters)
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+        session.dataTask(with: request) { data, _, error in
+            guard let data = data, error == nil else { return }
+            do {
+                let response = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                print("PUT METHOD :\(response)")
+                err(response as? [String: Any])
+            } catch {
+                print("error")
+            }
+        }.resume()
+    }
+}
+

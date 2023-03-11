@@ -12,8 +12,10 @@ class OrderDetailsViewController: UIViewController {
 
     var orderProductsList : [LineItem]?
     var orderSubTotal : Float?
-    var orderImages : [Image]?
-    var homeViewModel : NetworkViewModel?
+
+    var homeViewModel : BrandsViewModel?
+    var adsViewModel : ADsViewModel?
+
     var copounsList : [DiscountCode]?
     var flag : Bool = false
     var usedCopouns : [NSManagedObject]?
@@ -90,11 +92,12 @@ class OrderDetailsViewController: UIViewController {
         enteringCopounCode.layer.cornerRadius = 20
         enteringCopounCode.borderStyle = UITextField.BorderStyle(rawValue: 0)!
         orderSubTotalPrice.text = String(orderSubTotal ?? 0.0)
-        homeViewModel = NetworkViewModel()
-        homeViewModel?.getAds()
-        homeViewModel?.bindingAds = {
+        homeViewModel = BrandsViewModel()
+        adsViewModel?.getAds()
+        adsViewModel = ADsViewModel()
+        adsViewModel?.bindingAds = {
             DispatchQueue.main.async {
-                self.copounsList = self.homeViewModel?.adsResult?.discount_codes ?? []
+                self.copounsList = self.adsViewModel?.adsResult?.discount_codes ?? []
                 print("fatma\(self.copounsList?.count)")
             }
         }
@@ -185,3 +188,4 @@ extension OrderDetailsViewController
         return flag ?? false
     }
 }
+

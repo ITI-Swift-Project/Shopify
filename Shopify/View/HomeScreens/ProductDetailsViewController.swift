@@ -26,7 +26,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     var currentCellIndex  = 0
     var productState : Bool = false
     var dataViewModel : CoreDataViewModel?
-    var networkViewModel : NetworkViewModel?
+    var networkViewModel : ShoppingCartProductsViewModel?
     var cartItemsList : [LineItem] = []
     var arrayOfDec : [[String : Any]] = []
     @IBOutlet weak var productName: UILabel!
@@ -137,8 +137,10 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         dataViewModel = CoreDataViewModel()
-        networkViewModel = NetworkViewModel()
-        networkViewModel?.getCartProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json")
+
+        networkViewModel = ShoppingCartProductsViewModel()
+        networkViewModel?.getCartProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113690014000.json")
+
         networkViewModel?.bindingCartProducts = {
             DispatchQueue.main.async { [self] in
                 self.cartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []

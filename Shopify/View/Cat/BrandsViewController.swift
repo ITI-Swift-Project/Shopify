@@ -21,7 +21,7 @@ class BrandsViewController: UIViewController {
         }
     }
     @IBOutlet weak var slider: UISlider!
-    var networkViewModel : NetworkViewModel?
+    var networkViewModel : BrandItemsViewModel?
     @IBOutlet weak var brandsCollection: UICollectionView!{
         didSet{
             brandsCollection.dataSource = self
@@ -36,7 +36,7 @@ class BrandsViewController: UIViewController {
         brandsCollection.layer.cornerRadius = 20
        
         //MARK: Fetch Data From API
-        networkViewModel = NetworkViewModel()
+        networkViewModel = BrandItemsViewModel()
         
         networkViewModel?.getItems(brandId: brandId)
         
