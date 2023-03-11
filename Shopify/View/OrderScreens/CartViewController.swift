@@ -120,7 +120,7 @@ extension CartViewController : UITableViewDataSource
             cell.deleteCartProduct.tag = indexPath.row
             cell.increaseProductItemCount.tag = indexPath.row
             cell.decreaseProductItemCount.tag = indexPath.row
-           // cell.increaseProductItemCount.addTarget(self, action: #selector(increaseProductsCount(sender:)), for: .touchUpInside)
+            cell.increaseProductItemCount.addTarget(self, action: #selector(increaseProductsCount(sender:)), for: .touchUpInside)
             cell.decreaseProductItemCount.addTarget(self, action: #selector(decreaseProductsCount(sender:)), for: .touchUpInside)
             cell.deleteCartProduct.addTarget(self, action: #selector(deleteCartProduct(sender: )), for: .touchUpInside)
         }
@@ -369,7 +369,7 @@ extension CartViewController
         self.productViewModel?.getArrayOfProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/products.json")
         self.productViewModel?.bindingArrOfProducts = { () in
             self.productsArr = self.productViewModel?.arrOfProductsResult ?? []
-            Swift.print("fatma\(self.productsArr.count)")
+          //  Swift.print("fatma\(self.productsArr.count)")
 
             self.group.leave()
             self.group.notify(queue: .main)
