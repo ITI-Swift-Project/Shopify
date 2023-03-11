@@ -24,12 +24,20 @@ class CurrencyViewController: UIViewController {
     
     @IBAction func selectGBP(_ sender: Any) {
         setCurrencyImage(currency : GBP)
-        userdef.setValue(true, forKey: "currency")
+        userdef.setValue(30.0, forKey: "currency")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         StyleHelper.bgFrameStyle(frame: bgFrame)
+        if userdef.value(forKey: "currency") as! Double == 1.0
+        {
+            USD.setImage(UIImage(systemName: "dot.circle.fill"), for: .normal)
+        }
+        else
+        {
+            GBP.setImage(UIImage(systemName: "dot.circle.fill"), for: .normal)
+        }
     }
     
 }

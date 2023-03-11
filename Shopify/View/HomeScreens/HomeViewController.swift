@@ -15,7 +15,7 @@ class HomeViewController: UIViewController {
     var cellIndex = 0
     var timer :  Timer?
     var brandArray : [Brand] = []
-    var adsList : [DiscountCode]?
+    var adsList : [DiscountCode] = []
     var adsImages : [String] = ["c1","c2","c3","c4","c5","c6","c7"]
     @IBOutlet weak var adsCollection: UICollectionView!
     {
@@ -153,7 +153,7 @@ extension HomeViewController : UICollectionViewDataSource
     {
         if collectionView == adsCollection
         {
-            return 7
+            return adsList.count
         }
         else{
             return brandArray.count
@@ -171,7 +171,7 @@ extension HomeViewController : UICollectionViewDataSource
         else if collectionView == adsCollection
         {
             let pasteboard = UIPasteboard.general
-            pasteboard.string = adsList?[0].code
+            pasteboard.string = adsList[indexPath.row].code
             showSnakbar(msg: "Couopn code copied to clipboard!")
              func showSnakbar(msg : String){
              let snackbar = TTGSnackbar(
@@ -183,6 +183,8 @@ extension HomeViewController : UICollectionViewDataSource
              snackbar.messageTextColor = UIColor.white
              snackbar.show()
             }
+            print("m\(adsList[indexPath.row].code)")
+
         }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -194,7 +196,16 @@ extension HomeViewController : UICollectionViewDataSource
 //            cell.layer.shadowOpacity = 20
             cell.layer.borderWidth   = 3.0
             cell.layer.cornerRadius  = 25.0
-            cell.configImg(name: adsImages[indexPath.row])
+            var x = 7
+            if indexPath.row < x
+            {
+                cell.configImg(name: adsImages[indexPath.row])
+            }
+        else if indexPath.row > x && (indexPath.row < (x + 7))
+            {
+                cell.configImg(name: adsImages[indexPath.row - x])
+                x = x + 7
+            }
             return cell
             
         }
@@ -211,9 +222,7 @@ extension HomeViewController : UICollectionViewDataSource
             return cell
             
         }
-        
     }
-    
 }
 
 extension HomeViewController : UICollectionViewDelegateFlowLayout

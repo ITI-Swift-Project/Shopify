@@ -7,12 +7,15 @@
 
 import UIKit
 import CoreData
+import Kingfisher
 class OrderDetailsViewController: UIViewController {
 
     var orderProductsList : [LineItem]?
     var orderSubTotal : Float?
+
     var homeViewModel : BrandsViewModel?
     var adsViewModel : ADsViewModel?
+
     var copounsList : [DiscountCode]?
     var flag : Bool = false
     var usedCopouns : [NSManagedObject]?
@@ -127,9 +130,8 @@ extension OrderDetailsViewController : UITableViewDataSource
         cell.backView.layer.cornerRadius = 30
         cell.orderItemProductName.text = orderProductsList?[indexPath.row].title
         cell.orderItemProductPrice.text =  orderProductsList?[indexPath.row].price
-        cell.orderItemImage.image = UIImage(named: "product")
+        cell.orderItemImage.kf.setImage(with: URL(string: orderImages?[indexPath.row].src ?? ""),placeholder: UIImage(named: " "))
         cell.orderItemProductQuantity.text =  String(orderProductsList?[indexPath.row].quantity ?? 0)
-        
         let price = Float(orderProductsList?[indexPath.row].price ?? "")
         let quantity = Float(orderProductsList?[indexPath.row].quantity ?? 0)
         cell.orderItemTotalPrice.text =  String((price ?? 0.0) * (quantity ))
