@@ -15,7 +15,7 @@ class OrderDetailsViewController: UIViewController {
 
     var homeViewModel : BrandsViewModel?
     var adsViewModel : ADsViewModel?
-
+    var orderImages : [Image]?
     var copounsList : [DiscountCode]?
     var flag : Bool = false
     var usedCopouns : [NSManagedObject]?

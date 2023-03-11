@@ -26,6 +26,7 @@ class CartViewController: UIViewController {
     var reachability : Reachability?
     var product : Product = Product()
     var productsArr : [Product] = []
+    
     var productId : Int = 0
     var productsImages : [Image] = []
     @IBOutlet weak var shoppingCartFrame: UIView!

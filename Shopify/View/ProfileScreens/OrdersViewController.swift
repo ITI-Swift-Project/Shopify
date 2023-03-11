@@ -28,6 +28,7 @@ class OrdersViewController: UIViewController {
     var viewModel : OrderViewModel?
     var ordersResult : [Order] = []
     var filteredOrders : [Order] = []
+    
     let cellSpacingHeight: CGFloat = 50
     override func viewDidLoad() {
         super.viewDidLoad()
