@@ -11,6 +11,10 @@ import CoreData
 class ProductDetailsViewController: UIViewController , UICollectionViewDelegate , UICollectionViewDataSource{
     var userdef = UserDefaults.standard
 
+    
+    var managedContext : NSManagedObjectContext!
+    var resultOfSearch : [NSManagedObject] = []
+    
     var currencyConverter : Float = 0.0
     var currency : String?
     var productID : Int?
@@ -45,6 +49,11 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     @IBOutlet weak var sizeTable: UITableView!
     @IBOutlet weak var tableLbl: UILabel!
+    
+    
+    @IBOutlet weak var colorTable: UITableView!
+    
+    
     
     @IBAction func addProductToCart(_ sender: Any) {
         
@@ -120,7 +129,60 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
             print("UnSaved")
         }
             
-
+        print("pressed on heart button")
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        managedContext = appDelegate.persistentContainer.viewContext
+       // let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Fav")
+      //  print("League Name is: \(leagueName!)")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ShoppingCartProduct")
+       // let pred = NSPredicate(format: "product_id == %i", productType as CVarArg )
+       // fetchRequest.predicate = pred
+        var fetchedProductsList : [NSManagedObject] = []
+        do
+        {
+            resultOfSearch = try managedContext.fetch(fetchRequest)
+        }catch let error
+        {
+            print(error.localizedDescription)
+        }
+        
+        if resultOfSearch.count == 0 // not saved to the core data
+        {
+            favbtn.imageView?.image = UIImage(named: "heart.fill")
+           favbtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            isFavourite = true
+            let entity = NSEntityDescription.entity(forEntityName: "WishList", in: managedContext)
+            let favProduct = NSManagedObject(entity: entity!, insertInto: managedContext)
+            favProduct.setValue(productTitle, forKey: "product_title")
+            favProduct.setValue(productID, forKey: "prduct_id")
+            favProduct.setValue(productPrice, forKey: "product_price")
+            favProduct.setValue(isFavourite, forKey: "league_fav")
+            
+            do
+            {
+                try managedContext.save()
+            }catch let error
+            {
+                print(error.localizedDescription)
+            }
+        }
+        else if resultOfSearch.count != 0 // saved to the device
+        {
+            favbtn.imageView?.image = UIImage(named: "heart")
+            favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
+            let target = resultOfSearch[0]
+            managedContext.delete(target)
+            do
+            {
+                try managedContext.save()
+            } catch let error
+            {
+                print(error.localizedDescription)
+            }
+        }
+        
+        
+        
     }
     // var optionsValue:[String] = []
    // var selctedItem = sizeSeg.selectedSegmentIndex
@@ -171,15 +233,19 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
             sizeSeg.setTitle(product.options?[0].values?[i ?? 1] ?? "", forSegmentAt: i ?? 1)
         }*/
         productDiscription.text = product.body_html
-        sizeSeg.setTitle(product.options?[0].values?[0] ?? "", forSegmentAt: 0)
+      //  sizeSeg.setTitle(product.options?[0].values?[0] ?? "", forSegmentAt: 0)
        // sizeSeg.setTitle("\(product?.options?[0].values?[1] ?? "")", forSegmentAt: 1)
         //sizeSeg.setTitle("\(product?.options?[0].values?[2] ?? "")", forSegmentAt: 2)
         //sizeSeg.setTitle("\(product?.options?[0].values?[3] ?? "")", forSegmentAt: 3)
-        colorSegmented.setTitle("\(product.options?[1].values?[0] ?? "")", forSegmentAt: 0)
+      //  colorSegmented.setTitle("\(product.options?[1].values?[0] ?? "")", forSegmentAt: 0)
         
         myscroll.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 210)
         imgsCV.delegate = self
         imgsCV.dataSource = self
+       colorTable.delegate = self
+         colorTable.dataSource = self
+       sizeTable.delegate = self
+        sizeTable.dataSource = self
         reviewCV.dataSource = self
         reviewCV.delegate = self
         pageController.numberOfPages = arrImgs.count
@@ -192,6 +258,12 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         
         cartBtn.layer.cornerRadius = cartBtn.frame.size.height / 2
         cartBtn.clipsToBounds = true
+        
+    sizeTable.layer.cornerRadius = cartBtn.frame.size.height / 2
+            sizeTable.clipsToBounds = true
+        
+        colorTable.layer.cornerRadius = cartBtn.frame.size.height / 2
+               colorTable.clipsToBounds = true
         
         priceLbl.layer.cornerRadius = priceLbl.frame.size.height / 2
        priceLbl.clipsToBounds = true
@@ -437,3 +509,36 @@ extension ProductDetailsViewController : UITableViewDelegate,UITableViewDataSour
     
 }
 */
+extension ProductDetailsViewController : UITableViewDelegate
+{
+    
+}
+extension ProductDetailsViewController : UITableViewDataSource
+{
+   
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == sizeTable
+        {
+            return product.options?[0].values?.count ?? 4
+        }
+        
+        return product.options?[1].values?.count ?? 4
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == sizeTable
+        {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "sizeCell", for: indexPath)
+            cell.textLabel?.text = product.options?[0].values?[indexPath.row]
+            return cell
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "colorCell", for: indexPath)
+        cell.textLabel?.text = product.options?[1].values?[indexPath.row]
+        //roduct.options?[1].values?[0] ??
+        return cell
+    }
+    
+    
+}

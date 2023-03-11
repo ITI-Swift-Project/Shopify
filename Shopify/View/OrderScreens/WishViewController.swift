@@ -10,7 +10,7 @@ import CoreData
 
 class WishViewController: UIViewController {
     var catNames  = ["dgsdg", "dgsdgsd", "dgadgadg"]
-    var networkViewModel : BrandsViewModel?
+    //var networkViewModel : BrandsViewModel?
     var wishlistLineItems : [LineItem] = []
     var managedContext : NSManagedObjectContext!
     var savedLeagues : [NSManagedObject] = []
@@ -18,6 +18,15 @@ class WishViewController: UIViewController {
     
     var product : Product = Product()
     let semaphore = DispatchSemaphore(value: 0)
+    var productViewModel : ProductViewModel?
+    var shoppingCartItemsList : [LineItem] = []
+    let group = DispatchGroup()
+    var networkViewModel : ShoppingCartProductsViewModel?
+    var productsArr : [Product] = []
+    
+ 
+    
+    
     @IBOutlet weak var wishV: UIView!
     
     
@@ -31,17 +40,19 @@ class WishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    
+       // self.workingWithDispatchGroup()
         
+       // getData(from: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders.json")
         
-        
-    
+    /*
         NetworkService.getShoppingCartProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders.json") { DraftOrders in
-        //    self.wishListItems = DraftOrders
+            self.wishListItems?.draft_orders = DraftOrders
+            //self.wishlistLineItems = DraftOrders
+     
             self.wishTV.reloadData()
         }
     
-        
+        */
         //1
         let appDelegate  = UIApplication.shared.delegate as! AppDelegate
         //2
@@ -281,3 +292,32 @@ struct test
     var discrip :String
     
 }
+/*
+extension WishViewController
+{
+    func workingWithDispatchGroup()
+    {
+        group.enter()
+        self.networkViewModel?.getCartProducts(url:  "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json")
+        self.networkViewModel?.bindingCartProducts = { () in
+            self.shoppingCartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []
+            Swift.print("salma\(self.shoppingCartItemsList.count)")
+        }
+        self.group.leave()
+        
+        group.enter()
+
+        self.productViewModel?.getArrayOfProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/products.json")
+        self.productViewModel?.bindingArrOfProducts = { () in
+            self.productsArr = self.productViewModel?.arrOfProductsResult ?? []
+            Swift.print("fatma\(self.productsArr.count)")
+
+            self.group.leave()
+            self.group.notify(queue: .main)
+            {
+                self.wishTV.reloadData()
+            }
+        }
+    }
+}*/
+
