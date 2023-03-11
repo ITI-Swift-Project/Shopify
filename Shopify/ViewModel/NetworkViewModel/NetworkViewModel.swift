@@ -175,3 +175,25 @@ class OrderViewModel{
         }
     }
 }
+
+
+class AddressViewModel {
+    var bindingAddressError:(()->()) = {}
+    var addressError:[String:Any]? {
+        didSet{
+            bindingAddressError ()
+        }
+    }
+    func postAddress(url: String, parameters: [String : Any])
+        {
+            NetworkService.postWithError(url: url , parameters: parameters,err:{errors in self.addressError = errors })
+        }
+    func editAddress(url: String, parameters: [String : Any])
+        {
+            NetworkService.putWithError(url: url, parameters: parameters,err:{errors in self.addressError = errors })
+        }
+    func deleteAddress(url: String)
+    {
+        NetworkService.deleteData(urlEndPoint: url)
+    }
+}
