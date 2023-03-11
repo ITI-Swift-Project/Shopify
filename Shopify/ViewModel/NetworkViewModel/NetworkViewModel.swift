@@ -164,9 +164,13 @@ class OrderViewModel{
     
    
     func getOrders(){
-        let endPoint = APIEndpoint.orders
-        let url = endPoint.url(forShopName: NetworkService.baseUrl)
-        NetworkService.fetch(url: url) { result in
+//        let endPoint = APIEndpoint.customer
+//
+//        let url = endPoint.url(forShopName: NetworkService.baseUrl)
+        var url : String = NetworkService.base_url
+        url = url.appending("customers/\(UserDefaults.standard.value(forKey: "userId") ?? 0)/orders.json")
+        print(url)
+        NetworkService.fetch(url:URL(string:  url) ) { result in
             self.ordersResult = result
         }
     }

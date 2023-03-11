@@ -91,7 +91,7 @@ class PaymentViewController: UIViewController {
            "order": [
             "confirmed" : true,
             "contact_email" : "@test",
-            "email" : "\(UserDefaults.standard.value(forKey: "email") as? String)",
+            "email" : "\(UserDefaults.standard.value(forKey: "email") ?? "" as? String)",
             "currency" : "EGP",
             "created_at" : "20-02-2015",
             "number" : 2,
