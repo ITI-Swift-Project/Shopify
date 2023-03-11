@@ -140,7 +140,7 @@
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" name="firstColor"/>
+                        <color key="backgroundColor" red="0.023529411764705882" green="0.22235476970000001" blue="0.36735868449999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="profile" id="lwE-A6-Q8q"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>

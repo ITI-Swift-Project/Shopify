@@ -9,6 +9,10 @@ import UIKit
 import Cosmos
 import CoreData
 class ProductDetailsViewController: UIViewController , UICollectionViewDelegate , UICollectionViewDataSource{
+    var userdef = UserDefaults.standard
+
+    var currencyConverter : Float = 0.0
+    var currency : String?
     var productID : Int?
     var productTitle : String?
     var productPrice : String?
@@ -39,51 +43,66 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     @IBOutlet weak var priceLbl: UILabel!
     @IBOutlet weak var cartBtn: UIButton!
     
-    
     @IBOutlet weak var sizeTable: UITableView!
-    
-    
-    
     @IBOutlet weak var tableLbl: UILabel!
     
-    
     @IBAction func addProductToCart(_ sender: Any) {
-        for item in cartItemsList
-        {
-            var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": 1,"product_id": item.product_id, "variant_id": item.variant_id]
-            arrayOfDec.append(temp)
-        }
-        let myLine : [String : Any] = ["title": product.title, "price": product.variants?[0].price, "quantity": 1, "product_id": product.id, "variant_id":product.variants?[0].id]
-        arrayOfDec.append(myLine)
-        print(arrayOfDec)
-            guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113690014000.json") else{
-                return
-            }
-            var request = URLRequest(url :url)
-            request.httpMethod = "PUT"
-            request.httpShouldHandleCookies = false
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            let body : [String : Any] = [
-                "draft_order": [
-                    "line_items": arrayOfDec
-                ]
-            ]
-            request.httpBody = try? JSONSerialization.data(withJSONObject: body,options: .fragmentsAllowed)
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data else{
-                    return
+        
+        
+            let deleteAlert : UIAlertController  = UIAlertController(title:"Add product to shopping cart", message:"Are you sure you want to add this product to shopping cart?", preferredStyle: .actionSheet)
+            deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
+                for item in self.cartItemsList
+                {
+                    var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": 1,"product_id": item.product_id, "variant_id": item.variant_id]
+                    self.arrayOfDec.append(temp)
                 }
-                do{
-                    print("success\(response)")
-                }
-                catch let error{
-                    print(error.localizedDescription)
-                }
-            }
-            task.resume()
-        //NetworkService.postShoppingCartProduct(cartProduct: product)
-        dataViewModel?.saveProductToCoreData(productTypt: 1, draftproduct: product)
+                let myLine : [String : Any] = ["title": self.product.title, "price": self.product.variants?[0].price, "quantity": 1, "product_id": self.product.id, "variant_id":self.product.variants?[0].id]
+                self.arrayOfDec.append(myLine)
+                print(self.arrayOfDec)
+                    guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json") else{
+                        return
+                    }
+                    var request = URLRequest(url :url)
+                    request.httpMethod = "PUT"
+                    request.httpShouldHandleCookies = false
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    let body : [String : Any] = [
+                        "draft_order": [
+                            "line_items": self.arrayOfDec
+                        ],
+                        "applied_discount": [
+                            "description": "Custom discount",
+                            "value_type": "fixed_amount",
+                            "value": "10.0",
+                            "amount": "10.00",
+                            "title": "Custom"
+                        ],
+                        "customer": [
+                            "id": 6817112686896
+                        ],
+                        "use_customer_default_address": true
+
+                    ]
+                    request.httpBody = try? JSONSerialization.data(withJSONObject: body,options: .fragmentsAllowed)
+                    
+                    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                        guard let data = data else{
+                            return
+                        }
+                        do{
+                            print("success\(response)")
+                        }
+                        catch let error{
+                            print(error.localizedDescription)
+                        }
+                    }
+                    task.resume()
+                //NetworkService.postShoppingCartProduct(cartProduct: product)
+                self.dataViewModel?.saveProductToCoreData(productTypt: 1, draftproduct: self.product)
+            }))
+            deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(deleteAlert, animated:true, completion:nil )
+        
     }
     @IBAction func favvBtn(_ sender: Any) {
         if  productState == false
@@ -119,19 +138,30 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         super.viewDidLoad()
         dataViewModel = CoreDataViewModel()
         networkViewModel = NetworkViewModel()
-        networkViewModel?.getCartProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113690014000.json")
+        networkViewModel?.getCartProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json")
         networkViewModel?.bindingCartProducts = {
             DispatchQueue.main.async { [self] in
                 self.cartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []
             }
             self.postProductFav()
         }
+        currencyConverter = userdef.value(forKey: "currency") as! Float
+        if userdef.value(forKey: "currency") as! Double == 1.0
+        {
+            currency = "$"
+        }
+        else
+        {
+            currency = "£"
+        }
+        print("FA\(currencyConverter)")
         
       //  let indexpath = IndexPath(row: optionss?.values?.count - 1  , section: 1)
        
      //   cosmos.inputViewController?.isBeingDismissed = false
         productName.adjustsFontSizeToFitWidth = true
-        priceLbl.text = "  \(product.variants?.first?.price ?? "") EGP"
+       // priceLbl.text = "  \(product.variants?.first?.price ?? "") EGP"
+        priceLbl.text = String((Float(product.variants?.first?.price ?? "") ?? 0.0) * currencyConverter).appending(" ").appending(currency ?? "")
         productName.text = product.title
        // var countt = [product.options?[0].values?.count]
       /*  for i in countt

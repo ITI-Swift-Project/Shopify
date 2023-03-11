@@ -275,12 +275,12 @@ extension CatViewController : UICollectionViewDataSource
         cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, price: result[indexPath.row].variants?[0].price ?? "" )
 
         cell.layer.cornerRadius  = 25.0
-        cell.backView.layer.masksToBounds = true
+      //  cell.backView.layer.masksToBounds = true
         cell.backView.layer.cornerRadius = 30
         cell.backView.layer.shadowRadius = 3
         cell.backView.layer.shadowColor = UIColor.gray.cgColor
         cell.backView.layer.shadowOpacity = 0.8
-        cell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
+      //  cell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
