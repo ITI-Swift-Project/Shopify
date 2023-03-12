@@ -41,6 +41,8 @@ class DataManager //: ShoppingCartProtocol
         product.setValue("1", forKey: "product_quantity")
         product.setValue(productTypt, forKey: "product_type")
         product.setValue(true, forKey: "product_state")
+        product.setValue(draftproduct.image?.src, forKey: "product_image")
+        product.setValue(draftproduct.vendor, forKey: "product_vendor")
         do{
             try managedContext.save()
             print("Saved!")
@@ -51,9 +53,8 @@ class DataManager //: ShoppingCartProtocol
     
     
      func fetch(productType:Int) -> [NSManagedObject]?{
-       // let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ShoppingCartProduct")
-        let pred = NSPredicate(format: "product_id == %i", productType as CVarArg )
+         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ShoppingCartProduct")
+        let pred = NSPredicate(format: "product_type == %i", productType as CVarArg )
         fetchRequest.predicate = pred
         var fetchedProductsList : [NSManagedObject] = []
         do{
@@ -98,22 +99,26 @@ class DataManager //: ShoppingCartProtocol
         var state : Bool = false
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ShoppingCartProduct")
-        let pred = NSPredicate(format: "product_type == %i", 2)
+       // let fpred = NSPredicate(format: "product_type == %i", 2)
+        let pred = NSPredicate(format: "product_id == %i", productId)
+        var count : Int?
         fetchRequest.predicate = pred
         do{
-            let fetchedLeagueArray = try managedContext.fetch(fetchRequest)
-            for item in (fetchedLeagueArray)
-            {
-                if item.value(forKey: "product_id") as! Int == productId
-                {
-                    state = true
-                }
-            }
+             count = try managedContext.fetch(fetchRequest).count
         }catch let error{
             print(error.localizedDescription)
         }
+        if count == 0
+        {
+            state = false
+        }
+        else
+        {
+            state = true
+        }
        return state
     }
+
     
      func delete(deletedProductType: Int, productId: Int)
     {
@@ -145,4 +150,3 @@ class DataManager //: ShoppingCartProtocol
         }
     }
 }
-

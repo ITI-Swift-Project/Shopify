@@ -12,7 +12,7 @@ class OrderDetailsViewController: UIViewController {
 
     var orderProductsList : [LineItem]?
     var orderSubTotal : Float?
-
+    var products : [Product] = []
     var homeViewModel : BrandsViewModel?
     var adsViewModel : ADsViewModel?
     var orderImages : [Image]?
@@ -93,8 +93,8 @@ class OrderDetailsViewController: UIViewController {
         enteringCopounCode.borderStyle = UITextField.BorderStyle(rawValue: 0)!
         orderSubTotalPrice.text = String(orderSubTotal ?? 0.0)
         homeViewModel = BrandsViewModel()
-        adsViewModel?.getAds()
         adsViewModel = ADsViewModel()
+        adsViewModel?.getAds()
         adsViewModel?.bindingAds = {
             DispatchQueue.main.async {
                 self.copounsList = self.adsViewModel?.adsResult?.discount_codes ?? []
@@ -131,6 +131,13 @@ extension OrderDetailsViewController : UITableViewDataSource
         cell.backView.layer.cornerRadius = 30
         cell.orderItemProductName.text = orderProductsList?[indexPath.row].title
         cell.orderItemProductPrice.text =  orderProductsList?[indexPath.row].price
+        for item in products
+        {
+            if orderProductsList?[indexPath.row].product_id == item.id
+            {
+                cell.orderItemImage.kf.setImage(with: URL(string: item.image?.src ?? ""),placeholder: UIImage(named: " "))
+            }
+        }
     //    cell.orderItemImage.kf.setImage(with: URL(string: orderImages?[indexPath.row].src ?? ""),placeholder: UIImage(named: " "))
         cell.orderItemProductQuantity.text =  String(orderProductsList?[indexPath.row].quantity ?? 0)
         let price = Float(orderProductsList?[indexPath.row].price ?? "")

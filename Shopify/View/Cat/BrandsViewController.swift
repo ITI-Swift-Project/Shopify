@@ -7,9 +7,11 @@
 
 import UIKit
 import Floaty
+import CoreData
 class BrandsViewController: UIViewController {
 //    @IBOutlet weak var floaty: UIButton!
     var userdef = UserDefaults.standard
+    var flag : Bool = false
 
     var currencyConverter : Float = 0.0
     var currency : String?
@@ -17,6 +19,8 @@ class BrandsViewController: UIViewController {
     var floaty : Floaty?
     var itemsArray : [Product] = []
     var filterItems : [Product] = []
+    var dataVM : CoreDataViewModel?
+    var productState : Bool?
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var sliderView: UIView!{
         didSet{
@@ -35,6 +39,7 @@ class BrandsViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        dataVM = CoreDataViewModel()
         createFloatyButton()
         brandsCollection.layer.cornerRadius = 20
        
@@ -171,6 +176,19 @@ extension BrandsViewController : UICollectionViewDataSource{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catCell", for: indexPath) as! CateCollectionViewCell
         cell.configImg(name: URL(string: (filterItems[indexPath.row].image?.src!)!)!)
         cell.configProductInfo(name: filterItems[indexPath.row].title!, vendor: filterItems[indexPath.row].vendor!, price: String((Float(filterItems[indexPath.row].variants?[0].price ?? "") ?? 0.0) * currencyConverter).appending(" ").appending(currency ?? ""))
+        if isAddedToWishList(productId: filterItems[indexPath.row].id ?? 0) == true
+        {
+            cell.addProductToWishList.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
+        else
+        {
+            cell.addProductToWishList.setImage(UIImage(systemName: "heart"), for: .normal)
+
+        }
+
+        cell.addProductToWishList.tag = indexPath.row
+        cell.addProductToWishList.addTarget(self, action: #selector(addToWishlist(sender:)), for: .touchUpInside)
+     
         cell.layer.cornerRadius  = 25.0
         cell.backView.layer.cornerRadius = 30
         cell.backView.layer.shadowRadius = 3
@@ -196,5 +214,48 @@ extension BrandsViewController : UICollectionViewDelegateFlowLayout
             return CGFloat(15)
         }
         
+}
+extension BrandsViewController
+{
+    @objc func addToWishlist(sender : UIButton)
+    {
+        if isAddedToWishList(productId: filterItems[sender.tag].id ?? 0) == false
+        {
+            dataVM?.saveProductToCoreData(productTypt: 2, draftproduct: filterItems[sender.tag])
+            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
+        if isAddedToWishList(productId: filterItems[sender.tag].id ?? 0) == true
+        {
+            sender.setImage(UIImage(systemName: "heart"), for: .normal)
+            dataVM?.deleteProductFromCoreData(deletedProductType: 2, productId: filterItems[sender.tag].id ?? 0)
+        }
+    }
+    
+    func isAddedToWishList (productId: Int) -> Bool
+     {
+         var state : Bool = false
+         let appDelegate = UIApplication.shared.delegate as! AppDelegate
+         let managedContext = appDelegate.persistentContainer.viewContext
+         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ShoppingCartProduct")
+        // let fpred = NSPredicate(format: "product_type == %i", 2)
+         let pred = NSPredicate(format: "product_id == %i", productId)
+         var count : Int?
+         fetchRequest.predicate = pred
+         do{
+              count = try managedContext.fetch(fetchRequest).count
+         }catch let error{
+             print(error.localizedDescription)
+         }
+         if count == 0
+         {
+             state = false
+         }
+         else
+         {
+             state = true
+         }
+        return state
+     }
+
     
 }

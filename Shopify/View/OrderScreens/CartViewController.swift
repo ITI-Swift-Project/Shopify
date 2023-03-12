@@ -26,9 +26,9 @@ class CartViewController: UIViewController {
     var reachability : Reachability?
     var product : Product = Product()
     var productsArr : [Product] = []
-    
     var productId : Int = 0
-    var productsImages : [Image] = []
+  //  var productsImages : [Image] = []
+    
     @IBOutlet weak var shoppingCartFrame: UIView!
     @IBOutlet weak var subTotal: UILabel!
     
@@ -48,7 +48,8 @@ class CartViewController: UIViewController {
         let orderDetailsVC = storyboard?.instantiateViewController(withIdentifier: "orderDetails") as! OrderDetailsViewController
         orderDetailsVC.orderProductsList = shoppingCartItemsList
         orderDetailsVC.orderSubTotal = total
-        orderDetailsVC.orderImages = productsImages
+       // orderDetailsVC.orderImages = productsImages
+        orderDetailsVC.products = productsArr
         navigationController?.pushViewController(orderDetailsVC, animated: true)
     }
     
@@ -59,6 +60,8 @@ class CartViewController: UIViewController {
             self.productViewModel = ProductViewModel()
             self.networkViewModel = ShoppingCartProductsViewModel()
             self.workingWithDispatchGroup()
+            
+        subTotal.text = String(total)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -107,7 +110,7 @@ extension CartViewController : UITableViewDataSource
                 if shoppingCartItemsList[indexPath.row].product_id == item.id
                 {
                     cell.cartProductImage.kf.setImage(with: URL(string: item.image?.src ?? ""),placeholder: UIImage(named: " "))
-                    productsImages.append(item.image!)
+                //    productsImages.append(item.image!)
                 }
             }
             cell.cartProductName.text = shoppingCartItemsList[indexPath.row].title
@@ -361,6 +364,12 @@ extension CartViewController
         self.networkViewModel?.bindingCartProducts = { () in
             self.shoppingCartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []
             Swift.print("salma\(self.shoppingCartItemsList.count)")
+            for item in self.shoppingCartItemsList
+            {
+                self.total += Float(item.price ?? "") ?? 0.0 * Float(item.quantity ?? 0)
+            }
+            self.subTotal.text = String(self.total)
+
         }
         self.group.leave()
         
@@ -369,7 +378,6 @@ extension CartViewController
         self.productViewModel?.getArrayOfProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/products.json")
         self.productViewModel?.bindingArrOfProducts = { () in
             self.productsArr = self.productViewModel?.arrOfProductsResult ?? []
-          //  Swift.print("fatma\(self.productsArr.count)")
 
             self.group.leave()
             self.group.notify(queue: .main)

@@ -42,8 +42,9 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ZM-vP-TDB">
                                 <rect key="frame" x="73" y="145.66666666666666" width="33" height="33"/>
+                                <color key="tintColor" name="firstColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" image="emptyHeart" title="" cornerStyle="capsule">
+                                <buttonConfiguration key="configuration" style="gray" image="heart" catalog="system" title="" cornerStyle="capsule">
                                     <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                             </button>
@@ -85,6 +86,7 @@
             </constraints>
             <size key="customSize" width="227" height="160.33333333333337"/>
             <connections>
+                <outlet property="addProductToWishList" destination="9ZM-vP-TDB" id="dvV-93-klv"/>
                 <outlet property="backView" destination="gcz-zR-yGW" id="qFj-vo-WN1"/>
                 <outlet property="img" destination="aio-iC-UCc" id="o69-tw-3PV"/>
                 <outlet property="prouductName" destination="6Sj-Aj-wvU" id="bYh-cB-6Yx"/>
@@ -95,7 +97,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="emptyHeart" width="22" height="19"/>
+        <image name="heart" catalog="system" width="128" height="107"/>
         <namedColor name="firstColor">
             <color red="0.024000000208616257" green="0.22200000286102295" blue="0.36700001358985901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -15,9 +15,9 @@ class CateCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var img: UIImageView!
     
     @IBOutlet weak var prouductName: UILabel!
-    
     @IBOutlet weak var vendorLabel: UILabel!
     
+    @IBOutlet weak var addProductToWishList: UIButton!
     @IBOutlet weak var typeLabel: UILabel!
     
     override func awakeFromNib() {
