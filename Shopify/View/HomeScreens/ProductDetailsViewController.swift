@@ -38,8 +38,6 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     @IBOutlet weak var favbtn: UIButton!
     @IBOutlet weak var reviewCV: UICollectionView!
     @IBOutlet weak var myscroll: UIScrollView!
-    @IBOutlet weak var colorSegmented: UISegmentedControl!
-    @IBOutlet weak var sizeSeg: UISegmentedControl!
     @IBOutlet weak var imgsCV: UICollectionView!
     @IBOutlet weak var txtView: UITextView!
     @IBOutlet weak var pageController: UIPageControl!
@@ -48,7 +46,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     @IBOutlet weak var cartBtn: UIButton!
     
     @IBOutlet weak var sizeTable: UITableView!
-    @IBOutlet weak var tableLbl: UILabel!
+
     
     
     @IBOutlet weak var colorTable: UITableView!
@@ -125,62 +123,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
              dataViewModel?.deleteProductFromCoreData(deletedProductType: 2, productId: product.id ?? 0)
         }
     }
-  /*      print("pressed on heart button")
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        managedContext = appDelegate.persistentContainer.viewContext
-       // let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Fav")
-      //  print("League Name is: \(leagueName!)")
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ShoppingCartProduct")
-       // let pred = NSPredicate(format: "product_id == %i", productType as CVarArg )
-       // fetchRequest.predicate = pred
-        var fetchedProductsList : [NSManagedObject] = []
-        do
-        {
-            resultOfSearch = try managedContext.fetch(fetchRequest)
-        }catch let error
-        {
-            print(error.localizedDescription)
-        }
-        
-        if resultOfSearch.count == 0 // not saved to the core data
-        {
-            favbtn.imageView?.image = UIImage(named: "heart.fill")
-           favbtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            isFavourite = true
-            let entity = NSEntityDescription.entity(forEntityName: "WishList", in: managedContext)
-            let favProduct = NSManagedObject(entity: entity!, insertInto: managedContext)
-            favProduct.setValue(productTitle, forKey: "product_title")
-            favProduct.setValue(productID, forKey: "prduct_id")
-            favProduct.setValue(productPrice, forKey: "product_price")
-            favProduct.setValue(isFavourite, forKey: "league_fav")
-            
-            do
-            {
-                try managedContext.save()
-            }catch let error
-            {
-                print(error.localizedDescription)
-            }
-        }
-        else if resultOfSearch.count != 0 // saved to the device
-        {
-            favbtn.imageView?.image = UIImage(named: "heart")
-            favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
-            let target = resultOfSearch[0]
-            managedContext.delete(target)
-            do
-            {
-                try managedContext.save()
-            } catch let error
-            {
-                print(error.localizedDescription)
-            }
-        }
-        */
-        
-    // var optionsValue:[String] = []
-   // var selctedItem = sizeSeg.selectedSegmentIndex
-    
+
     override func viewWillAppear(_ animated: Bool)
     {
         
@@ -201,38 +144,17 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
             DispatchQueue.main.async { [self] in
                 self.cartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []
             }
-         //   self.postProductFav()
+         
         }
-      //  currencyConverter = userdef.value(forKey: "currency") as! Float
-       /* if userdef.value(forKey: "currency") as! Double == 1.0
-        {
-            currency = "$"
-        }
-        else
-        {
-            currency = "£"
-        }
-        print("FA\(currencyConverter)")
-        */
-      //  let indexpath = IndexPath(row: optionss?.values?.count - 1  , section: 1)
-       
-     //   cosmos.inputViewController?.isBeingDismissed = false
+      
         productName.adjustsFontSizeToFitWidth = true
        
         priceLbl.text = "  \(product.variants?.first?.price ?? "") $"
-        //priceLbl.text = String((Float(product.variants?.first?.price ?? "") ?? 0.0) * currencyConverter).appending(" ").appending(currency ?? "")
+       
         productName.text = product.title
-       // var countt = [product.options?[0].values?.count]
-      /*  for i in countt
-        {
-            sizeSeg.setTitle(product.options?[0].values?[i ?? 1] ?? "", forSegmentAt: i ?? 1)
-        }*/
+       
         productDiscription.text = product.body_html
-      //  sizeSeg.setTitle(product.options?[0].values?[0] ?? "", forSegmentAt: 0)
-       // sizeSeg.setTitle("\(product?.options?[0].values?[1] ?? "")", forSegmentAt: 1)
-        //sizeSeg.setTitle("\(product?.options?[0].values?[2] ?? "")", forSegmentAt: 2)
-        //sizeSeg.setTitle("\(product?.options?[0].values?[3] ?? "")", forSegmentAt: 3)
-      //  colorSegmented.setTitle("\(product.options?[1].values?[0] ?? "")", forSegmentAt: 0)
+    
         
         myscroll.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 210)
         imgsCV.delegate = self
@@ -263,25 +185,10 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         priceLbl.layer.cornerRadius = priceLbl.frame.size.height / 2
        priceLbl.clipsToBounds = true
         
-      //  addcartLbl.layer.cornerRadius = addcartLbl.frame.size.height / 2
-     //  addcartLbl.clipsToBounds = true
+      
     }
         
-    @IBAction func sizeee(_ sender: Any) {
-        print("index = \(sizeSeg.selectedSegmentIndex)")
-        
-        print("value = \(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex))")
-        //makeSize_ColorPostRequest()
-        
-    }
     
-    @IBAction func colorChanged(_ sender: Any) {
-        print("index = \(colorSegmented.selectedSegmentIndex)")
-        
-        print("value = \(colorSegmented.titleForSegment(at: colorSegmented.selectedSegmentIndex))")
-       // makeSize_ColorPostRequest()
-        
-    }
     
     
     
@@ -297,11 +204,8 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         request.httpShouldHandleCookies = false
         request.addValue("application/json",forHTTPHeaderField: "Content-Type")
         request.addValue("application/json",forHTTPHeaderField: "Authorization")
-       // request.addValue("application/json",forHTTPHeaderField: "Accept")
-                
-     //   request.setValue("application/json", forHTTPHeaderField: "Authorization -token")
-        print("\(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex)!)")
-   
+      
+     
         let body : [String : Any] = [
                     "draft_order": [
                             "line_items": [
@@ -309,9 +213,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
                                     "title": "Custom Tee",
                                     "price": "20.00",
                                     "quantity": 2,
-                                    "sku":"\(sizeSeg.titleForSegment(at: sizeSeg.selectedSegmentIndex)!)",
-                                    //"variant_id":"\(colorSegmented.titleForSegment(at: colorSegmented.selectedSegmentIndex)!)"
-                                    
+                                    "sku":""
                                 ]
                             ],
                             "applied_discount": [
@@ -322,7 +224,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
                                 "title": "Custom"
                             ],
                             "shipping_address": [
-                                "address2": "\(colorSegmented.titleForSegment(at: colorSegmented.selectedSegmentIndex)!)"
+                                "address2": ""
                                 
                             ],
                             "customer": [
@@ -372,7 +274,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
                             "price":  "\(product.variants?.first?.price ?? "" )",
                             "quantity": 1
                     
-                       // "properties" : //cartProduct.ggg
+                      
                     ]
             ]
         ]
@@ -488,22 +390,7 @@ extension UISegmentedControl {
 
     }
 }
-/*
-extension ProductDetailsViewController : UITableViewDelegate,UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return product.options?[0].values?.count ?? 1
-    }
-    /*
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = sizeTable.dequeueReusableCell(withIdentifier: "sizeCell", for: indexPath)
-        cell.textLabel?.text = product.options?[0].values
-        return cell
-    }
-    */
-    
-    
-}
-*/
+
 extension ProductDetailsViewController : UITableViewDelegate
 {
     
