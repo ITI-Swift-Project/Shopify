@@ -38,6 +38,7 @@ class CustomerViewModel
     }
     
     func getCustomerAddresses(url : String) {
+            
         Temp.getCustomerAddresses(url:  url) { result in
                 if let result = result {
                     self.customerAddressesResult = result.customer?.addresses
