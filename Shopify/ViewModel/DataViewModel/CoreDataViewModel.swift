@@ -19,7 +19,7 @@ class CoreDataViewModel {
     }
     func fetchProductsFromCoreData(productType:Int) -> [NSManagedObject]?
     {
-        database.fetch(productType: productType)
+        return database.fetch(productType: productType)
     }
     func deleteProductFromCoreData(deletedProductType: Int, productId: Int)
     {
@@ -31,10 +31,10 @@ class CoreDataViewModel {
     }
     func isProductAddedToCartCoreData(productId: Int) ->Bool
     {
-        database.isAddedToCart(productId: productId)
+        return database.isAddedToCart(productId: productId)
     }
     func isProductAddedToWishListCoreData(productId: Int) ->Bool
     {
-        database.isAddedToWishList(productId: productId)
+        return database.isAddedToWishList(productId: productId)
     }
 }

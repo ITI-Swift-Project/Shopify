@@ -106,8 +106,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
                         }
                     }
                     task.resume()
-                //NetworkService.postShoppingCartProduct(cartProduct: product)
-                self.dataViewModel?.saveProductToCoreData(productTypt: 1, draftproduct: self.product)
+              //  self.dataViewModel?.saveProductToCoreData(productTypt: 1, draftproduct: self.product)
             }))
             deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(deleteAlert, animated:true, completion:nil )
@@ -118,18 +117,16 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         {
             favbtn.setImage(UIImage(systemName:  "heart.fill"), for: .normal)
             productState = true
-           NetworkService.postShoppingCartProduct(cartProduct: product)
             dataViewModel?.saveProductToCoreData(productTypt: 2, draftproduct: product)
         }
         else if productState == true
         {
             favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
             productState = false
-            dataViewModel?.deleteProductFromCoreData(deletedProductType: 2, productId: product.id ?? 0)
-            print("UnSaved")
+             dataViewModel?.deleteProductFromCoreData(deletedProductType: 2, productId: product.id ?? 0)
         }
-            
-        print("pressed on heart button")
+    }
+  /*      print("pressed on heart button")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedContext = appDelegate.persistentContainer.viewContext
        // let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Fav")
@@ -180,16 +177,14 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
                 print(error.localizedDescription)
             }
         }
+        */
         
-        
-        
-    }
     // var optionsValue:[String] = []
    // var selctedItem = sizeSeg.selectedSegmentIndex
     
     override func viewWillAppear(_ animated: Bool)
     {
-        productState = ((dataViewModel?.isProductAddedToWishListCoreData(productId: product.id ?? -1)) != nil)
+        
         if productState == true
         {
             favbtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
@@ -199,7 +194,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         dataViewModel = CoreDataViewModel()
-
+        productState =  isAddedToWishList(productId: product.id ?? 0)
         networkViewModel = ShoppingCartProductsViewModel()
         networkViewModel?.getCartProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113690014000.json")
 
@@ -207,7 +202,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
             DispatchQueue.main.async { [self] in
                 self.cartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []
             }
-            self.postProductFav()
+         //   self.postProductFav()
         }
       //  currencyConverter = userdef.value(forKey: "currency") as! Float
        /* if userdef.value(forKey: "currency") as! Double == 1.0
@@ -540,5 +535,31 @@ extension ProductDetailsViewController : UITableViewDataSource
         return cell
     }
     
-    
+  
+    func isAddedToWishList (productId: Int) -> Bool
+   {
+       var state : Bool = false
+       let appDelegate = UIApplication.shared.delegate as! AppDelegate
+       let managedContext = appDelegate.persistentContainer.viewContext
+       let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ShoppingCartProduct")
+      // let fpred = NSPredicate(format: "product_type == %i", 2)
+       let pred = NSPredicate(format: "product_id == %i", productId)
+       var count : Int?
+       fetchRequest.predicate = pred
+       do{
+            count = try managedContext.fetch(fetchRequest).count
+       }catch let error{
+           print(error.localizedDescription)
+       }
+       if count == 0
+       {
+           state = false
+       }
+       else
+       {
+           state = true
+       }
+      return state
+   }
+
 }

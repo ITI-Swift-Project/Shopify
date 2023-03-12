@@ -23,7 +23,8 @@ class WishViewController: UIViewController {
     let group = DispatchGroup()
     var networkViewModel : ShoppingCartProductsViewModel?
     var productsArr : [Product] = []
-    
+    var dataVM : CoreDataViewModel?
+    var wishListSavedProducts : [NSManagedObject] = []
  
     
     
@@ -40,6 +41,7 @@ class WishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dataVM = CoreDataViewModel()
        // self.workingWithDispatchGroup()
         
        // getData(from: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders.json")
@@ -54,13 +56,13 @@ class WishViewController: UIViewController {
     
         */
         //1
-        let appDelegate  = UIApplication.shared.delegate as! AppDelegate
+     /*   let appDelegate  = UIApplication.shared.delegate as! AppDelegate
         //2
         let context = appDelegate.persistentContainer.viewContext
         //3
         let entity = NSEntityDescription.entity(forEntityName: "ShoppingCartProduct", in: context)
         //4
-        let wishlist = NSManagedObject(entity: entity!, insertInto: context)
+        let wishlist = NSManagedObject(entity: entity!, insertInto: context)*/
         
         wishTV.delegate = self
         wishTV.dataSource = self
@@ -73,17 +75,11 @@ class WishViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        wishListSavedProducts = dataVM?.fetchProductsFromCoreData(productType: 2) ?? []
+        wishTV.reloadData()
     }
-    */
+    
     @IBAction func backAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -173,10 +169,9 @@ extension WishViewController : UITableViewDelegate
         
         if editingStyle == .delete
         {
-            tableView.beginUpdates()
-           // arrofanything.deleteRows(at: <#T##[IndexPath]#>)
-           // tableView.deleteRows(at: [IndexPath], with: .fade)
-            tableView.endUpdates()
+            dataVM?.deleteProductFromCoreData(deletedProductType: 2, productId: wishListSavedProducts[indexPath.row].value(forKey: "product_id") as! Int )
+            wishListSavedProducts.remove(at: indexPath.row)
+            wishTV.reloadData()
         }
         
     }
@@ -205,7 +200,7 @@ extension WishViewController : UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         Swift.print("\(wishListItems?.draft_orders?.count ?? 0)")
-        return 10
+        return wishListSavedProducts.count
         //wishListItems?.draft_orders?.count ?? 0
     }
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -226,11 +221,12 @@ extension WishViewController : UITableViewDataSource
         */
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = 30
-        cell.wishImg.image = UIImage(named: "product")
+        cell.wishImg.kf.setImage(with: URL(string: wishListSavedProducts[indexPath.row].value(forKey: "product_image") as? String ?? ""),placeholder: UIImage(named: " "))
+
        //cell.wishName.adjustsFontSizeToFitWidth = true
-        cell.wishName.text = "aaaaaaaaaaaaaaaaaaaaaaaaaasfasmbfadk.nd.nsd,.nsdlnlsdnsd/ln"
-        cell.wishDiscription.text = "sdeadfweddkghad;kghsd;kghsd;kgsd;khg"
-        cell.wishPrice.text = "450"
+        cell.wishName.text = wishListSavedProducts[indexPath.row].value(forKey: "product_title") as? String ?? ""
+        cell.wishDiscription.text = wishListSavedProducts[indexPath.row].value(forKey: "product_vendor") as? String ?? ""
+        cell.wishPrice.text = wishListSavedProducts[indexPath.row].value(forKey: "product_price") as? String ?? ""
         return cell
     }
     
@@ -246,8 +242,7 @@ extension WishViewController : UITableViewDataSource
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }*/
-}
-/*
+}/*
 extension WishViewController {
     func tableView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
