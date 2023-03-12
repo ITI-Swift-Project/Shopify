@@ -26,11 +26,7 @@ class WishViewController: UIViewController {
     var dataVM : CoreDataViewModel?
     var wishListSavedProducts : [NSManagedObject] = []
  
-    
-    
     @IBOutlet weak var wishV: UIView!
-    
-    
     @IBOutlet weak var wishTV: UITableView!
     
     
@@ -159,7 +155,7 @@ class WishViewController: UIViewController {
 extension WishViewController : UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 123
+        return 150
     }
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -209,18 +205,20 @@ extension WishViewController : UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "list", for: indexPath) as! wishTableViewCell
-        cell.layer.masksToBounds = true
-      //  cell.layer.cornerRadius = 25.0
-        cell.layer.cornerRadius = cell.frame.size.height / 2
-        
       /*  cell.wishImg.image = UIImage(named: "product")
         cell.wishName.adjustsFontSizeToFitWidth = true
         cell.wishName.text = wishListItems?.draft_orders?[indexPath.row].line_items?[0].title
         cell.wishDiscription.text = wishListItems?.draft_orders?[indexPath.row].line_items?[0].vendor
         cell.wishPrice.text = wishListItems?.draft_orders?[indexPath.row].line_items?[0].price
         */
+        
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = 30
+        cell.backView.layer.cornerRadius = 20
+        cell.backView.backgroundColor = .white
+        cell.backView.layer.shadowRadius = 3
+        cell.backView.layer.shadowOpacity = 0.5
+        cell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
         cell.wishImg.kf.setImage(with: URL(string: wishListSavedProducts[indexPath.row].value(forKey: "product_image") as? String ?? ""),placeholder: UIImage(named: " "))
 
        //cell.wishName.adjustsFontSizeToFitWidth = true

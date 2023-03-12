@@ -78,7 +78,12 @@ extension ConfirmAddressViewController : UITableViewDataSource
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "addressAndPhoneCell", for: indexPath) as! AddressesAndPhoneCell
-        
+        cell.backView.layer.masksToBounds = true
+        cell.backView.layer.cornerRadius = 20
+        cell.backView.backgroundColor = .white
+        cell.backView.layer.shadowRadius = 3
+        cell.backView.layer.shadowOpacity = 0.5
+        cell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
         cell.customerAddressOrPhone.text = customerAddressesList?[indexPath.row].address1?.appending(", ").appending(customerAddressesList?[indexPath.row].city ?? "").appending(", ").appending(customerAddressesList?[indexPath.row].country ?? "")
         return cell
     }

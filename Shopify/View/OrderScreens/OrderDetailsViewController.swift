@@ -128,7 +128,10 @@ extension OrderDetailsViewController : UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "orderDetailsCell", for: indexPath) as! OrderDetailsCell
     
         cell.backView.layer.masksToBounds = true
-        cell.backView.layer.cornerRadius = 30
+        cell.backView.layer.cornerRadius = 20
+        cell.backView.layer.shadowRadius = 3
+        cell.backView.layer.shadowOpacity = 0.5
+        cell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
         cell.orderItemProductName.text = orderProductsList?[indexPath.row].title
         cell.orderItemProductPrice.text =  orderProductsList?[indexPath.row].price
         for item in products
@@ -149,7 +152,7 @@ extension OrderDetailsViewController : UITableViewDataSource
 extension OrderDetailsViewController : UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 105
     }
 }
 extension OrderDetailsViewController
