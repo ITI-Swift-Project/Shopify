@@ -6,15 +6,16 @@
 //
 
 import UIKit
-
+import CoreData
 class ProfileViewController: UIViewController{
     var result : Customers?
     var customerr : allCustomers?
     var filteredOrders : [Order] = []
-    
+    var wishListSavedProducts : [NSManagedObject] = []
     var namee :  String?
-    
-    
+    var dataVM : CoreDataViewModel?
+    var  wishListItems : DraftOrders?
+    let semaphore = DispatchSemaphore(value: 0)
     @IBOutlet weak var wlcomeLbl: UILabel!
     
     
@@ -52,6 +53,9 @@ class ProfileViewController: UIViewController{
     }
     override func viewWillAppear(_ animated: Bool) {
         
+        wishListSavedProducts = dataVM?.fetchProductsFromCoreData(productType: 2) ?? []
+        wishlistTableView.reloadData()
+        
         namee = UserDefaults.standard.value(forKey: "namee") as? String ?? ""
         welcomelbl.text = "Welcome \(namee ?? "")"
         print(namee)
@@ -63,6 +67,41 @@ class ProfileViewController: UIViewController{
             //self.dismiss(animated: true, completion: nil)
         }
     }
+    
+    private func getData(from url : String)
+    {
+        guard let nurl = URL (string: url)
+        else {return}
+        let request = URLRequest(url : nurl)
+        let task = URLSession.shared.dataTask(with: request)  { data, response, error in
+            guard let data = data , error == nil else{
+                Swift.print("Somthing Went Wrong")
+                return
+            }
+            //have data
+            
+            do {
+                self.wishListItems = try JSONDecoder().decode(DraftOrders.self, from: data)
+                Swift.print(self.wishListItems)
+                self.semaphore.signal()
+            }catch{
+                Swift.print("failed to convert \(error.localizedDescription)")
+            }
+            guard let json = self.wishListItems else{
+                return
+            }
+          //  print(json.first_name)
+          //  print(json.email)
+            Swift.print("doneeee")
+           // print(data.count)
+           // print(json.addresses)
+            
+        }
+        task.resume()
+        semaphore.wait()
+    
+    
+}
   
     @IBAction func openSettings(_ sender: Any) {
         let settingsVC = storyboard?.instantiateViewController(withIdentifier: "settings") as! SettingViewController
@@ -129,7 +168,7 @@ extension ProfileViewController  : UITableViewDelegate{
 }
 extension ProfileViewController : UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return wishListSavedProducts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -144,14 +183,25 @@ extension ProfileViewController : UITableViewDataSource{
             cell.layer.cornerRadius = 30*/
             return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: "list", for: indexPath) as! wishTableViewCell
+       let cell = tableView.dequeueReusableCell(withIdentifier: "list", for: indexPath) as! wishTableViewCell
+        cell.layer.masksToBounds = true
+        cell.layer.cornerRadius = 30
+        cell.wishImg.kf.setImage(with: URL(string: wishListSavedProducts[indexPath.row].value(forKey: "product_image") as? String ?? ""),placeholder: UIImage(named: " "))
+
+       //cell.wishName.adjustsFontSizeToFitWidth = true
+        cell.wishName.text = wishListSavedProducts[indexPath.row].value(forKey: "product_title") as? String ?? ""
+        cell.wishDiscription.text = wishListSavedProducts[indexPath.row].value(forKey: "product_vendor") as? String ?? ""
+        cell.wishPrice.text = wishListSavedProducts[indexPath.row].value(forKey: "product_price") as? String ?? ""
+        
+        
+       /*
         cell.layer.borderColor     = UIColor.systemGray.cgColor
         cell.layer.cornerRadius    = 25.0
         cell.wishImg.image = UIImage(named: "product")
        //cell.wishName.adjustsFontSizeToFitWidth = true
         cell.wishName.text = "aaaaaaaaaaaaaaaaaaaaaaaaaasfasmbfadk.nd.nsd,.nsdlnlsdnsd/ln"
         cell.wishDiscription.text = "sdeadfweddkghad;kghsd;kghsd;kgsd;khg"
-        cell.wishPrice.text = "450"
+        cell.wishPrice.text = "450" */
         return cell
         
     }

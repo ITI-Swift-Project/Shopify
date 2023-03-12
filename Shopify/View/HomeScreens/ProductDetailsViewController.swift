@@ -219,8 +219,9 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
        
      //   cosmos.inputViewController?.isBeingDismissed = false
         productName.adjustsFontSizeToFitWidth = true
-       // priceLbl.text = "  \(product.variants?.first?.price ?? "") EGP"
-        priceLbl.text = String((Float(product.variants?.first?.price ?? "") ?? 0.0) * currencyConverter).appending(" ").appending(currency ?? "")
+       
+        priceLbl.text = "  \(product.variants?.first?.price ?? "") EGP"
+        //priceLbl.text = String((Float(product.variants?.first?.price ?? "") ?? 0.0) * currencyConverter).appending(" ").appending(currency ?? "")
         productName.text = product.title
        // var countt = [product.options?[0].values?.count]
       /*  for i in countt
