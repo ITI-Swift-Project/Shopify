@@ -62,7 +62,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
             deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
                 for item in self.cartItemsList
                 {
-                    var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": 1,"product_id": item.product_id, "variant_id": item.variant_id]
+                    var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": item.quantity,"product_id": item.product_id, "variant_id": item.variant_id]
                     self.arrayOfDec.append(temp)
                 }
                 let myLine : [String : Any] = ["title": self.product.title, "price": self.product.variants?[0].price, "quantity": 1, "product_id": self.product.id, "variant_id":self.product.variants?[0].id]
@@ -106,7 +106,6 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
                         }
                     }
                     task.resume()
-              //  self.dataViewModel?.saveProductToCoreData(productTypt: 1, draftproduct: self.product)
             }))
             deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(deleteAlert, animated:true, completion:nil )
@@ -196,7 +195,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         dataViewModel = CoreDataViewModel()
         productState =  isAddedToWishList(productId: product.id ?? 0)
         networkViewModel = ShoppingCartProductsViewModel()
-        networkViewModel?.getCartProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113690014000.json")
+        networkViewModel?.getCartProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json")
 
         networkViewModel?.bindingCartProducts = {
             DispatchQueue.main.async { [self] in

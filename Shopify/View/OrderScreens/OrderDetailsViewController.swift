@@ -138,7 +138,6 @@ extension OrderDetailsViewController : UITableViewDataSource
                 cell.orderItemImage.kf.setImage(with: URL(string: item.image?.src ?? ""),placeholder: UIImage(named: " "))
             }
         }
-    //    cell.orderItemImage.kf.setImage(with: URL(string: orderImages?[indexPath.row].src ?? ""),placeholder: UIImage(named: " "))
         cell.orderItemProductQuantity.text =  String(orderProductsList?[indexPath.row].quantity ?? 0)
         let price = Float(orderProductsList?[indexPath.row].price ?? "")
         let quantity = Float(orderProductsList?[indexPath.row].quantity ?? 0)
