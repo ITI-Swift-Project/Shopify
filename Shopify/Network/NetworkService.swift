@@ -206,7 +206,7 @@ extension NetworkService : GenericCRUDProtocol{
       guard let url = URL(string: urlEndPoint ) else {return}
       print(url)
       var request = URLRequest(url:url)
-      request.httpMethod = "POST"
+      request.httpMethod = "PUT"
       request.httpShouldHandleCookies = false
       let session = URLSession.shared
 
