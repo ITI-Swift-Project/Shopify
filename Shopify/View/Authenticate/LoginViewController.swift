@@ -8,14 +8,16 @@
 import UIKit
 
 @available(iOS 13.0, *)
+
 class LoginViewController: UIViewController {
     var result : Customers?
     var network : CustomersViewModel?
+    var delegate: PresentedViewControllerDelegate?
     let semaphore = DispatchSemaphore(value: 0)
     let group = DispatchGroup()
     @IBOutlet weak var signupBtn: UIButton!
     
-    @IBOutlet weak var skipBtn: UIButton!
+//    @IBOutlet weak var skipBtn: UIButton!
     
     @IBOutlet weak var loginBtn: UIButton!
     
@@ -62,12 +64,12 @@ class LoginViewController: UIViewController {
         loginBtn.layer.cornerRadius = loginBtn.frame.size.height / 2
         loginBtn.clipsToBounds = true
         
-        signupBtn.layer.cornerRadius = signupBtn.frame.size.height / 2
-        signupBtn.clipsToBounds = true
+//        signupBtn.layer.cornerRadius = signupBtn.frame.size.height / 2
+//        signupBtn.clipsToBounds = true
         
-        skipBtn.layer.cornerRadius = skipBtn.frame.size.height / 2
-        skipBtn.clipsToBounds = true
-        
+//        skipBtn.layer.cornerRadius = skipBtn.frame.size.height / 2
+//        skipBtn.clipsToBounds = true
+//
         self.topView.layer.masksToBounds = true
         self.topView.layer.cornerRadius = self.topView.frame.size.width/2
         
@@ -79,8 +81,7 @@ class LoginViewController: UIViewController {
     @IBAction func signIn(_ sender: Any) {
         if emailTxt.text != "" && passwordTxt.text != ""
         {
-            
-            //semaphore.signal()
+                        //semaphore.signal()
             group.enter()
             network?.getcustomerBY(email: "\(emailTxt.text ?? "")")
             
@@ -94,11 +95,11 @@ class LoginViewController: UIViewController {
                             UserDefaults.standard.set(true, forKey: "loginState")
                             print(self.customers[0].id)
                             UserDefaults.standard.set(self.customers[0].id ?? 0, forKey: "userId")
-                            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                            let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! TabBarViewController
-                            
-                            self.navigationController?.pushViewController(brandsViewController, animated: false)
-                            
+                            UserDefaults.standard.set(1.0, forKey: "currency")
+                            self.dismiss(animated: true){
+                                self.delegate?.didDismissPresentedViewController()
+                            }
+                            //self.dismiss(animated: true)
                         }
                         else{
                             self.makeAlert(title: "wrong password", message: "please check yout password")

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="onN-Q3-YBs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rgO-0d-Urc">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -14,7 +14,7 @@
         <!--Home View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="home" id="Y6W-OH-hqX" customClass="HomeViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="HomeViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -162,7 +162,8 @@
                             <constraint firstAttribute="trailing" secondItem="EZI-Jp-RSP" secondAttribute="trailing" id="sE9-06-vvp"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="Home" id="Sxh-sW-CCG"/>
+                    <tabBarItem key="tabBarItem" title="" image="Home" id="h9K-ho-AiG"/>
+                    <navigationItem key="navigationItem" id="GDK-S2-HBI"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="adsCollection" destination="w4y-KN-dum" id="4Yf-zS-tPC"/>
@@ -172,7 +173,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="84.732824427480907" y="4.2253521126760569"/>
+            <point key="canvasLocation" x="1011.4503816793892" y="4.2253521126760569"/>
         </scene>
         <!--Product View Controller-->
         <scene sceneID="mLw-p5-Cu7">
@@ -187,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LIN-RU-kWg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="906" y="4"/>
+            <point key="canvasLocation" x="1831.2977099236641" y="3.5211267605633805"/>
         </scene>
         <!--Product Details View Controller-->
         <scene sceneID="IpA-39-0Rh">
@@ -491,14 +492,27 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fzO-eB-AFm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2061.8320610687024" y="-77.464788732394368"/>
+            <point key="canvasLocation" x="2988.5496183206105" y="-77.464788732394368"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Z9n-JO-8Im">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="rgO-0d-Urc" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="Home" id="Sxh-sW-CCG"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Syh-HF-sqd">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="wjq-ls-MiH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mSt-Xp-sva" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="84.732824427480907" y="4.2253521126760569"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="kqh-Vo-tcl">
-            <size key="intrinsicContentSize" width="120" height="20"/>
-        </designable>
-    </designables>
     <resources>
         <image name="Home" width="29" height="33"/>
         <image name="Search" width="20" height="20"/>

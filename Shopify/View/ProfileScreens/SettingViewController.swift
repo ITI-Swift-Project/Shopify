@@ -36,6 +36,12 @@ class SettingViewController: UIViewController {
         self.navigationController?.pushViewController(wishListViewController, animated: true)
     }
     
+    @IBAction func logOutAction(_ sender: Any) {
+        UserDefaults.standard.set(false, forKey: "loginState")
+        UserDefaults.standard.set(0, forKey: "userId")
+        UserDefaults.standard.set("", forKey: "email")
+        navigationController?.popViewController(animated: true)
+    }
     @IBAction func cartAction(_ sender: Any) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
         let cartViewController = storyBoard.instantiateViewController(withIdentifier: "shoppingCart") as! CartViewController

@@ -40,8 +40,8 @@ class CatViewController: UIViewController {
         sale.tintColor = UIColor.white
         let endPoint = APIEndpoint.products
         filterDataByType(endPoint: endPoint)
-        currencyConverter = userdef.value(forKey: "currency") as! Float
-          if userdef.value(forKey: "currency") as! Double == 1.0
+        currencyConverter = userdef.value(forKey: "currency") as?  Float ?? 0
+          if userdef.value(forKey: "currency") as? Double == 1.0
           {
               currency = "$"
           }

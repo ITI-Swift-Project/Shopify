@@ -11,6 +11,8 @@ import UIKit
 class SignUpViewController: UIViewController {
     var viewModel : BrandsViewModel?
     var alertText : String = ""
+    var delegate: PresentedViewControllerDelegate?
+
     @IBOutlet weak var topView: UIView!
     
     @IBOutlet weak var usernameTxt: UITextField!
@@ -110,9 +112,7 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var signupBtn: UIButton!
     
-    @IBOutlet weak var loginBtn: UIButton!
-    
-    @IBOutlet weak var skipBtn: UIButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,13 +136,12 @@ class SignUpViewController: UIViewController {
         
         self.topView.layer.masksToBounds = true
         self.topView.layer.cornerRadius = self.topView.frame.size.height / 2
-        self.loginBtn.layer.masksToBounds = true
-        self.loginBtn.layer.cornerRadius = self.loginBtn.frame.size.height / 2
-        self.skipBtn.layer.masksToBounds = true
-        self.skipBtn.layer.cornerRadius = self.skipBtn.frame.size.height / 2
+        
+
         
         
     }
+    
     func makeCircle(object : UITextField)
     {
         object.layer.cornerRadius = object.frame.size.height / 2
@@ -228,10 +227,10 @@ class SignUpViewController: UIViewController {
                                     userDefaults.set(self.emailTxt.text ,forKey: "email")
                                     userDefaults.set(true, forKey: "loginState")
                                     userDefaults.set(customer["id"] as? Int, forKey: "userId")
-                                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                    let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
-                                    
-                                    self.navigationController?.pushViewController(brandsViewController, animated: true)
+                                    UserDefaults.standard.set(1.0, forKey: "currency")
+                                    self.dismiss(animated: true){
+                                        self.delegate?.didDismissPresentedViewController()
+                                    }
                                    
                                 }
                             } else {

@@ -26,7 +26,7 @@ class CurrencyViewController: UIViewController {
         setCurrencyImage(currency : GBP)
         userdef.setValue(30.0, forKey: "currency")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         StyleHelper.bgFrameStyle(frame: bgFrame)

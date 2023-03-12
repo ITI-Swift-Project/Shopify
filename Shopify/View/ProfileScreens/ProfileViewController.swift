@@ -12,7 +12,7 @@ class ProfileViewController: UIViewController{
     var customerr : allCustomers?
     var filteredOrders : [Order] = []
     
-    
+   
     @IBOutlet weak var orderTableView: UITableView!
     {
         didSet{
@@ -41,29 +41,18 @@ class ProfileViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // UserDefaults.standard.set(true, forKey: "loginState")
-       // UserDefaults.standard.set(self.result?.customers![0].id, forKey: "userId")
-       // print("eeeeh\(UserDefaults.standard.set(self.result?.customers![0].id, forKey: "userId"))")
-        welcomelbl.text = "Welcome \(customerr?.first_name ?? "UserName")"
+   
     }
     override func viewWillAppear(_ animated: Bool) {
-        if UserDefaults.standard.bool(forKey: "loginState") == false
+        if !(UserDefaults.standard.value(forKey: "loginState") as? Bool ?? false)
         {
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Authenticate", bundle: nil)
-            let logInVC = storyBoard.instantiateViewController(withIdentifier: "signIn") as! LoginViewController
-
-            self.navigationController?.pushViewController(logInVC, animated: true)
-           
+            performSegue(withIdentifier: "welcome", sender: self)
+        }
+        else{
+            //self.dismiss(animated: true, completion: nil)
         }
     }
-    @IBAction func logOutAction(_ sender: Any) {
-        if let tabBarController = self.tabBarController {
-            // Set the index of the selected tab bar item to a new value
-            UserDefaults.standard.set(false, forKey: "loginState")
-            tabBarController.selectedIndex = 0 // or any index that you want to switch to
-        
-        }
-    }
+  
     @IBAction func openSettings(_ sender: Any) {
         let settingsVC = storyboard?.instantiateViewController(withIdentifier: "settings") as! SettingViewController
         navigationController?.pushViewController(settingsVC, animated: true)
@@ -180,4 +169,6 @@ extension ProfileViewController : UICollectionViewDelegateFlowLayout{
     {
         return CGFloat(25)
     }
+   
 }
+

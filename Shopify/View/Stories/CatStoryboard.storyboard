@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4fL-NN-zss">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Sb5-xo-cLt">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -14,13 +14,13 @@
         <!--Cat View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="Cat" id="Y6W-OH-hqX" customClass="CatViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="CatViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZM-tj-DHt">
-                                <rect key="frame" x="0.0" y="147" width="393" height="44"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="jYu-PJ-Pbq"/>
                                     <barButtonItem title="Men" id="ljk-LV-4dp">
@@ -55,7 +55,7 @@
                                 <color key="barTintColor" name="firstColor"/>
                             </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IM7-ZA-sRX">
-                                <rect key="frame" x="0.0" y="103" width="393" height="44"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="5hg-mX-uAQ"/>
                                     <barButtonItem style="plain" id="Bqf-MP-czk">
@@ -116,7 +116,7 @@
                                 <color key="barTintColor" name="firstColor"/>
                             </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sek-vI-6vg">
-                                <rect key="frame" x="0.0" y="191" width="393" height="578"/>
+                                <rect key="frame" x="0.0" y="147" width="393" height="622"/>
                                 <color key="backgroundColor" name="thirdColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zQh-zX-cWr">
                                     <size key="itemSize" width="128" height="128"/>
@@ -322,11 +322,10 @@
         <!--Navigation Controller-->
         <scene sceneID="VWo-Rl-Ujj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Sb5-xo-cLt" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Sb5-xo-cLt" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="Cat" id="mkg-xZ-Goq"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jb4-Ha-3so">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
