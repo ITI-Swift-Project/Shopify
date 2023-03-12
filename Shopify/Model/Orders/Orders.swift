@@ -30,5 +30,5 @@ struct BillingAdddress : Codable{
     var phone : String?
     var zip : String?
     var country : String?
-    var last_namr :String?
+    var last_name :String?
 }

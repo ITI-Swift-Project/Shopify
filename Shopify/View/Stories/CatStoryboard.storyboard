@@ -19,41 +19,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZM-tj-DHt">
-                                <rect key="frame" x="0.0" y="103" width="393" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="jYu-PJ-Pbq"/>
-                                    <barButtonItem title="Men" id="ljk-LV-4dp">
-                                        <color key="tintColor" name="ButtonBackground"/>
-                                        <connections>
-                                            <action selector="filterByMen:" destination="Y6W-OH-hqX" id="VhW-FR-vO5"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="GFt-SN-05t"/>
-                                    <barButtonItem title="WOMEN" id="f1l-2t-ywj">
-                                        <color key="tintColor" name="ButtonBackground"/>
-                                        <connections>
-                                            <action selector="filterByWomen:" destination="Y6W-OH-hqX" id="oPc-Ld-7nq"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="sDx-kF-DNz"/>
-                                    <barButtonItem title="KIDS" id="HlI-nr-7GT">
-                                        <color key="tintColor" name="ButtonBackground"/>
-                                        <connections>
-                                            <action selector="filterByKids:" destination="Y6W-OH-hqX" id="SNf-k9-tit"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="VXZ-e7-gHQ"/>
-                                    <barButtonItem title="SALE" id="Iyl-66-MLf">
-                                        <color key="tintColor" name="ButtonBackground"/>
-                                        <connections>
-                                            <action selector="filterBySale:" destination="Y6W-OH-hqX" id="B7n-z1-fOM"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Mwa-KT-lim"/>
-                                </items>
-                                <color key="barTintColor" name="firstColor"/>
-                            </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IM7-ZA-sRX">
                                 <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                                 <items>
@@ -135,6 +100,46 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZM-tj-DHt">
+                                <rect key="frame" x="0.0" y="103" width="393" height="44"/>
+                                <color key="backgroundColor" systemColor="labelColor"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="jYu-PJ-Pbq"/>
+                                    <barButtonItem title="Men" id="ljk-LV-4dp">
+                                        <color key="tintColor" name="ButtonBackground"/>
+                                        <connections>
+                                            <action selector="filterByMen:" destination="Y6W-OH-hqX" id="VhW-FR-vO5"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="GFt-SN-05t"/>
+                                    <barButtonItem title="WOMEN" id="f1l-2t-ywj">
+                                        <color key="tintColor" name="ButtonBackground"/>
+                                        <connections>
+                                            <action selector="filterByWomen:" destination="Y6W-OH-hqX" id="oPc-Ld-7nq"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="sDx-kF-DNz"/>
+                                    <barButtonItem title="KIDS" id="HlI-nr-7GT">
+                                        <color key="tintColor" name="ButtonBackground"/>
+                                        <connections>
+                                            <action selector="filterByKids:" destination="Y6W-OH-hqX" id="SNf-k9-tit"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="VXZ-e7-gHQ"/>
+                                    <barButtonItem title="SALE" id="Iyl-66-MLf">
+                                        <color key="tintColor" name="ButtonBackground"/>
+                                        <connections>
+                                            <action selector="filterBySale:" destination="Y6W-OH-hqX" id="B7n-z1-fOM"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Mwa-KT-lim"/>
+                                </items>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <color key="barTintColor" name="thirdColor"/>
+                                <toolbarAppearance key="standardAppearance">
+                                    <color key="backgroundColor" name="secondColor"/>
+                                </toolbarAppearance>
+                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="firstColor"/>
@@ -350,9 +355,15 @@
         <namedColor name="firstColor">
             <color red="0.024000000208616257" green="0.22200000286102295" blue="0.36700001358985901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="secondColor">
+            <color red="0.62000000476837158" green="0.70200002193450928" blue="0.76099997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="thirdColor">
             <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

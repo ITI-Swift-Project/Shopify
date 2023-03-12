@@ -126,11 +126,12 @@ extension OrderDetailsViewController : UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "orderDetailsCell", for: indexPath) as! OrderDetailsCell
+    
         cell.backView.layer.masksToBounds = true
         cell.backView.layer.cornerRadius = 30
         cell.orderItemProductName.text = orderProductsList?[indexPath.row].title
         cell.orderItemProductPrice.text =  orderProductsList?[indexPath.row].price
-        cell.orderItemImage.kf.setImage(with: URL(string: orderImages?[indexPath.row].src ?? ""),placeholder: UIImage(named: " "))
+    //    cell.orderItemImage.kf.setImage(with: URL(string: orderImages?[indexPath.row].src ?? ""),placeholder: UIImage(named: " "))
         cell.orderItemProductQuantity.text =  String(orderProductsList?[indexPath.row].quantity ?? 0)
         let price = Float(orderProductsList?[indexPath.row].price ?? "")
         let quantity = Float(orderProductsList?[indexPath.row].quantity ?? 0)

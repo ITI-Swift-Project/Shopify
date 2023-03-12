@@ -165,7 +165,7 @@ class CatViewController: UIViewController {
     }
     //MARK: Filter By Wemen
     @IBAction func filterByWomen(_ sender: Any) {
-//        menButton.tintColor = UIColor.white
+        menButton.tintColor = UIColor.white
          //Create a custom image with the desired background color
        // let selectedImage = UIImage(named: "white")?.withTintColor(UIColor.red)
 

@@ -14,6 +14,7 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var bgFrame: UIView!
     @IBOutlet weak var applePay: UIButton!
     @IBOutlet weak var cashOnDelivery: UIButton!
+    var currencyType : String = ""
     var selectedMethod : String?
     var totalAmount : Float?
     var braintreeClient: BTAPIClient?
@@ -33,6 +34,7 @@ class PaymentViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        totalAmount = 2000
         self.braintreeClient = BTAPIClient(authorization: "sandbox_ndwyq572_czqszfjbwjdnvj3h")!
         StyleHelper.bgFrameStyle(frame: bgFrame)
     }
@@ -41,16 +43,43 @@ class PaymentViewController: UIViewController {
         
         switch selectedMethod {
         case "paypal":
+            
+            if( UserDefaults.standard.value(forKey: "currency") as! Float == 30.0){
+                currencyType = "EGP"
+                totalAmount = (totalAmount ?? 0) / 30
+            }
+            else if( UserDefaults.standard.value(forKey: "currency")as! Float == 1.0)
+            {
+                currencyType = "USD"
+                
+            }
            payUsingPaypal()
         case "cash":
             print("when delevier")
-            postOrder()
+            if(totalAmount ?? 0 >= 2000.0 && UserDefaults.standard.value(forKey: "currency") as! Float == 30.0){
+                makeAlertWith(title: "exceed the maximum range", message: "please edit order")
+            }
+            else if(totalAmount ?? 0 >= 2000.0 && UserDefaults.standard.value(forKey: "currency")as! Float == 1.0)
+            {
+                makeAlertWith(title: "exceed the maximum range", message: "please edit order")
+            }
+            else
+            {
+                postOrder()
+            }
         default:
             let alert = UIAlertController(title: "Missing data", message: "check payment method please", preferredStyle: .alert)
             let ok = UIAlertAction(title: "ok", style: .default)
             alert.addAction(ok)
             self.present(alert, animated: true)
         }
+    }
+    func makeAlertWith(title : String,message : String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
     func payUsingPaypal(){
         let payPalDriver = BTPayPalDriver(apiClient: braintreeClient!)
@@ -59,8 +88,9 @@ class PaymentViewController: UIViewController {
                 
                 // Specify the transaction amount here. "2.32" is used in this example.
         
-                let request = BTPayPalRequest(amount: "\(totalAmount!)")
-                request.currencyCode = "USD" // Optional; see BTPayPalRequest.h for more options
+        let request = BTPayPalRequest(amount: "\(totalAmount ?? 0.5)")
+                request.currencyCode = "USD"
+            // Optional; see BTPayPalRequest.h for more options
 
                 payPalDriver.requestOneTimePayment(request) { (tokenizedPayPalAccount, error) in
                     if let tokenizedPayPalAccount = tokenizedPayPalAccount {
@@ -76,6 +106,7 @@ class PaymentViewController: UIViewController {
                         let billingAddress = tokenizedPayPalAccount.billingAddress
                         let shippingAddress = tokenizedPayPalAccount.shippingAddress
                     } else if let error = error {
+                        print(error)
                         // Handle error here...
                     } else {
                         // Buyer canceled payment approval
@@ -85,15 +116,17 @@ class PaymentViewController: UIViewController {
     func postOrder(){
         let orderEndPoint = APIEndpoint.orders
         let url = orderEndPoint.url(forShopName: NetworkService.baseUrl)
-        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let currentDate = dateFormatter.string(from: Date())
         print(orderEndPoint)
         let orderData: [String: Any] = [
            "order": [
             "confirmed" : true,
             "contact_email" : "@test",
             "email" : "\(UserDefaults.standard.value(forKey: "email") ?? "" as? String)",
-            "currency" : "EGP",
-            "created_at" : "20-02-2015",
+            "currency" : currencyType,
+            "created_at" : currentDate,
             "number" : 2,
             "order_status_url" : "",
             "current_subtotal_price" : "\(totalAmount)",
