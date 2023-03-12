@@ -20,6 +20,8 @@ class ReviewCollectionViewCell: UICollectionViewCell {
         reviewImg.image = img
         reviewName.text = name
         reviewTxt.text = txt
+       // reviewImg.layer.cornerRadius = reviewImg.frame.size.height / 2
+             // reviewImg.clipsToBounds = true
         
     }
 }

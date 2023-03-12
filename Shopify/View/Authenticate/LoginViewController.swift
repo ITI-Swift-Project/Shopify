@@ -50,6 +50,9 @@ class LoginViewController: UIViewController {
         
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.topView.layer.masksToBounds = true
+        self.topView.layer.cornerRadius = self.topView.frame.size.height / 2
+        
         network = CustomersViewModel()
         
         let endPoint = APIEndpoint.customer
@@ -70,8 +73,8 @@ class LoginViewController: UIViewController {
 //        skipBtn.layer.cornerRadius = skipBtn.frame.size.height / 2
 //        skipBtn.clipsToBounds = true
 //
-        self.topView.layer.masksToBounds = true
-        self.topView.layer.cornerRadius = self.topView.frame.size.width/2
+     //   self.topView.layer.masksToBounds = true
+      //  self.topView.layer.cornerRadius = self.topView.frame.size.width/2
         
         
         
