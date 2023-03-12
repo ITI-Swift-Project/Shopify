@@ -12,7 +12,12 @@ class ProfileViewController: UIViewController{
     var customerr : allCustomers?
     var filteredOrders : [Order] = []
     
-   
+    var namee :  String?
+    
+    
+    @IBOutlet weak var wlcomeLbl: UILabel!
+    
+    
     @IBOutlet weak var orderTableView: UITableView!
     {
         didSet{
@@ -41,9 +46,15 @@ class ProfileViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
    
     }
     override func viewWillAppear(_ animated: Bool) {
+        
+        namee = UserDefaults.standard.value(forKey: "namee") as? String ?? ""
+        welcomelbl.text = "Welcome \(namee ?? "")"
+        print(namee)
         if !(UserDefaults.standard.value(forKey: "loginState") as? Bool ?? false)
         {
             performSegue(withIdentifier: "welcome", sender: self)

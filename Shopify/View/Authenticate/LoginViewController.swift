@@ -95,6 +95,7 @@ class LoginViewController: UIViewController {
                             UserDefaults.standard.set(true, forKey: "loginState")
                             print(self.customers[0].id)
                             UserDefaults.standard.set(self.customers[0].id ?? 0, forKey: "userId")
+                            UserDefaults.standard.set(self.customers[0].first_name , forKey: "namee")
                             UserDefaults.standard.set(1.0, forKey: "currency")
                             self.dismiss(animated: true){
                                 self.delegate?.didDismissPresentedViewController()
