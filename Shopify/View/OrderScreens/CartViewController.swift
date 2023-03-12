@@ -398,12 +398,6 @@ extension CartViewController
 }
 
 
-
-
-
-
-
-
 extension CartViewController
 {
     @objc func decreaseProductsCount(sender : UIButton)
@@ -411,17 +405,8 @@ extension CartViewController
         print("mahmoud\(shoppingCartItemsList.count)")
         shoppingCartItemsList[sender.tag].quantity! -= 1
 
-        /* var maxQuantity : Int = 0
-         for item in productsArr
+         if  (shoppingCartItemsList[sender.tag].quantity)! > 1
          {
-            if  shoppingCartItemsList[sender.tag].product_id == item.id
-             {
-                maxQuantity = item.variants?[0].inventory_quantity ?? 0
-                maxQuantity = Int(Float(maxQuantity) * 0.5)
-            }
-         }
-         if  (shoppingCartItemsList[sender.tag].quantity)! <= Int(maxQuantity)
-         {*/
              for item in shoppingCartItemsList
              {
                 var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": item.quantity,"product_id": item.product_id, "variant_id": item.variant_id]
@@ -466,19 +451,14 @@ extension CartViewController
         }
         task.resume()
              print("zaienb\(shoppingCartItemsList.count)")
-
-        
-        total -= Float(shoppingCartItemsList[sender.tag].price ?? "") ?? 0.0 * currencyConverter
         
         cartItemSubTotal = Float((shoppingCartItemsList[sender.tag].quantity)!) * Float((shoppingCartItemsList[sender.tag].price)!)! * currencyConverter
-        
-        
-       /*   }
-         else
-         {
-        // shoppingCartItemsList[sender.tag].quantity = Int(maxQuantity)
-         }*/
-         subTotal.text = String(total).appending(currency ?? "")
+             total -= Float(shoppingCartItemsList[sender.tag].price ?? "") ?? 0.0 * currencyConverter
+             subTotal.text = String(total).appending(currency ?? "")
+         }
+        else {
+            shoppingCartItemsList[sender.tag].quantity! = 1
+        }
          self.shoppingCartTableView.reloadData()
     }
 }
