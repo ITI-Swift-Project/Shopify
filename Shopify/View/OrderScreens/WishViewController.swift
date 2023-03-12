@@ -169,7 +169,7 @@ extension WishViewController : UITableViewDelegate
         
         if editingStyle == .delete
         {
-            dataVM?.deleteProductFromCoreData(deletedProductType: 2, productId: wishListSavedProducts[indexPath.row].value(forKey: "product_id") as! Int )
+            dataVM?.deleteProductFromCoreData(deletedProductType: 2, productId: wishListSavedProducts[indexPath.row].value(forKey: "product_id") as? Int ?? 0 )
             wishListSavedProducts.remove(at: indexPath.row)
             wishTV.reloadData()
         }
