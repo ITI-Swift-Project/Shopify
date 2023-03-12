@@ -76,6 +76,8 @@
 		4F0A2B7129AAB53A008B2F1D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A2B7029AAB53A008B2F1D /* EditProfileViewController.swift */; };
 		4F0A2B7529AAB5BE008B2F1D /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A2B7429AAB5BE008B2F1D /* CurrencyViewController.swift */; };
 		4F16D79829A9A60C002ED058 /* StyleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F16D79729A9A60C002ED058 /* StyleHelper.swift */; };
+		4F1C5DC929BE128300BA7341 /* ContactUsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C5DC729BE128300BA7341 /* ContactUsCell.swift */; };
+		4F1C5DCA29BE128300BA7341 /* ContactUsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C5DC829BE128300BA7341 /* ContactUsCell.xib */; };
 		4F1CB56029AA34A200DE0DA4 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1CB55E29AA34A200DE0DA4 /* SettingsCell.swift */; };
 		4F1CB56129AA34A200DE0DA4 /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F1CB55F29AA34A200DE0DA4 /* SettingsCell.xib */; };
 		4F52CE1929AD5A1C00137E66 /* OrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F52CE1829AD5A1C00137E66 /* OrderDetailsViewController.swift */; };
@@ -200,6 +202,8 @@
 		4F0A2B7029AAB53A008B2F1D /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		4F0A2B7429AAB5BE008B2F1D /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		4F16D79729A9A60C002ED058 /* StyleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleHelper.swift; sourceTree = "<group>"; };
+		4F1C5DC729BE128300BA7341 /* ContactUsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsCell.swift; sourceTree = "<group>"; };
+		4F1C5DC829BE128300BA7341 /* ContactUsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactUsCell.xib; sourceTree = "<group>"; };
 		4F1CB55E29AA34A200DE0DA4 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		4F1CB55F29AA34A200DE0DA4 /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		4F52CE1829AD5A1C00137E66 /* OrderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsViewController.swift; sourceTree = "<group>"; };
@@ -541,6 +545,7 @@
 		1EFCB27029A55C2000FAA46D /* ProfileScreens */ = {
 			isa = PBXGroup;
 			children = (
+				4F1C5DC629BE125300BA7341 /* ContactUs */,
 				4FB009AE29B820CE000F3419 /* AddressesAndPhoneCell */,
 				1EB1AC1129AD7886004D50C5 /* OrdersCell */,
 				4FA869FD29AA3421006DFA11 /* SettingsCell */,
@@ -665,6 +670,15 @@
 				4FA8AF2B29B87C3B00D5A506 /* AddNewAddressViewController.swift */,
 			);
 			path = SettingsScreens;
+			sourceTree = "<group>";
+		};
+		4F1C5DC629BE125300BA7341 /* ContactUs */ = {
+			isa = PBXGroup;
+			children = (
+				4F1C5DC729BE128300BA7341 /* ContactUsCell.swift */,
+				4F1C5DC829BE128300BA7341 /* ContactUsCell.xib */,
+			);
+			path = ContactUs;
 			sourceTree = "<group>";
 		};
 		4F9B6C6C29B4203000194138 /* ShoppingCart */ = {
@@ -885,6 +899,7 @@
 			files = (
 				1EFCB26429A55A8F00FAA46D /* CatStoryboard.storyboard in Resources */,
 				1EB1AC1529AD789D004D50C5 /* OrdersCollectionViewCell.xib in Resources */,
+				4F1C5DCA29BE128300BA7341 /* ContactUsCell.xib in Resources */,
 				2714915F299FB286008BC7F6 /* LaunchScreen.storyboard in Resources */,
 				1EFCB28429A58CCA00FAA46D /* BrandCollectionViewCell.xib in Resources */,
 				031FA8B729AAAA1F00219A84 /* WishCollectionViewCell.xib in Resources */,
@@ -1056,6 +1071,7 @@
 				031F6F4029BB7278006B76F4 /* wishTableViewCell.swift in Sources */,
 				4FA8AF2C29B87C3B00D5A506 /* AddNewAddressViewController.swift in Sources */,
 				037E426329B53B3800ED1D8D /* Address.swift in Sources */,
+				4F1C5DC929BE128300BA7341 /* ContactUsCell.swift in Sources */,
 				0383847629A7970F00F8E486 /* LoginViewController.swift in Sources */,
 				1E9BD60429AAF54900AAD8AB /* Products.swift in Sources */,
 				03AB761429AD2F280000CF33 /* ProductDetailsCollectionViewCell.swift in Sources */,

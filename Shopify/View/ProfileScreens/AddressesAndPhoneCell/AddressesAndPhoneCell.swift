@@ -9,6 +9,7 @@ import UIKit
 
 class AddressesAndPhoneCell: UITableViewCell {
 
+    @IBOutlet weak var backView: UILabel!
     @IBOutlet weak var customerAddressOrPhone: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

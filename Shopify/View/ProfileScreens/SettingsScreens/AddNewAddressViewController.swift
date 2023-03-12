@@ -19,13 +19,12 @@ class AddNewAddressViewController: UIViewController {
     var address : Address?
     
     
-    @IBAction func backAction(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         addressViewModel =  AddressViewModel()
         address = nil
+        country.borderStyle = UITextField.BorderStyle(rawValue: 0)!
+
     }
 
 
