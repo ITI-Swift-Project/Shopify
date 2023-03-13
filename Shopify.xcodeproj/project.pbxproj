@@ -71,6 +71,9 @@
 		2714916A299FB287008BC7F6 /* ShopifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27149169299FB287008BC7F6 /* ShopifyTests.swift */; };
 		27149174299FB287008BC7F6 /* ShopifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27149173299FB287008BC7F6 /* ShopifyUITests.swift */; };
 		27149176299FB287008BC7F6 /* ShopifyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27149175299FB287008BC7F6 /* ShopifyUITestsLaunchTests.swift */; };
+		2777EB5129BEADC400570661 /* NetworkServicesTestes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2777EB5029BEADC400570661 /* NetworkServicesTestes.swift */; };
+		27EA835A29BEC2A2009D5B5D /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA835929BEC2A2009D5B5D /* MockNetworkService.swift */; };
+		27EA835C29BED0A0009D5B5D /* MockNetworkServiceTestes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA835B29BED0A0009D5B5D /* MockNetworkServiceTestes.swift */; };
 		4F0A2B6C29AAA2CE008B2F1D /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A2B6B29AAA2CE008B2F1D /* AboutUsViewController.swift */; };
 		4F0A2B6F29AAB035008B2F1D /* ContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A2B6E29AAB035008B2F1D /* ContactUsViewController.swift */; };
 		4F0A2B7129AAB53A008B2F1D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A2B7029AAB53A008B2F1D /* EditProfileViewController.swift */; };
@@ -197,6 +200,9 @@
 		2714916F299FB287008BC7F6 /* ShopifyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopifyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27149173299FB287008BC7F6 /* ShopifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopifyUITests.swift; sourceTree = "<group>"; };
 		27149175299FB287008BC7F6 /* ShopifyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopifyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2777EB5029BEADC400570661 /* NetworkServicesTestes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServicesTestes.swift; sourceTree = "<group>"; };
+		27EA835929BEC2A2009D5B5D /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
+		27EA835B29BED0A0009D5B5D /* MockNetworkServiceTestes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkServiceTestes.swift; sourceTree = "<group>"; };
 		4F0A2B6B29AAA2CE008B2F1D /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		4F0A2B6E29AAB035008B2F1D /* ContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsViewController.swift; sourceTree = "<group>"; };
 		4F0A2B7029AAB53A008B2F1D /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -634,6 +640,9 @@
 			isa = PBXGroup;
 			children = (
 				27149169299FB287008BC7F6 /* ShopifyTests.swift */,
+				2777EB5029BEADC400570661 /* NetworkServicesTestes.swift */,
+				27EA835929BEC2A2009D5B5D /* MockNetworkService.swift */,
+				27EA835B29BED0A0009D5B5D /* MockNetworkServiceTestes.swift */,
 			);
 			path = ShopifyTests;
 			sourceTree = "<group>";
@@ -1124,6 +1133,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27EA835A29BEC2A2009D5B5D /* MockNetworkService.swift in Sources */,
+				2777EB5129BEADC400570661 /* NetworkServicesTestes.swift in Sources */,
+				27EA835C29BED0A0009D5B5D /* MockNetworkServiceTestes.swift in Sources */,
 				2714916A299FB287008BC7F6 /* ShopifyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
