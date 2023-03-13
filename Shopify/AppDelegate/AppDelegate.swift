@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        UserDefaults.standard.set(1.0, forKey: "currency")
         BTAppSwitch.setReturnURLScheme("com.ahmadayman.Shopify.payments")
  
         return true

@@ -158,11 +158,7 @@ class OrderViewModel{
             bindingOrdersItems()
         }
     }
- 
-    
-    
-    
-   
+
     func getOrders(){
 //        let endPoint = APIEndpoint.customer
 //
@@ -172,6 +168,7 @@ class OrderViewModel{
         print(url)
         NetworkService.fetch(url:URL(string:  url) ) { result in
             self.ordersResult = result
+//            print(self.ordersResult.orders?[0].customer?.first_name ?? "")
         }
     }
 }

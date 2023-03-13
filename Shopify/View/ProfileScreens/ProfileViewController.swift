@@ -11,11 +11,13 @@ class ProfileViewController: UIViewController{
     var result : Customers?
     var customerr : allCustomers?
     var filteredOrders : [Order] = []
+    var allOrders : [Order] = []
     var wishListSavedProducts : [NSManagedObject] = []
     var namee :  String?
     var dataVM : CoreDataViewModel?
     var  wishListItems : DraftOrders?
     let semaphore = DispatchSemaphore(value: 0)
+    let viewModel : OrderViewModel? = nil
     @IBOutlet weak var wlcomeLbl: UILabel!
     
     
@@ -24,8 +26,8 @@ class ProfileViewController: UIViewController{
         didSet{
             orderTableView.delegate = self
             orderTableView.dataSource = self
-            let nibb = UINib(nibName: "OrdersTableViewCell", bundle: nil)
-            orderTableView.register(nibb, forCellReuseIdentifier: "orderTableCell")
+            let nib = UINib(nibName: "OrdersTableViewCell", bundle: nil)
+            orderTableView.register(nib, forCellReuseIdentifier: "orderTableCell")
         }
     }
     
@@ -64,44 +66,36 @@ class ProfileViewController: UIViewController{
             performSegue(withIdentifier: "welcome", sender: self)
         }
         else{
-            //self.dismiss(animated: true, completion: nil)
+            getData(){
+                orderTableView.reloadData()
+            }
         }
+       
+        
+    }
+    func getData(completion: () -> Void){
+        var viewModel : OrderViewModel?
+            viewModel = OrderViewModel()
+            viewModel?.getOrders()
+            viewModel?.bindingOrdersItems = {
+                self.allOrders = self.viewModel?.ordersResult.orders ?? []
+                if (self.allOrders.count <= 2)
+                {
+                    self.filteredOrders = self.allOrders
+                    self.orderTableView.reloadData()
+                }
+                else {
+                    self.filteredOrders = Array(self.allOrders.prefix(2))
+                    self.orderTableView.reloadData()
+                }
+            
+
+            }
+        
+       completion()
     }
     
-    private func getData(from url : String)
-    {
-        guard let nurl = URL (string: url)
-        else {return}
-        let request = URLRequest(url : nurl)
-        let task = URLSession.shared.dataTask(with: request)  { data, response, error in
-            guard let data = data , error == nil else{
-                Swift.print("Somthing Went Wrong")
-                return
-            }
-            //have data
-            
-            do {
-                self.wishListItems = try JSONDecoder().decode(DraftOrders.self, from: data)
-                Swift.print(self.wishListItems)
-                self.semaphore.signal()
-            }catch{
-                Swift.print("failed to convert \(error.localizedDescription)")
-            }
-            guard let json = self.wishListItems else{
-                return
-            }
-          //  print(json.first_name)
-          //  print(json.email)
-            Swift.print("doneeee")
-           // print(data.count)
-           // print(json.addresses)
-            
-        }
-        task.resume()
-        semaphore.wait()
-    
-    
-}
+
   
     @IBAction func openSettings(_ sender: Any) {
         let settingsVC = storyboard?.instantiateViewController(withIdentifier: "settings") as! SettingViewController
@@ -129,18 +123,6 @@ class ProfileViewController: UIViewController{
         self.navigationController?.pushViewController(wishlistVC, animated: true)
     }
     
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 extension ProfileViewController  : UITableViewDelegate{
     
@@ -167,7 +149,14 @@ extension ProfileViewController  : UITableViewDelegate{
     
 }
 extension ProfileViewController : UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == orderTableView
+        {
+            return filteredOrders.count
+        }
         return wishListSavedProducts.count
     }
     
@@ -177,6 +166,8 @@ extension ProfileViewController : UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "orderTableCell", for: indexPath) as! OrdersTableViewCell
             cell.layer.borderColor     = UIColor.systemGray.cgColor
             cell.layer.cornerRadius    = 25.0
+            let tmpString = filteredOrders[indexPath.row].created_at?.components(separatedBy: "T")
+            cell.conigData(price: filteredOrders[indexPath.row].current_subtotal_price ?? "", date: tmpString?[0] ?? "", time: tmpString?[1] ?? "")
           /*
             let tmpString = filteredOrders[indexPath.row].created_at?.components(separatedBy: "T")
             cell.conigData(price: filteredOrders[indexPath.row].current_total_price ?? "", date: tmpString?[0] ?? "", time: tmpString?[1] ?? "")

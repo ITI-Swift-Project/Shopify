@@ -170,7 +170,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
       //  txtView.layer.cornerRadius = txtView.frame.size.height / 2
       // txtView.clipsToBounds = true
         txtView.isEditable = false
-        myscroll.layer.cornerRadius = myscroll.frame.size.height / 9
+//        myscroll.layer.cornerRadius = myscroll.frame.size.height / 9
        myscroll.clipsToBounds = true
         
         cartBtn.layer.cornerRadius = cartBtn.frame.size.height / 2

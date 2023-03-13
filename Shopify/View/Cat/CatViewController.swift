@@ -139,7 +139,7 @@ class CatViewController: UIViewController {
             }
         }
         floaty!.paddingX = 16
-        floaty!.paddingY = 100
+        floaty!.paddingY = 90
         
         floaty!.friendlyTap = false
         
@@ -249,17 +249,36 @@ class CatViewController: UIViewController {
     }
     
     @IBAction func wishList(_ sender: Any) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
-        let wishListViewController = storyBoard.instantiateViewController(withIdentifier: "wishList") as! WishViewController
-        //productDetailsViewController.arrProducts = result
-        self.navigationController?.pushViewController(wishListViewController, animated: true)
+        if !(UserDefaults.standard.bool(forKey: "loginState")) ?? false
+        {
+            makeAlert()
+        }
+        else{
+            let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
+            let wishListViewController = storyBoard.instantiateViewController(withIdentifier: "wishList") as! WishViewController
+            //productDetailsViewController.arrProducts = result
+            self.navigationController?.pushViewController(wishListViewController, animated: true)
+        }
     }
-    
+    func makeAlert()
+    {
+        let alert = UIAlertController(title: "", message: "please loggin or register", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
+    }
     @IBAction func cartAction(_ sender: Any) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
-        let cartViewController = storyBoard.instantiateViewController(withIdentifier: "shoppingCart") as! CartViewController
-       
-        self.navigationController?.pushViewController(cartViewController, animated: true)
+        if !(UserDefaults.standard.bool(forKey: "loginState")) ?? false
+        {
+            makeAlert()
+        }
+        else{
+            let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
+            let cartViewController = storyBoard.instantiateViewController(withIdentifier: "shoppingCart") as! CartViewController
+            
+            self.navigationController?.pushViewController(cartViewController, animated: true)
+            
+        }
     }
 }
 extension CatViewController : UICollectionViewDelegate
