@@ -40,7 +40,7 @@ class WelcomeViewController: UIViewController {
             let nextViewController = segue.destination as! LoginViewController
             nextViewController.delegate = self
         }
-        else if segue.identifier == "singIn" {
+        else if segue.identifier == "singUp" {
             let nextViewController = segue.destination as! SignUpViewController
             nextViewController.delegate = self
         }

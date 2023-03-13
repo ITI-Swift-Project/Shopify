@@ -124,7 +124,7 @@ class BrandsViewController: UIViewController {
         }
 //        floaty!.addItem(item: button2)
         floaty!.paddingX = 16
-        floaty!.paddingY = 60
+        floaty!.paddingY = 90
         
         floaty!.friendlyTap = false
     }
