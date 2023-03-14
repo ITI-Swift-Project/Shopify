@@ -30,7 +30,7 @@ class WishViewController: UIViewController {
  
     @IBOutlet weak var wishV: UIView!
     @IBOutlet weak var wishTV: UITableView!
-    
+    let refreshControl = UIRefreshControl()
     
     
     var  tempWishListItems : [DraftOrder]?
@@ -39,6 +39,8 @@ class WishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        wishTV.refreshControl = refreshControl
+          refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         dataVM = CoreDataViewModel()
         coreDateViewModel = CoreDataViewModelClass()
         wishListCoreDate = coreDateViewModel.wishListDataBase.fetchFromWishList()
@@ -74,6 +76,10 @@ class WishViewController: UIViewController {
         
         
     }
+    @objc func refreshData(){
+            wishTV.reloadData()
+            refreshControl.endRefreshing()
+        }
     override func viewWillAppear(_ animated: Bool) {
         wishTV.reloadData()
     }
@@ -128,19 +134,17 @@ extension WishViewController : UITableViewDelegate
         
         if editingStyle == .delete
         {
-            coreDateViewModel.deleteFromWishList(id: wishListCoreDate?[indexPath.row].value(forKey: "id") as? Int ?? 0 )
-            wishTV.reloadData()
-//            dataVM?.deleteProductFromCoreData(deletedProductType: 2, productId: wishListSavedProducts[indexPath.row].value(forKey: "product_id") as? Int ?? 0 )
-//            wishListSavedProducts.remove(at: indexPath.row)
-//            wishTV.reloadData()
+            let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product?", preferredStyle: .actionSheet)
+            deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
+                self.coreDateViewModel.deleteFromWishList(id: self.wishListCoreDate?[indexPath.row].value(forKey: "id") as? Int ?? 0 )
+                self.wishListCoreDate?.remove(at: indexPath.row)
+                self.wishTV.reloadData()
+            }))
+            deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(deleteAlert, animated:true, completion:nil )
         }
         
     }
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    
-
 }
 
 
@@ -171,9 +175,22 @@ extension WishViewController : UITableViewDataSource
         cell.wishName.text = wishListCoreDate?[indexPath.row].value(forKey: "title") as? String ?? ""
         cell.wishDiscription.text = wishListCoreDate?[indexPath.row].value(forKey: "vendor") as? String ?? ""
         cell.wishPrice.text = wishListCoreDate?[indexPath.row].value(forKey: "price") as? String ?? ""
+        cell.wishDelete.tag = indexPath.row
+        cell.wishDelete.addTarget(self, action: #selector(deleteButton(_:)), for: .touchUpInside)
+        
         return cell
     }
     
+    @objc func deleteButton(_ sender: UIButton) {
+        let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product from your wish list?", preferredStyle: .actionSheet)
+        deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
+            self.coreDateViewModel.deleteFromWishList(id: self.wishListCoreDate?[sender.tag].value(forKey: "id") as? Int ?? 0 )
+            self.wishListCoreDate?.remove(at: sender.tag)
+            self.wishTV.reloadData()
+        }))
+        deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(deleteAlert, animated:true, completion:nil )
+    }
     /*func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "delete") { action, view, completionHandeler in
             
@@ -259,4 +276,5 @@ extension WishViewController
         }
     }
 }*/
+
 

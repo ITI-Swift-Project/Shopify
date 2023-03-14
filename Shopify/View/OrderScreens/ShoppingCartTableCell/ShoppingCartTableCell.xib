@@ -28,6 +28,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" image="trash" cornerStyle="capsule"/>
+                                <connections>
+                                    <action selector="deleteButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EOf-qQ-AWa"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1w8-Vp-f5e">
                                 <rect key="frame" x="143" y="11" width="217" height="24"/>
@@ -54,6 +57,9 @@
                                     </imageReference>
                                     <color key="baseBackgroundColor" name="thirdColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="plusButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0I3-Ph-hbb"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGL-Tj-9FM">
                                 <rect key="frame" x="143" y="35" width="217" height="21"/>
@@ -98,6 +104,9 @@
                                     </imageReference>
                                     <color key="baseBackgroundColor" name="thirdColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="minsButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="y0n-Ik-bXS"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

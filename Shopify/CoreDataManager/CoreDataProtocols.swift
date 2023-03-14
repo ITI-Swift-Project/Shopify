@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 protocol CartCD {
-    func saveToCart(id: Int, title: String, price: String, quantity: Int , image: String , vendor : String)
+    func saveToCart(id: Int, title: String, price: String, quantity: Int , image: String , vendor : String , inventory : Int)
     func fetchFromCart()-> [NSManagedObject]?
     func deleteFromCart(id : Int)
 }

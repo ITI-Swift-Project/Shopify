@@ -20,9 +20,7 @@ class ShoppingCartTableCell: UITableViewCell {
     @IBOutlet weak var cartProductSuTotalPrice: UILabel!
     
     @IBOutlet weak var cartProductsCount: UILabel!
-  
     @IBOutlet weak var deleteCartProduct: UIButton!
-    
     @IBOutlet weak var increaseProductItemCount: UIButton!
     
     @IBOutlet weak var decreaseProductItemCount: UIButton!
@@ -35,6 +33,14 @@ class ShoppingCartTableCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    
+    @IBAction func minsButton(_ sender: UIButton) {
+    }
+    @IBAction func plusButton(_ sender: UIButton) {
+    }
+    @IBAction func deleteButton(_ sender: UIButton) {
     }
     
 }
