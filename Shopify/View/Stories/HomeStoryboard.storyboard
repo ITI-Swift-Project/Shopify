@@ -84,7 +84,7 @@
                                             <navigationItem title="Home" id="boF-z3-JZL">
                                                 <barButtonItem key="leftBarButtonItem" id="Npu-Ke-Njb">
                                                     <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="hxJ-3P-WCp">
-                                                        <rect key="frame" x="16" y="5" width="40" height="40"/>
+                                                        <rect key="frame" x="16" y="2" width="40" height="40"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="gray" image="Search" title="" cornerStyle="capsule" buttonSize="mini">
@@ -98,7 +98,7 @@
                                                 <rightBarButtonItems>
                                                     <barButtonItem id="Vbb-mq-uOd">
                                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="8rd-W6-htG">
-                                                            <rect key="frame" x="264" y="5" width="40" height="40"/>
+                                                            <rect key="frame" x="264" y="2" width="40" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="gray" image="shoppingCart" title="" cornerStyle="capsule" buttonSize="mini">
@@ -111,7 +111,7 @@
                                                     </barButtonItem>
                                                     <barButtonItem id="nu5-Hn-4K0">
                                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="6tv-yS-M2V">
-                                                            <rect key="frame" x="212" y="3" width="44" height="44"/>
+                                                            <rect key="frame" x="212" y="0.0" width="44" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="gray" image="suit" title="" cornerStyle="capsule" buttonSize="mini">
@@ -401,13 +401,13 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="184" translatesAutoresizingMaskIntoConstraints="NO" id="3ZD-Mm-ikS">
                                                 <rect key="frame" x="25" y="167.5" width="342" height="37"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Sizes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A0a-WF-66l">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" ambiguous="YES" text="Sizes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A0a-WF-66l">
                                                         <rect key="frame" x="0.0" y="0.0" width="71" height="37"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="31"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Colors" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chH-1I-Jku">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Colors" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chH-1I-Jku">
                                                         <rect key="frame" x="255" y="0.0" width="87" height="37"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="31"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -579,11 +579,6 @@
             <point key="canvasLocation" x="84.732824427480907" y="4.2253521126760569"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="kqh-Vo-tcl">
-            <size key="intrinsicContentSize" width="120" height="20"/>
-        </designable>
-    </designables>
     <resources>
         <image name="Home" width="29" height="33"/>
         <image name="Search" width="20" height="20"/>

@@ -55,6 +55,14 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     
     @IBAction func addProductToCart(_ sender: Any) {
         
+        if coreDateViewModel.cartState {
+            let alert : UIAlertController = UIAlertController(title: "", message: "This Product is already in your cart", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true , completion: nil)
+        }else{
+            coreDateViewModel.addToCart(id: product.id ?? 0, title: product.title ?? "" , price: product.variants?.first?.price ?? "" , quantity: product.variants?.first?.inventory_quantity ?? 0, image: product.images?.first?.src ?? "" , vendor: product.vendor ?? "")
+    
+        }
         
             let deleteAlert : UIAlertController  = UIAlertController(title:"Add product to shopping cart", message:"Are you sure you want to add this product to shopping cart?", preferredStyle: .actionSheet)
             deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
@@ -110,33 +118,37 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         
     }
     @IBAction func favvBtn(_ sender: Any) {
-        if  productState == false
-        {
+        if coreDateViewModel.wishListState {
+            let alert : UIAlertController = UIAlertController(title: "Delete From Wish List", message: "Are you sure you want to delete this product from wish list?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .default , handler: { [self]action in
+                coreDateViewModel.deleteFromWishList(id: product.id ?? 0)
+                favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            self.present(alert, animated: true , completion: nil)
+        }else{
+            coreDateViewModel.addToWishList(id: product.id ?? 0, title: product.title ?? "" , price: product.variants?.first?.price ?? "" , quantity: product.variants?.first?.inventory_quantity ?? 0, image: product.images?.first?.src ?? "" , vendor: product.vendor ?? "")
             favbtn.setImage(UIImage(systemName:  "heart.fill"), for: .normal)
-            productState = true
-            dataViewModel?.saveProductToCoreData(productTypt: 2, draftproduct: product)
-        }
-        else if productState == true
-        {
-            favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
-            productState = false
-             dataViewModel?.deleteProductFromCoreData(deletedProductType: 2, productId: product.id ?? 0)
+    
         }
     }
 
     override func viewWillAppear(_ animated: Bool)
     {
         
-        if productState == true
-        {
-            favbtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        }
     }
+    
+    var coreDateViewModel : CoreDataViewModelClass!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        coreDateViewModel = CoreDataViewModelClass()
+        self.checkWishListState()
+        self.checkCartState()
+        
         dataViewModel = CoreDataViewModel()
-        productState =  isAddedToWishList(productId: product.id ?? 0)
+     
         networkViewModel = ShoppingCartProductsViewModel()
         networkViewModel?.getCartProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json")
 
@@ -170,7 +182,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
       //  txtView.layer.cornerRadius = txtView.frame.size.height / 2
       // txtView.clipsToBounds = true
         txtView.isEditable = false
-//        myscroll.layer.cornerRadius = myscroll.frame.size.height / 9
+   //     myscroll.layer.cornerRadius = myscroll.frame.size.height / 9
        myscroll.clipsToBounds = true
         
         cartBtn.layer.cornerRadius = cartBtn.frame.size.height / 2
@@ -189,7 +201,19 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
     }
         
     
+    //MARK: - WishList
     
+    func checkWishListState(){
+        if coreDateViewModel.checkWishListState(id: product.id ?? 0) {
+            favbtn.setImage(UIImage(systemName:  "heart.fill"), for: .normal)
+        }else{
+            favbtn.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+    }
+    
+    func checkCartState(){
+         coreDateViewModel.checkCartState(id: product.id ?? 0)
+    }
     
     
     private func makeSize_ColorPostRequest()

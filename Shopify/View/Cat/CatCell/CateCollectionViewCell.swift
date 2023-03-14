@@ -19,10 +19,13 @@ class CateCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var addProductToWishList: UIButton!
     @IBOutlet weak var typeLabel: UILabel!
-    
+    @IBOutlet weak var wishButtonOutlet: UIButton!
+    var product : Product?
+    var coreDateViewModel : CoreDataViewModelClass!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        coreDateViewModel = CoreDataViewModelClass()
+        coreDateViewModel.checkWishListState(id: product?.id ?? 0)
     }
     func configImg(name : URL)->Void
     {
@@ -37,5 +40,17 @@ class CateCollectionViewCell: UICollectionViewCell {
         vendorLabel.text  = vendor
         typeLabel.text    = price
     }
-
+    
+    @IBAction func wishButton(_ sender: UIButton) {
+//        if coreDateViewModel.wishListState {
+//            print("deletes")
+//                coreDateViewModel.deleteFromWishList(id: product?.id ?? 0)
+//            sender.setImage(UIImage(systemName:  "heart"), for: .normal)
+//        }else{
+//            print("Added")
+//            coreDateViewModel.addToWishList(id: product?.id ?? 0, title: product?.title ?? "" , price:  product?.variants?.first?.price ?? "" , quantity: product?.variants?.first?.inventory_quantity ?? 0, image: product?.images?.first?.src ?? "" , vendor: vendorLabel.text ?? "")
+//            sender.setImage(UIImage(systemName:  "heart.fill"), for: .normal)
+//        }
+    }
+        
 }

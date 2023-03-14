@@ -20,6 +20,7 @@ class BrandsViewController: UIViewController {
     var itemsArray : [Product] = []
     var filterItems : [Product] = []
     var dataVM : CoreDataViewModel?
+    var coreDateViewModel : CoreDataViewModelClass!
     var productState : Bool?
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var sliderView: UIView!{
@@ -40,6 +41,7 @@ class BrandsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dataVM = CoreDataViewModel()
+        coreDateViewModel = CoreDataViewModelClass()
         createFloatyButton()
         brandsCollection.layer.cornerRadius = 20
        
@@ -47,8 +49,8 @@ class BrandsViewController: UIViewController {
         networkViewModel = BrandItemsViewModel()
         networkViewModel?.getItems(brandId: brandId)
         networkViewModel?.bindingBrandItems = {
-            //            print(self.homeViewModel?.brandsResult.count)
-            //            print(self.homeViewModel?.brandsResult[0].id)
+            //print(self.homeViewModel?.brandsResult.count)
+            //print(self.homeViewModel?.brandsResult[0].id)
             DispatchQueue.main.async {
                 self.itemsArray = self.networkViewModel!.brandItemsResult.products ?? []
                 self.filterItems = self.itemsArray
@@ -69,6 +71,11 @@ class BrandsViewController: UIViewController {
           }
           print("FA\(currencyConverter)")
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.brandsCollection.reloadData()
+    }
+    
     @IBAction func searchAction(_ sender: Any) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "SearchStoryboard", bundle: nil)
         let searchViewController = storyBoard.instantiateViewController(withIdentifier: "search") as! SearchViewController
@@ -85,7 +92,7 @@ class BrandsViewController: UIViewController {
         floaty?.buttonImage = UIImage(named: "filter 2")
         
         view.addSubview(floaty!)
-        
+
         let filterByPriceButton = FloatyItem()
         filterByPriceButton.title = "Price"
         //MARK: Price Frilter
@@ -176,25 +183,34 @@ extension BrandsViewController : UICollectionViewDataSource{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catCell", for: indexPath) as! CateCollectionViewCell
         cell.configImg(name: URL(string: (filterItems[indexPath.row].image?.src!)!)!)
         cell.configProductInfo(name: filterItems[indexPath.row].title!, vendor: filterItems[indexPath.row].vendor!, price: String((Float(filterItems[indexPath.row].variants?[0].price ?? "") ?? 0.0) * currencyConverter).appending(" ").appending(currency ?? ""))
-        if isAddedToWishList(productId: filterItems[indexPath.row].id ?? 0) == true
-        {
-            cell.addProductToWishList.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        }
-        else
-        {
-            cell.addProductToWishList.setImage(UIImage(systemName: "heart"), for: .normal)
-
-        }
-
-        cell.addProductToWishList.tag = indexPath.row
-        cell.addProductToWishList.addTarget(self, action: #selector(addToWishlist(sender:)), for: .touchUpInside)
-     
+        
+        coreDateViewModel.checkWishListState(id: filterItems[indexPath.row].id ?? 0)
+         if coreDateViewModel.wishListState {
+             cell.wishButtonOutlet.setImage(UIImage(systemName:  "heart.fill"), for: .normal)
+         }else{
+             cell.wishButtonOutlet.setImage(UIImage(systemName: "heart"), for: .normal)
+         }
+        
+        cell.wishButtonOutlet.tag = indexPath.row
+        cell.wishButtonOutlet.addTarget(self, action: #selector(wishButton(_:)), for: .touchUpInside)
         cell.layer.cornerRadius  = 25.0
         cell.backView.layer.cornerRadius = 30
         cell.backView.layer.shadowRadius = 3
         cell.backView.layer.shadowColor = UIColor.gray.cgColor
         cell.backView.layer.shadowOpacity = 0.8
         return cell
+    }
+    
+    @objc func wishButton(_ sender: UIButton) {
+        if coreDateViewModel.wishListState {
+            print("deletes")
+            coreDateViewModel.deleteFromWishList(id: filterItems[sender.tag].id ?? 0)
+            sender.setImage(UIImage(systemName:  "heart"), for: .normal)
+        }else{
+            print("Added")
+            coreDateViewModel.addToWishList(id: filterItems[sender.tag].id ?? 0, title: filterItems[sender.tag].title ?? "" , price:  filterItems[sender.tag].variants?.first?.price ?? "" , quantity: filterItems[sender.tag].variants?.first?.inventory_quantity ?? 0, image: filterItems[sender.tag].images?.first?.src ?? "" , vendor: filterItems[sender.tag].vendor ?? "")
+            sender.setImage(UIImage(systemName:  "heart.fill"), for: .normal)
+        }
     }
     
     
@@ -214,48 +230,4 @@ extension BrandsViewController : UICollectionViewDelegateFlowLayout
             return CGFloat(15)
         }
         
-}
-extension BrandsViewController
-{
-    @objc func addToWishlist(sender : UIButton)
-    {
-        if isAddedToWishList(productId: filterItems[sender.tag].id ?? 0) == false
-        {
-            dataVM?.saveProductToCoreData(productTypt: 2, draftproduct: filterItems[sender.tag])
-            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        }
-        if isAddedToWishList(productId: filterItems[sender.tag].id ?? 0) == true
-        {
-            sender.setImage(UIImage(systemName: "heart"), for: .normal)
-            dataVM?.deleteProductFromCoreData(deletedProductType: 2, productId: filterItems[sender.tag].id ?? 0)
-        }
-    }
-    
-    func isAddedToWishList (productId: Int) -> Bool
-     {
-         var state : Bool = false
-         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-         let managedContext = appDelegate.persistentContainer.viewContext
-         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ShoppingCartProduct")
-        // let fpred = NSPredicate(format: "product_type == %i", 2)
-         let pred = NSPredicate(format: "product_id == %i", productId)
-         var count : Int?
-         fetchRequest.predicate = pred
-         do{
-              count = try managedContext.fetch(fetchRequest).count
-         }catch let error{
-             print(error.localizedDescription)
-         }
-         if count == 0
-         {
-             state = false
-         }
-         else
-         {
-             state = true
-         }
-        return state
-     }
-
-    
 }
