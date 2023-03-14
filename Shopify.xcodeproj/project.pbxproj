@@ -75,6 +75,7 @@
 		27BC8F4A29BFD5250045CCFB /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC8F4929BFD5250045CCFB /* CoreDataManager.swift */; };
 		27BC8F4C29BFD58C0045CCFB /* CoreDataProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC8F4B29BFD58C0045CCFB /* CoreDataProtocols.swift */; };
 		27BC8F4E29BFDD400045CCFB /* CoreDataViewModelClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC8F4D29BFDD400045CCFB /* CoreDataViewModelClass.swift */; };
+		27C4CE0529C11D590080A986 /* CoreDataManagerTestes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C4CE0429C11D590080A986 /* CoreDataManagerTestes.swift */; };
 		27EA835A29BEC2A2009D5B5D /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA835929BEC2A2009D5B5D /* MockNetworkService.swift */; };
 		27EA835C29BED0A0009D5B5D /* MockNetworkServiceTestes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA835B29BED0A0009D5B5D /* MockNetworkServiceTestes.swift */; };
 		4F0A2B6C29AAA2CE008B2F1D /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A2B6B29AAA2CE008B2F1D /* AboutUsViewController.swift */; };
@@ -207,6 +208,7 @@
 		27BC8F4929BFD5250045CCFB /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		27BC8F4B29BFD58C0045CCFB /* CoreDataProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocols.swift; sourceTree = "<group>"; };
 		27BC8F4D29BFDD400045CCFB /* CoreDataViewModelClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataViewModelClass.swift; sourceTree = "<group>"; };
+		27C4CE0429C11D590080A986 /* CoreDataManagerTestes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerTestes.swift; sourceTree = "<group>"; };
 		27EA835929BEC2A2009D5B5D /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
 		27EA835B29BED0A0009D5B5D /* MockNetworkServiceTestes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkServiceTestes.swift; sourceTree = "<group>"; };
 		4F0A2B6B29AAA2CE008B2F1D /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
@@ -651,6 +653,7 @@
 				2777EB5029BEADC400570661 /* NetworkServicesTestes.swift */,
 				27EA835929BEC2A2009D5B5D /* MockNetworkService.swift */,
 				27EA835B29BED0A0009D5B5D /* MockNetworkServiceTestes.swift */,
+				27C4CE0429C11D590080A986 /* CoreDataManagerTestes.swift */,
 			);
 			path = ShopifyTests;
 			sourceTree = "<group>";
@@ -852,6 +855,7 @@
 				27149161299FB287008BC7F6 /* Sources */,
 				27149162299FB287008BC7F6 /* Frameworks */,
 				27149163299FB287008BC7F6 /* Resources */,
+				35005E42671BD2BAABDA5D03 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -992,6 +996,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		35005E42671BD2BAABDA5D03 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShopifyTests/Pods-ShopifyTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShopifyTests/Pods-ShopifyTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShopifyTests/Pods-ShopifyTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6E4D8103A9FC5719EA6102F7 /* [CP] Check Pods Manifest.lock */ = {
@@ -1165,6 +1186,7 @@
 				2777EB5129BEADC400570661 /* NetworkServicesTestes.swift in Sources */,
 				27EA835C29BED0A0009D5B5D /* MockNetworkServiceTestes.swift in Sources */,
 				2714916A299FB287008BC7F6 /* ShopifyTests.swift in Sources */,
+				27C4CE0529C11D590080A986 /* CoreDataManagerTestes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

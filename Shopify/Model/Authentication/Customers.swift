@@ -19,8 +19,12 @@ struct Customers : Codable
 {
     let customers : [allCustomers]?
 }
-struct Customer : Decodable
+struct Customer : Codable , Equatable
 {
+    static func == (lhs: Customer, rhs: Customer) -> Bool {
+        return lhs.customer?.id == rhs.customer?.id
+    }
+    
     var customer : allCustomers?
 }
 
