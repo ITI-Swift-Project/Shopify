@@ -31,6 +31,8 @@ class CartViewController: UIViewController {
     var userdef = UserDefaults.standard
     var currencyConverter : Float = 0.0
     var currency : String?
+    var cartCoreDate : [NSManagedObject]?
+    var coreDateViewModel : CoreDataViewModelClass!
   
     @IBOutlet weak var shoppingCartFrame: UIView!
     @IBOutlet weak var subTotal: UILabel!
@@ -58,6 +60,9 @@ class CartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         coreDateViewModel = CoreDataViewModelClass()
+        cartCoreDate = coreDateViewModel.wishListDataBase.fetchFromWishList()
+        print(cartCoreDate?[0].value(forKey: "title") as? String ?? "")
         cartVCStyle()
             self.dataViewModel = CoreDataViewModel()
             self.productViewModel = ProductViewModel()
@@ -80,17 +85,18 @@ class CartViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        reachability = Reachability.forInternetConnection()
-        if ((reachability!.isReachable()) )
-        {
-            flag = true
-        }
-        else
-        {
-            flag = false
-            shoppingCartItemsListCoreData = dataViewModel?.fetchProductsFromCoreData(productType: 1)
-        }
         self.shoppingCartTableView.reloadData()
+//        reachability = Reachability.forInternetConnection()
+//        if ((reachability!.isReachable()) )
+//        {
+//            flag = true
+//        }
+//        else
+//        {
+//            flag = false
+//            shoppingCartItemsListCoreData = dataViewModel?.fetchProductsFromCoreData(productType: 1)
+//        }
+       // self.shoppingCartTableView.reloadData()
     }
     
     @IBAction func backAction(_ sender: Any) {
@@ -104,64 +110,80 @@ extension CartViewController : UITableViewDataSource
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if flag == true
-        {
-            return shoppingCartItemsList.count
-        }
-        else
-        {
-            return shoppingCartItemsListCoreData?.count ?? 0
-        }
+//        if flag == true
+//        {
+//            return shoppingCartItemsList.count
+//        }
+//        else
+//        {
+//            return shoppingCartItemsListCoreData?.count ?? 0
+//        }
+        return cartCoreDate?.count ?? 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "shoppingCartCell", for: indexPath) as! ShoppingCartTableCell
         
-        if flag == true
-        {
-            cell.layer.masksToBounds = true
-            cell.layer.cornerRadius = 30
-            for item in productsArr
-            {
-                if shoppingCartItemsList[indexPath.row].product_id == item.id
-                {
-                    cell.cartProductImage.kf.setImage(with: URL(string: item.image?.src ?? ""),placeholder: UIImage(named: " "))
-                //    productsImages.append(item.image!)
-                }
-            }
-            cell.cartProductName.text = shoppingCartItemsList[indexPath.row].title
-            cell.cartProductDescription.text = ""
-            cell.cartProductsCount.text = String((shoppingCartItemsList[indexPath.row].quantity ?? 0))
-            let quantity = Float(shoppingCartItemsList[indexPath.row].quantity ?? 0)
-            let price = (Float(shoppingCartItemsList[indexPath.row].price ?? "") ?? 0.0) * currencyConverter
-            cell.cartProductPrice.text = String(price).appending(" ").appending(currency ?? "")
-            cell.cartProductSuTotalPrice.text = String(quantity * price).appending(" ").appending(currency ?? "")
-            cell.deleteCartProduct.tag = indexPath.row
-            cell.increaseProductItemCount.tag = indexPath.row
-            cell.decreaseProductItemCount.tag = indexPath.row
-            cell.increaseProductItemCount.addTarget(self, action: #selector(increaseProductsCount(sender:)), for: .touchUpInside)
-            cell.decreaseProductItemCount.addTarget(self, action: #selector(decreaseProductsCount(sender:)), for: .touchUpInside)
-            cell.deleteCartProduct.addTarget(self, action: #selector(deleteCartProduct(sender: )), for: .touchUpInside)
-        }
-        else if flag == false
-        {
-            cell.layer.masksToBounds = true
-            cell.layer.cornerRadius = 30
-            cell.cartProductImage.image = UIImage(named: "product")
-            cell.cartProductName.text = shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_title") as? String
-            //   cell.cartProductPrice.text = (shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_price")).appending(" ").appending(shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_currency") ?? "")
-            cell.cartProductsCount.text = (shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_quantity"))! as? String
-            //  let quantity = Float(shoppingCartItemsList?[indexPath.row].line_items?[0].quantity ?? 0)
-            // let price = Float(shoppingCartItemsList?[indexPath.row].line_items?[0].price ?? "")
-            //  cell.cartProductSuTotalPrice.text = String(quantity * price!).appending(" ").appending(shoppingCartItemsList?[indexPath.row].currency ?? "")
-        }
-        cell.cartProductsCount.layer.masksToBounds = true
-        cell.cartProductsCount.layer.cornerRadius = 12
-        cell.cartCellBackView.layer.cornerRadius = 20
-        cell.cartCellBackView.backgroundColor = .white
-        cell.cartCellBackView.layer.shadowRadius = 3
-        cell.cartCellBackView.layer.shadowOpacity = 0.5
-        cell.cartCellBackView.layer.shadowOffset = CGSize(width: 5, height: 5)
+        cell.cartProductName.text = cartCoreDate?[indexPath.row].value(forKey: "title") as? String ?? ""
+        cell.cartProductDescription.text = ""
+        cell.cartProductsCount.text = String(cartCoreDate?[indexPath.row].value(forKey: "quantity") as? Int ?? 0)
+        let quantity = Float(cartCoreDate?[indexPath.row].value(forKey: "quantity") as? Int ?? 0)
+        let price = (Float(cartCoreDate?[indexPath.row].value(forKey: "price") as? String ?? "") ?? 0.0) * currencyConverter
+        cell.cartProductPrice.text = cartCoreDate?[indexPath.row].value(forKey: "price") as? String ?? ""
+        cell.cartProductSuTotalPrice.text = String(quantity * price).appending(" ").appending(currency ?? "")
+        cell.deleteCartProduct.tag = indexPath.row
+        cell.increaseProductItemCount.tag = indexPath.row
+        cell.decreaseProductItemCount.tag = indexPath.row
+        cell.increaseProductItemCount.addTarget(self, action: #selector(increaseProductsCount(sender:)), for: .touchUpInside)
+        cell.decreaseProductItemCount.addTarget(self, action: #selector(decreaseProductsCount(sender:)), for: .touchUpInside)
+        cell.deleteCartProduct.addTarget(self, action: #selector(deleteCartProduct(sender: )), for: .touchUpInside)
         
+//        if flag == true
+//        {
+//            cell.layer.masksToBounds = true
+//            cell.layer.cornerRadius = 30
+//            for item in productsArr
+//            {
+//                if shoppingCartItemsList[indexPath.row].product_id == item.id
+//                {
+//                    cell.cartProductImage.kf.setImage(with: URL(string: item.image?.src ?? ""),placeholder: UIImage(named: " "))
+//                //    productsImages.append(item.image!)
+//                }
+//            }
+//            cell.cartProductName.text = shoppingCartItemsList[indexPath.row].title
+//            cell.cartProductDescription.text = ""
+//            cell.cartProductsCount.text = String((shoppingCartItemsList[indexPath.row].quantity ?? 0))
+//            let quantity = Float(shoppingCartItemsList[indexPath.row].quantity ?? 0)
+//            let price = (Float(shoppingCartItemsList[indexPath.row].price ?? "") ?? 0.0) * currencyConverter
+//            cell.cartProductPrice.text = String(price).appending(" ").appending(currency ?? "")
+//            cell.cartProductSuTotalPrice.text = String(quantity * price).appending(" ").appending(currency ?? "")
+//            cell.deleteCartProduct.tag = indexPath.row
+//            cell.increaseProductItemCount.tag = indexPath.row
+//            cell.decreaseProductItemCount.tag = indexPath.row
+//            cell.increaseProductItemCount.addTarget(self, action: #selector(increaseProductsCount(sender:)), for: .touchUpInside)
+//            cell.decreaseProductItemCount.addTarget(self, action: #selector(decreaseProductsCount(sender:)), for: .touchUpInside)
+//            cell.deleteCartProduct.addTarget(self, action: #selector(deleteCartProduct(sender: )), for: .touchUpInside)
+//        }
+//        else if flag == false
+//        {
+//            cell.layer.masksToBounds = true
+//            cell.layer.cornerRadius = 30
+//            cell.cartProductImage.image = UIImage(named: "product")
+//            cell.cartProductName.text = shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_title") as? String
+//            //   cell.cartProductPrice.text = (shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_price")).appending(" ").appending(shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_currency") ?? "")
+//            cell.cartProductsCount.text = (shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_quantity"))! as? String
+//            //  let quantity = Float(shoppingCartItemsList?[indexPath.row].line_items?[0].quantity ?? 0)
+//            // let price = Float(shoppingCartItemsList?[indexPath.row].line_items?[0].price ?? "")
+//            //  cell.cartProductSuTotalPrice.text = String(quantity * price!).appending(" ").appending(shoppingCartItemsList?[indexPath.row].currency ?? "")
+//        }
+//        cell.cartProductsCount.layer.masksToBounds = true
+//        cell.cartProductsCount.layer.cornerRadius = 12
+//        cell.cartCellBackView.layer.cornerRadius = 20
+//        cell.cartCellBackView.backgroundColor = .white
+//        cell.cartCellBackView.layer.shadowRadius = 3
+//        cell.cartCellBackView.layer.shadowOpacity = 0.5
+//        cell.cartCellBackView.layer.shadowOffset = CGSize(width: 5, height: 5)
+//
         return cell
     }
 }

@@ -25,6 +25,8 @@ class WishViewController: UIViewController {
     var productsArr : [Product] = []
     var dataVM : CoreDataViewModel?
     var wishListSavedProducts : [NSManagedObject] = []
+    var coreDateViewModel : CoreDataViewModelClass!
+    var wishListCoreDate : [NSManagedObject]?
  
     @IBOutlet weak var wishV: UIView!
     @IBOutlet weak var wishTV: UITableView!
@@ -38,6 +40,8 @@ class WishViewController: UIViewController {
         super.viewDidLoad()
         
         dataVM = CoreDataViewModel()
+        coreDateViewModel = CoreDataViewModelClass()
+        wishListCoreDate = coreDateViewModel.wishListDataBase.fetchFromWishList()
        // self.workingWithDispatchGroup()
         
        // getData(from: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders.json")
@@ -69,10 +73,8 @@ class WishViewController: UIViewController {
         self.wishTV.backgroundColor = UIColor(named: "thirdColor")
         
         
-        // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
-        wishListSavedProducts = dataVM?.fetchProductsFromCoreData(productType: 2) ?? []
         wishTV.reloadData()
     }
     
@@ -80,39 +82,7 @@ class WishViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    /*
-    private func getData(from url : String) -> DraftOrders
-    {
-       
-        let task = URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: { data, response, error in
-            guard let data = data , error == nil else{
-                Swift.print("Somthing Went Wrong")
-                return
-            }
-            
-            
-            var result : DraftOrders?
-            do {
-                result = try JSONDecoder().decode(DraftOrders.self, from: data)
-            }catch{
-                Swift.print("failed to convert \(error.localizedDescription)")
-            }
-            guard let json = result else{
-                return
-            }
-          //  print(json.first_name)
-          //  print(json.email)
-            Swift.print("doneeee")
-            Swift.print(data.count)
-        //  var  wishListItems = result
-           // print(json.addresses)
-          
-        }
-                                              return result
-        )
-        task.resume()
-        
-    }*/
+  
     
     private func getData(from url : String)
     {
@@ -124,7 +94,6 @@ class WishViewController: UIViewController {
                 Swift.print("Somthing Went Wrong")
                 return
             }
-            //have data
             
             do {
                 self.wishListItems = try JSONDecoder().decode(DraftOrders.self, from: data)
@@ -136,12 +105,6 @@ class WishViewController: UIViewController {
             guard let json = self.wishListItems else{
                 return
             }
-          //  print(json.first_name)
-          //  print(json.email)
-            Swift.print("doneeee")
-           // print(data.count)
-           // print(json.addresses)
-            
         }
         task.resume()
         semaphore.wait()
@@ -165,9 +128,11 @@ extension WishViewController : UITableViewDelegate
         
         if editingStyle == .delete
         {
-            dataVM?.deleteProductFromCoreData(deletedProductType: 2, productId: wishListSavedProducts[indexPath.row].value(forKey: "product_id") as? Int ?? 0 )
-            wishListSavedProducts.remove(at: indexPath.row)
+            coreDateViewModel.deleteFromWishList(id: wishListCoreDate?[indexPath.row].value(forKey: "id") as? Int ?? 0 )
             wishTV.reloadData()
+//            dataVM?.deleteProductFromCoreData(deletedProductType: 2, productId: wishListSavedProducts[indexPath.row].value(forKey: "product_id") as? Int ?? 0 )
+//            wishListSavedProducts.remove(at: indexPath.row)
+//            wishTV.reloadData()
         }
         
     }
@@ -175,20 +140,7 @@ extension WishViewController : UITableViewDelegate
         return .delete
     }
     
-    /*
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var productId = wishlistLineItems[indexPath.row].product_id ?? 0
-        networkViewModel?.getSingleProduct(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/products/\(productId).json")
-        networkViewModel?.bindingProduct = {
-            DispatchQueue.main.async { () in
-                self.product = (self.networkViewModel?.productResult)!
-                self.wishTV.reloadData()
-                
-            }
-        }
-        
-    }
-    */
+
 }
 
 
@@ -196,8 +148,7 @@ extension WishViewController : UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         Swift.print("\(wishListItems?.draft_orders?.count ?? 0)")
-        return wishListSavedProducts.count
-        //wishListItems?.draft_orders?.count ?? 0
+        return wishListCoreDate?.count ?? 0
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -205,13 +156,7 @@ extension WishViewController : UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "list", for: indexPath) as! wishTableViewCell
-      /*  cell.wishImg.image = UIImage(named: "product")
-        cell.wishName.adjustsFontSizeToFitWidth = true
-        cell.wishName.text = wishListItems?.draft_orders?[indexPath.row].line_items?[0].title
-        cell.wishDiscription.text = wishListItems?.draft_orders?[indexPath.row].line_items?[0].vendor
-        cell.wishPrice.text = wishListItems?.draft_orders?[indexPath.row].line_items?[0].price
-        */
-        
+    
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = 30
         cell.backView.layer.cornerRadius = 20
@@ -219,12 +164,13 @@ extension WishViewController : UITableViewDataSource
         cell.backView.layer.shadowRadius = 3
         cell.backView.layer.shadowOpacity = 0.5
         cell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
-        cell.wishImg.kf.setImage(with: URL(string: wishListSavedProducts[indexPath.row].value(forKey: "product_image") as? String ?? ""),placeholder: UIImage(named: " "))
+        
+        cell.wishImg.kf.setImage(with: URL(string: wishListCoreDate?[indexPath.row].value(forKey: "image") as? String ?? ""),placeholder: UIImage(named: " "))
 
-       //cell.wishName.adjustsFontSizeToFitWidth = true
-        cell.wishName.text = wishListSavedProducts[indexPath.row].value(forKey: "product_title") as? String ?? ""
-        cell.wishDiscription.text = wishListSavedProducts[indexPath.row].value(forKey: "product_vendor") as? String ?? ""
-        cell.wishPrice.text = wishListSavedProducts[indexPath.row].value(forKey: "product_price") as? String ?? ""
+       
+        cell.wishName.text = wishListCoreDate?[indexPath.row].value(forKey: "title") as? String ?? ""
+        cell.wishDiscription.text = wishListCoreDate?[indexPath.row].value(forKey: "vendor") as? String ?? ""
+        cell.wishPrice.text = wishListCoreDate?[indexPath.row].value(forKey: "price") as? String ?? ""
         return cell
     }
     

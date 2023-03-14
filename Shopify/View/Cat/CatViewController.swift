@@ -16,6 +16,7 @@ class CatViewController: UIViewController {
     var userdef = UserDefaults.standard
     var currencyConverter : Float = 0.0
     var currency : String?
+    var coreDateViewModel : CoreDataViewModelClass!
     @IBOutlet weak var kids: UIBarButtonItem!
     
     @IBOutlet weak var sale: UIBarButtonItem!
@@ -33,7 +34,7 @@ class CatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createFloatyButton()
-       
+        coreDateViewModel = CoreDataViewModelClass()
         menButton.tintColor = UIColor.white
         woman.tintColor = UIColor.white
         kids.tintColor = UIColor.white
@@ -53,12 +54,11 @@ class CatViewController: UIViewController {
     }
    
     override func viewWillAppear(_ animated: Bool) {
-       
+        self.catCollection.reloadData()
     }
     //MARK: Floaty Creation
     func createFloatyButton(){
         floaty = Floaty()
-        //        floaty?.tintColor = UIColor(named:"third" )
         floaty?.buttonColor = UIColor(named: "firstColor")!
         floaty?.backgroundColor = UIColor(named: "third")
         floaty?.size = CGFloat(70)
@@ -69,7 +69,6 @@ class CatViewController: UIViewController {
         filterByPriceButton.title = "Price"
         
         floaty!.addItem(icon : UIImage(named: "accessories")){_ in
-            // Code to execute when button 1 is tapped
             switch self.flag{
             case 0:
                 let endpoint  = APIEndpoint.products
@@ -92,7 +91,6 @@ class CatViewController: UIViewController {
             }
         }
         floaty!.addItem(icon : UIImage(named: "t-shirt")){_ in
-            // Code to execute when button 2 is tapped
             switch self.flag{
             case 0:
                 let endpoint  = APIEndpoint.products
@@ -116,7 +114,6 @@ class CatViewController: UIViewController {
         }
        
         floaty!.addItem(icon : UIImage(named: "shoes")){_ in
-            // Code to execute when button 2 is tapped
             switch self.flag{
             case 0:
                 let endpoint  = APIEndpoint.products
@@ -149,7 +146,6 @@ class CatViewController: UIViewController {
         let storyBoard: UIStoryboard = UIStoryboard(name: "SearchStoryboard", bundle: nil)
         let searchViewController = storyBoard.instantiateViewController(withIdentifier: "search") as! SearchViewController
         searchViewController.productsArray = result
-        //productDetailsViewController.arrProducts = result
         self.navigationController?.pushViewController(searchViewController, animated: true)
     }
     //MARK: Filter By Men
@@ -166,11 +162,6 @@ class CatViewController: UIViewController {
     //MARK: Filter By Wemen
     @IBAction func filterByWomen(_ sender: Any) {
         menButton.tintColor = UIColor.white
-         //Create a custom image with the desired background color
-       // let selectedImage = UIImage(named: "white")?.withTintColor(UIColor.red)
-
-//        // Set the selected image of the tab bar item to the custom image
-//        menButton.setBackgroundImage(selectedImage, for: .highlighted, barMetrics: .default)
         woman.tintColor = UIColor.black
         kids.tintColor = UIColor.white
         sale.tintColor = UIColor.white
@@ -249,14 +240,13 @@ class CatViewController: UIViewController {
     }
     
     @IBAction func wishList(_ sender: Any) {
-        if !(UserDefaults.standard.bool(forKey: "loginState")) ?? false
+        if !(UserDefaults.standard.bool(forKey: "loginState")) 
         {
             makeAlert()
         }
         else{
             let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
             let wishListViewController = storyBoard.instantiateViewController(withIdentifier: "wishList") as! WishViewController
-            //productDetailsViewController.arrProducts = result
             self.navigationController?.pushViewController(wishListViewController, animated: true)
         }
     }
@@ -268,7 +258,7 @@ class CatViewController: UIViewController {
         self.present(alert, animated: true)
     }
     @IBAction func cartAction(_ sender: Any) {
-        if !(UserDefaults.standard.bool(forKey: "loginState")) ?? false
+        if !(UserDefaults.standard.bool(forKey: "loginState")) 
         {
             makeAlert()
         }
@@ -297,22 +287,43 @@ extension CatViewController : UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catCell", for: indexPath) as! CateCollectionViewCell
 
+        cell.product = result[indexPath.row]
         if let urlString = result[indexPath.row].image?.src,
             let url = URL(string: urlString) {
             cell.configImg(name: url)
         }
-        
+           coreDateViewModel.checkWishListState(id: result[indexPath.row].id ?? 0)
+            if coreDateViewModel.wishListState {
+                cell.wishButtonOutlet.setImage(UIImage(systemName:  "heart.fill"), for: .normal)
+            }else{
+                cell.wishButtonOutlet.setImage(UIImage(systemName: "heart"), for: .normal)
+            }
 
         cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, price: String(Float(result[indexPath.row].variants?[0].price ?? "") ?? 0.0 * currencyConverter).appending(" ").appending(currency ?? ""))
         cell.layer.cornerRadius  = 25.0
-      //  cell.backView.layer.masksToBounds = true
         cell.backView.layer.cornerRadius = 30
         cell.backView.layer.shadowRadius = 3
         cell.backView.layer.shadowColor = UIColor.gray.cgColor
         cell.backView.layer.shadowOpacity = 0.8
-      //  cell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
+        cell.wishButtonOutlet.tag = indexPath.row
+        cell.wishButtonOutlet.addTarget(self, action: #selector(wishButton(_:)), for: .touchUpInside)
         return cell
     }
+    
+    
+    @objc func wishButton(_ sender: UIButton) {
+        
+        if coreDateViewModel.wishListState {
+            print("deletes")
+            coreDateViewModel.deleteFromWishList(id: result[sender.tag].id ?? 0)
+            sender.setImage(UIImage(systemName:  "heart"), for: .normal)
+        }else{
+            print("Added")
+            coreDateViewModel.addToWishList(id: result[sender.tag].id ?? 0, title: result[sender.tag].title ?? "" , price:  result[sender.tag].variants?.first?.price ?? "" , quantity: result[sender.tag].variants?.first?.inventory_quantity ?? 0, image: result[sender.tag].images?.first?.src ?? "" , vendor: result[sender.tag].vendor ?? "")
+            sender.setImage(UIImage(systemName:  "heart.fill"), for: .normal)
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
         let productDetailsViewController = storyBoard.instantiateViewController(withIdentifier: "productDetails") as! ProductDetailsViewController
