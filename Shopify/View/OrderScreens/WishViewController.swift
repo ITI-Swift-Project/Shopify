@@ -7,7 +7,8 @@
 
 import UIKit
 import CoreData
-
+import Reachability
+import TTGSnackbar
 class WishViewController: UIViewController {
     var catNames  = ["dgsdg", "dgsdgsd", "dgadgadg"]
     //var networkViewModel : BrandsViewModel?
@@ -15,7 +16,9 @@ class WishViewController: UIViewController {
     var managedContext : NSManagedObjectContext!
     var savedLeagues : [NSManagedObject] = []
     var deleteLeague : NSManagedObject?
-    
+    var flag : Bool = false
+    var reachability : Reachability?
+
     var product : Product = Product()
     let semaphore = DispatchSemaphore(value: 0)
     var productViewModel : ProductViewModel?
@@ -27,7 +30,9 @@ class WishViewController: UIViewController {
     var wishListSavedProducts : [NSManagedObject] = []
     var coreDateViewModel : CoreDataViewModelClass!
     var wishListCoreDate : [NSManagedObject]?
- 
+    var userdef = UserDefaults.standard
+    var currencyConverter : Float = 1
+    var currency : String?
     @IBOutlet weak var wishV: UIView!
     @IBOutlet weak var wishTV: UITableView!
     let refreshControl = UIRefreshControl()
@@ -44,6 +49,16 @@ class WishViewController: UIViewController {
         dataVM = CoreDataViewModel()
         coreDateViewModel = CoreDataViewModelClass()
         wishListCoreDate = coreDateViewModel.wishListDataBase.fetchFromWishList()
+        
+        currencyConverter = userdef.value(forKey: "currency") as! Float
+          if userdef.value(forKey: "currency") as! Double == 1.0
+          {
+              currency = "$"
+          }
+          else
+          {
+              currency = "£"
+          }
        // self.workingWithDispatchGroup()
         
        // getData(from: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders.json")
@@ -82,6 +97,29 @@ class WishViewController: UIViewController {
         }
     override func viewWillAppear(_ animated: Bool) {
         wishTV.reloadData()
+        reachability = Reachability.forInternetConnection()
+        if ((reachability!.isReachable()) )
+         {
+          flag = true
+        }
+        else
+        {
+           flag = false
+//            shoppingCartItemsListCoreData = dataViewModel?.fetchProductsFromCoreData(productType: 1)
+         }
+        if flag == false{
+            showSnakbar(msg: "Check your internet connection!")
+            func showSnakbar(msg : String){
+                let snackbar = TTGSnackbar(
+                    message: msg,
+                    duration: .middle
+                )
+                snackbar.actionTextColor = UIColor.blue
+                snackbar.borderColor = UIColor.black
+                snackbar.messageTextColor = UIColor.white
+                snackbar.show()
+            }
+        }
     }
     
     @IBAction func backAction(_ sender: Any) {
@@ -174,7 +212,7 @@ extension WishViewController : UITableViewDataSource
        
         cell.wishName.text = wishListCoreDate?[indexPath.row].value(forKey: "title") as? String ?? ""
         cell.wishDiscription.text = wishListCoreDate?[indexPath.row].value(forKey: "vendor") as? String ?? ""
-        cell.wishPrice.text = wishListCoreDate?[indexPath.row].value(forKey: "price") as? String ?? ""
+        cell.wishPrice.text = String((Float(wishListCoreDate?[indexPath.row].value(forKey: "price") as? String ?? "") ?? 0.0) * currencyConverter).appending(currency ?? "")
         cell.wishDelete.tag = indexPath.row
         cell.wishDelete.addTarget(self, action: #selector(deleteButton(_:)), for: .touchUpInside)
         

@@ -10,7 +10,7 @@ import CoreData
 import Kingfisher
 class OrderDetailsViewController: UIViewController {
 
-    var orderProductsList : [LineItem]?
+    var orderProductsList : [NSManagedObject]?
     var orderSubTotal : Float?
     var products : [Product] = []
     var homeViewModel : BrandsViewModel?
@@ -20,6 +20,11 @@ class OrderDetailsViewController: UIViewController {
     var flag : Bool = false
     var usedCopouns : [NSManagedObject]?
     var discountAmount : Float = 0.0
+    var userdef = UserDefaults.standard
+    var currencyConverter : Float = 1
+    var currency : String?
+    var shoppingfees : Float = 30.0
+
     @IBOutlet weak var orderProductsTableView: UITableView!
     {
         didSet
@@ -62,7 +67,7 @@ class OrderDetailsViewController: UIViewController {
             }
             else
             {
-                discountAmount = ((orderSubTotal ?? 0.0) + 30.0) * 0.3
+                discountAmount = ((orderSubTotal ?? 0.0) + shoppingfees) * 0.3
                 discount.text = String(discountAmount)
                 orderTotalPrice.text = String(((orderSubTotal ?? 0.0)+30.0)-discountAmount)
 
@@ -85,13 +90,22 @@ class OrderDetailsViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        currencyConverter = userdef.value(forKey: "currency") as! Float
+          if userdef.value(forKey: "currency") as! Double == 1.0
+          {
+              currency = "$"
+          }
+          else
+          {
+              currency = "£"
+          }
         orderDetailsVCStyle()
         enteringCopounCode.layer.masksToBounds = true
 
         enteringCopounCode.layer.cornerRadius = 20
         enteringCopounCode.borderStyle = UITextField.BorderStyle(rawValue: 0)!
-        orderSubTotalPrice.text = String(orderSubTotal ?? 0.0)
+        orderSubTotalPrice.text = String(orderSubTotal ?? 0.0 * currencyConverter).appending(currency ?? "")
         homeViewModel = BrandsViewModel()
         adsViewModel = ADsViewModel()
         adsViewModel?.getAds()
@@ -101,8 +115,10 @@ class OrderDetailsViewController: UIViewController {
                 print("fatma\(self.copounsList?.count)")
             }
         }
-        discount.text = String(discountAmount)
-        orderTotalPrice.text = String(((orderSubTotal ?? 0.0)+30.0)-discountAmount)
+        shoppingFees.text = String(shoppingfees * currencyConverter).appending(currency ?? "")
+        discount.text = String(discountAmount * currencyConverter).appending(currency ?? "")
+        orderSubTotalPrice.text = String(orderSubTotal ?? 0.0) ?? ""
+        orderTotalPrice.text = String((((orderSubTotal ?? 0.0) + shoppingfees)-discountAmount) * currencyConverter).appending(currency ?? "")
     }
     override func viewWillAppear(_ animated: Bool) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -132,19 +148,16 @@ extension OrderDetailsViewController : UITableViewDataSource
         cell.backView.layer.shadowRadius = 3
         cell.backView.layer.shadowOpacity = 0.5
         cell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
-        cell.orderItemProductName.text = orderProductsList?[indexPath.row].title
-        cell.orderItemProductPrice.text =  orderProductsList?[indexPath.row].price
-        for item in products
-        {
-            if orderProductsList?[indexPath.row].product_id == item.id
-            {
-                cell.orderItemImage.kf.setImage(with: URL(string: item.image?.src ?? ""),placeholder: UIImage(named: " "))
-            }
-        }
-        cell.orderItemProductQuantity.text =  String(orderProductsList?[indexPath.row].quantity ?? 0)
-        let price = Float(orderProductsList?[indexPath.row].price ?? "")
-        let quantity = Float(orderProductsList?[indexPath.row].quantity ?? 0)
-        cell.orderItemTotalPrice.text =  String((price ?? 0.0) * (quantity ))
+        
+        let price = Float(orderProductsList?[indexPath.row].value(forKey: "price") as? String ?? "") ?? 0.0
+        let quantity = orderProductsList?[indexPath.row].value(forKey: "quantity") as? Float ?? 0.0
+        cell.orderItemProductName.text = orderProductsList?[indexPath.row].value(forKey: "title") as? String
+        cell.orderItemProductPrice.text =  String(price * currencyConverter).appending(currency ?? "")
+        cell.orderItemImage.kf.setImage(with: URL(string: orderProductsList?[indexPath.row].value(forKey: "image") as? String ?? ""),placeholder: UIImage(named: " "))
+           
+        cell.orderItemProductQuantity.text =  String(orderProductsList?[indexPath.row].value(forKey: "quantity") as? Int ?? 0)
+      
+        cell.orderItemTotalPrice.text =  String(((price ) * (quantity )) * currencyConverter).appending(currency ?? "")
 
         return cell
     }
