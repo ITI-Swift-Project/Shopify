@@ -227,6 +227,7 @@ class SignUpViewController: UIViewController {
                                     userDefaults.set(self.emailTxt.text ,forKey: "email")
                                     userDefaults.set(true, forKey: "loginState")
                                     userDefaults.set(customer["id"] as? Int, forKey: "userId")
+                                    
                                     UserDefaults.standard.set(1.0, forKey: "currency")
                                     self.dismiss(animated: true){
                                         self.delegate?.didDismissPresentedViewController()
