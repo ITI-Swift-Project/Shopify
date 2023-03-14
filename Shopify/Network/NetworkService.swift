@@ -201,43 +201,47 @@ extension NetworkService
 
 
 extension NetworkService : GenericCRUDProtocol{
-  static  func updateDate(parameter: [String : Any], urlEndPoint: String) {
+    static func updateDate(parameter: [String : Any], urlEndPoint: String, complition: @escaping  (Result<Data, Error>) -> Void){
+        guard let url = URL(string: urlEndPoint ) else {return}
+        print(url)
+        var request = URLRequest(url:url)
+        request.httpMethod = "PUT"
+        request.httpShouldHandleCookies = false
+        let session = URLSession.shared
 
-      guard let url = URL(string: urlEndPoint ) else {return}
-      print(url)
-      var request = URLRequest(url:url)
-      request.httpMethod = "PUT"
-      request.httpShouldHandleCookies = false
-      let session = URLSession.shared
+        do {
+            
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameter , options: .prettyPrinted)
+            request
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        session.dataTask(with: request) {(data, response, error)in
+            if let response = response as? HTTPURLResponse {
+                print("staus Code here \(response.statusCode)")
+                
+            }
+            if error != nil {
+                print(error!)
+            } else {
+               
+                if let data = data {
+                    print (data)
+                    complition(.success(data))
+                    print(response!)
+                }
+                
+            }
+        }.resume()
 
-      do {
-          
-          request.httpBody = try JSONSerialization.data(withJSONObject: parameter , options: .prettyPrinted)
-          
-      } catch let error {
-          print(error.localizedDescription)
-      }
-      
-      request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-      request.addValue("application/json", forHTTPHeaderField: "Accept")
-      
-      session.dataTask(with: request) {(data, response, error)in
-          if let response = response as? HTTPURLResponse {
-              print(response.statusCode)
-          }
-          if error != nil {
-              print(error!)
-          } else {
-             
-              if let data = data {
-                  print (data)
-                  print(response!)
-              }
-              
-          }
-      }.resume()
     }
     
+  
  static func deleteData(urlEndPoint: String) {
         
     }
@@ -268,8 +272,8 @@ extension NetworkService : GenericCRUDProtocol{
             do{
                 let response =  try JSONSerialization.jsonObject(with: data , options:  .allowFragments)
                 print("SUCCSESS\(response)")
+                
                 complition(.success(data))
-               
                 
             }catch{
                 complition(.failure(error))
