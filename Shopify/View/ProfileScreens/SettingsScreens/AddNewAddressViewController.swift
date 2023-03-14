@@ -41,13 +41,13 @@ class AddNewAddressViewController: UIViewController {
                     self.addressViewModel?.bindingAddressError = {
                         DispatchQueue.main.async {
                             print((self.addressViewModel?.addressError?.keys.formatted())!)
-                            if (self.addressViewModel?.addressError?.keys.formatted())! == "customer_address⁩" {
+                            if (self.addressViewModel?.addressError?.keys.formatted())!.contains("customer_address⁩") {
                                 let alert = UIAlertController(title: "Success", message: "Address Post Successfully", preferredStyle: UIAlertController.Style.alert)
                                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
                                     self.navigationController?.popViewController(animated: true)
                                 }))
                                 self.present(alert, animated: true, completion: nil)
-                            } else if  (self.addressViewModel?.addressError?.keys.formatted())!  == "errors" {
+                            } else if  (self.addressViewModel?.addressError?.keys.formatted())! .contains("errors") {
                                 var errorMessages = ""
                                 if let errors = self.addressViewModel?.addressError?["errors"] as? [String: Any] {
                                     for (field, messages) in errors {

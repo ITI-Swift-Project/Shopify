@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import TTGSnackbar
 
 class EditProfileViewController: UIViewController{
     
 
     var customerViewModel : CustomerViewModel?
     var customerAddressesList : [Address]?
-    
+    var selectedIndexPath: IndexPath?
     @IBOutlet weak var customerAddressesTableView: UITableView!
     {
         didSet
@@ -88,10 +89,19 @@ extension EditProfileViewController : UITableViewDataSource
 }
 extension EditProfileViewController : UITableViewDelegate
 {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.reloadData()
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "addressAndPhoneCell", for: indexPath) as! AddressesAndPhoneCell
         if  tableView == customerAddressesTableView {
-            cell.backgroundColor = UIColor.brown
+            if let previousIndexPath = selectedIndexPath {
+                    // Reset the background color of the previously selected cell
+                    if let previousSelectedCell = tableView.cellForRow(at: previousIndexPath) {
+                        previousSelectedCell.contentView.backgroundColor = nil
+                    }
+                }
+//            cell.backgroundColor = UIColor.brown
             let parameters : [String : Any] = [
                 "customer":[
                     "default_address": [
@@ -104,13 +114,38 @@ extension EditProfileViewController : UITableViewDelegate
             print(parameters)
             let url = "\(NetworkService.base_url)customers/\(UserDefaults.standard.value(forKey: "userId") ?? 6832751411504).json"
             print(url)
-            NetworkService.updateDate(parameter: parameters, urlEndPoint: url)
-            customerAddressesTableView.deselectRow(at: indexPath, animated: true)
-            let selectedBackgroundView = UIView()
-              selectedBackgroundView.backgroundColor = UIColor.yellow
-              cell.contentView.addSubview(selectedBackgroundView)
-              selectedBackgroundView.frame = cell.contentView.bounds
-              tableView.deselectRow(at: indexPath, animated: true)
+            NetworkService.updateDate(parameter: parameters, urlEndPoint: url){ result in
+                switch result {
+                case .success(let data):
+                    do {
+                        DispatchQueue.main.async {
+                            showSnakbar(msg: "Adress updated successfully ")
+                             func showSnakbar(msg : String){
+                             let snackbar = TTGSnackbar(
+                                 message: msg,
+                                 duration: .middle
+                             )
+                             snackbar.actionTextColor = UIColor.blue
+                             snackbar.borderColor = UIColor.black
+                             snackbar.messageTextColor = UIColor.white
+                             snackbar.show()
+                        }
+                       
+                        }
+                    }
+                    
+                case .failure(_):
+                    break
+                }}
+//            customerAddressesTableView.deselectRow(at: indexPath, animated: true)
+            let selectedCell = tableView.cellForRow(at: indexPath)
+                selectedCell?.contentView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
+            
+//            let selectedBackgroundView = UIView()
+//              selectedBackgroundView.backgroundColor = UIColor.yellow
+//              cell.contentView.addSubview(selectedBackgroundView)
+//              selectedBackgroundView.frame = cell.contentView.bounds
+//              tableView.deselectRow(at: indexPath, animated: true)
             
         }
     }

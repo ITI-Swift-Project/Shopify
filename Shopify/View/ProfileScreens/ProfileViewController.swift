@@ -54,7 +54,7 @@ class ProfileViewController: UIViewController{
             performSegue(withIdentifier: "welcome", sender: self)
         }
         else{
-            wlcomeLbl.text = "welcome \(UserDefaults.standard.string(forKey: "namee"))"
+            wlcomeLbl.text = "welcome \(UserDefaults.standard.string(forKey: "namee") ?? "")"
             getOrdersData()
         }
        
