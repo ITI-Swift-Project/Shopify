@@ -20,8 +20,8 @@ class CartViewController: UIViewController {
     var arrayOfDec : [[String : Any]] = []
     var shoppingCartItemsList : [LineItem] = []
     var shoppingCartItemsListCoreData : [NSManagedObject]?
-    var total : Float = 0.0
-    var cartItemSubTotal : Float = 0.0
+    var total : Float?
+    var cartItemSubTotal : Float?
     var flag : Bool = false
     var reachability : Reachability?
     var product : Product = Product()
@@ -29,11 +29,13 @@ class CartViewController: UIViewController {
     var productId : Int = 0
   //  var productsImages : [Image] = []
     var userdef = UserDefaults.standard
-    var currencyConverter : Float = 0.0
+    var currencyConverter : Float = 1
     var currency : String?
     var cartCoreDate : [NSManagedObject]?
     var coreDateViewModel : CoreDataViewModelClass!
-  
+    let refreshControl = UIRefreshControl()
+    
+ 
     @IBOutlet weak var shoppingCartFrame: UIView!
     @IBOutlet weak var subTotal: UILabel!
     
@@ -60,16 +62,15 @@ class CartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        shoppingCartTableView.refreshControl = refreshControl
+           refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
          coreDateViewModel = CoreDataViewModelClass()
-        cartCoreDate = coreDateViewModel.wishListDataBase.fetchFromWishList()
-        print(cartCoreDate?[0].value(forKey: "title") as? String ?? "")
+        cartCoreDate = coreDateViewModel.cartDataBase.fetchFromCart()
         cartVCStyle()
             self.dataViewModel = CoreDataViewModel()
             self.productViewModel = ProductViewModel()
             self.networkViewModel = ShoppingCartProductsViewModel()
-            self.workingWithDispatchGroup()
-            
-        
+
         currencyConverter = userdef.value(forKey: "currency") as! Float
           if userdef.value(forKey: "currency") as! Double == 1.0
           {
@@ -79,13 +80,27 @@ class CartViewController: UIViewController {
           {
               currency = "£"
           }
-          print("FA\(currencyConverter)")
-        subTotal.text = String(total * currencyConverter).appending(currency ?? "")
+        total = 0.0
+        self.setTotalPrice()
 
+    }
+    
+        @objc func refreshData(){
+            shoppingCartTableView.reloadData()
+            refreshControl.endRefreshing()
+        }
+    
+    func setTotalPrice(){
+        for item in cartCoreDate ?? [] {
+            total = ((total ?? 0.0 ) + (item.value(forKey: "price") as? Float ?? 0) * (item.value(forKey: "quantity") as? Float ?? 0))
+        }
+        subTotal.text = String(total ?? 0.0)
+       // subTotal.text = String((total ?? 0) * currencyConverter).appending(currency ?? "")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.shoppingCartTableView.reloadData()
+       // self.setTotalPrice()
 //        reachability = Reachability.forInternetConnection()
 //        if ((reachability!.isReachable()) )
 //        {
@@ -110,14 +125,6 @@ extension CartViewController : UITableViewDataSource
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if flag == true
-//        {
-//            return shoppingCartItemsList.count
-//        }
-//        else
-//        {
-//            return shoppingCartItemsListCoreData?.count ?? 0
-//        }
         return cartCoreDate?.count ?? 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -131,60 +138,63 @@ extension CartViewController : UITableViewDataSource
         let price = (Float(cartCoreDate?[indexPath.row].value(forKey: "price") as? String ?? "") ?? 0.0) * currencyConverter
         cell.cartProductPrice.text = cartCoreDate?[indexPath.row].value(forKey: "price") as? String ?? ""
         cell.cartProductSuTotalPrice.text = String(quantity * price).appending(" ").appending(currency ?? "")
+        cell.cartProductImage.kf.setImage(with: URL(string: cartCoreDate?[indexPath.row].value(forKey: "image") as? String ?? ""),placeholder: UIImage(systemName: "photo.fill"))
         cell.deleteCartProduct.tag = indexPath.row
         cell.increaseProductItemCount.tag = indexPath.row
         cell.decreaseProductItemCount.tag = indexPath.row
-        cell.increaseProductItemCount.addTarget(self, action: #selector(increaseProductsCount(sender:)), for: .touchUpInside)
-        cell.decreaseProductItemCount.addTarget(self, action: #selector(decreaseProductsCount(sender:)), for: .touchUpInside)
-        cell.deleteCartProduct.addTarget(self, action: #selector(deleteCartProduct(sender: )), for: .touchUpInside)
+        cell.increaseProductItemCount.addTarget(self, action: #selector(plusButton(_:)), for: .touchUpInside)
+        cell.decreaseProductItemCount.addTarget(self, action:  #selector(minsButton(_:)), for: .touchUpInside)
+        cell.deleteCartProduct.addTarget(self, action:  #selector(deleteButton(_:)), for: .touchUpInside)
         
-//        if flag == true
-//        {
-//            cell.layer.masksToBounds = true
-//            cell.layer.cornerRadius = 30
-//            for item in productsArr
-//            {
-//                if shoppingCartItemsList[indexPath.row].product_id == item.id
-//                {
-//                    cell.cartProductImage.kf.setImage(with: URL(string: item.image?.src ?? ""),placeholder: UIImage(named: " "))
-//                //    productsImages.append(item.image!)
-//                }
-//            }
-//            cell.cartProductName.text = shoppingCartItemsList[indexPath.row].title
-//            cell.cartProductDescription.text = ""
-//            cell.cartProductsCount.text = String((shoppingCartItemsList[indexPath.row].quantity ?? 0))
-//            let quantity = Float(shoppingCartItemsList[indexPath.row].quantity ?? 0)
-//            let price = (Float(shoppingCartItemsList[indexPath.row].price ?? "") ?? 0.0) * currencyConverter
-//            cell.cartProductPrice.text = String(price).appending(" ").appending(currency ?? "")
-//            cell.cartProductSuTotalPrice.text = String(quantity * price).appending(" ").appending(currency ?? "")
-//            cell.deleteCartProduct.tag = indexPath.row
-//            cell.increaseProductItemCount.tag = indexPath.row
-//            cell.decreaseProductItemCount.tag = indexPath.row
-//            cell.increaseProductItemCount.addTarget(self, action: #selector(increaseProductsCount(sender:)), for: .touchUpInside)
-//            cell.decreaseProductItemCount.addTarget(self, action: #selector(decreaseProductsCount(sender:)), for: .touchUpInside)
-//            cell.deleteCartProduct.addTarget(self, action: #selector(deleteCartProduct(sender: )), for: .touchUpInside)
-//        }
-//        else if flag == false
-//        {
-//            cell.layer.masksToBounds = true
-//            cell.layer.cornerRadius = 30
-//            cell.cartProductImage.image = UIImage(named: "product")
-//            cell.cartProductName.text = shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_title") as? String
-//            //   cell.cartProductPrice.text = (shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_price")).appending(" ").appending(shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_currency") ?? "")
-//            cell.cartProductsCount.text = (shoppingCartItemsListCoreData?[indexPath.row].value(forKey: "product_quantity"))! as? String
-//            //  let quantity = Float(shoppingCartItemsList?[indexPath.row].line_items?[0].quantity ?? 0)
-//            // let price = Float(shoppingCartItemsList?[indexPath.row].line_items?[0].price ?? "")
-//            //  cell.cartProductSuTotalPrice.text = String(quantity * price!).appending(" ").appending(shoppingCartItemsList?[indexPath.row].currency ?? "")
-//        }
-//        cell.cartProductsCount.layer.masksToBounds = true
-//        cell.cartProductsCount.layer.cornerRadius = 12
-//        cell.cartCellBackView.layer.cornerRadius = 20
-//        cell.cartCellBackView.backgroundColor = .white
-//        cell.cartCellBackView.layer.shadowRadius = 3
-//        cell.cartCellBackView.layer.shadowOpacity = 0.5
-//        cell.cartCellBackView.layer.shadowOffset = CGSize(width: 5, height: 5)
-//
+        
         return cell
+    }
+    
+    
+    @objc func minsButton(_ sender: UIButton) {
+        if cartCoreDate?[sender.tag].value(forKey: "quantity") as? Int == 1 {
+            let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product from cart ?", preferredStyle: .actionSheet)
+            deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
+                self.coreDateViewModel.cartDataBase.deleteFromCart(id: self.cartCoreDate?[sender.tag].value(forKey: "id") as? Int ?? 0)
+                self.cartCoreDate?.remove(at: sender.tag)
+                      self.shoppingCartTableView.reloadData()
+            }))
+            deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(deleteAlert, animated:true, completion:nil )
+        }else{
+            let count = (self.cartCoreDate?[sender.tag].value(forKey: "quantity") as? Int ?? 0) - 1
+          
+            coreDateViewModel.cartDataBase.updataQuantity(quantity: count, id: cartCoreDate?[sender.tag].value(forKey: "id") as? Int ?? 0 )
+            cartCoreDate = coreDateViewModel.cartDataBase.fetchFromCart()
+            total = (total ?? 0.0) - (cartCoreDate?[sender.tag].value(forKey: "price") as? Float ?? 0)
+            self.shoppingCartTableView.reloadData()
+        }
+    }
+    
+    
+    @objc func plusButton(_ sender: UIButton) {
+        
+        if (cartCoreDate?[sender.tag].value(forKey: "quantity") as? Int ?? 0) >= 2 && (cartCoreDate?[sender.tag].value(forKey: "inventory") as? Int ?? 0) - (cartCoreDate?[sender.tag].value(forKey: "quantity") as? Int ?? 0) < 2 {
+            let alert : UIAlertController  = UIAlertController(title:"MaX", message:"This is the max quantity you can buy of this product", preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated:true, completion:nil )
+        }else{
+            let count = (self.cartCoreDate?[sender.tag].value(forKey: "quantity") as? Int ?? 0) + 1
+            coreDateViewModel.cartDataBase.updataQuantity(quantity: count, id: cartCoreDate?[sender.tag].value(forKey: "id") as? Int ?? 0 )
+            cartCoreDate = coreDateViewModel.cartDataBase.fetchFromCart()
+            total = (total ?? 0.0) + (cartCoreDate?[sender.tag].value(forKey: "price") as? Float ?? 0)
+            self.shoppingCartTableView.reloadData()
+        }
+    }
+    @objc func deleteButton(_ sender: UIButton) {
+        let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product from cart ?", preferredStyle: .actionSheet)
+        deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
+            self.coreDateViewModel.cartDataBase.deleteFromCart(id: self.cartCoreDate?[sender.tag].value(forKey: "id") as? Int ?? 0)
+            self.cartCoreDate?.remove(at: sender.tag)
+                  self.shoppingCartTableView.reloadData()
+        }))
+        deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(deleteAlert, animated:true, completion:nil )
     }
 }
 extension CartViewController : UITableViewDelegate
@@ -201,11 +211,8 @@ extension CartViewController : UITableViewDelegate
                 let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product?", preferredStyle: .actionSheet)
                 deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
 
-              
-                    //self.delete(index: indexPath.row)
-                 //   self.total -= Float(self.shoppingCartItemsList[indexPath.row].price ?? "" ) ?? 0.0 * Float(self.shoppingCartItemsList[indexPath.row].quantity ?? 0)
-                 //   self.subTotal.text = String(self.total)//.appending(self.shoppingCartItemsList?[indexPath.row].currency ?? "")
-                         // self.shoppingCartItemsList.remove(at: indexPath.row)
+                    self.coreDateViewModel.cartDataBase.deleteFromCart(id: self.cartCoreDate?[indexPath.row].value(forKey: "id") as? Int ?? 0)
+                    self.cartCoreDate?.remove(at: indexPath.row)
                           self.shoppingCartTableView.reloadData()
                 }))
                 deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -215,113 +222,16 @@ extension CartViewController : UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
         let productDetailsVC = storyBoard.instantiateViewController(withIdentifier: "productDetails") as? ProductDetailsViewController
-        for item in productsArr
-        {
-            if shoppingCartItemsList[indexPath.row].product_id == item.id
-            {
-                productDetailsVC?.product = item
-            }
-        }
-        
+      //  productDetailsVC?.product = cartCoreDate?[indexPath.row]
+        productDetailsVC?.product.title = cartCoreDate?[indexPath.row].value(forKey: "title") as? String ?? ""
+        productDetailsVC?.product.image?.src = cartCoreDate?[indexPath.row].value(forKey: "image") as? String ?? ""
+        productDetailsVC?.product.vendor = cartCoreDate?[indexPath.row].value(forKey: "vendor") as? String ?? ""
+        productDetailsVC?.product.variants?[0].price = cartCoreDate?[indexPath.row].value(forKey: "price") as? String ?? ""
         navigationController?.pushViewController(productDetailsVC!, animated: true)
     }
 }
-extension CartViewController
-{
-    @objc func deleteCartProduct(sender : UIButton)
-    {
-        
-            let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product?", preferredStyle: .actionSheet)
-            deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
-                self.delete(index: sender.tag)
-              //  self.total -= Float(self.shoppingCartItemsList[sender.tag].price ?? "" ) ?? 0.0 * Float(self.shoppingCartItemsList[sender.tag].quantity ?? 0)
-              //  self.subTotal.text = String(self.total) //.appending(self.shoppingCartItemsList?[sender.tag].currency ?? "")
-                   //   self.shoppingCartItemsList.remove(at: sender.tag)
-                self.shoppingCartTableView.reloadData()
-            }))
-            deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(deleteAlert, animated:true, completion:nil )
-    }
-}
 
 
-extension CartViewController
-{
-    @objc func increaseProductsCount(sender : UIButton)
-    {
-        print("mahmoud\(shoppingCartItemsList.count)")
-        shoppingCartItemsList[sender.tag].quantity! += 1
-        
-        var maxQuantity : Int = 2
-        /* for item in productsArr
-         {
-         if  shoppingCartItemsList[sender.tag].product_id == item.id
-         {
-         maxQuantity = item.variants?[0].inventory_quantity ?? 0
-         maxQuantity = Int(Float(maxQuantity) * 0.5)
-         }
-         }*/
-        if  (shoppingCartItemsList[sender.tag].quantity)! <= Int(maxQuantity)
-        {
-            for item in shoppingCartItemsList
-            {
-                var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": item.quantity,"product_id": item.product_id, "variant_id": item.variant_id]
-                arrayOfDec.append(temp)
-            }
-            guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json") else{
-                return
-            }
-            var request = URLRequest(url :url)
-            request.httpMethod = "PUT"
-            request.httpShouldHandleCookies = false
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            let body : [String : Any] = [
-                "draft_order": [
-                    "line_items": arrayOfDec
-                ],
-                "applied_discount": [
-                    "description": "Custom discount",
-                    "value_type": "fixed_amount",
-                    "value": "10.0",
-                    "amount": "10.00",
-                    "title": "Custom"
-                ],
-                "customer": [
-                    "id": 6817112686896
-                ],
-                "use_customer_default_address": true
-                
-            ]
-            request.httpBody = try? JSONSerialization.data(withJSONObject: body,options: .fragmentsAllowed)
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data else{
-                    return
-                }
-                do{
-                    print("success\(response)")
-                }
-                catch let error{
-                    print(error.localizedDescription)
-                }
-            }
-            task.resume()
-            print("zaienb\(shoppingCartItemsList.count)")
-            
-            total += Float(shoppingCartItemsList[sender.tag].price ?? "") ?? 0.0 * currencyConverter
-            
-            cartItemSubTotal = Float((shoppingCartItemsList[sender.tag].quantity)!) * Float((shoppingCartItemsList[sender.tag].price)!)! * currencyConverter
-            
-            /*   }
-             else
-             {
-             // shoppingCartItemsList[sender.tag].quantity = Int(maxQuantity)
-             }*/
-            subTotal.text = String(total).appending(currency ?? "")
-            self.shoppingCartTableView.reloadData()
-        }
-    }
-}
 extension CartViewController
 {
     func cartVCStyle()
@@ -338,149 +248,249 @@ extension CartViewController
     }
 }
 
-extension CartViewController
-{
-    func delete(index : Int)
-    {
-        shoppingCartItemsList.remove(at: index)
-        for item in shoppingCartItemsList
-        {
-            var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": item.quantity,"product_id": item.product_id, "variant_id": item.variant_id]
-            arrayOfDec.append(temp)
-        }
-        guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json") else{
-            return
-        }
-        var request = URLRequest(url :url)
-        request.httpMethod = "PUT"
-        request.httpShouldHandleCookies = false
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body : [String : Any] = [
-            "draft_order": [
-                "line_items": arrayOfDec
-            ],
-            "applied_discount": [
-                "description": "Custom discount",
-                "value_type": "fixed_amount",
-                "value": "10.0",
-                "amount": "10.00",
-                "title": "Custom"
-            ],
-            "customer": [
-                "id": 6817112686896
-            ],
-            "use_customer_default_address": true
-        ]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body,options: .fragmentsAllowed)
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else{
-                return
-            }
-            do{
-                print("success\(response)")
-            }
-            catch let error{
-                print(error.localizedDescription)
-            }
-        }
-        task.resume()
-    }
-}
-extension CartViewController
-{
-    func workingWithDispatchGroup()
-    {
-        group.enter()
-        self.networkViewModel?.getCartProducts(url:  "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json")
-        self.networkViewModel?.bindingCartProducts = { () in
-            self.shoppingCartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []
-            Swift.print("salma\(self.shoppingCartItemsList.count)")
-            for item in self.shoppingCartItemsList
-            {
-                self.total += Float(item.price ?? "") ?? 0.0 * Float(item.quantity ?? 0)
-            }
-            self.subTotal.text = String(self.total * self.currencyConverter).appending(self.currency ?? "")
-        }
-        self.group.leave()
-        
-        group.enter()
-
-        self.productViewModel?.getArrayOfProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/products.json")
-        self.productViewModel?.bindingArrOfProducts = { () in
-            self.productsArr = self.productViewModel?.arrOfProductsResult ?? []
-
-            self.group.leave()
-            self.group.notify(queue: .main)
-            {
-                self.shoppingCartTableView.reloadData()
-            }
-        }
-    }
-}
 
 
-extension CartViewController
-{
-    @objc func decreaseProductsCount(sender : UIButton)
-    {
-        print("mahmoud\(shoppingCartItemsList.count)")
-        shoppingCartItemsList[sender.tag].quantity! -= 1
 
-         if  (shoppingCartItemsList[sender.tag].quantity)! > 1
-         {
-             for item in shoppingCartItemsList
-             {
-                var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": item.quantity,"product_id": item.product_id, "variant_id": item.variant_id]
-                arrayOfDec.append(temp)
-                 }
-        guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json") else{
-            return
-        }
-        var request = URLRequest(url :url)
-        request.httpMethod = "PUT"
-        request.httpShouldHandleCookies = false
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body : [String : Any] = [
-            "draft_order": [
-                "line_items": arrayOfDec
-            ],
-            "applied_discount": [
-                "description": "Custom discount",
-                "value_type": "fixed_amount",
-                "value": "10.0",
-                "amount": "10.00",
-                "title": "Custom"
-            ],
-            "customer": [
-                "id": 6817112686896
-            ],
-            "use_customer_default_address": true
 
-        ]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body,options: .fragmentsAllowed)
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else{
-                return
-            }
-            do{
-                print("success\(response)")
-            }
-            catch let error{
-                print(error.localizedDescription)
-            }
-        }
-        task.resume()
-             print("zaienb\(shoppingCartItemsList.count)")
-        
-        cartItemSubTotal = Float((shoppingCartItemsList[sender.tag].quantity)!) * Float((shoppingCartItemsList[sender.tag].price)!)! * currencyConverter
-             total -= Float(shoppingCartItemsList[sender.tag].price ?? "") ?? 0.0 * currencyConverter
-             subTotal.text = String(total).appending(currency ?? "")
-         }
-        else {
-            shoppingCartItemsList[sender.tag].quantity! = 1
-        }
-         self.shoppingCartTableView.reloadData()
-    }
-}
+//extension CartViewController
+//{
+//    @objc func deleteCartProduct(sender : UIButton)
+//    {
+//
+//            let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product?", preferredStyle: .actionSheet)
+//            deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
+//                self.delete(index: sender.tag)
+//              //  self.total -= Float(self.shoppingCartItemsList[sender.tag].price ?? "" ) ?? 0.0 * Float(self.shoppingCartItemsList[sender.tag].quantity ?? 0)
+//              //  self.subTotal.text = String(self.total) //.appending(self.shoppingCartItemsList?[sender.tag].currency ?? "")
+//                   //   self.shoppingCartItemsList.remove(at: sender.tag)
+//                self.shoppingCartTableView.reloadData()
+//            }))
+//            deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//            self.present(deleteAlert, animated:true, completion:nil )
+//    }
+//}
+
+//extension CartViewController
+//{
+//    func delete(index : Int)
+//    {
+//        shoppingCartItemsList.remove(at: index)
+//        for item in shoppingCartItemsList
+//        {
+//            var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": item.quantity,"product_id": item.product_id, "variant_id": item.variant_id]
+//            arrayOfDec.append(temp)
+//        }
+//        guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json") else{
+//            return
+//        }
+//        var request = URLRequest(url :url)
+//        request.httpMethod = "PUT"
+//        request.httpShouldHandleCookies = false
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        let body : [String : Any] = [
+//            "draft_order": [
+//                "line_items": arrayOfDec
+//            ],
+//            "applied_discount": [
+//                "description": "Custom discount",
+//                "value_type": "fixed_amount",
+//                "value": "10.0",
+//                "amount": "10.00",
+//                "title": "Custom"
+//            ],
+//            "customer": [
+//                "id": 6817112686896
+//            ],
+//            "use_customer_default_address": true
+//        ]
+//        request.httpBody = try? JSONSerialization.data(withJSONObject: body,options: .fragmentsAllowed)
+//
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            guard let data = data else{
+//                return
+//            }
+//            do{
+//                print("success\(response)")
+//            }
+//            catch let error{
+//                print(error.localizedDescription)
+//            }
+//        }
+//        task.resume()
+//    }
+//}
+//extension CartViewController
+//{
+//    func workingWithDispatchGroup()
+//    {
+//        group.enter()
+//        self.networkViewModel?.getCartProducts(url:  "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json")
+//        self.networkViewModel?.bindingCartProducts = { () in
+//            self.shoppingCartItemsList = self.networkViewModel?.ShoppingCartProductsResult ?? []
+//            Swift.print("salma\(self.shoppingCartItemsList.count)")
+//            for item in self.shoppingCartItemsList
+//            {
+//                self.total += Float(item.price ?? "") ?? 0.0 * Float(item.quantity ?? 0)
+//            }
+//            self.subTotal.text = String(self.total * self.currencyConverter).appending(self.currency ?? "")
+//        }
+//        self.group.leave()
+//
+//        group.enter()
+//
+//        self.productViewModel?.getArrayOfProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/products.json")
+//        self.productViewModel?.bindingArrOfProducts = { () in
+//            self.productsArr = self.productViewModel?.arrOfProductsResult ?? []
+//
+//            self.group.leave()
+//            self.group.notify(queue: .main)
+//            {
+//                self.shoppingCartTableView.reloadData()
+//            }
+//        }
+//    }
+//}
+//
+//
+//extension CartViewController
+//{
+//    @objc func decreaseProductsCount(sender : UIButton)
+//    {
+//        print("mahmoud\(shoppingCartItemsList.count)")
+//        shoppingCartItemsList[sender.tag].quantity! -= 1
+//
+//         if  (shoppingCartItemsList[sender.tag].quantity)! > 1
+//         {
+//             for item in shoppingCartItemsList
+//             {
+//                var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": item.quantity,"product_id": item.product_id, "variant_id": item.variant_id]
+//                arrayOfDec.append(temp)
+//                 }
+//        guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json") else{
+//            return
+//        }
+//        var request = URLRequest(url :url)
+//        request.httpMethod = "PUT"
+//        request.httpShouldHandleCookies = false
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        let body : [String : Any] = [
+//            "draft_order": [
+//                "line_items": arrayOfDec
+//            ],
+//            "applied_discount": [
+//                "description": "Custom discount",
+//                "value_type": "fixed_amount",
+//                "value": "10.0",
+//                "amount": "10.00",
+//                "title": "Custom"
+//            ],
+//            "customer": [
+//                "id": 6817112686896
+//            ],
+//            "use_customer_default_address": true
+//
+//        ]
+//        request.httpBody = try? JSONSerialization.data(withJSONObject: body,options: .fragmentsAllowed)
+//
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            guard let data = data else{
+//                return
+//            }
+//            do{
+//                print("success\(response)")
+//            }
+//            catch let error{
+//                print(error.localizedDescription)
+//            }
+//        }
+//        task.resume()
+//             print("zaienb\(shoppingCartItemsList.count)")
+//
+//        cartItemSubTotal = Float((shoppingCartItemsList[sender.tag].quantity)!) * Float((shoppingCartItemsList[sender.tag].price)!)! * currencyConverter
+//             total -= Float(shoppingCartItemsList[sender.tag].price ?? "") ?? 0.0 * currencyConverter
+//             subTotal.text = String(total).appending(currency ?? "")
+//         }
+//        else {
+//            shoppingCartItemsList[sender.tag].quantity! = 1
+//        }
+//         self.shoppingCartTableView.reloadData()
+//    }
+//}
+
+//extension CartViewController
+//{
+//    @objc func increaseProductsCount(sender : UIButton)
+//    {
+//        print("mahmoud\(shoppingCartItemsList.count)")
+//        shoppingCartItemsList[sender.tag].quantity! += 1
+//
+//        var maxQuantity : Int = 2
+//        /* for item in productsArr
+//         {
+//         if  shoppingCartItemsList[sender.tag].product_id == item.id
+//         {
+//         maxQuantity = item.variants?[0].inventory_quantity ?? 0
+//         maxQuantity = Int(Float(maxQuantity) * 0.5)
+//         }
+//         }*/
+//        if  (shoppingCartItemsList[sender.tag].quantity)! <= Int(maxQuantity)
+//        {
+//            for item in shoppingCartItemsList
+//            {
+//                var temp : [String : Any] = ["title": item.title, "price":item.price, "quantity": item.quantity,"product_id": item.product_id, "variant_id": item.variant_id]
+//                arrayOfDec.append(temp)
+//            }
+//            guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json") else{
+//                return
+//            }
+//            var request = URLRequest(url :url)
+//            request.httpMethod = "PUT"
+//            request.httpShouldHandleCookies = false
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            let body : [String : Any] = [
+//                "draft_order": [
+//                    "line_items": arrayOfDec
+//                ],
+//                "applied_discount": [
+//                    "description": "Custom discount",
+//                    "value_type": "fixed_amount",
+//                    "value": "10.0",
+//                    "amount": "10.00",
+//                    "title": "Custom"
+//                ],
+//                "customer": [
+//                    "id": 6817112686896
+//                ],
+//                "use_customer_default_address": true
+//
+//            ]
+//            request.httpBody = try? JSONSerialization.data(withJSONObject: body,options: .fragmentsAllowed)
+//
+//            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//                guard let data = data else{
+//                    return
+//                }
+//                do{
+//                    print("success\(response)")
+//                }
+//                catch let error{
+//                    print(error.localizedDescription)
+//                }
+//            }
+//            task.resume()
+//            print("zaienb\(shoppingCartItemsList.count)")
+//
+//            total += Float(shoppingCartItemsList[sender.tag].price ?? "") ?? 0.0 * currencyConverter
+//
+//            cartItemSubTotal = Float((shoppingCartItemsList[sender.tag].quantity)!) * Float((shoppingCartItemsList[sender.tag].price)!)! * currencyConverter
+//
+//            /*   }
+//             else
+//             {
+//             // shoppingCartItemsList[sender.tag].quantity = Int(maxQuantity)
+//             }*/
+//            subTotal.text = String(total).appending(currency ?? "")
+//            self.shoppingCartTableView.reloadData()
+//        }
+//    }
+//}

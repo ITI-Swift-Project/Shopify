@@ -42,9 +42,23 @@ class CoreDataViewModelClass {
         cartState = false
     }
     
-    func addToCart(id: Int, title: String, price: String, quantity: Int, image: String, vendor: String)  {
-    cartDataBase.saveToCart(id: id, title: title, price: price, quantity:quantity, image: image, vendor: vendor)
+    func addToCart(id: Int, title: String, price: String, quantity: Int, image: String, vendor: String , inventory : Int)  {
+    cartDataBase.saveToCart(id: id, title: title, price: price, quantity:quantity, image: image, vendor: vendor , inventory: inventory)
         cartState = true
+    }
+    
+    func updateQuantity(quantity : Int , id : Int){
+        cartDataBase.updataQuantity(quantity: quantity, id: id)
+      //  func updataQuantity(quantity : Int , id : Int){
+//           if let arr = cartInstance?.fetchFromCart() {
+//               for obj in arr {
+//                   if obj.value(forKey:"id") as! Int == id {
+//                       cartInstance?.managedContext.setValue(quantity, forKey: "quantity")
+//                       try?cartInstance?.managedContext.save()
+//                   }
+//               }
+//           }
+//       }
     }
     
     //MARK: - WishList

@@ -27,11 +27,16 @@ class SearchViewController: UIViewController {
     var productsArray : [Product] = []
     var productsArray2 : [Product] = []
     var whereFrom : String?
+    let refreshControl = UIRefreshControl()
+    
+ 
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        searchCV.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
         if whereFrom ==  "Home"
         {
@@ -60,6 +65,12 @@ class SearchViewController: UIViewController {
        
         print(productsArray2.count)
     }
+    
+    @objc func refreshData(){
+        searchCV.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
     @IBAction func backAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -117,6 +128,10 @@ extension SearchViewController : UISearchBarDelegate
         }
         searchCV.reloadData()
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            searchBar.endEditing(true)
+        }
     
 }
 extension SearchViewController : UICollectionViewDelegateFlowLayout

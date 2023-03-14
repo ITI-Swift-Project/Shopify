@@ -40,8 +40,13 @@ class HomeViewController: UIViewController {
             brandCollection.register(nib, forCellWithReuseIdentifier: "BrandCell")
         }
     }
+    let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        brandCollection.refreshControl = refreshControl
+            refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
       print("Login \(UserDefaults.standard.bool(forKey: "loginState"))")
       print("SignUP\(UserDefaults.standard.bool(forKey: "signUpState"))")
@@ -49,6 +54,11 @@ class HomeViewController: UIViewController {
        
         self.startTimer()
     }
+        @objc func refreshData(){
+            brandCollection.reloadData()
+            adsCollection.reloadData()
+            refreshControl.endRefreshing()
+        }
     override func viewWillDisappear(_ animated: Bool) {
        
         

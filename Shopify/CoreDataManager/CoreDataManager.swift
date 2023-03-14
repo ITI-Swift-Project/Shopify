@@ -32,7 +32,7 @@ class CartCoreDataManager : CartCD {
         entity = NSEntityDescription.entity(forEntityName: "Cart", in: managedContext)
     }
     
-    func saveToCart(id: Int, title: String, price: String, quantity: Int, image: String, vendor: String) {
+    func saveToCart(id: Int, title: String, price: String, quantity: Int, image: String, vendor: String ,inventory:Int) {
         let cartProduct = NSEntityDescription.insertNewObject(forEntityName: "Cart", into: managedContext)
         cartProduct.setValue(id, forKey: "id")
         cartProduct.setValue(title, forKey: "title")
@@ -40,6 +40,7 @@ class CartCoreDataManager : CartCD {
         cartProduct.setValue(quantity, forKey: "quantity")
         cartProduct.setValue(image, forKey: "image")
         cartProduct.setValue(vendor, forKey: "vendor")
+        cartProduct.setValue(inventory, forKey: "inventory")
         try?self.managedContext.save()
     }
     
@@ -67,6 +68,16 @@ class CartCoreDataManager : CartCD {
         }
     }
     
+     func updataQuantity(quantity : Int , id : Int){
+        if let arr = fetchFromCart() {
+            for obj in arr {
+                if obj.value(forKey:"id") as! Int == id {
+                    obj.setValue(quantity, forKey: "quantity")
+                    try?managedContext.save()
+                }
+            }
+        }
+    }
 }
 
 

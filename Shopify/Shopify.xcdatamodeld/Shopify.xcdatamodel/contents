@@ -3,6 +3,7 @@
     <entity name="Cart" representedClassName="Cart" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="inventory" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="price" optional="YES" attributeType="String"/>
         <attribute name="quantity" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="title" optional="YES" attributeType="String"/>

@@ -38,8 +38,15 @@ class BrandsViewController: UIViewController {
             brandsCollection.register(nib, forCellWithReuseIdentifier: "catCell")
         }
     }
+    let refreshControl = UIRefreshControl()
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+            brandsCollection.refreshControl = refreshControl
+            refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        
         dataVM = CoreDataViewModel()
         coreDateViewModel = CoreDataViewModelClass()
         createFloatyButton()
@@ -71,6 +78,11 @@ class BrandsViewController: UIViewController {
           }
           print("FA\(currencyConverter)")
     }
+    
+        @objc func refreshData(){
+            brandsCollection.reloadData()
+            refreshControl.endRefreshing()
+        }
     
     override func viewWillAppear(_ animated: Bool) {
         self.brandsCollection.reloadData()

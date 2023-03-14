@@ -21,6 +21,7 @@ class SignUpViewController: UIViewController {
         {
             usernameTxt.setLeftView(image: UIImage.init(systemName: "person")!)
             usernameTxt.tintColor = .darkGray
+            usernameTxt.delegate = self
             // usernameTxt.isSecureTextEntry = true
         }
     }
@@ -29,9 +30,13 @@ class SignUpViewController: UIViewController {
     {
         didSet
         {
+            
             emailTxt.setLeftView(image: UIImage.init(systemName: "mail.fill")!)
             emailTxt.tintColor = .darkGray
+            emailTxt.delegate = self
             //emailTxt.isSecureTextEntry = true
+            
+    
         }
     }
     
@@ -42,6 +47,7 @@ class SignUpViewController: UIViewController {
             passwordTxt.setLeftView(image: UIImage.init(systemName: "lock")!)
             passwordTxt.tintColor = .darkGray
             passwordTxt.isSecureTextEntry =  true
+            passwordTxt.delegate = self
         }
     }
     
@@ -52,6 +58,7 @@ class SignUpViewController: UIViewController {
             confirmPasswordTxt.setLeftView(image: UIImage.init(systemName: "lock")!)
             confirmPasswordTxt.tintColor = .darkGray
             confirmPasswordTxt.isSecureTextEntry = true
+            confirmPasswordTxt.delegate = self
         }
     }
     
@@ -62,6 +69,7 @@ class SignUpViewController: UIViewController {
             // addressTxt.setRightView(image: UIImage.init(systemName: "map")!)
             addressTxt.setLeftView(image: UIImage.init(systemName: "mappin.and.ellipse")!)
             addressTxt.tintColor = .darkGray
+            addressTxt.delegate = self
             // addressTxt.isSecureTextEntry = true
         }
         
@@ -71,6 +79,7 @@ class SignUpViewController: UIViewController {
     {
         didSet
         {
+            phoneTxt.delegate = self
             phoneTxt.setLeftView(image: UIImage.init(systemName: "phone")!)
             phoneTxt.tintColor = .darkGray
             // addressTxt.isSecureTextEntry = true
@@ -81,6 +90,7 @@ class SignUpViewController: UIViewController {
     {
         didSet
         {
+            lastNameTxt.delegate = self
             lastNameTxt.setLeftView(image: UIImage.init(systemName: "person")!)
             lastNameTxt.tintColor = .darkGray
             // usernameTxt.isSecureTextEntry = true
@@ -92,6 +102,7 @@ class SignUpViewController: UIViewController {
     {
         didSet
         {
+            cityTxt.delegate = self
             cityTxt.setLeftView(image: UIImage.init(systemName: "building.2.crop.circle")!)
             cityTxt.tintColor = .darkGray
             // addressTxt.isSecureTextEntry = true
@@ -103,6 +114,7 @@ class SignUpViewController: UIViewController {
     {
         didSet
         {
+            countryTxt.delegate = self
             countryTxt.setLeftView(image: UIImage.init(systemName: "building.columns.circle")!)
             countryTxt.tintColor = .darkGray
             // addressTxt.isSecureTextEntry = true
@@ -354,3 +366,18 @@ extension UITextField
     }
 }
 
+extension SignUpViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        emailTxt.endEditing(true)
+        usernameTxt.endEditing(true)
+        emailTxt.endEditing(true)
+        passwordTxt.endEditing(true)
+        confirmPasswordTxt.endEditing(true)
+        countryTxt.endEditing(true)
+        addressTxt.endEditing(true)
+        phoneTxt.endEditing(true)
+        lastNameTxt.endEditing(true)
+        cityTxt.endEditing(true)
+        return true
+    }
+}

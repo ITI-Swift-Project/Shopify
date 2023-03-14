@@ -30,9 +30,14 @@ class CatViewController: UIViewController {
             let nib = UINib(nibName: "CatCollectionViewCell", bundle: nil)
             catCollection.register(nib, forCellWithReuseIdentifier: "catCell")
         }
+        
     }
+    let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
+        catCollection.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        
         createFloatyButton()
         coreDateViewModel = CoreDataViewModelClass()
         menButton.tintColor = UIColor.white
@@ -52,6 +57,11 @@ class CatViewController: UIViewController {
           }
           print("FA\(currencyConverter)")
     }
+    
+    @objc func refreshData(){
+           catCollection.reloadData()
+           refreshControl.endRefreshing()
+       }
    
     override func viewWillAppear(_ animated: Bool) {
         self.catCollection.reloadData()

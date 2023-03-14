@@ -26,7 +26,7 @@ class LoginViewController: UIViewController {
     {
         didSet
         {
-            
+            emailTxt.delegate = self
             emailTxt.tintColor = .darkGray
             //emailTxt.isSecureTextEntry = true
         }
@@ -38,7 +38,7 @@ class LoginViewController: UIViewController {
     {
         didSet
         {
-            
+            passwordTxt.delegate = self
             passwordTxt.tintColor = .darkGray
             passwordTxt.isSecureTextEntry = true
         }
@@ -158,3 +158,10 @@ extension UITextField
 }
 
 
+extension LoginViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            emailTxt.endEditing(true)
+            passwordTxt.endEditing(true)
+            return true
+        }
+}

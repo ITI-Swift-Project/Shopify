@@ -48,7 +48,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qet-dY-9bg">
-                                <rect key="frame" x="16" y="22" width="26.5" height="26.5"/>
+                                <rect key="frame" x="16" y="22" width="26.499999999999993" height="26.5"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="" cornerStyle="capsule">
                                     <imageReference key="image" image="arrowshape.turn.up.left.fill" catalog="system" renderingMode="hierarchical">
@@ -103,7 +103,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LiM-gh-W3j">
-                                <rect key="frame" x="16" y="24" width="26.5" height="26.5"/>
+                                <rect key="frame" x="16" y="24" width="26.499999999999993" height="26.5"/>
                                 <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
@@ -155,7 +155,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="headTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jwp-3a-WnZ">
-                                        <rect key="frame" x="20" y="249" width="279" height="46"/>
+                                        <rect key="frame" x="20" y="249" width="279" height="45.999999999999943"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
                                             <imageReference key="image" image="circle" catalog="system" symbolScale="medium"/>
@@ -258,7 +258,7 @@
                                         <color key="textColor" red="0.02399811894" green="0.22235476970000001" blue="0.36735868449999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGV-qK-jrj">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGV-qK-jrj">
                                         <rect key="frame" x="74" y="429" width="141" height="34"/>
                                         <color key="backgroundColor" red="0.023529411760000001" green="0.22352941179999999" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
@@ -365,7 +365,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BqO-Ly-piE">
-                                <rect key="frame" x="16" y="22" width="26.5" height="26.5"/>
+                                <rect key="frame" x="16" y="22" width="26.499999999999993" height="26.5"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
                                     <imageReference key="image" image="arrowshape.turn.up.left.fill" catalog="system" renderingMode="hierarchical">
@@ -418,7 +418,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cD-8w-MJ0">
-                                        <rect key="frame" x="103" y="338.5" width="114" height="40.5"/>
+                                        <rect key="frame" x="103" y="338.5" width="114" height="40"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" title="Validate!" cornerStyle="capsule">
                                             <fontDescription key="titleFontDescription" type="boldSystem" pointSize="22"/>
@@ -441,13 +441,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KHF-1Y-CkN">
-                                        <rect key="frame" x="16" y="406.5" width="128" height="21.5"/>
+                                        <rect key="frame" x="16" y="406.5" width="128" height="21"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                         <color key="textColor" name="firstColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   700.50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KSB-ia-Ry2">
-                                        <rect key="frame" x="42" y="462" width="194" height="33.5"/>
+                                        <rect key="frame" x="42" y="461.5" width="194" height="34"/>
                                         <color key="backgroundColor" name="firstColor"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                         <color key="textColor" name="thirdColor"/>
@@ -620,7 +620,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJp-PO-cwY">
-                                <rect key="frame" x="16" y="22" width="26.5" height="26.5"/>
+                                <rect key="frame" x="16" y="22" width="26.499999999999993" height="26.5"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
                                     <imageReference key="image" image="arrowshape.turn.up.left.fill" catalog="system" renderingMode="hierarchical">

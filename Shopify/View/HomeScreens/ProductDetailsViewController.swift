@@ -60,7 +60,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
             alert.addAction(UIAlertAction(title: "ok", style: .cancel, handler: nil))
             self.present(alert, animated: true , completion: nil)
         }else{
-            coreDateViewModel.addToCart(id: product.id ?? 0, title: product.title ?? "" , price: product.variants?.first?.price ?? "" , quantity: product.variants?.first?.inventory_quantity ?? 0, image: product.images?.first?.src ?? "" , vendor: product.vendor ?? "")
+            coreDateViewModel.addToCart(id: product.id ?? 0, title: product.title ?? "" , price: product.variants?.first?.price ?? "" , quantity: 1, image: product.images?.first?.src ?? "" , vendor: product.vendor ?? "" ,inventory :product.variants?.first?.inventory_quantity ?? 0 )
     
         }
         
@@ -163,9 +163,9 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
        
         priceLbl.text = "  \(product.variants?.first?.price ?? "") $"
        
-        productName.text = product.title
+        productName.text = product.title ?? ""
        
-        productDiscription.text = product.body_html
+        productDiscription.text = product.body_html ?? "" 
     
         
         myscroll.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 210)
