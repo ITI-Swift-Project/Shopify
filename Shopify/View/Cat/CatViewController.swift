@@ -308,8 +308,8 @@ extension CatViewController : UICollectionViewDataSource
             }else{
                 cell.wishButtonOutlet.setImage(UIImage(systemName: "heart"), for: .normal)
             }
-
-        cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, price: String(Float(result[indexPath.row].variants?[0].price ?? "") ?? 0.0 * currencyConverter).appending(" ").appending(currency ?? ""))
+        var price = Float(result[indexPath.row].variants?[0].price ?? "") ?? 0.0 * currencyConverter
+        cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, price: String(price).appending(" ").appending(currency ?? ""))
         cell.layer.cornerRadius  = 25.0
         cell.backView.layer.cornerRadius = 30
         cell.backView.layer.shadowRadius = 3

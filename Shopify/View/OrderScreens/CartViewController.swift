@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 import Reachability
 import Kingfisher
-
+import TTGSnackbar
 class CartViewController: UIViewController {
     
     let group = DispatchGroup()
@@ -53,7 +53,7 @@ class CartViewController: UIViewController {
     @IBOutlet weak var checkout: UIButton!
     @IBAction func proceedToCheckout(_ sender: Any) {
         let orderDetailsVC = storyboard?.instantiateViewController(withIdentifier: "orderDetails") as! OrderDetailsViewController
-        orderDetailsVC.orderProductsList = shoppingCartItemsList
+        orderDetailsVC.orderProductsList = cartCoreDate
         orderDetailsVC.orderSubTotal = total
        // orderDetailsVC.orderImages = productsImages
         orderDetailsVC.products = productsArr
@@ -80,7 +80,8 @@ class CartViewController: UIViewController {
           {
               currency = "£"
           }
-        total = 0.0
+    
+       // total = 0.0
         self.setTotalPrice()
 
     }
@@ -92,25 +93,41 @@ class CartViewController: UIViewController {
     
     func setTotalPrice(){
         for item in cartCoreDate ?? [] {
-            total = ((total ?? 0.0 ) + (item.value(forKey: "price") as? Float ?? 0) * (item.value(forKey: "quantity") as? Float ?? 0))
+            for i in 0 ..< (item.value(forKey: "quantity") as? Int ?? 0)
+            {
+                total = (total ?? 0.0 ) + (Float(item.value(forKey: "price") as? String ?? "") ?? 0.0)
+            }
         }
-        subTotal.text = String(total ?? 0.0)
-       // subTotal.text = String((total ?? 0) * currencyConverter).appending(currency ?? "")
+        //subTotal.text = String(total ?? 0.0)
+        subTotal.text = String((total ?? 0) * currencyConverter).appending(currency ?? "")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.shoppingCartTableView.reloadData()
        // self.setTotalPrice()
-//        reachability = Reachability.forInternetConnection()
-//        if ((reachability!.isReachable()) )
-//        {
-//            flag = true
-//        }
-//        else
-//        {
-//            flag = false
+        reachability = Reachability.forInternetConnection()
+        if ((reachability!.isReachable()) )
+         {
+          flag = true
+        }
+        else
+        {
+           flag = false
 //            shoppingCartItemsListCoreData = dataViewModel?.fetchProductsFromCoreData(productType: 1)
-//        }
+         }
+        if flag == false{
+            showSnakbar(msg: "Check your internet connection!")
+            func showSnakbar(msg : String){
+                let snackbar = TTGSnackbar(
+                    message: msg,
+                    duration: .middle
+                )
+                snackbar.actionTextColor = UIColor.blue
+                snackbar.borderColor = UIColor.black
+                snackbar.messageTextColor = UIColor.white
+                snackbar.show()
+            }
+        }
        // self.shoppingCartTableView.reloadData()
     }
     
@@ -136,7 +153,7 @@ extension CartViewController : UITableViewDataSource
         cell.cartProductsCount.text = String(cartCoreDate?[indexPath.row].value(forKey: "quantity") as? Int ?? 0)
         let quantity = Float(cartCoreDate?[indexPath.row].value(forKey: "quantity") as? Int ?? 0)
         let price = (Float(cartCoreDate?[indexPath.row].value(forKey: "price") as? String ?? "") ?? 0.0) * currencyConverter
-        cell.cartProductPrice.text = cartCoreDate?[indexPath.row].value(forKey: "price") as? String ?? ""
+        cell.cartProductPrice.text = String((Float(cartCoreDate?[indexPath.row].value(forKey: "price") as? String ?? "") ?? 0.0) * currencyConverter).appending(currency ?? "")
         cell.cartProductSuTotalPrice.text = String(quantity * price).appending(" ").appending(currency ?? "")
         cell.cartProductImage.kf.setImage(with: URL(string: cartCoreDate?[indexPath.row].value(forKey: "image") as? String ?? ""),placeholder: UIImage(systemName: "photo.fill"))
         cell.deleteCartProduct.tag = indexPath.row
@@ -166,7 +183,8 @@ extension CartViewController : UITableViewDataSource
           
             coreDateViewModel.cartDataBase.updataQuantity(quantity: count, id: cartCoreDate?[sender.tag].value(forKey: "id") as? Int ?? 0 )
             cartCoreDate = coreDateViewModel.cartDataBase.fetchFromCart()
-            total = (total ?? 0.0) - (cartCoreDate?[sender.tag].value(forKey: "price") as? Float ?? 0)
+            total = (total ?? 0.0) - (Float(cartCoreDate?[sender.tag].value(forKey: "price") as? String ?? "") ?? 0.0)
+            subTotal.text = String((total ?? 0) * currencyConverter).appending(currency ?? "")
             self.shoppingCartTableView.reloadData()
         }
     }
@@ -182,15 +200,24 @@ extension CartViewController : UITableViewDataSource
             let count = (self.cartCoreDate?[sender.tag].value(forKey: "quantity") as? Int ?? 0) + 1
             coreDateViewModel.cartDataBase.updataQuantity(quantity: count, id: cartCoreDate?[sender.tag].value(forKey: "id") as? Int ?? 0 )
             cartCoreDate = coreDateViewModel.cartDataBase.fetchFromCart()
-            total = (total ?? 0.0) + (cartCoreDate?[sender.tag].value(forKey: "price") as? Float ?? 0)
+            total = (total ?? 0.0) + (Float(cartCoreDate?[sender.tag].value(forKey: "price") as? String ?? "") ?? 0.0)
+            subTotal.text = String((total ?? 0) * currencyConverter).appending(currency ?? "")
             self.shoppingCartTableView.reloadData()
         }
     }
     @objc func deleteButton(_ sender: UIButton) {
         let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product from cart ?", preferredStyle: .actionSheet)
-        deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
+        deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ [self] action in
+           
+            var price = (Float(cartCoreDate?[sender.tag].value(forKey: "price") as? String ?? "") ?? 0.0)
+            var quantity = Float(cartCoreDate?[sender.tag].value(forKey: "quantity") as? Float ?? 0.0)
+            var temp = price * quantity
+            
             self.coreDateViewModel.cartDataBase.deleteFromCart(id: self.cartCoreDate?[sender.tag].value(forKey: "id") as? Int ?? 0)
             self.cartCoreDate?.remove(at: sender.tag)
+           
+            total = (total ?? 0.0) - temp
+            subTotal.text = String((total ?? 0) * currencyConverter).appending(self.currency ?? "")
                   self.shoppingCartTableView.reloadData()
         }))
         deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -209,10 +236,18 @@ extension CartViewController : UITableViewDelegate
         if  editingStyle == .delete
         {
                 let deleteAlert : UIAlertController  = UIAlertController(title:"Delete this product?", message:"Are you sure you want to delete this product?", preferredStyle: .actionSheet)
-                deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ action in
+            deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ [self] action in
 
+                    var price = (Float(cartCoreDate?[indexPath.row].value(forKey: "price") as? String ?? "") ?? 0.0)
+                    var quantity = Float(cartCoreDate?[indexPath.row].value(forKey: "quantity") as? Float ?? 0.0)
+                    var temp = price * quantity
+                    
                     self.coreDateViewModel.cartDataBase.deleteFromCart(id: self.cartCoreDate?[indexPath.row].value(forKey: "id") as? Int ?? 0)
                     self.cartCoreDate?.remove(at: indexPath.row)
+                    
+                self.total = (self.total ?? 0.0) - temp
+                     subTotal.text = String((total ?? 0) * currencyConverter).appending(self.currency ?? "")
+
                           self.shoppingCartTableView.reloadData()
                 }))
                 deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
