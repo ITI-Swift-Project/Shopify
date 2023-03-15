@@ -60,6 +60,10 @@ class CoreDataViewModelClass {
 //           }
 //       }
     }
+    func deleteCart(){
+        cartDataBase.deleteCart()
+        cartState = false
+    }
     
     //MARK: - WishList
     var wishListDataBase = WishListCoreDataManager.getWishListInstance()
@@ -97,6 +101,9 @@ class CoreDataViewModelClass {
         wishListDataBase.saveToWishList(id: id, title: title, price: price, quantity:quantity, image: image, vendor: vendor)
         wishListState = true
     }
-    
+    func deleteWishList (){
+        wishListDataBase.deleteWishList()
+        wishListState = false
+    }
 }
 

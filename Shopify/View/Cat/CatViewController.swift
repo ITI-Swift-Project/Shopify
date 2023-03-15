@@ -46,15 +46,7 @@ class CatViewController: UIViewController {
         sale.tintColor = UIColor.white
         let endPoint = APIEndpoint.products
         filterDataByType(endPoint: endPoint)
-        currencyConverter = userdef.value(forKey: "currency") as?  Float ?? 0
-          if userdef.value(forKey: "currency") as? Double == 1.0
-          {
-              currency = "$"
-          }
-          else
-          {
-              currency = "£"
-          }
+        
           print("FA\(currencyConverter)")
     }
     
@@ -65,6 +57,15 @@ class CatViewController: UIViewController {
    
     override func viewWillAppear(_ animated: Bool) {
         self.catCollection.reloadData()
+        currencyConverter = UserDefaults.standard.value(forKey: "currency") as?  Float ?? 0
+        if UserDefaults.standard.value(forKey: "currency") as? Double == 1.0
+          {
+              currency = "$"
+          }
+          else
+          {
+              currency = "£"
+          }
     }
     //MARK: Floaty Creation
     func createFloatyButton(){
@@ -308,8 +309,11 @@ extension CatViewController : UICollectionViewDataSource
             }else{
                 cell.wishButtonOutlet.setImage(UIImage(systemName: "heart"), for: .normal)
             }
-        var price = Float(result[indexPath.row].variants?[0].price ?? "") ?? 0.0 * currencyConverter
-        cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, price: String(price).appending(" ").appending(currency ?? ""))
+        
+        var price = Float(result[indexPath.row].variants?[0].price ?? "") ?? 0.0
+        var tmp = price * currencyConverter
+        
+        cell.configProductInfo(name: result[indexPath.row].title!, vendor: result[indexPath.row].vendor!, price: String(tmp).appending(" ").appending(currency ?? ""))
         cell.layer.cornerRadius  = 25.0
         cell.backView.layer.cornerRadius = 30
         cell.backView.layer.shadowRadius = 3
