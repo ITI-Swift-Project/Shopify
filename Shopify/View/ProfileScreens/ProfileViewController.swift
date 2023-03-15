@@ -21,6 +21,9 @@ class ProfileViewController: UIViewController{
     var viewModel : OrderViewModel?
     var wishListCoreDate : [NSManagedObject]?
     let semaphore = DispatchSemaphore(value: 0)
+    var userdef = UserDefaults.standard
+    var currencyConverter : Float = 1
+    var currency : String?
     
     @IBOutlet weak var wlcomeLbl: UILabel!
  
@@ -44,7 +47,15 @@ class ProfileViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        currencyConverter = userdef.value(forKey: "currency") as! Float
+          if userdef.value(forKey: "currency") as! Double == 1.0
+          {
+              currency = "$"
+          }
+          else
+          {
+              currency = "£"
+          }
     }
     override func viewWillAppear(_ animated: Bool) {
         
@@ -152,7 +163,8 @@ extension ProfileViewController : UITableViewDataSource{
            
             cell.wishName.text = wishListCoreDate?[indexPath.row].value(forKey: "title") as? String ?? ""
             cell.wishDiscription.text = wishListCoreDate?[indexPath.row].value(forKey: "vendor") as? String ?? ""
-            cell.wishPrice.text = wishListCoreDate?[indexPath.row].value(forKey: "price") as? String ?? ""
+            var price = (Float(wishListCoreDate?[indexPath.row].value(forKey: "price") as? String ?? "") ?? 0.0) * currencyConverter
+            cell.wishPrice.text = String(price)
             cell.layer.masksToBounds = true
             cell.layer.cornerRadius = 30
             cell.backView.layer.cornerRadius = 20
