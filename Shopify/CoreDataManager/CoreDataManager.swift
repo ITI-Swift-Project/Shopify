@@ -78,10 +78,20 @@ class CartCoreDataManager : CartCD {
             }
         }
     }
+    
+    func deleteCart(){
+        if let arr = fetchFromCart(){
+            for obj in arr{
+                managedContext.delete(obj)
+                try?managedContext.save()
+            }
+        }
+    }
 }
 
 
-    
+
+    //MARK: WishList Section
 class WishListCoreDataManager : WishListCD {
 
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -142,7 +152,16 @@ class WishListCoreDataManager : WishListCD {
             }
         }
     }
-    
+    func deleteWishList(){
+        if let arr = fetchFromWishList() {
+            for obj in arr {
+                
+                    managedContext.delete(obj)
+                    try?managedContext.save()
+                
+            }
+        }
+    }
     
     
     

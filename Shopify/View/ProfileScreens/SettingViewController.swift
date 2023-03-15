@@ -8,7 +8,7 @@
 import UIKit
 
 class SettingViewController: UIViewController {
-
+    var coreDateViewModel : CoreDataViewModelClass?
     @IBOutlet weak var settingsTable: UITableView!
     {
         didSet
@@ -23,6 +23,7 @@ class SettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        coreDateViewModel = CoreDataViewModelClass()
         settingsVCStyle()
     }
     
@@ -40,6 +41,8 @@ class SettingViewController: UIViewController {
         UserDefaults.standard.set(false, forKey: "loginState")
         UserDefaults.standard.set(0, forKey: "userId")
         UserDefaults.standard.set("", forKey: "email")
+        coreDateViewModel?.deleteWishList()
+        coreDateViewModel?.deleteCart()
         navigationController?.popViewController(animated: true)
     }
     @IBAction func cartAction(_ sender: Any) {
