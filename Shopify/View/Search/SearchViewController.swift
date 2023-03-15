@@ -8,7 +8,7 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-    
+    var coreDateViewModel = CoreDataViewModelClass()
     @IBOutlet weak var searchBar: UISearchBar!
     
     
@@ -34,12 +34,13 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        coreDateViewModel = CoreDataViewModelClass()
         searchCV.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
         if whereFrom ==  "Home"
         {
+            coreDateViewModel = CoreDataViewModelClass()
             let brandEndPoint = APIEndpoint.products
             let url = brandEndPoint.url(forShopName: NetworkService.baseUrl)
             viewModel = ProductsViewModel()
@@ -94,9 +95,23 @@ extension SearchViewController : UICollectionViewDataSource
             let url = URL(string: urlString) {
             cell.configImg(name: url)
         }
-
+        coreDateViewModel = CoreDataViewModelClass()
+        coreDateViewModel.checkWishListState(id: productsArray2[indexPath.row].id ?? 0)
+        print(productsArray2[indexPath.row].id ?? 0)
+         if coreDateViewModel.wishListState {
+             cell.wishButtonOutlet.setImage(UIImage(systemName:  "heart.fill"), for: .normal)
+         }else{
+             cell.wishButtonOutlet.setImage(UIImage(systemName: "heart"), for: .normal)
+         }
         cell.configProductInfo(name: productsArray2[indexPath.row].title!, vendor: productsArray2[indexPath.row].vendor!, price: productsArray2[indexPath.row].variants?[0].price ?? "")
         cell.layer.cornerRadius  = 25.0
+        cell.layer.cornerRadius  = 25.0
+        cell.backView.layer.cornerRadius = 30
+        cell.backView.layer.shadowRadius = 3
+        cell.backView.layer.shadowColor = UIColor.gray.cgColor
+        cell.backView.layer.shadowOpacity = 0.8
+        cell.wishButtonOutlet.tag = indexPath.row
+        cell.wishButtonOutlet.addTarget(self, action: #selector(wishButton(_:)), for: .touchUpInside)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -106,7 +121,18 @@ extension SearchViewController : UICollectionViewDataSource
         productDetailsViewController.product = productsArray2[indexPath.row]
         self.navigationController?.pushViewController(productDetailsViewController, animated: true)
         }
-    
+    @objc func wishButton(_ sender: UIButton) {
+        
+        if coreDateViewModel.wishListState {
+            print("deletes")
+            coreDateViewModel.deleteFromWishList(id: productsArray2[sender.tag].id ?? 0)
+            sender.setImage(UIImage(systemName:  "heart"), for: .normal)
+        }else{
+            print("Added")
+            coreDateViewModel.addToWishList(id: productsArray2[sender.tag].id ?? 0, title: productsArray2[sender.tag].title ?? "" , price:  productsArray2[sender.tag].variants?.first?.price ?? "" , quantity: productsArray2[sender.tag].variants?.first?.inventory_quantity ?? 0, image: productsArray2[sender.tag].images?.first?.src ?? "" , vendor: productsArray2[sender.tag].vendor ?? "")
+            sender.setImage(UIImage(systemName:  "heart.fill"), for: .normal)
+        }
+    }
     
 }
 
@@ -137,7 +163,7 @@ extension SearchViewController : UISearchBarDelegate
 extension SearchViewController : UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 2 - 20, height: self.view.frame.height * 0.25)
+        return CGSize(width: self.view.frame.width / 2 - 20, height: self.view.frame.height * 0.33)
         
     }
     
