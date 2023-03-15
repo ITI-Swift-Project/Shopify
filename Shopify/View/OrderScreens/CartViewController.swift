@@ -83,6 +83,7 @@ class CartViewController: UIViewController {
     
        // total = 0.0
         self.setTotalPrice()
+         workingWithDispatchGroup()
 
     }
     
@@ -258,10 +259,17 @@ extension CartViewController : UITableViewDelegate
         let storyBoard: UIStoryboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
         let productDetailsVC = storyBoard.instantiateViewController(withIdentifier: "productDetails") as? ProductDetailsViewController
       //  productDetailsVC?.product = cartCoreDate?[indexPath.row]
-        productDetailsVC?.product.title = cartCoreDate?[indexPath.row].value(forKey: "title") as? String ?? ""
-        productDetailsVC?.product.image?.src = cartCoreDate?[indexPath.row].value(forKey: "image") as? String ?? ""
-        productDetailsVC?.product.vendor = cartCoreDate?[indexPath.row].value(forKey: "vendor") as? String ?? ""
-        productDetailsVC?.product.variants?[0].price = cartCoreDate?[indexPath.row].value(forKey: "price") as? String ?? ""
+        //        productDetailsVC?.product.title = cartCoreDate?[indexPath.row].value(forKey: "title") as? String ?? ""
+        //        productDetailsVC?.product.images?[0].src = cartCoreDate?[indexPath.row].value(forKey: "image") as? String ?? ""
+        //        productDetailsVC?.product.vendor = cartCoreDate?[indexPath.row].value(forKey: "vendor") as? String ?? ""
+        //        productDetailsVC?.product.variants?[0].price = cartCoreDate?[indexPath.row].value(forKey: "price") as? String ?? ""
+        for item in productsArr
+        {
+            if item.id == cartCoreDate?[indexPath.row].value(forKey: "id") as? Int ?? 0
+            {
+                productDetailsVC?.product = item
+            }
+        }
         navigationController?.pushViewController(productDetailsVC!, animated: true)
     }
 }
@@ -354,10 +362,10 @@ extension CartViewController
 //        task.resume()
 //    }
 //}
-//extension CartViewController
-//{
-//    func workingWithDispatchGroup()
-//    {
+extension CartViewController
+{
+    func workingWithDispatchGroup()
+    {
 //        group.enter()
 //        self.networkViewModel?.getCartProducts(url:  "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders/1113759416624.json")
 //        self.networkViewModel?.bindingCartProducts = { () in
@@ -370,21 +378,21 @@ extension CartViewController
 //            self.subTotal.text = String(self.total * self.currencyConverter).appending(self.currency ?? "")
 //        }
 //        self.group.leave()
-//
-//        group.enter()
-//
-//        self.productViewModel?.getArrayOfProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/products.json")
-//        self.productViewModel?.bindingArrOfProducts = { () in
-//            self.productsArr = self.productViewModel?.arrOfProductsResult ?? []
-//
-//            self.group.leave()
-//            self.group.notify(queue: .main)
-//            {
-//                self.shoppingCartTableView.reloadData()
-//            }
-//        }
-//    }
-//}
+
+        group.enter()
+
+        self.productViewModel?.getArrayOfProducts(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/products.json")
+        self.productViewModel?.bindingArrOfProducts = { () in
+            self.productsArr = self.productViewModel?.arrOfProductsResult ?? []
+
+            self.group.leave()
+            self.group.notify(queue: .main)
+            {
+                self.shoppingCartTableView.reloadData()
+            }
+        }
+    }
+}
 //
 //
 //extension CartViewController

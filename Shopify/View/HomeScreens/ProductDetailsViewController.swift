@@ -353,7 +353,7 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate 
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productDetailsCell", for: indexPath) as! ProductDetailsCollectionViewCell
            // cell.productDetailsImg(name: URL(string: (arrProducts[indexPath.row])))
-            cell.productDetailsImg.kf.setImage(with: URL(string: ((product.images?[indexPath.row])?.src!)!))
+            cell.productDetailsImg.kf.setImage(with: URL(string: ((product.images?[indexPath.row])?.src ?? "")))
             return cell
             
            // cell.productDetailsImg(name:URL(string : (arrProducts[indexPath.row].images!)))
