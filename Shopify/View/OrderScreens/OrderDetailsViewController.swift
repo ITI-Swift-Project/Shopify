@@ -67,9 +67,10 @@ class OrderDetailsViewController: UIViewController {
             }
             else
             {
-                discountAmount = ((orderSubTotal ?? 0.0) + shoppingfees) * 0.3
-                discount.text = String(discountAmount)
-                orderTotalPrice.text = String(((orderSubTotal ?? 0.0)+30.0)-discountAmount)
+                discountAmount = ((orderSubTotal ?? 0.0) + shoppingfees) * currencyConverter * 0.3
+                discount.text = String(discountAmount).appending(currency ?? "")
+                var total = ((orderSubTotal ?? 0.0)+30.0) * currencyConverter
+                orderTotalPrice.text = String(total - discountAmount).appending(currency ?? "")
 
             }
             
@@ -105,7 +106,7 @@ class OrderDetailsViewController: UIViewController {
 
         enteringCopounCode.layer.cornerRadius = 20
         enteringCopounCode.borderStyle = UITextField.BorderStyle(rawValue: 0)!
-        orderSubTotalPrice.text = String(orderSubTotal ?? 0.0 * currencyConverter).appending(currency ?? "")
+     
         homeViewModel = BrandsViewModel()
         adsViewModel = ADsViewModel()
         adsViewModel?.getAds()
@@ -117,7 +118,8 @@ class OrderDetailsViewController: UIViewController {
         }
         shoppingFees.text = String(shoppingfees * currencyConverter).appending(currency ?? "")
         discount.text = String(discountAmount * currencyConverter).appending(currency ?? "")
-        orderSubTotalPrice.text = String(orderSubTotal ?? 0.0) ?? ""
+        let subtotal = ((orderSubTotal ?? 0.0) * currencyConverter)
+        orderSubTotalPrice.text = String(subtotal).appending(currency ?? "")
         orderTotalPrice.text = String((((orderSubTotal ?? 0.0) + shoppingfees)-discountAmount) * currencyConverter).appending(currency ?? "")
     }
     override func viewWillAppear(_ animated: Bool) {

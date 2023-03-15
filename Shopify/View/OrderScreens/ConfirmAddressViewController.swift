@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TTGSnackbar
 
 class ConfirmAddressViewController: UIViewController {
 
@@ -35,7 +36,18 @@ class ConfirmAddressViewController: UIViewController {
         {
             let paymentVC = storyboard?.instantiateViewController(withIdentifier: "payment") as! PaymentViewController
             paymentVC.totalAmount = totalAmount
-            navigationController?.pushViewController(paymentVC, animated: true)
+            showSnakbar(msg: "Address choised successfully!!")
+            func showSnakbar(msg : String){
+                let snackbar = TTGSnackbar(
+                    message: msg,
+                    duration: .middle
+                )
+                snackbar.actionTextColor = UIColor.blue
+                snackbar.borderColor = UIColor.black
+                snackbar.messageTextColor = UIColor.white
+                snackbar.show()
+                navigationController?.pushViewController(paymentVC, animated: true)
+            }
         }
         else{
             let alert = UIAlertController(title: "Missing Data", message: "please selet address to continue", preferredStyle: .alert)
