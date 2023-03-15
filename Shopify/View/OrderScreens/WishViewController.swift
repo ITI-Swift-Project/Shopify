@@ -44,6 +44,8 @@ class WishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         wishTV.refreshControl = refreshControl
           refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         dataVM = CoreDataViewModel()
@@ -98,6 +100,21 @@ class WishViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         wishTV.reloadData()
         reachability = Reachability.forInternetConnection()
+        if wishListCoreDate?.count == 0
+        {
+            wishTV.isHidden = true
+            let imgError = UIImageView(frame: CGRect(x: 100, y: 300, width: self.view.frame.width - 200 , height: 150))
+            imgError.image =  UIImage(systemName: "icloud.slash")
+            imgError.tintColor = .darkGray
+            self.view.addSubview(imgError)
+            
+            let lblMsg = UILabel(frame: CGRect(x: Int(imgError.frame.minX), y: Int(imgError.frame.maxY) + 15, width: Int(imgError.frame.width) + 50, height: 30))
+            lblMsg.text = "There is no Data to Display"
+        //    lblMsg = .darkGray
+          //  lblMsg.textAlignment = .center
+            self.view.addSubview(lblMsg)
+            
+        }
         if ((reachability!.isReachable()) )
          {
           flag = true
@@ -120,6 +137,7 @@ class WishViewController: UIViewController {
                 snackbar.show()
             }
         }
+       
     }
     
     @IBAction func backAction(_ sender: Any) {
