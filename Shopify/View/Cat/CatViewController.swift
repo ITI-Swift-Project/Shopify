@@ -7,11 +7,14 @@
 
 import UIKit
 import Floaty
+
+
 class CatViewController: UIViewController {
     var viewModel : ProductsViewModel?
     var result : [Product] = []
     var floaty : Floaty?
     var flag : Int = 0
+
     var categoryId : URL?
     var userdef = UserDefaults.standard
     var currencyConverter : Float = 0.0
@@ -35,6 +38,7 @@ class CatViewController: UIViewController {
     let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         catCollection.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
@@ -154,10 +158,13 @@ class CatViewController: UIViewController {
     }
    
     @IBAction func searchAction(_ sender: Any) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "SearchStoryboard", bundle: nil)
-        let searchViewController = storyBoard.instantiateViewController(withIdentifier: "search") as! SearchViewController
-        searchViewController.productsArray = result
-        self.navigationController?.pushViewController(searchViewController, animated: true)
+       
+            let storyBoard: UIStoryboard = UIStoryboard(name: "SearchStoryboard", bundle: nil)
+            let searchViewController = storyBoard.instantiateViewController(withIdentifier: "search") as! SearchViewController
+            searchViewController.productsArray = result
+            self.navigationController?.pushViewController(searchViewController, animated: true)
+        
+        
     }
     //MARK: Filter By Men
     @IBAction func filterByMen(_ sender: Any) {
@@ -202,17 +209,19 @@ class CatViewController: UIViewController {
     }
     //MARK: Fitch method
     func getFilterResltFloatyButtonAllProuducts(endPoint : APIEndpoint,product_type : String)->Void{
-        let url = endPoint.urlTofiltrtion(forShopName: NetworkService.baseUrl, product_type: product_type)
-        self.viewModel = ProductsViewModel()
-        self.viewModel?.getProductsAt(url: url )
-        self.viewModel?.bindingProducts = {
-            DispatchQueue.main.async {
-             
-                self.result = self.viewModel!.productsResult.products ?? []
-                print(self.result.count)
-                self.catCollection.reloadData()
+        
+            let url = endPoint.urlTofiltrtion(forShopName: NetworkService.baseUrl, product_type: product_type)
+            self.viewModel = ProductsViewModel()
+            self.viewModel?.getProductsAt(url: url )
+            self.viewModel?.bindingProducts = {
+                DispatchQueue.main.async {
+                    
+                    self.result = self.viewModel!.productsResult.products ?? []
+                    print(self.result.count)
+                    self.catCollection.reloadData()
+                }
             }
-        }
+  
     }
     
     @IBAction func backAction(_ sender: Any) {
@@ -237,17 +246,20 @@ class CatViewController: UIViewController {
     
     
     func filterDataByType(endPoint:APIEndpoint)->Void{
-        let url = endPoint.url(forShopName:NetworkService.baseUrl)
-        viewModel = ProductsViewModel()
-        viewModel?.getProductsAt(url: url )
-        viewModel?.bindingProducts = {
-            DispatchQueue.main.async {
-             
-                self.result = self.viewModel!.productsResult.products ?? []
-                print(self.result.count)
-                self.catCollection.reloadData()
+       
+            let url = endPoint.url(forShopName:NetworkService.baseUrl)
+            viewModel = ProductsViewModel()
+            viewModel?.getProductsAt(url: url )
+            viewModel?.bindingProducts = {
+                DispatchQueue.main.async {
+                    
+                    self.result = self.viewModel!.productsResult.products ?? []
+                    print(self.result.count)
+                    self.catCollection.reloadData()
+                
             }
         }
+       
     }
     
     @IBAction func wishList(_ sender: Any) {

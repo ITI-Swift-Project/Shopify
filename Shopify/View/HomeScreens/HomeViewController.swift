@@ -8,13 +8,16 @@
 import UIKit
 import Kingfisher
 import TTGSnackbar
+import Reachability
 class HomeViewController: UIViewController {
     @IBOutlet weak var pageController: UIPageControl!
     var adsViewModel : ADsViewModel?
     var brandsViewModel : BrandsViewModel?
     var cellIndex = 0
+    var reachability : Reachability?
     var timer :  Timer?
     var brandArray : [Brand] = []
+    var coreDataViewModel = CoreDataViewModelClass()
     var adsList : [DiscountCode] = []
     var adsImages : [String] = ["c1","c2","c3","c4","c5","c6","c7"]
     @IBOutlet weak var adsCollection: UICollectionView!
@@ -44,7 +47,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        reachability = Reachability.forInternetConnection()
         brandCollection.refreshControl = refreshControl
             refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
@@ -52,7 +55,8 @@ class HomeViewController: UIViewController {
       print("SignUP\(UserDefaults.standard.bool(forKey: "signUpState"))")
         
        
-        self.startTimer()
+            self.startTimer()
+        
     }
         @objc func refreshData(){
             brandCollection.reloadData()
@@ -66,25 +70,31 @@ class HomeViewController: UIViewController {
     
     func startTimer()
     {
-        timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(toNextItem), userInfo: nil, repeats: true)
+        if((reachability!.isReachable()))
+        {
+            timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(toNextItem), userInfo: nil, repeats: true)
+        }
     }
     @objc
     func toNextItem(){
-        if cellIndex < adsImages.count - 1
+        if(reachability!.isReachable())
         {
-            cellIndex += 1
+            if cellIndex < adsImages.count - 1
+            {
+                cellIndex += 1
+            }
+            else
+            {
+                cellIndex  = 0
+            }
+            adsCollection.scrollToItem(at: IndexPath(item: cellIndex, section: 0), at: .centeredHorizontally, animated: true)
+            pageController.currentPage = cellIndex
         }
-        else
-        {
-            cellIndex  = 0
-        }
-        adsCollection.scrollToItem(at: IndexPath(item: cellIndex, section: 0), at: .centeredHorizontally, animated: true)
-        pageController.currentPage = cellIndex
     }
     @IBAction func wishAction(_ sender: Any) {
         if !(UserDefaults.standard.bool(forKey: "loginState")) ?? false
         {
-            makeAlert()
+            makeAlert(message: "please loggin or register", tilte: "")
         }
         else{
             let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
@@ -97,7 +107,7 @@ class HomeViewController: UIViewController {
     @IBAction func cartAction(_ sender: Any) {
         if !(UserDefaults.standard.bool(forKey: "loginState")) ?? false
         {
-            makeAlert()
+            makeAlert(message: "please loggin or register", tilte: "")
         }
         else{
             let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
@@ -108,16 +118,30 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func searchButtonAction(_ sender: Any) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "SearchStoryboard", bundle: nil)
-        let searchViewController = storyBoard.instantiateViewController(withIdentifier: "search") as! SearchViewController
-        searchViewController.whereFrom = "Home"
-        //productDetailsViewController.arrProducts = result
-        self.navigationController?.pushViewController(searchViewController, animated: true)
+        if ((reachability!.isReachable()) ){
+            let storyBoard: UIStoryboard = UIStoryboard(name: "SearchStoryboard", bundle: nil)
+            let searchViewController = storyBoard.instantiateViewController(withIdentifier: "search") as! SearchViewController
+            searchViewController.whereFrom = "Home"
+            //productDetailsViewController.arrProducts = result
+            self.navigationController?.pushViewController(searchViewController, animated: true)}
+        else{
+            showSnakbar(msg: "Check Connection")
+            func showSnakbar(msg : String){
+            let snackbar = TTGSnackbar(
+                message: msg,
+                duration: .middle
+            )
+            snackbar.actionTextColor = UIColor.blue
+            snackbar.borderColor = UIColor.black
+            snackbar.messageTextColor = UIColor.white
+            snackbar.show()
+           }
+        }
     }
     
-    func makeAlert()
+    func makeAlert(message : String,tilte : String)
     {
-        let alert = UIAlertController(title: "", message: "please loggin or register", preferredStyle: .alert)
+        let alert = UIAlertController(title:tilte, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         alert.addAction(okAction)
         self.present(alert, animated: true)
@@ -191,30 +215,44 @@ extension HomeViewController : UICollectionViewDataSource
         
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == brandCollection
-        {
-            let storyBoard: UIStoryboard = UIStoryboard(name: "CatStoryboard", bundle: nil)
-            let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "brands") as! BrandsViewController
-            brandsViewController.brandId = brandArray[indexPath.row].id
-            self.navigationController?.pushViewController(brandsViewController, animated: true)
-        }
-        else if collectionView == adsCollection
-        {
-            let pasteboard = UIPasteboard.general
-            pasteboard.string = adsList[indexPath.row].code
-            showSnakbar(msg: "Couopn code copied to clipboard!")
-             func showSnakbar(msg : String){
-             let snackbar = TTGSnackbar(
-                 message: msg,
-                 duration: .middle
-             )
-             snackbar.actionTextColor = UIColor.blue
-             snackbar.borderColor = UIColor.black
-             snackbar.messageTextColor = UIColor.white
-             snackbar.show()
+        if (reachability!.isReachable()){
+            if collectionView == brandCollection
+            {
+                let storyBoard: UIStoryboard = UIStoryboard(name: "CatStoryboard", bundle: nil)
+                let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "brands") as! BrandsViewController
+                brandsViewController.brandId = brandArray[indexPath.row].id
+                self.navigationController?.pushViewController(brandsViewController, animated: true)
             }
-            print("m\(adsList[indexPath.row].code)")
-
+            else if collectionView == adsCollection
+            {
+                let pasteboard = UIPasteboard.general
+                pasteboard.string = adsList[indexPath.row].code
+                showSnakbar(msg: "Couopn code copied to clipboard!")
+                func showSnakbar(msg : String){
+                    let snackbar = TTGSnackbar(
+                        message: msg,
+                        duration: .middle
+                    )
+                    snackbar.actionTextColor = UIColor.blue
+                    snackbar.borderColor = UIColor.black
+                    snackbar.messageTextColor = UIColor.white
+                    snackbar.show()
+                }
+                print("m\(adsList[indexPath.row].code)")
+                
+            }}
+        else{
+            showSnakbar(msg: "Check Connection")
+            func showSnakbar(msg : String){
+            let snackbar = TTGSnackbar(
+                message: msg,
+                duration: .middle
+            )
+            snackbar.actionTextColor = UIColor.blue
+            snackbar.borderColor = UIColor.black
+            snackbar.messageTextColor = UIColor.white
+            snackbar.show()
+           }
         }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell

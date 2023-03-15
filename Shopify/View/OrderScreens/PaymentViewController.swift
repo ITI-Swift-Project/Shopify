@@ -34,7 +34,7 @@ class PaymentViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        totalAmount = 2000
+        totalAmount = (totalAmount ?? 0) + 30.0
         self.braintreeClient = BTAPIClient(authorization: "sandbox_ndwyq572_czqszfjbwjdnvj3h")!
         StyleHelper.bgFrameStyle(frame: bgFrame)
     }
