@@ -579,6 +579,11 @@
             <point key="canvasLocation" x="84.732824427480907" y="4.2253521126760569"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="kqh-Vo-tcl">
+            <size key="intrinsicContentSize" width="120" height="20"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Home" width="29" height="33"/>
         <image name="Search" width="20" height="20"/>
