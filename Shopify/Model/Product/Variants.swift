@@ -7,12 +7,14 @@
 
 import Foundation
 struct Variants  :Codable{
-   // var id : Int?
-    //var product_id : Int?
+    var id : Int?
+    var product_id : Int?
     //var title : String?
     var price : String?
     //var sku : String?
     //var inventory_policy : String?
-    
+    var option1 : String?
+    var option2 : String?
+    var inventory_quantity : Int?
     
 }

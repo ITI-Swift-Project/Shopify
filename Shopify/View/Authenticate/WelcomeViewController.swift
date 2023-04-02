@@ -6,12 +6,12 @@
 //
 
 import UIKit
-
+protocol PresentedViewControllerDelegate: AnyObject {
+    func didDismissPresentedViewController()
+}
 class WelcomeViewController: UIViewController {
 
     @IBOutlet weak var topView: UIView!
-    
-    @IBOutlet weak var skipBtn: UIButton!
     
     @IBOutlet weak var loginBtn: UIButton!
     
@@ -19,22 +19,50 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
         self.topView.layer.masksToBounds = true
         self.topView.layer.cornerRadius = self.topView.frame.size.height / 2
+        self.signupBtn.layer.masksToBounds = true
+        self.signupBtn.layer.cornerRadius = self.signupBtn.frame.size.height / 2
+        self.loginBtn.layer.masksToBounds = true
+        self.loginBtn.layer.cornerRadius = self.loginBtn.frame.size.height / 2
+
+    }
+  
+    
+     func viewWillAppear( animated: Bool) {
+        if ((UserDefaults.standard.value(forKey: "loginState")) as? Bool ?? false){
+            self.dismiss(animated: true)
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "singIn" {
+            let nextViewController = segue.destination as! LoginViewController
+            nextViewController.delegate = self
+        }
+        else if segue.identifier == "singUp" {
+            let nextViewController = segue.destination as! SignUpViewController
+            nextViewController.delegate = self
+        }
     }
     
+    @IBAction func signUp(_ sender: Any) {
+        performSegue(withIdentifier: "singUp", sender: self)
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
+ 
+     @IBAction func signIn(_ sender: Any) {
+         performSegue(withIdentifier: "singIn", sender: self)
 
+       
+     }
+    
+
+}
+extension WelcomeViewController : PresentedViewControllerDelegate{
+    func didDismissPresentedViewController() {
+        self.dismiss(animated: true)
+    }
+    
+    
 }

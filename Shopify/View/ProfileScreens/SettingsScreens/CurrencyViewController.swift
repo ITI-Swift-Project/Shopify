@@ -9,57 +9,43 @@ import UIKit
 
 class CurrencyViewController: UIViewController {
     
+    var userdef = UserDefaults.standard
+   // userdef.setValue(false, forKey: "firstTime")
+
     @IBOutlet weak var bgFrame: UIView!
     @IBOutlet weak var USD: UIButton!
-    @IBOutlet weak var EUR: UIButton!
     @IBOutlet weak var GBP: UIButton!
-    @IBOutlet weak var CHF: UIButton!
-    @IBOutlet weak var CAD: UIButton!
     
     @IBAction func selectUSD(_ sender: Any) {
-        USD.setImage(UIImage(systemName: "dot.circle.fill"), for: .normal)
-        EUR.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        GBP.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        CHF.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        CAD.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-    }
-    
-    @IBAction func selectEUR(_ sender: Any) {
-        EUR.setImage(UIImage(systemName: "dot.circle.fill"), for: .normal)
-        USD.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        GBP.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        CHF.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        CAD.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-
+        setCurrencyImage(currency : USD)
+        userdef.setValue(1.0, forKey: "currency")
     }
     
     @IBAction func selectGBP(_ sender: Any) {
-        GBP.setImage(UIImage(systemName: "dot.circle.fill"), for: .normal)
-        USD.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        EUR.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        CHF.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        CAD.setImage(UIImage(systemName: "dot.circle"), for: .normal)
+        setCurrencyImage(currency : GBP)
+        userdef.setValue(30.0, forKey: "currency")
+    }
 
-    }
-    
-    @IBAction func selectCHF(_ sender: Any) {
-        CHF.setImage(UIImage(systemName: "dot.circle.fill"), for: .normal)
-        USD.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        EUR.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        GBP.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        CAD.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-    }
-    
-    @IBAction func selectCAD(_ sender: Any) {
-        CAD.setImage(UIImage(systemName: "dot.circle.fill"), for: .normal)
-        USD.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        EUR.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        GBP.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-        CHF.setImage(UIImage(systemName: "dot.circle"), for: .normal)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         StyleHelper.bgFrameStyle(frame: bgFrame)
+        if userdef.value(forKey: "currency") as! Double == 1.0
+        {
+            USD.setImage(UIImage(systemName: "dot.circle.fill"), for: .normal)
+        }
+        else
+        {
+            GBP.setImage(UIImage(systemName: "dot.circle.fill"), for: .normal)
+        }
+    }
+    
+}
+extension CurrencyViewController
+{
+    func setCurrencyImage(currency : UIButton)
+    {
+        GBP.setImage(UIImage(systemName: "dot.circle"), for: .normal)
+        USD.setImage(UIImage(systemName: "dot.circle"), for: .normal)
+        currency.setImage(UIImage(systemName: "dot.circle.fill"), for: .normal)
     }
 }
-   

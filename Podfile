@@ -8,12 +8,17 @@ target 'Shopify' do
   pod 'Alamofire'
   pod 'Reachability', '~> 3.2'
   pod 'Cosmos', '~> 23.0'
+  pod 'TTGSnackbar', '~> 1.11'
+  pod 'Floaty', '~> 4.2'
+  pod 'Braintree', '4.38'
+  
 
   # Pods for Shopify
 
   target 'ShopifyTests' do
     inherit! :search_paths
     # Pods for testing
+  pod 'OHHTTPStubs/Swift'
   end
 
   target 'ShopifyUITests' do

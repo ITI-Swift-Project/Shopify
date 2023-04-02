@@ -6,25 +6,164 @@
 //
 
 import UIKit
+import TTGSnackbar
 
-class EditProfileViewController: UIViewController {
+class EditProfileViewController: UIViewController{
+    
 
+    var customerViewModel : CustomerViewModel?
+    var customerAddressesList : [Address]?
+    var selectedIndexPath: IndexPath?
+    @IBOutlet weak var customerAddressesTableView: UITableView!
+    {
+        didSet
+        {
+            customerAddressesTableView.dataSource = self
+            customerAddressesTableView.delegate = self
+            let nib = UINib(nibName: "AddressesAndPhoneCell", bundle: nil)
+            customerAddressesTableView.register(nib, forCellReuseIdentifier: "addressAndPhoneCell")
+        }
+    }
+    
+    @IBOutlet weak var customerPhoneNumbersTableView: UITableView!
+    {
+        didSet
+        {
+            customerPhoneNumbersTableView.dataSource = self
+            customerPhoneNumbersTableView.delegate = self
+            let nib = UINib(nibName: "AddressesAndPhoneCell", bundle: nil)
+            customerPhoneNumbersTableView.register(nib, forCellReuseIdentifier: "addressAndPhoneCell")
+        }
+    }
+    
+    @IBAction func addNewAddress(_ sender: Any) {
+        print("AddNew")
+        let ADVC = storyboard?.instantiateViewController(withIdentifier: "addNewAddress") as! AddNewAddressViewController
+        self.present(ADVC, animated:true, completion:nil)
+    }
     @IBOutlet weak var bgFrame: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        customerViewModel = CustomerViewModel()
+        customerViewModel?.getCustomerAddresses(url: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers/\(UserDefaults.standard.value(forKey: "userId") ?? 6832751411504).json")
+        customerViewModel?.bindingCustomer = { () in
+            DispatchQueue.main.async {
+                self.customerAddressesList = self.customerViewModel?.customerAddressesResult ?? []
+                self.customerAddressesTableView.reloadData()
+            }
+        }
         StyleHelper.bgFrameStyle(frame: bgFrame)
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+}
+extension EditProfileViewController : UITableViewDataSource
+{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
-    */
-
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == customerAddressesTableView
+        {
+            return customerAddressesList?.count ?? 0
+        }
+        else
+        {
+            return 3
+        }
+    }
+        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addressAndPhoneCell", for: indexPath) as! AddressesAndPhoneCell
+        if tableView == customerAddressesTableView
+        {
+            cell.customerAddressOrPhone.text = customerAddressesList?[indexPath.row].address1?.appending(", ").appending(customerAddressesList?[indexPath.row].city ?? "").appending(", ").appending(customerAddressesList?[indexPath.row].country ?? "")
+            return cell
+        }
+        else
+        {
+            cell.customerAddressOrPhone.text = customerAddressesList?[indexPath.row].phone
+            return cell
+        }
+        }
+}
+extension EditProfileViewController : UITableViewDelegate
+{
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.reloadData()
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "addressAndPhoneCell", for: indexPath) as! AddressesAndPhoneCell
+        if  tableView == customerAddressesTableView {
+            if let previousIndexPath = selectedIndexPath {
+                    // Reset the background color of the previously selected cell
+                    if let previousSelectedCell = tableView.cellForRow(at: previousIndexPath) {
+                        previousSelectedCell.contentView.backgroundColor = nil
+                    }
+                }
+//            cell.backgroundColor = UIColor.brown
+            let parameters : [String : Any] = [
+                "customer":[
+                    "default_address": [
+                        "address1": "\(customerAddressesList?[indexPath.row].address1 ?? "")",
+                        "city": "\(customerAddressesList?[indexPath.row].city ?? "" )",
+                        "country": "\(customerAddressesList?[indexPath.row].country ?? "")",
+                    ]
+                ]
+            ]
+            print(parameters)
+            let url = "\(NetworkService.base_url)customers/\(UserDefaults.standard.value(forKey: "userId") ?? 6832751411504).json"
+            print(url)
+            NetworkService.updateDate(parameter: parameters, urlEndPoint: url){ result in
+                switch result {
+                case .success(let data):
+                    do {
+                        DispatchQueue.main.async {
+                            showSnakbar(msg: "Adress updated successfully ")
+                             func showSnakbar(msg : String){
+                             let snackbar = TTGSnackbar(
+                                 message: msg,
+                                 duration: .middle
+                             )
+                             snackbar.actionTextColor = UIColor.blue
+                             snackbar.borderColor = UIColor.black
+                             snackbar.messageTextColor = UIColor.white
+                             snackbar.show()
+                        }
+                       
+                        }
+                    }
+                    
+                case .failure(_):
+                    break
+                }}
+//            customerAddressesTableView.deselectRow(at: indexPath, animated: true)
+            let selectedCell = tableView.cellForRow(at: indexPath)
+                selectedCell?.contentView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
+            
+//            let selectedBackgroundView = UIView()
+//              selectedBackgroundView.backgroundColor = UIColor.yellow
+//              cell.contentView.addSubview(selectedBackgroundView)
+//              selectedBackgroundView.frame = cell.contentView.bounds
+//              tableView.deselectRow(at: indexPath, animated: true)
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if tableView == customerAddressesTableView
+        {
+            return "Your Addresses"
+        }
+        else
+        {
+            return "Your PhoneNumbers"
+        }
+    }
 }

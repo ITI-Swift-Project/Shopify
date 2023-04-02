@@ -16,12 +16,12 @@ class BrandCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     func configImg(name : URL)->Void{
-        img.backgroundColor = UIColor(named: "HomeCellBackground")
+        img.backgroundColor = UIColor.white
         img.kf.setImage(with: name,placeholder: UIImage(named :"tmp"))
     
     }
     func configLabel(label : String)->Void{
-        self.label.backgroundColor = UIColor(named: "HomeLabelBackground")
+        self.label.backgroundColor = UIColor(named: "secondColor")
         self.label.text = label
         
     }

@@ -7,9 +7,19 @@
 
 import UIKit
 import Kingfisher
+import TTGSnackbar
+import Reachability
 class HomeViewController: UIViewController {
-    var homeViewModel : NetworkViewModel?
+    @IBOutlet weak var pageController: UIPageControl!
+    var adsViewModel : ADsViewModel?
+    var brandsViewModel : BrandsViewModel?
+    var cellIndex = 0
+    var reachability : Reachability?
+    var timer :  Timer?
     var brandArray : [Brand] = []
+    var coreDataViewModel = CoreDataViewModelClass()
+    var adsList : [DiscountCode] = []
+    var adsImages : [String] = ["c1","c2","c3","c4","c5","c6","c7"]
     @IBOutlet weak var adsCollection: UICollectionView!
     {
         didSet
@@ -33,24 +43,108 @@ class HomeViewController: UIViewController {
             brandCollection.register(nib, forCellWithReuseIdentifier: "BrandCell")
         }
     }
+    let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        homeViewModel = NetworkViewModel()
-        homeViewModel?.getBrands()
-        homeViewModel?.bindingBrands = {
-            //            print(self.homeViewModel?.brandsResult.count)
-            //            print(self.homeViewModel?.brandsResult[0].id)
-            DispatchQueue.main.async {
-                self.brandArray = self.homeViewModel!.brandsResult
-                print(self.brandArray.count)
-                self.brandCollection.reloadData()
-            }
-            
-        }
+        reachability = Reachability.forInternetConnection()
+        brandCollection.refreshControl = refreshControl
+            refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        
+      print("Login \(UserDefaults.standard.bool(forKey: "loginState"))")
+      print("SignUP\(UserDefaults.standard.bool(forKey: "signUpState"))")
+        
+       
+            self.startTimer()
+        
     }
+        @objc func refreshData(){
+            brandCollection.reloadData()
+            adsCollection.reloadData()
+            refreshControl.endRefreshing()
+        }
     override func viewWillDisappear(_ animated: Bool) {
        
         
+    }
+    
+    func startTimer()
+    {
+        if((reachability!.isReachable()))
+        {
+            timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(toNextItem), userInfo: nil, repeats: true)
+        }
+    }
+    @objc
+    func toNextItem(){
+        if(reachability!.isReachable())
+        {
+            if cellIndex < adsImages.count - 1
+            {
+                cellIndex += 1
+            }
+            else
+            {
+                cellIndex  = 0
+            }
+            adsCollection.scrollToItem(at: IndexPath(item: cellIndex, section: 0), at: .centeredHorizontally, animated: true)
+            pageController.currentPage = cellIndex
+        }
+    }
+    @IBAction func wishAction(_ sender: Any) {
+        if !(UserDefaults.standard.bool(forKey: "loginState")) ?? false
+        {
+            makeAlert(message: "please loggin or register", tilte: "")
+        }
+        else{
+            let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
+            let wishListViewController = storyBoard.instantiateViewController(withIdentifier: "wishList") as! WishViewController
+            //productDetailsViewController.arrProducts = result
+            self.navigationController?.pushViewController(wishListViewController, animated: true)
+        }
+    }
+    
+    @IBAction func cartAction(_ sender: Any) {
+        if !(UserDefaults.standard.bool(forKey: "loginState")) ?? false
+        {
+            makeAlert(message: "please loggin or register", tilte: "")
+        }
+        else{
+            let storyBoard: UIStoryboard = UIStoryboard(name: "OrderStoryboard", bundle: nil)
+            let cartViewController = storyBoard.instantiateViewController(withIdentifier: "shoppingCart") as! CartViewController
+            
+            self.navigationController?.pushViewController(cartViewController, animated: true)
+        }
+    }
+    
+    @IBAction func searchButtonAction(_ sender: Any) {
+        if ((reachability!.isReachable()) ){
+            let storyBoard: UIStoryboard = UIStoryboard(name: "SearchStoryboard", bundle: nil)
+            let searchViewController = storyBoard.instantiateViewController(withIdentifier: "search") as! SearchViewController
+            searchViewController.whereFrom = "Home"
+            //productDetailsViewController.arrProducts = result
+            self.navigationController?.pushViewController(searchViewController, animated: true)}
+        else{
+            showSnakbar(msg: "Check Connection")
+            func showSnakbar(msg : String){
+            let snackbar = TTGSnackbar(
+                message: msg,
+                duration: .middle
+            )
+            snackbar.actionTextColor = UIColor.blue
+            snackbar.borderColor = UIColor.black
+            snackbar.messageTextColor = UIColor.white
+            snackbar.show()
+           }
+        }
+    }
+    
+    func makeAlert(message : String,tilte : String)
+    {
+        let alert = UIAlertController(title:tilte, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
     }
         // Do any additional setup after loading the view.
     
@@ -71,7 +165,30 @@ class HomeViewController: UIViewController {
                 let statusBarView = UIView(frame: statusBarFrame)
         statusBarView.backgroundColor = .red
                 view.addSubview(statusBarView)
-        
+        adsViewModel = ADsViewModel()
+        brandsViewModel = BrandsViewModel()
+        brandsViewModel?.getBrands()
+
+        brandsViewModel?.bindingBrands = {
+            //            print(self.homeViewModel?.brandsResult.count)
+            //            print(self.homeViewModel?.brandsResult[0].id)
+            DispatchQueue.main.async {
+                self.brandArray = self.brandsViewModel!.brandsResult?.smart_collections ?? []
+                print(self.brandArray.count)
+                
+                self.brandCollection.reloadData()
+            }
+            
+        }
+        adsViewModel?.getAds()
+        adsViewModel?.bindingAds = {
+            DispatchQueue.main.async {
+                self.adsList = self.adsViewModel?.adsResult?.discount_codes ?? []
+                self.pageController.numberOfPages = self.adsImages.count
+                
+                self.adsCollection.reloadData()
+            }
+        }
     }
     
 }
@@ -90,7 +207,7 @@ extension HomeViewController : UICollectionViewDataSource
     {
         if collectionView == adsCollection
         {
-            return 10
+            return adsList.count
         }
         else{
             return brandArray.count
@@ -98,12 +215,44 @@ extension HomeViewController : UICollectionViewDataSource
         
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == brandCollection
-        {
-            let storyBoard: UIStoryboard = UIStoryboard(name: "CatStoryboard", bundle: nil)
-            let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "brands") as! BrandsViewController
-            brandsViewController.brandId = brandArray[indexPath.row].id
-            self.navigationController?.pushViewController(brandsViewController, animated: true)
+        if (reachability!.isReachable()){
+            if collectionView == brandCollection
+            {
+                let storyBoard: UIStoryboard = UIStoryboard(name: "CatStoryboard", bundle: nil)
+                let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "brands") as! BrandsViewController
+                brandsViewController.brandId = brandArray[indexPath.row].id
+                self.navigationController?.pushViewController(brandsViewController, animated: true)
+            }
+            else if collectionView == adsCollection
+            {
+                let pasteboard = UIPasteboard.general
+                pasteboard.string = adsList[indexPath.row].code
+                showSnakbar(msg: "Couopn code copied to clipboard!")
+                func showSnakbar(msg : String){
+                    let snackbar = TTGSnackbar(
+                        message: msg,
+                        duration: .middle
+                    )
+                    snackbar.actionTextColor = UIColor.blue
+                    snackbar.borderColor = UIColor.black
+                    snackbar.messageTextColor = UIColor.white
+                    snackbar.show()
+                }
+                print("m\(adsList[indexPath.row].code)")
+                
+            }}
+        else{
+            showSnakbar(msg: "Check Connection")
+            func showSnakbar(msg : String){
+            let snackbar = TTGSnackbar(
+                message: msg,
+                duration: .middle
+            )
+            snackbar.actionTextColor = UIColor.blue
+            snackbar.borderColor = UIColor.black
+            snackbar.messageTextColor = UIColor.white
+            snackbar.show()
+           }
         }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -115,7 +264,16 @@ extension HomeViewController : UICollectionViewDataSource
 //            cell.layer.shadowOpacity = 20
             cell.layer.borderWidth   = 3.0
             cell.layer.cornerRadius  = 25.0
-            cell.configImg(name: "coupon")
+            var x = 7
+            if indexPath.row < x
+            {
+                cell.configImg(name: adsImages[indexPath.row])
+            }
+        else if indexPath.row > x && (indexPath.row < (x + 7))
+            {
+                cell.configImg(name: adsImages[indexPath.row - x])
+                x = x + 7
+            }
             return cell
             
         }
@@ -123,7 +281,7 @@ extension HomeViewController : UICollectionViewDataSource
         else
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BrandCell", for: indexPath) as! BrandCollectionViewCell
-            cell.layer.borderColor   = UIColor.systemGray.cgColor
+            cell.layer.borderColor   = UIColor(named: "secondColor")?.cgColor
 //            cell.layer.shadowOpacity = 20
             cell.layer.borderWidth   = 3.0
             cell.layer.cornerRadius  = 25.0
@@ -132,9 +290,7 @@ extension HomeViewController : UICollectionViewDataSource
             return cell
             
         }
-        
     }
-    
 }
 
 extension HomeViewController : UICollectionViewDelegateFlowLayout

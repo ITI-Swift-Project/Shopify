@@ -8,110 +8,140 @@
 import UIKit
 
 @available(iOS 13.0, *)
+
 class LoginViewController: UIViewController {
-    
+    var result : Customers?
+    var network : CustomersViewModel?
+    var delegate: PresentedViewControllerDelegate?
+    let semaphore = DispatchSemaphore(value: 0)
+    let group = DispatchGroup()
     @IBOutlet weak var signupBtn: UIButton!
     
-    @IBOutlet weak var skipBtn: UIButton!
+//    @IBOutlet weak var skipBtn: UIButton!
     
     @IBOutlet weak var loginBtn: UIButton!
     
-    @IBOutlet weak var nameTxt: UITextField!
+    
+    @IBOutlet weak var emailTxt: UITextField!
     {
-      didSet
+        didSet
         {
-            nameTxt.setLeftView(image: UIImage.init(systemName: "person.circle")!)
-            nameTxt.tintColor = .darkGray
-            nameTxt.isSecureTextEntry = true
+            emailTxt.delegate = self
+            emailTxt.tintColor = .darkGray
+            //emailTxt.isSecureTextEntry = true
         }
     }
+    
+    
+    
     @IBOutlet weak var passwordTxt: UITextField!
     {
-       didSet
+        didSet
         {
-            passwordTxt.setLeftView(image: UIImage.init(systemName: "lock.circle")!)
+            passwordTxt.delegate = self
             passwordTxt.tintColor = .darkGray
             passwordTxt.isSecureTextEntry = true
         }
     }
     
     @IBOutlet weak var topView: UIView!
+    var customers : [allCustomers] = []
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.topView.layer.masksToBounds = true
+        self.topView.layer.cornerRadius = self.topView.frame.size.height / 2
         
+        network = CustomersViewModel()
         
-        var frameNameTxt : CGRect = nameTxt.frame
-        frameNameTxt.size.height = 53
-        nameTxt.frame = frameNameTxt
+        let endPoint = APIEndpoint.customer
+        let url = endPoint.url(forShopName: NetworkService.baseUrl)
         
-        var framePasswordTxt : CGRect = passwordTxt.frame
-        framePasswordTxt.size.height = 53
-        passwordTxt.frame = framePasswordTxt
+        emailTxt.layer.cornerRadius = emailTxt.frame.size.height / 2
+        emailTxt.clipsToBounds = true
         
-        
-        nameTxt.layer.cornerRadius = nameTxt.frame.size.height / 2
-        nameTxt.clipsToBounds = true
-        
-        passwordTxt.layer.cornerRadius = nameTxt.frame.size.height / 2
+        passwordTxt.layer.cornerRadius = passwordTxt.frame.size.height / 2
         passwordTxt.clipsToBounds = true
         
         loginBtn.layer.cornerRadius = loginBtn.frame.size.height / 2
         loginBtn.clipsToBounds = true
         
+//        signupBtn.layer.cornerRadius = signupBtn.frame.size.height / 2
+//        signupBtn.clipsToBounds = true
         
-       /* nameTxt.leftViewMode = UITextField.ViewMode.always
-        let imageView = UIImageView(frame: CGRect(x: 8.0, y: 8.0, width: 24.0, height: 24.0))
-        
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 40))
-      //  let imageView = UIImageView(frame: CGRect(x: 6, y: 6, width: 20, height: 20))
-        let image = UIImage(named: "profile")
-        imageView.image = image
-        nameTxt.leftView = imageView
-       //
-        nameTxt.leftView = view
-*/
-        
-       /* nameTxt.leftViewMode = UITextField.ViewMode.always
-
-        nameTxt.leftViewMode = .always*/
-        
-     
-       // nameTxt.layer.borderWidth = 2.0
-       // nameTxt.layer.borderWidth = nameTxt.layer.borderWidth
-       // nameTxt.layer.
-        
-      self.topView.layer.masksToBounds = true
-    self.topView.layer.cornerRadius = self.topView.frame.size.width/2
-        
-      //  self.topView.layer.cornerRadius = self.topView.frame.size.width/CGFloat(2)
-        
-       // self.topView.layer.contentsScale = self.topView.frame.size.height/2
-      //  self.topView.layer.
-           
-       // let layershape = CAShapeLayer()
-       // let circlePath = UIBezierPath(arcCenter: center, radius: 200, startAngle: 6.28, endAngle: 3 * CGFloat.pi , clockwise: true)
+//        skipBtn.layer.cornerRadius = skipBtn.frame.size.height / 2
+//        skipBtn.clipsToBounds = true
+//
+     //   self.topView.layer.masksToBounds = true
+      //  self.topView.layer.cornerRadius = self.topView.frame.size.width/2
         
         
-      /*  let circlePath = UIBezierPath(arcCenter: center, radius: 200, startAngle: 6.28, endAngle: 3 * CGFloat.pi , clockwise: true)
-        layershape.path = circlePath.cgPath
-        view.layer.addSublayer(layershape)
-        */
-        
-        /*
-         // MARK: - Navigation
-         
-         // In a storyboard-based application, you will often want to do a little preparation before navigation
-         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destination.
-         // Pass the selected object to the new view controller.
-         }
-         */
         
     }
+    
+    
+    @IBAction func signIn(_ sender: Any) {
+        if emailTxt.text != "" && passwordTxt.text != ""
+        {
+                        //semaphore.signal()
+            group.enter()
+            network?.getcustomerBY(email: "\(emailTxt.text ?? "")")
+            
+            network?.bindingCustomer = {
+                DispatchQueue.main.async {
+                    self.customers = self.network?.customerResult.customers ?? []
+                    if (self.customers.count != 0 )
+                    {
+                        if (self.customers[0].tags == self.passwordTxt.text){
+                            UserDefaults.standard.set(self.emailTxt.text ?? "" ,forKey: "email")
+                            UserDefaults.standard.set(true, forKey: "loginState")
+                            print(self.customers[0].id)
+                            UserDefaults.standard.set(self.customers[0].id ?? 0, forKey: "userId")
+                            UserDefaults.standard.set(self.customers[0].first_name , forKey: "namee")
+                            UserDefaults.standard.set(1.0, forKey: "currency")
+                            self.dismiss(animated: true){
+                                self.delegate?.didDismissPresentedViewController()
+                            }
+                            //self.dismiss(animated: true)
+                        }
+                        else{
+                            self.makeAlert(title: "wrong password", message: "please check yout password")
+                        }
+                        
+                    }
+                    else{
+                        self.makeAlert(title: "Error", message: "wrong email")
+                    }
+                }
+            }
+           
+        }
+        else{
+            makeAlert(title: "Missing Input", message: "please fill all text fields")
+        }
+        
+    }
+    func makeAlert(title : String, message : String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAceion = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAceion)
+        self.present(alert, animated: true)
+    }
+    @IBAction func skipAction(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let brandsViewController = storyBoard.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
+        
+        self.navigationController?.pushViewController(brandsViewController, animated: true)
+    }
+    @IBAction func signUp(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Authenticate", bundle: nil)
+        let singUpViewController = storyBoard.instantiateViewController(withIdentifier: "signUp") as! SignUpViewController
+        
+        self.navigationController?.pushViewController(singUpViewController, animated: true)
+    }
 }
-
-
 
 extension UITextField
 {
@@ -128,4 +158,10 @@ extension UITextField
 }
 
 
-
+extension LoginViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            emailTxt.endEditing(true)
+            passwordTxt.endEditing(true)
+            return true
+        }
+}

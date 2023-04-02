@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6oG-Ee-Dgk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x3i-dG-vS8">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--home-->
+        <!--HomeStoryboard-->
         <scene sceneID="Xp7-Ys-bWE">
             <objects>
-                <viewControllerPlaceholder storyboardName="HomeStoryboard" referencedIdentifier="home" id="Hht-BY-Vp9" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="HomeStoryboard" id="Hht-BY-Vp9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="VX4-Wa-QZ8"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Obo-5e-qKB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1834" y="-286"/>
+            <point key="canvasLocation" x="1843" y="-286"/>
         </scene>
-        <!--Cat-->
+        <!--CatStoryboard-->
         <scene sceneID="fak-vy-388">
             <objects>
-                <viewControllerPlaceholder storyboardName="CatStoryboard" referencedIdentifier="Cat" id="MiY-AI-2xL" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="CatStoryboard" id="MiY-AI-2xL" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="kLu-1U-k4e"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M5T-LH-gv9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1843.5114503816794" y="4.9295774647887329"/>
         </scene>
-        <!--Profile-->
+        <!--ProfileStoryboard-->
         <scene sceneID="XcK-BC-d6a">
             <objects>
-                <viewControllerPlaceholder storyboardName="ProfileStoryboard" referencedIdentifier="Profile" id="eaJ-pA-Yp4" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="ProfileStoryboard" id="eaJ-pA-Yp4" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="kCM-T1-fBz"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z8H-hg-2J9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -39,7 +39,7 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="mQQ-WL-64c">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="x3i-dG-vS8" customClass="TabBarViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBar" automaticallyAdjustsScrollViewInsets="NO" id="x3i-dG-vS8" customClass="TabBarViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="80m-u4-lsw"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="H1G-jl-pe3">
@@ -67,9 +67,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="x3i-dG-vS8" kind="relationship" relationship="rootViewController" id="p1G-Fg-W04"/>
-                    </connections>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xUY-Vh-xBm">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GiY-OB-7mK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
