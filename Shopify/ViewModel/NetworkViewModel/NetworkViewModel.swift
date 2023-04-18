@@ -40,12 +40,13 @@ class BrandItemsViewModel{
     }
     func getItems(brandId : Int?) {
         let brandEndPoint = APIEndpoint.brandItems
-        let barndUrl = brandEndPoint.urlWithId(forShopName: "48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023", brandId: brandId!)
+        let barndUrl = brandEndPoint.urlWithId(forShopName: "29f36923749f191f42aa83c96e5786c5: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@ios-q2-new-capital-admin-2022-2023.myshopify.com/admin/api/2023-01", brandId: brandId!)
         NetworkService.fetch(url: barndUrl) { result in
                 self.brandItemsResult = result
         }
     }
 }
+//https://29f36923749f191f42aa83c96e5786c5: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@ios-q2-new-capital-admin-2022-2023.myshopify.com/admin/api/2023-01
 
 
 class CustomersViewModel{
@@ -91,7 +92,7 @@ class ADsViewModel{
         }
     }
     func getAds() {
-        NetworkService.getDiscountCodes(url:  "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/price_rules/1383730250032/discount_codes.json") { result in
+        NetworkService.getDiscountCodes(url:  "https://29f36923749f191f42aa83c96e5786c5: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@ios-q2-new-capital-admin-2022-2023.myshopify.com/admin/api/2023-01/price_rules/1383730250032/discount_codes.json") { result in
                 if let result = result {
                     self.adsResult = result
                 }

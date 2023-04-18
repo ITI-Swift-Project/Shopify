@@ -7,11 +7,11 @@
 
 import Foundation
 // /admin/api/2032-01/custom_collections.json --> this retreive all cat such as(MEN,WOMEN,....etc)
-// homePageId  --> 437625225520
-// MenPageId   --> 437626929456
-// KidsPageId  --> 437626994992
-// WomenPageId --> 437626962224
-// SalePageId  --> 437627027760
+// homePageId  --> 436748681494
+// MenPageId   --> 436751270166
+// KidsPageId  --> 436751368470
+// WomenPageId --> 436751335702
+// SalePageId  --> 436751401238
 // /admin/api/2023-01/smart_collections.json  --> this retreive all brands
 enum APIEndpoint {
     case customers
@@ -43,15 +43,15 @@ enum APIEndpoint {
         case .brandItems:
             return "/admin/products.json?collection_id="
         case .men:
-            return "/admin/products.json?collection_id=437626929456"
+            return "/admin/products.json?collection_id=436751270166"
         case .wowen:
-            return "/admin/products.json?collection_id=437626962224"
+            return "/admin/products.json?collection_id=436751335702"
         case .kids:
-            return "/admin/products.json?collection_id=437626994992"
+            return "/admin/products.json?collection_id=436751368470"
         case .sale:
-            return "/admin/products.json?collection_id=437627027760"
+            return "/admin/products.json?collection_id=436751401238"
         case .home:
-            return "/admin/products.json?collection_id=437625225520"
+            return "/admin/products.json?collection_id=436748681494"
         case .discountCodes:
             return "/admin/api/2023-01/price_rules/1382520553776/discount_codes.json"
         case .filteration:
@@ -61,7 +61,7 @@ enum APIEndpoint {
         case.customerSearch:
             return "/admin/api/2023-01/customers/search.json"
         case .customers :
-            return "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/customers.json"
+            return "https://29f36923749f191f42aa83c96e5786c5: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@ios-q2-new-capital-admin-2022-2023.myshopify.com/admin/api/2023-01/customers.json"
         }
     }
     func urlToAddAddress(forShopName shopName:String,customerId : String) ->URL

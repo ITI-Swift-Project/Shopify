@@ -8,8 +8,8 @@
 import Foundation
 import Alamofire
 class NetworkService : BrandsData{
-    static var base_url = "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/"
-    static var baseUrl = "48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023"
+    static var base_url = "https://29f36923749f191f42aa83c96e5786c5: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@ios-q2-new-capital-admin-2022-2023.myshopify.com/"
+    static var baseUrl = "29f36923749f191f42aa83c96e5786c5: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@ios-q2-new-capital-admin-2022-2023"
     //    static var bindingBrands: (() -> ()) = {}
     //    static var brandData: [Brand] = []
     static func fetch<T : Decodable>(url : URL?,compiletionHandler : @escaping(T?) -> Void){
@@ -106,7 +106,7 @@ extension NetworkService : ProductDataProtocol
 extension NetworkService
 {
     static func postShoppingCartProduct(cartProduct :Product){
-        guard let url = URL(string: "https://48c475a06d64f3aec1289f7559115a55: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@ios-q2-new-capital-admin2-2022-2023.myshopify.com/admin/api/2023-01/draft_orders.json") else{
+        guard let url = URL(string: "https://29f36923749f191f42aa83c96e5786c5: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@ios-q2-new-capital-admin-2022-2023.myshopify.com/admin/api/2023-01/draft_orders.json") else{
                 return
             }
             var request = URLRequest(url :url)

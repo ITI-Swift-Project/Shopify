@@ -70,26 +70,26 @@ class HomeViewController: UIViewController {
     
     func startTimer()
     {
-        if((reachability!.isReachable()))
-        {
-            timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(toNextItem), userInfo: nil, repeats: true)
-        }
+//        if((reachability!.isReachable()))
+//        {
+//            timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(toNextItem), userInfo: nil, repeats: true)
+//        }
     }
     @objc
     func toNextItem(){
-        if(reachability!.isReachable())
-        {
-            if cellIndex < adsImages.count - 1
-            {
-                cellIndex += 1
-            }
-            else
-            {
-                cellIndex  = 0
-            }
-            adsCollection.scrollToItem(at: IndexPath(item: cellIndex, section: 0), at: .centeredHorizontally, animated: true)
-            pageController.currentPage = cellIndex
-        }
+//        if(reachability!.isReachable())
+//        {
+//            if cellIndex < adsImages.count - 1
+//            {
+//                cellIndex += 1
+//            }
+//            else
+//            {
+//                cellIndex  = 0
+//            }
+//            adsCollection.scrollToItem(at: IndexPath(item: cellIndex, section: 0), at: .centeredHorizontally, animated: true)
+//            pageController.currentPage = cellIndex
+//        }
     }
     @IBAction func wishAction(_ sender: Any) {
         if !(UserDefaults.standard.bool(forKey: "loginState")) ?? false
@@ -175,20 +175,20 @@ class HomeViewController: UIViewController {
             DispatchQueue.main.async {
                 self.brandArray = self.brandsViewModel!.brandsResult?.smart_collections ?? []
                 print(self.brandArray.count)
-                
+
                 self.brandCollection.reloadData()
             }
-            
+
         }
-        adsViewModel?.getAds()
-        adsViewModel?.bindingAds = {
-            DispatchQueue.main.async {
-                self.adsList = self.adsViewModel?.adsResult?.discount_codes ?? []
-                self.pageController.numberOfPages = self.adsImages.count
-                
-                self.adsCollection.reloadData()
-            }
-        }
+//        adsViewModel?.getAds()
+//        adsViewModel?.bindingAds = {
+//            DispatchQueue.main.async {
+//                self.adsList = self.adsViewModel?.adsResult?.discount_codes ?? []
+//                self.pageController.numberOfPages = self.adsImages.count
+//                
+//                self.adsCollection.reloadData()
+//            }
+//        }
     }
     
 }

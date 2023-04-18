@@ -248,12 +248,13 @@ class CatViewController: UIViewController {
     func filterDataByType(endPoint:APIEndpoint)->Void{
        
             let url = endPoint.url(forShopName:NetworkService.baseUrl)
+        print(url)
             viewModel = ProductsViewModel()
             viewModel?.getProductsAt(url: url )
             viewModel?.bindingProducts = {
                 DispatchQueue.main.async {
                     
-                    self.result = self.viewModel!.productsResult.products ?? []
+                    self.result = self.viewModel?.productsResult.products ?? []
                     print(self.result.count)
                     self.catCollection.reloadData()
                 
